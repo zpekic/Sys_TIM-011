@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="info" file="Par" num="282" delta="old" >No user timing constraints were detected or you have set the option to ignore timing constraints (&quot;par -x&quot;). Place and Route will run in &quot;Performance Evaluation Mode&quot; to automatically improve the performance of all internal clocks in this design. Because there are not defined timing requirements, a timing score will not be reported in the PAR report in this mode. The PAR timing summary will list the performance achieved for each clock. Note: For the fastest runtime, set the effort level to &quot;std&quot;.  For best performance, set the effort level to &quot;high&quot;.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;1&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;4&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;2&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;0&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;5&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;3&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;1&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;6&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;4&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;2&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;7&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;5&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;3&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">DOT_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;6&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;4&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;7&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;5&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">A_TO_G&lt;6&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">BTN&lt;0&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">LED&lt;0&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">BTN&lt;1&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">LED&lt;1&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">BTN&lt;2&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">BTN&lt;3&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">AN&lt;0&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">AN&lt;1&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">AN&lt;2&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="289" delta="old" >The signal <arg fmt="%s" index="1">AN&lt;3&gt;_OBUF</arg> has no driver.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">USR_BTN_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">CLK_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;0&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;1&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;2&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">SW&lt;0&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="Par" num="288" delta="old" >The signal <arg fmt="%s" index="1">PMOD&lt;3&gt;_IBUF</arg> has no load.  PAR will not attempt to route this signal.
+</msg>
+
+<msg type="warning" file="ParHelpers" num="362" delta="old" >There are <arg fmt="%d" index="1">14</arg> sourceless signals in this design. This design will not pass the DRC check run by Bitgen.
+
+</msg>
+
+<msg type="warning" file="ParHelpers" num="361" delta="old" >There are <arg fmt="%d" index="1">22</arg> loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
+
+</msg>
+
+<msg type="warning" file="Par" num="283" delta="old" >There are <arg fmt="%d" index="1">22</arg> loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
+
+</msg>
+
+<msg type="warning" file="Par" num="284" delta="old" >There are <arg fmt="%d" index="1">14</arg> sourceless signals in this design. This design will not pass the DRC check run by Bitgen.
+
+</msg>
+
+</messages>
+

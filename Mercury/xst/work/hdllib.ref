@@ -1,0 +1,12 @@
+AR sn74hc4040 behavioral C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd sub00/vhpl11 1598773794
+EN sn74ls240 NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd sub00/vhpl04 1598773787
+AR sn74hc04 behavioral C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd sub00/vhpl09 1598773792
+EN sn74hc04 NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd sub00/vhpl08 1598773791
+EN host NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd sub00/vhpl02 1598773797
+AR host structural C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd sub00/vhpl03 1598773798
+AR grafika behavioral C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd sub00/vhpl01 1598773796
+AR sn74ls20 behavioral C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd sub00/vhpl07 1598773790
+EN sn74hc4040 NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd sub00/vhpl10 1598773793
+EN grafika NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd sub00/vhpl00 1598773795
+EN sn74ls20 NULL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd sub00/vhpl06 1598773789
+AR sn74ls240 behavioral C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd sub00/vhpl05 1598773788

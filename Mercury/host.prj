@@ -1,0 +1,6 @@
+vhdl work "../sn74ls240.vhd"
+vhdl work "../sn74ls20.vhd"
+vhdl work "../sn74hc04.vhd"
+vhdl work "../sn74hc4040.vhd"
+vhdl work "../Grafika.vhd"
+vhdl work "host.vhd"

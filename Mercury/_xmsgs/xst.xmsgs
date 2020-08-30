@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/host</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Mercury/host.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/host/Structural</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Mercury/host.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/Grafika</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Grafika.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/Grafika/Behavioral</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Grafika.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74hc4040</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74hc4040.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74hc4040/Behavioral</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74hc4040.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74hc04</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74hc04.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74hc04/Behavioral</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74hc04.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74ls20</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74ls20.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74ls20/Behavioral</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74ls20.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74ls240</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74ls240.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/sn74ls240/Behavioral</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/sn74ls240.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q5_3</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q7_4</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q4_5</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q3_6</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q2_7</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q1_9</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q9_12</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q8_13</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q10_14</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">193</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">q11_15</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc4040</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="754" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd</arg>&quot; line <arg fmt="%d" index="2">210</arg>: Unconnected inout port &apos;<arg fmt="%s" index="3">d</arg>&apos; of component &apos;<arg fmt="%s" index="4">Grafika</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y24_3</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y23_5</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y21_9</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y14_12</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y13_14</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y12_16</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">106</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y11_18</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74ls240</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">140</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y1_2</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc04</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">140</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y2_4</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc04</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">140</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y3_6</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc04</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">140</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y4_8</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc04</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd</arg>&quot; line <arg fmt="%d" index="2">140</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">y5_10</arg>&apos; of component &apos;<arg fmt="%s" index="4">sn74hc04</arg>&apos;.
+</msg>
+
+<msg type="warning" file="Xst" num="1305" delta="old" >Output &lt;<arg fmt="%s" index="1">vsync</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="1305" delta="old" >Output &lt;<arg fmt="%s" index="1">vid1</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="1305" delta="old" >Output &lt;<arg fmt="%s" index="1">vid2</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">dotclk</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">a&lt;14:0&gt;</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">nScroll</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;0&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;1&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;2&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;3&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;4&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;5&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;6&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="2563" delta="old" >Inout &lt;<arg fmt="%s" index="1">d&lt;7&gt;</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">Z</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="1305" delta="old" >Output &lt;<arg fmt="%s" index="1">hsync</arg>&gt; is never assigned. Tied to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="653" delta="old" >Signal &lt;<arg fmt="%s" index="1">u24_10</arg>&gt; is used but never assigned. This sourceless signal will be automatically connected to value <arg fmt="%s" index="2">0</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="old" >Signal &lt;<arg fmt="%s" index="1">u18_8</arg>&gt; is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="old" >Signal &lt;<arg fmt="%s" index="1">u18_6</arg>&gt; is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+</msg>
+
+<msg type="warning" file="Xst" num="1306" delta="old" >Output &lt;<arg fmt="%s" index="1">AN</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">BTN</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="1306" delta="old" >Output &lt;<arg fmt="%s" index="1">DOT</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1306" delta="old" >Output &lt;<arg fmt="%s" index="1">A_TO_G</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">SW</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;0&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;1&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;2&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;3&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;4&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;5&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;6&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="2565" delta="old" >Inout &lt;<arg fmt="%s" index="1">PMOD&lt;7&gt;</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="1306" delta="old" >Output &lt;<arg fmt="%s" index="1">LED</arg>&gt; is never assigned.
+</msg>
+
+<msg type="warning" file="Xst" num="646" delta="old" >Signal &lt;<arg fmt="%s" index="1">freq25M</arg>&gt; is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+</msg>
+
+<msg type="warning" file="Xst" num="524" delta="old" >All outputs of the instance &lt;<arg fmt="%s" index="1">u18</arg>&gt; of the block &lt;<arg fmt="%s" index="2">sn74ls20</arg>&gt; are unconnected in block &lt;<arg fmt="%s" index="3">Grafika</arg>&gt;.
+This instance will be removed from the design along with all underlying logic
+</msg>
+
+<msg type="warning" file="Xst" num="524" delta="old" >All outputs of the instance &lt;<arg fmt="%s" index="1">u24</arg>&gt; of the block &lt;<arg fmt="%s" index="2">sn74hc04</arg>&gt; are unconnected in block &lt;<arg fmt="%s" index="3">Grafika</arg>&gt;.
+This instance will be removed from the design along with all underlying logic
+</msg>
+
+<msg type="warning" file="Xst" num="1290" delta="old" >Hierarchical block &lt;<arg fmt="%s" index="1">clockgen</arg>&gt; is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+It will be removed from the design.
+</msg>
+
+<msg type="warning" file="Xst" num="1290" delta="old" >Hierarchical block &lt;<arg fmt="%s" index="1">u14</arg>&gt; is unconnected in block &lt;<arg fmt="%s" index="2">video</arg>&gt;.
+It will be removed from the design.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_7</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_9</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_11</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_12</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2042" delta="old" >Unit <arg fmt="%s" index="1">Grafika</arg>: <arg fmt="%d" index="2">8</arg> internal tristates are replaced by logic (pull-up <arg fmt="%s" index="3">yes</arg>): </msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_1</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_2</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_3</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="old" >Node &lt;<arg fmt="%s" index="1">clockgen/q_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">host</arg>&gt;.
+</msg>
+
+</messages>
+
