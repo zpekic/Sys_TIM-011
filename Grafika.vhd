@@ -46,7 +46,7 @@ entity Grafika is
 			);
 end Grafika;
 
-architecture Behavioral of Grafika is
+architecture Structural of Grafika is
 
 component sn74hc04 is
     Port ( a1_1 : in  STD_LOGIC;
@@ -63,6 +63,21 @@ component sn74hc04 is
            a6_13 : in  STD_LOGIC);
 end component;
 
+component sn74ls08 is
+    Port ( a1_1 : in  STD_LOGIC;
+           b1_2 : in  STD_LOGIC;
+           y1_3 : out  STD_LOGIC;
+           a2_4 : in  STD_LOGIC;
+           b2_5 : in  STD_LOGIC;
+           y2_6 : out  STD_LOGIC;
+           y3_8 : out  STD_LOGIC;
+           a3_9 : in  STD_LOGIC;
+           b3_10 : in  STD_LOGIC;
+           y4_11 : out  STD_LOGIC;
+           a4_12 : in  STD_LOGIC;
+           b4_13 : in  STD_LOGIC);
+end component;
+
 component sn74ls20 is
     Port ( a1_1 : in  STD_LOGIC;
            b1_2 : in  STD_LOGIC;
@@ -72,8 +87,57 @@ component sn74ls20 is
            y2_8 : out  STD_LOGIC;
            a2_9 : in  STD_LOGIC;
            b2_10 : in  STD_LOGIC;
-           c2_11 : in  STD_LOGIC;
+           c2_12 : in  STD_LOGIC;
            d2_13 : in  STD_LOGIC);
+end component;
+
+component sn74ls32 is
+    Port ( a1_1 : in  STD_LOGIC;
+           b1_2 : in  STD_LOGIC;
+           y1_3 : out  STD_LOGIC;
+           a2_4 : in  STD_LOGIC;
+           b2_5 : in  STD_LOGIC;
+           y2_6 : out  STD_LOGIC;
+           y3_8 : out  STD_LOGIC;
+           a3_9 : in  STD_LOGIC;
+           b3_10 : in  STD_LOGIC;
+           y4_11 : out  STD_LOGIC;
+           a4_12 : in  STD_LOGIC;
+           b4_13 : in  STD_LOGIC);
+end component;
+
+component sn74ls74 is
+    Port ( nclr1_1 : in  STD_LOGIC;
+           d1_2 : in  STD_LOGIC;
+           clk1_3 : in  STD_LOGIC;
+           npr1_4 : in  STD_LOGIC;
+           q1_5 : out  STD_LOGIC;
+           nq1_6 : out  STD_LOGIC;
+           nq2_8 : out  STD_LOGIC;
+           q2_9 : out  STD_LOGIC;
+           npr2_10 : in  STD_LOGIC;
+           clk2_11 : in  STD_LOGIC;
+           d2_12 : in  STD_LOGIC;
+           nclr2_13 : in  STD_LOGIC);
+end component;
+
+component sn74s153 is
+    Port ( a : in  STD_LOGIC;
+           b : in  STD_LOGIC;
+           nG1 : in  STD_LOGIC;
+           c1 : in  STD_LOGIC_VECTOR (3 downto 0);
+           y1 : out  STD_LOGIC;
+           nG2 : in  STD_LOGIC;
+           c2 : in  STD_LOGIC_VECTOR (3 downto 0);
+           y2 : out  STD_LOGIC);
+end component;
+
+component sn74ls157 is
+    Port ( a : in  STD_LOGIC_VECTOR (4 downto 1);
+           b : in  STD_LOGIC_VECTOR (4 downto 1);
+           y : out  STD_LOGIC_VECTOR (4 downto 1);
+           nAB : in  STD_LOGIC;
+           nG : in  STD_LOGIC);
 end component;
 
 component sn74ls240 is
@@ -97,9 +161,32 @@ component sn74ls240 is
            nG2_19 : in  STD_LOGIC);
 end component;
 
-signal u14_7: std_logic;
+component sn74ls283 is
+    Port ( c0 : in  STD_LOGIC;
+           a : in  STD_LOGIC_VECTOR (4 downto 1);
+           b : in  STD_LOGIC_VECTOR (4 downto 1);
+           s : out  STD_LOGIC_VECTOR (4 downto 1);
+           c4 : out  STD_LOGIC);
+end component;
+
+component sn74ls374 is
+    Port ( nOC : in  STD_LOGIC;
+           CLK : in  STD_LOGIC;
+           D : in  STD_LOGIC_VECTOR (7 downto 0);
+           Q : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
+signal u1_3, u1_6, u1_8: std_logic;						-- 74S08
+signal u10_11: std_logic;
+signal u13_7, u13_q1, u13_q2, u13_q9, u13_q10: std_logic;		-- 74HC4040
+signal u14_7: std_logic;							-- 74LS240
 signal u18_6, u18_8: std_logic;
-signal u24_10, u24_12: std_logic;
+signal u21_7, u21_9: std_logic;
+signal u24_4, u24_10, u24_12: std_logic;		-- 
+signal u29_7: std_logic;
+signal u31_3: std_logic;
+signal u40_q: std_logic_vector(7 downto 0);
+
 
 begin
 
@@ -110,12 +197,12 @@ begin
            a12_4 => '0',
            y23_5 => open,
            a13_6 => '0',
-           y22_7 => u14_7,
+           y22_7 => u14_7,	--
            a14_8 => '0',
            y21_9 => open,
            a21_11 => '0',
            y14_12 => open,
-           a22_13 => nWR,
+           a22_13 => nWR,	--
            y13_14 => open,
            a23_15 => '0',
            y12_16 => open,
@@ -125,31 +212,79 @@ begin
 	);
 
 	u18: sn74ls20 port map (
-			a1_1 => '1',
-         b1_2 => u24_12,
-         c1_4 => a(15),
-         d1_5 => ioe,
-         y1_6 => u18_6,
-         y2_8 => u18_8,
-         a2_9 => ioe,
-         b2_10 => a(15),
-         c2_11 => u24_10,
-         d2_13 => u14_7
+			a1_1 => '1',		--
+         b1_2 => u24_12,	--
+         c1_4 => a(15),		--
+         d1_5 => ioe,		--
+         y1_6 => u18_6,		--
+         y2_8 => u18_8,		--
+         a2_9 => ioe,		--
+         b2_10 => a(15),	--
+         c2_12 => u24_10,	--
+         d2_13 => u14_7		--
 	);
 
 	u24: sn74hc04 port map (
-			a1_1 => '0',
-         y1_2 => open,
-         a2_3 => '0',
-         y2_4 => open,
-         a3_5 => '0',
+			a1_1 => '0',		
+         y1_2 => open,		
+         a2_3 => u13_7,		--
+         y2_4 => u24_4,		--
+         a3_5 => '0',		
          y3_6 => open,
          a4_9 => '0',
          y4_8 => open,
-         a5_11 => '0',
-         y5_10 => open,
-         y6_12 => u24_12,
-         a6_13 => nRD);
+         a5_11 => u24_4,	--
+         y5_10 => u24_10,	--
+         y6_12 => u24_12,	--
+         a6_13 => nRD		--
+	);
 
-end Behavioral;
+	u29: sn74s153 Port map ( 
+			a => u13_q1,
+			b => u13_q2,
+			nG1 => u31_3,
+			c1(3) => u40_q(5),
+			c1(2) => u40_q(3),
+			c1(1) => u40_q(7),
+			c1(0) => u40_q(1),
+			y1 => u21_7,
+			nG2 => u31_3,
+			c2(3) => u40_q(2),
+			c2(2) => u40_q(4),
+			c2(1) => u40_q(0),
+			c2(0) => u40_q(6),
+			y2 => u21_9
+	);
+
+	u10: sn74ls08 Port map ( 
+			a1_1 => '0',
+			b1_2 => '0',
+			y1_3 => open,
+			a2_4 => '0',
+			b2_5 => '0',
+			y2_6 => open,
+			y3_8 => open,
+			a3_9 => '0',
+			b3_10 => '0',
+			y4_11 => u10_11,
+			a4_12 => u21_9,
+			b4_13 => dotclk
+	);
+
+	u1: sn74ls08 Port map ( 
+			a1_1 => dotclk,
+			b1_2 => u29_7,
+			y1_3 => u1_3,
+			a2_4 => u13_q9,
+			b2_5 => u13_q10,
+			y2_6 => u1_6,
+			y3_8 => u1_8,
+			a3_9 => u13_q10,
+			b3_10 => u13_q10,
+			y4_11 => open,
+			a4_12 => '0',
+			b4_13 => '0'
+	);
+	
+end Structural;
 

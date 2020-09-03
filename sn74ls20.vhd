@@ -38,7 +38,7 @@ entity sn74ls20 is
            y2_8 : out  STD_LOGIC;
            a2_9 : in  STD_LOGIC;
            b2_10 : in  STD_LOGIC;
-           c2_11 : in  STD_LOGIC;
+           c2_12 : in  STD_LOGIC;
            d2_13 : in  STD_LOGIC);
 end sn74ls20;
 
@@ -47,7 +47,7 @@ architecture Behavioral of sn74ls20 is
 begin
 
 y1_6 <= not (a1_1 and b1_2 and c1_4 and d1_5);
-y2_8 <= not (a2_9 and b2_10 and c2_11 and d2_13);
+y2_8 <= not (a2_9 and b2_10 and c2_12 and d2_13);
 
 end Behavioral;
 

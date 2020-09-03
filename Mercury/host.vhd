@@ -111,47 +111,6 @@ end host;
 architecture Structural of host is
 
 
--------
--- From: https://www.digikey.com/eewiki/pages/viewpage.action?pageId=28278929#PS/2KeyboardInterface(VHDL)-CodeDownloads
--------
---component ps2_keyboard IS
---  GENERIC(
---    clk_freq              : INTEGER := 50_000_000; --system clock frequency in Hz
---    debounce_counter_size : INTEGER := 8);         --set such that (2^size)/clk_freq = 5us (size = 8 for 50MHz)
---  PORT(
---    clk          : IN  STD_LOGIC;                     --system clock
---    ps2_clk      : IN  STD_LOGIC;                     --clock signal from PS/2 keyboard
---    ps2_data     : IN  STD_LOGIC;                     --data signal from PS/2 keyboard
---    ps2_code_new : OUT STD_LOGIC;                     --flag that new PS/2 code is available on ps2_code bus
---    ps2_code     : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)); --code received from PS/2
---END component;
-
--------------------------------------------
--- From : https://opencores.org/websvn/filedetails?repname=ps2core&path=%2Fps2core%2Ftrunk%2Frtl%2Fvhdl%2Fps2.vhd
--------------------------------------------
---component ps2 is
---        port (
---                clk_i : in std_logic;   -- Global clk
---                rst_i : in std_logic;   -- GLobal Asinchronous reset
--- 
---                data_o    : out std_logic_vector(7 downto 0);  -- Data in
---                data_i    : in  std_logic_vector(7 downto 0);  -- Data out
---                ibf_clr_i : in  std_logic;  -- Ifb flag clear input
---                obf_set_i : in  std_logic;  -- Obf flag set input
---                ibf_o     : out std_logic;  -- Received data available
---                obf_o     : out std_logic;  -- Data ready to sent
--- 
---                frame_err_o  : out std_logic;  -- Error receiving data
---                parity_err_o : out std_logic;  -- Error in received data parity
---                busy_o       : out std_logic;  -- uart busy
---                err_clr_i : in std_logic;  -- Clear error flags
--- 
---                wdt_o : out std_logic;  -- Watchdog timer out every 400uS
--- 
---                ps2_clk_io  : inout std_logic;   -- PS2 Clock line
---                ps2_data_io : inout std_logic);  -- PS2 Data line
---end component;
-
 component sn74hc4040 is
     Port ( q12_1 : out  STD_LOGIC;
            q6_2 : out  STD_LOGIC;
