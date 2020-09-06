@@ -1,0 +1,121 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Sun Sep 06 12:17:12 2020
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "BTN<3>" LOCATE = SITE "P82" LEVEL 1;
+COMP "GRN<0>" LOCATE = SITE "P34" LEVEL 1;
+COMP "GRN<1>" LOCATE = SITE "P35" LEVEL 1;
+COMP "GRN<2>" LOCATE = SITE "P36" LEVEL 1;
+COMP "RED<0>" LOCATE = SITE "P20" LEVEL 1;
+COMP "RED<1>" LOCATE = SITE "P32" LEVEL 1;
+COMP "RED<2>" LOCATE = SITE "P33" LEVEL 1;
+COMP "A_TO_G<0>" LOCATE = SITE "P72" LEVEL 1;
+COMP "A_TO_G<1>" LOCATE = SITE "P71" LEVEL 1;
+COMP "A_TO_G<2>" LOCATE = SITE "P70" LEVEL 1;
+COMP "A_TO_G<3>" LOCATE = SITE "P65" LEVEL 1;
+COMP "A_TO_G<4>" LOCATE = SITE "P77" LEVEL 1;
+COMP "A_TO_G<5>" LOCATE = SITE "P78" LEVEL 1;
+COMP "A_TO_G<6>" LOCATE = SITE "P83" LEVEL 1;
+COMP "PS2_DATA" LOCATE = SITE "P13" LEVEL 1;
+COMP "PMOD<0>" LOCATE = SITE "P5" LEVEL 1;
+COMP "PMOD<1>" LOCATE = SITE "P4" LEVEL 1;
+COMP "PMOD<2>" LOCATE = SITE "P6" LEVEL 1;
+COMP "PMOD<3>" LOCATE = SITE "P98" LEVEL 1;
+COMP "PMOD<4>" LOCATE = SITE "P94" LEVEL 1;
+COMP "PMOD<5>" LOCATE = SITE "P93" LEVEL 1;
+COMP "PMOD<6>" LOCATE = SITE "P90" LEVEL 1;
+COMP "PMOD<7>" LOCATE = SITE "P89" LEVEL 1;
+NET "CLK_BUFGP/IBUFG" BEL "CLK_BUFGP/BUFG.GCLKMUX" USELOCALCONNECT;
+COMP "CLK" LOCATE = SITE "P43" LEVEL 1;
+COMP "DOT" LOCATE = SITE "P73" LEVEL 1;
+COMP "USR_BTN" LOCATE = SITE "P41" LEVEL 1;
+COMP "AN<0>" LOCATE = SITE "P50" LEVEL 1;
+COMP "AN<1>" LOCATE = SITE "P49" LEVEL 1;
+COMP "AN<2>" LOCATE = SITE "P85" LEVEL 1;
+COMP "AN<3>" LOCATE = SITE "P84" LEVEL 1;
+COMP "HSYNC" LOCATE = SITE "P16" LEVEL 1;
+COMP "SW<0>" LOCATE = SITE "P59" LEVEL 1;
+COMP "SW<1>" LOCATE = SITE "P60" LEVEL 1;
+COMP "SW<2>" LOCATE = SITE "P61" LEVEL 1;
+COMP "SW<3>" LOCATE = SITE "P62" LEVEL 1;
+COMP "SW<4>" LOCATE = SITE "P64" LEVEL 1;
+COMP "SW<5>" LOCATE = SITE "P57" LEVEL 1;
+COMP "SW<6>" LOCATE = SITE "P56" LEVEL 1;
+COMP "SW<7>" LOCATE = SITE "P52" LEVEL 1;
+COMP "VSYNC" LOCATE = SITE "P19" LEVEL 1;
+COMP "BLU<0>" LOCATE = SITE "P37" LEVEL 1;
+COMP "BLU<1>" LOCATE = SITE "P40" LEVEL 1;
+COMP "BTN<0>" LOCATE = SITE "P68" LEVEL 1;
+COMP "BTN<1>" LOCATE = SITE "P97" LEVEL 1;
+COMP "BTN<2>" LOCATE = SITE "P7" LEVEL 1;
+TIMEGRP CLK = BEL "clockgen/q_1" BEL "clockgen/q_2" BEL "clockgen/q_3" BEL
+        "clockgen/q_4" BEL "clockgen/q_5" BEL "clockgen/q_6" BEL
+        "clockgen/q_7" BEL "clockgen/q_8" BEL "clockgen/q_9" BEL
+        "clockgen/q_10" BEL "clockgen/q_11" BEL "clockgen/q_12" BEL
+        "cnt_vsync/cnt_hi_15" BEL "cnt_vsync/cnt_hi_14" BEL
+        "cnt_vsync/cnt_hi_13" BEL "cnt_vsync/cnt_hi_12" BEL
+        "cnt_vsync/cnt_hi_11" BEL "cnt_vsync/cnt_hi_10" BEL
+        "cnt_vsync/cnt_hi_9" BEL "cnt_vsync/cnt_hi_8" BEL "cnt_vsync/cnt_hi_7"
+        BEL "cnt_vsync/cnt_hi_6" BEL "cnt_vsync/cnt_hi_5" BEL
+        "cnt_vsync/cnt_hi_4" BEL "cnt_vsync/cnt_hi_3" BEL "cnt_vsync/cnt_hi_2"
+        BEL "cnt_vsync/cnt_hi_1" BEL "cnt_vsync/cnt_hi_0" BEL
+        "cnt_vsync/cnt_lo_15" BEL "cnt_vsync/cnt_lo_14" BEL
+        "cnt_vsync/cnt_lo_13" BEL "cnt_vsync/cnt_lo_12" BEL
+        "cnt_vsync/cnt_lo_11" BEL "cnt_vsync/cnt_lo_10" BEL
+        "cnt_vsync/cnt_lo_9" BEL "cnt_vsync/cnt_lo_8" BEL "cnt_vsync/cnt_lo_7"
+        BEL "cnt_vsync/cnt_lo_6" BEL "cnt_vsync/cnt_lo_5" BEL
+        "cnt_vsync/cnt_lo_4" BEL "cnt_vsync/cnt_lo_3" BEL "cnt_vsync/cnt_lo_2"
+        BEL "cnt_vsync/cnt_lo_1" BEL "cnt_vsync/cnt_lo_0" BEL
+        "cnt_vsync/capture_hi_15" BEL "cnt_vsync/capture_hi_14" BEL
+        "cnt_vsync/capture_hi_13" BEL "cnt_vsync/capture_hi_12" BEL
+        "cnt_vsync/capture_hi_11" BEL "cnt_vsync/capture_hi_10" BEL
+        "cnt_vsync/capture_hi_9" BEL "cnt_vsync/capture_hi_8" BEL
+        "cnt_vsync/capture_hi_7" BEL "cnt_vsync/capture_hi_6" BEL
+        "cnt_vsync/capture_hi_5" BEL "cnt_vsync/capture_hi_4" BEL
+        "cnt_vsync/capture_hi_3" BEL "cnt_vsync/capture_hi_2" BEL
+        "cnt_vsync/capture_hi_1" BEL "cnt_vsync/capture_hi_0" BEL
+        "cnt_vsync/capture_lo_15" BEL "cnt_vsync/capture_lo_14" BEL
+        "cnt_vsync/capture_lo_13" BEL "cnt_vsync/capture_lo_12" BEL
+        "cnt_vsync/capture_lo_11" BEL "cnt_vsync/capture_lo_10" BEL
+        "cnt_vsync/capture_lo_9" BEL "cnt_vsync/capture_lo_8" BEL
+        "cnt_vsync/capture_lo_7" BEL "cnt_vsync/capture_lo_6" BEL
+        "cnt_vsync/capture_lo_5" BEL "cnt_vsync/capture_lo_4" BEL
+        "cnt_vsync/capture_lo_3" BEL "cnt_vsync/capture_lo_2" BEL
+        "cnt_vsync/capture_lo_1" BEL "cnt_vsync/capture_lo_0" BEL
+        "cnt_vsync/previous_input" BEL "cnt_hsync/cnt_hi_15" BEL
+        "cnt_hsync/cnt_hi_14" BEL "cnt_hsync/cnt_hi_13" BEL
+        "cnt_hsync/cnt_hi_12" BEL "cnt_hsync/cnt_hi_11" BEL
+        "cnt_hsync/cnt_hi_10" BEL "cnt_hsync/cnt_hi_9" BEL
+        "cnt_hsync/cnt_hi_8" BEL "cnt_hsync/cnt_hi_7" BEL "cnt_hsync/cnt_hi_6"
+        BEL "cnt_hsync/cnt_hi_5" BEL "cnt_hsync/cnt_hi_4" BEL
+        "cnt_hsync/cnt_hi_3" BEL "cnt_hsync/cnt_hi_2" BEL "cnt_hsync/cnt_hi_1"
+        BEL "cnt_hsync/cnt_hi_0" BEL "cnt_hsync/cnt_lo_15" BEL
+        "cnt_hsync/cnt_lo_14" BEL "cnt_hsync/cnt_lo_13" BEL
+        "cnt_hsync/cnt_lo_12" BEL "cnt_hsync/cnt_lo_11" BEL
+        "cnt_hsync/cnt_lo_10" BEL "cnt_hsync/cnt_lo_9" BEL
+        "cnt_hsync/cnt_lo_8" BEL "cnt_hsync/cnt_lo_7" BEL "cnt_hsync/cnt_lo_6"
+        BEL "cnt_hsync/cnt_lo_5" BEL "cnt_hsync/cnt_lo_4" BEL
+        "cnt_hsync/cnt_lo_3" BEL "cnt_hsync/cnt_lo_2" BEL "cnt_hsync/cnt_lo_1"
+        BEL "cnt_hsync/cnt_lo_0" BEL "cnt_hsync/capture_hi_15" BEL
+        "cnt_hsync/capture_hi_14" BEL "cnt_hsync/capture_hi_13" BEL
+        "cnt_hsync/capture_hi_12" BEL "cnt_hsync/capture_hi_11" BEL
+        "cnt_hsync/capture_hi_10" BEL "cnt_hsync/capture_hi_9" BEL
+        "cnt_hsync/capture_hi_8" BEL "cnt_hsync/capture_hi_7" BEL
+        "cnt_hsync/capture_hi_6" BEL "cnt_hsync/capture_hi_5" BEL
+        "cnt_hsync/capture_hi_4" BEL "cnt_hsync/capture_hi_3" BEL
+        "cnt_hsync/capture_hi_2" BEL "cnt_hsync/capture_hi_1" BEL
+        "cnt_hsync/capture_hi_0" BEL "cnt_hsync/capture_lo_15" BEL
+        "cnt_hsync/capture_lo_14" BEL "cnt_hsync/capture_lo_13" BEL
+        "cnt_hsync/capture_lo_12" BEL "cnt_hsync/capture_lo_11" BEL
+        "cnt_hsync/capture_lo_10" BEL "cnt_hsync/capture_lo_9" BEL
+        "cnt_hsync/capture_lo_8" BEL "cnt_hsync/capture_lo_7" BEL
+        "cnt_hsync/capture_lo_6" BEL "cnt_hsync/capture_lo_5" BEL
+        "cnt_hsync/capture_lo_4" BEL "cnt_hsync/capture_lo_3" BEL
+        "cnt_hsync/capture_lo_2" BEL "cnt_hsync/capture_lo_1" BEL
+        "cnt_hsync/capture_lo_0" BEL "cnt_hsync/previous_input" BEL
+        "clockgen/q_11_1" BEL "clockgen/q_12_1" BEL "CLK_BUFGP/BUFG.GCLKMUX"
+        BEL "CLK_BUFGP/BUFG";
+TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH 50%;
+SCHEMATIC END;
+

@@ -1,0 +1,102 @@
+V3 54
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd 2020/09/06.12:16:27 P.20131013
+EN work/Grafika 1599419811 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/Grafika/Structural 1599419812 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd \
+      EN work/Grafika 1599419811 CP sn74ls08 CP sn74hc4040 CP sn74ls374 CP sn74ls240 \
+      CP sn74ls20 CP sn74hc04 CP sn74s153
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd 2020/09/04.21:42:21 P.20131013
+EN work/io_ps2_com 1599419807 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/io_ps2_com/rtl 1599419808 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd \
+      EN work/io_ps2_com 1599419807
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_keyboard.vhd 2020/09/04.21:42:21 P.20131013
+EN work/io_ps2_keyboard 1599419809 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_keyboard.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/io_ps2_keyboard/rtl 1599419810 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_keyboard.vhd \
+      EN work/io_ps2_keyboard 1599419809 CP work/io_ps2_com
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd 2020/09/04.19:22:53 P.20131013
+EN work/fourdigitsevensegled 1599419813 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/fourdigitsevensegled/structural 1599419814 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd \
+      EN work/fourdigitsevensegled 1599419813
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd 2020/09/05.19:35:04 P.20131013
+EN work/host 1599419817 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/host/Structural 1599419818 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd \
+      EN work/host 1599419817 CP io_ps2_keyboard CP sn74hc4040 CP Grafika \
+      CP fourdigitsevensegled CP signalcounter
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/signalcounter.vhd 2020/09/05.21:27:33 P.20131013
+EN work/signalcounter 1599419815 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/signalcounter.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/signalcounter/Behavioral 1599419816 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/signalcounter.vhd \
+      EN work/signalcounter 1599419815
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/sn74s153.vhd 2020/09/02.23:39:21 P.20131013
+EN work/sn74s153 1599419805 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/sn74s153.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74s153/Behavioral 1599419806 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/sn74s153.vhd \
+      EN work/sn74s153 1599419805
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/ps2_keyboard.vhd 2020/09/04.20:54:14 P.20131013
+EN work/ps2_keyboard 1599280685 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/ps2_keyboard.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/std_logic_arith 1381692177 \
+      PB ieee/STD_LOGIC_UNSIGNED 1381692179 PB ieee/NUMERIC_STD 1381692181
+AR work/ps2_keyboard/rtl 1599280686 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/ps2_keyboard.vhd \
+      EN work/ps2_keyboard 1599280685
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd 2020/08/29.15:35:50 P.20131013
+EN work/sn74hc04 1599419803 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74hc04/Behavioral 1599419804 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd \
+      EN work/sn74hc04 1599419803
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd 2020/08/29.18:43:32 P.20131013
+EN work/sn74hc4040 1599419795 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/sn74hc4040/Behavioral 1599419796 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd \
+      EN work/sn74hc4040 1599419795
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls08.vhd 2020/08/29.18:52:44 P.20131013
+EN work/sn74ls08 1599419793 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls08.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74ls08/Behavioral 1599419794 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls08.vhd \
+      EN work/sn74ls08 1599419793
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd 2020/09/02.23:44:53 P.20131013
+EN work/sn74ls20 1599419801 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74ls20/Behavioral 1599419802 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd \
+      EN work/sn74ls20 1599419801
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd 2020/08/29.17:09:23 P.20131013
+EN work/sn74ls240 1599419799 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74ls240/Behavioral 1599419800 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd \
+      EN work/sn74ls240 1599419799
+FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls374.vhd 2020/08/29.19:01:45 P.20131013
+EN work/sn74ls374 1599419797 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls374.vhd \
+      PB ieee/std_logic_1164 1381692176
+AR work/sn74ls374/Behavioral 1599419798 \
+      FL C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls374.vhd \
+      EN work/sn74ls374 1599419797

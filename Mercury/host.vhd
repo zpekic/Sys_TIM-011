@@ -73,7 +73,7 @@ entity host is
 				AN: out std_logic_vector(3 downto 0); 
 				DOT: out std_logic; 
 				-- 4 LEDs on Mercury board (3 and 2 are used by VGA VSYNC and HSYNC)
-				LED: out std_logic_vector(1 downto 0);
+				--LED: out std_logic_vector(1 downto 0);
 
 				-- ADC interface
 				-- channel	input
@@ -89,8 +89,8 @@ entity host is
 				--ADC_MOSI: out std_logic;
 				--ADC_SCK: out std_logic;
 				--ADC_CSN: out std_logic;
-				--PS2_DATA: in std_logic;
-				--PS2_CLOCK: in std_logic;
+				PS2_DATA: in std_logic;
+				PS2_CLOCK: in std_logic;
 
 				--VGA interface
 				--register state is traced to VGA after each instruction if SW0 = on
@@ -110,6 +110,28 @@ end host;
 
 architecture Structural of host is
 
+component ps2_keyboard is 
+  generic ( 
+  CLK_FREQ_MHZ   : integer 
+  ); 
+ 
+  port( 
+  clk             : in    std_logic; 
+  reset           : in    std_logic; 
+  rx_data         : out   std_logic_vector(7 downto 0); 
+  rx_read         : in    std_logic; 
+  rx_data_ready   : out   std_logic; 
+  rx_extended     : out   std_logic; 
+  rx_released     : out   std_logic; 
+  rx_shift_on     : out   std_logic; 
+  tx_data         : in    std_logic_vector(7 downto 0); 
+  tx_write        : in    std_logic; 
+  tx_data_empty   : out   std_logic; 
+  tx_error	      : out   std_logic; 
+  ps2_clk         : inout std_logic; 
+  ps2_data        : inout std_logic 
+  ); 
+end component; 
 
 component sn74hc4040 is
     Port ( q12_1 : out  STD_LOGIC;
@@ -145,25 +167,143 @@ component Grafika is
 			);
 end component;
 
+component fourdigitsevensegled is
+    Port ( -- inputs
+			  hexdata : in  STD_LOGIC_VECTOR (3 downto 0);
+           digsel : in  STD_LOGIC_VECTOR (1 downto 0);
+           showdigit : in  STD_LOGIC_VECTOR (3 downto 0);
+           showdot : in  STD_LOGIC_VECTOR (3 downto 0);
+			  -- outputs
+           anode : out  STD_LOGIC_VECTOR (3 downto 0);
+           segment : out  STD_LOGIC_VECTOR (7 downto 0)
+			 );
+end component;
+
+component io_ps2_keyboard is
+	generic (
+		-- Include code for LED status updates
+		ledStatusSupport : boolean := true;
+		-- Number of system-cycles used for PS/2 clock filtering
+		clockFilter : integer := 15;
+		-- Timer calibration
+		ticksPerUsec : integer := 33   -- 33 Mhz clock
+	);
+	port (
+		clk: in std_logic;
+		reset : in std_logic := '0';
+		
+		-- PS/2 connector
+		ps2_clk_in: in std_logic;
+		ps2_dat_in: in std_logic;
+		ps2_clk_out: out std_logic;
+		ps2_dat_out: out std_logic;
+
+		-- LED status
+		caps_lock : in std_logic := '0';
+		num_lock : in std_logic := '0';
+		scroll_lock : in std_logic := '0';
+
+		-- Read scancode
+		trigger : out std_logic;
+		scancode : out unsigned(7 downto 0)
+	);
+end component;
+
+component signalcounter is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           input : in  STD_LOGIC;
+           sel : in  STD_LOGIC;
+           count : out  STD_LOGIC_VECTOR (15 downto 0));
+end component;
+
 signal freq25M, freq12M5: std_logic;
+signal digsel: std_logic_vector(1 downto 0);
+signal hexdata: std_logic_vector(3 downto 0);
+signal hexsel: std_logic_vector(2 downto 0);
+signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0); 
+signal RESET: std_logic;
+---
+signal kbd_data_ready: std_logic;
+signal data: std_logic_vector(31 downto 0);
+signal kbd_data: unsigned(7 downto 0);
+signal showlock: std_logic_vector(3 downto 0);
 
 begin
    
+RESET <= USR_BTN;
+	
+capture: process(kbd_data, kbd_data_ready, RESET)
+begin
+	if (RESET = '1') then
+		data <= X"DEADBEEF";
+	else
+		if (falling_edge(kbd_data_ready)) then
+			data <= data(23 downto 0) & std_logic_vector(kbd_data);
+		end if;
+	end if;
+end process; 	
+
+--kbd: ps2_keyboard generic map ( 
+--			CLK_FREQ_MHZ => 50
+--  )
+--  port map( 
+--		  clk             => CLK, 
+--		  reset           => RESET, 
+--		  rx_data         => kbd_data, 
+--		  rx_read         => BTN(3), --kbd_read, 
+--		  rx_data_ready   => kbd_data_ready, 
+--		  rx_extended     => open, 
+--		  rx_released     => open, 
+--		  rx_shift_on     => open, 
+--		  tx_data         => X"00", 
+--		  tx_write        => '0', 
+--		  tx_data_empty   => open, 
+--		  tx_error	      => open, 
+--		  ps2_clk         => PS2_CLOCK,
+--		  ps2_data        => PS2_DATA
+--  ); 
+
+kbd: io_ps2_keyboard generic map (
+		ticksPerUsec => 50
+	)
+	port map (
+		clk => CLK,
+		reset => RESET,
+		
+		-- PS/2 connector
+		ps2_clk_in => PS2_CLOCK,
+		ps2_dat_in => PS2_DATA,
+		ps2_clk_out => open,
+		ps2_dat_out => open,
+
+		-- LED status
+		caps_lock => showlock(0),
+		num_lock  => showlock(1),
+		scroll_lock  => showlock(2),
+
+		-- Read scancode
+		trigger => kbd_data_ready,
+		scancode => kbd_data
+	);
+
+	showlock(3) <= '1';
+	
 clockgen: sn74hc4040 port map (
-			q12_1 => freq25M,
-			q6_2 => freq12M5,
-			q5_3 => open,
-			q7_4 => open,
-			q4_5 => open,
-			q3_6 => open,
-			q2_7 => open,
-			q1_9 => open,
 			clock_10 => CLK,
-			reset_11 => USR_BTN,
-			q9_12 => open,
-			q8_13 => open,
-			q10_14 => open,
-			q11_15 => open
+			reset_11 => RESET,
+			q1_9 => freq25M, 
+			q2_7 => freq12M5,
+			q3_6 => PMOD(7),		-- 6.25
+			q4_5 => PMOD(6),		-- 3.125
+			q5_3 => PMOD(5),		-- 1.5625
+			q6_2 => PMOD(4), 		-- 0.78125
+			q7_4 => PMOD(3),		-- 0.390625
+			q8_13 => PMOD(2),		-- 0.1953125
+			q9_12 => PMOD(1),		-- 0.09765625
+			q10_14 => PMOD(0),	-- 0.048828125
+			q11_15 => digsel(0),	-- 0.0244140625
+			q12_1 =>  digsel(1)	-- 0.01220703125
 		);
 	
 	video: Grafika port map (
@@ -184,5 +324,48 @@ clockgen: sn74hc4040 port map (
 	
 	RED <= "000";
 	GRN <= "000";
+	--LED(0) <= not BTN(0);
+	--LED(1) <= not BTN(1);
 	
+leds: fourdigitsevensegled Port map ( 
+			-- inputs
+			hexdata => hexdata,
+			digsel => digsel,
+			showdigit => "1111",
+			showdot => showlock,
+			-- outputs
+			anode => AN,
+			segment(7) => DOT,
+			segment(6 downto 0) => A_TO_G
+		);
+
+cnt_hsync: signalcounter Port map ( 
+				clk => CLK,
+				reset => RESET,
+				input => digsel(0),	-- TODO: hsync
+				sel => SW(0),
+				count => hsync_cnt
+		);
+
+cnt_vsync: signalcounter Port map ( 
+				clk => CLK,
+				reset => RESET,
+				input => digsel(1),	-- TODO: vsync
+				sel => SW(0),
+				count => vsync_cnt
+		);
+
+hexsel <= SW(1) & digsel;
+
+with hexsel select
+	hexdata <= 	hsync_cnt(3 downto 0) when "000",
+					hsync_cnt(7 downto 4) when "001",
+					hsync_cnt(11 downto 8) when "010",
+					hsync_cnt(15 downto 12) when "011",
+					vsync_cnt(3 downto 0) when "100",
+					vsync_cnt(7 downto 4) when "101",
+					vsync_cnt(11 downto 8) when "110",
+					vsync_cnt(15 downto 12) when "111",
+					X"0" when others;
+					
 end;
