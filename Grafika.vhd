@@ -221,8 +221,8 @@ signal u13_q10_delayed: std_logic;
 
 begin
 
-	-- Delay line RC = 470*1nF = 470 us
-	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 uS
+	-- Delay line RC = 470*1nF = 470 ns
+	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12.5MHz
 	u13_q10_delayed <= u13_q10;
 	
 	u1: sn74ls08 Port map ( 

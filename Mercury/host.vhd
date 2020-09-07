@@ -217,8 +217,18 @@ component signalcounter is
            count : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
+component configurabledelayline is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           init : in  STD_LOGIC;
+           delay : in  STD_LOGIC_VECTOR (3 downto 0);
+           signal_in : in  STD_LOGIC;
+           signal_out : out  STD_LOGIC);
+end component;
+
 signal freq25M, freq12M5: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
+signal h, digsel0_delayed: std_logic;
 signal hexdata: std_logic_vector(3 downto 0);
 signal hexsel: std_logic_vector(2 downto 0);
 signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0); 
@@ -228,6 +238,10 @@ signal kbd_data_ready: std_logic;
 signal data: std_logic_vector(31 downto 0);
 signal kbd_data: unsigned(7 downto 0);
 signal showlock: std_logic_vector(3 downto 0);
+---
+signal prescale_cnt: integer range 0 to 1023;
+signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+
 
 begin
    
@@ -264,30 +278,30 @@ end process;
 --		  ps2_data        => PS2_DATA
 --  ); 
 
-kbd: io_ps2_keyboard generic map (
-		ticksPerUsec => 50
-	)
-	port map (
-		clk => CLK,
-		reset => RESET,
-		
-		-- PS/2 connector
-		ps2_clk_in => PS2_CLOCK,
-		ps2_dat_in => PS2_DATA,
-		ps2_clk_out => open,
-		ps2_dat_out => open,
-
-		-- LED status
-		caps_lock => showlock(0),
-		num_lock  => showlock(1),
-		scroll_lock  => showlock(2),
-
-		-- Read scancode
-		trigger => kbd_data_ready,
-		scancode => kbd_data
-	);
-
-	showlock(3) <= '1';
+--kbd: io_ps2_keyboard generic map (
+--		ticksPerUsec => 50
+--	)
+--	port map (
+--		clk => CLK,
+--		reset => RESET,
+--		
+--		-- PS/2 connector
+--		ps2_clk_in => PS2_CLOCK,
+--		ps2_dat_in => PS2_DATA,
+--		ps2_clk_out => open,
+--		ps2_dat_out => open,
+--
+--		-- LED status
+--		caps_lock => showlock(0),
+--		num_lock  => showlock(1),
+--		scroll_lock  => showlock(2),
+--
+--		-- Read scancode
+--		trigger => kbd_data_ready,
+--		scancode => kbd_data
+--	);
+--
+--	showlock(3) <= '1';
 	
 clockgen: sn74hc4040 port map (
 			clock_10 => CLK,
@@ -298,12 +312,41 @@ clockgen: sn74hc4040 port map (
 			q4_5 => PMOD(6),		-- 3.125
 			q5_3 => PMOD(5),		-- 1.5625
 			q6_2 => PMOD(4), 		-- 0.78125
-			q7_4 => PMOD(3),		-- 0.390625
-			q8_13 => PMOD(2),		-- 0.1953125
-			q9_12 => PMOD(1),		-- 0.09765625
-			q10_14 => PMOD(0),	-- 0.048828125
+			q7_4 =>   open,		-- 0.390625
+			q8_13 =>  open,		-- 0.1953125
+			q9_12 =>  open,		-- 0.09765625
+			q10_14 => open,		-- 0.048828125
 			q11_15 => digsel(0),	-- 0.0244140625
 			q12_1 =>  digsel(1)	-- 0.01220703125
+		);
+
+prescale: process(CLK, freq38400)
+begin
+	if (rising_edge(CLK)) then
+		if (prescale_cnt = 0) then
+			freq38400 <= not freq38400;
+			prescale_cnt <= (50000000 / (2 * 38400));
+		else
+			prescale_cnt <= prescale_cnt - 1;
+		end if;
+	end if;
+end process;
+
+baudgen: sn74hc4040 port map (
+			clock_10 => freq38400,
+			reset_11 => RESET,
+			q1_9 => freq19200, 
+			q2_7 => freq9600,
+			q3_6 => freq4800,		
+			q4_5 => freq2400,		
+			q5_3 => freq1200,		
+			q6_2 => freq600, 	
+			q7_4 => freq300,		
+			q8_13 => open,		
+			q9_12 =>  PMOD(3),	
+			q10_14 => PMOD(2),
+			q11_15 => PMOD(1),
+			q12_1 =>  PMOD(0)	
 		);
 	
 	video: Grafika port map (
@@ -339,10 +382,12 @@ leds: fourdigitsevensegled Port map (
 			segment(6 downto 0) => A_TO_G
 		);
 
+h <= digsel(0) and digsel0_delayed;
+
 cnt_hsync: signalcounter Port map ( 
 				clk => CLK,
 				reset => RESET,
-				input => digsel(0),	-- TODO: hsync
+				input => freq38400,	-- TODO: hsync
 				sel => SW(0),
 				count => hsync_cnt
 		);
@@ -350,7 +395,7 @@ cnt_hsync: signalcounter Port map (
 cnt_vsync: signalcounter Port map ( 
 				clk => CLK,
 				reset => RESET,
-				input => digsel(1),	-- TODO: vsync
+				input => freq9600,	-- TODO: vsync
 				sel => SW(0),
 				count => vsync_cnt
 		);
@@ -367,5 +412,14 @@ with hexsel select
 					vsync_cnt(11 downto 8) when "110",
 					vsync_cnt(15 downto 12) when "111",
 					X"0" when others;
+					
+testdelay: configurabledelayline Port map (
+				clk => CLK,
+				reset => RESET,
+				init => '1',
+				delay => SW(7 downto 4),
+				signal_in => digsel(0),
+				signal_out => digsel0_delayed
+		);
 					
 end;

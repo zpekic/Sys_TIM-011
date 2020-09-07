@@ -3,14 +3,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.37 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.31 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.37 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.31 secs
  
 --> Reading design: host.prj
 
@@ -118,29 +118,22 @@ Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/
 Architecture behavioral of Entity sn74hc04 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/sn74s153.vhd" in Library work.
 Architecture behavioral of Entity sn74s153 is up to date.
-Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd" in Library work.
-Architecture rtl of Entity io_ps2_com is up to date.
-Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_keyboard.vhd" in Library work.
-Architecture rtl of Entity io_ps2_keyboard is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" in Library work.
-Entity <grafika> compiled.
-Entity <grafika> (Architecture <structural>) compiled.
+Architecture structural of Entity grafika is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd" in Library work.
 Architecture structural of Entity fourdigitsevensegled is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/signalcounter.vhd" in Library work.
 Architecture behavioral of Entity signalcounter is up to date.
+Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/configurabledelayline.vhd" in Library work.
+Architecture behavioral of Entity configurabledelayline is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" in Library work.
-Architecture structural of Entity host is up to date.
+Entity <host> compiled.
+Entity <host> (Architecture <structural>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
 =========================================================================
 Analyzing hierarchy for entity <host> in library <work> (architecture <structural>).
-
-Analyzing hierarchy for entity <io_ps2_keyboard> in library <work> (architecture <rtl>) with generics.
-	clockFilter = 15
-	ledStatusSupport = true
-	ticksPerUsec = 50
 
 Analyzing hierarchy for entity <sn74hc4040> in library <work> (architecture <behavioral>).
 
@@ -150,9 +143,7 @@ Analyzing hierarchy for entity <fourdigitsevensegled> in library <work> (archite
 
 Analyzing hierarchy for entity <signalcounter> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <io_ps2_com> in library <work> (architecture <rtl>) with generics.
-	clockFilter = 15
-	ticksPerUsec = 50
+Analyzing hierarchy for entity <configurabledelayline> in library <work> (architecture <behavioral>).
 
 Analyzing hierarchy for entity <sn74ls08> in library <work> (architecture <behavioral>).
 
@@ -173,45 +164,35 @@ Analyzing hierarchy for entity <sn74s153> in library <work> (architecture <behav
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <host> in library <work> (Architecture <structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 267: Unconnected output port 'ps2_clk_out' of component 'io_ps2_keyboard'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 267: Unconnected output port 'ps2_dat_out' of component 'io_ps2_keyboard'.
-WARNING:Xst:754 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 309: Unconnected inout port 'd' of component 'Grafika'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 306: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 306: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 306: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 306: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 335: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:754 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 352: Unconnected inout port 'd' of component 'Grafika'.
 Entity <host> analyzed. Unit <host> generated.
-
-Analyzing generic Entity <io_ps2_keyboard> in library <work> (Architecture <rtl>).
-	clockFilter = 15
-	ledStatusSupport = true
-	ticksPerUsec = 50
-Entity <io_ps2_keyboard> analyzed. Unit <io_ps2_keyboard> generated.
-
-Analyzing generic Entity <io_ps2_com> in library <work> (Architecture <rtl>).
-	clockFilter = 15
-	ticksPerUsec = 50
-WARNING:Xst:790 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd" line 184: Index value(s) does not match array range, simulation mismatch.
-WARNING:Xst:790 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd" line 185: Index value(s) does not match array range, simulation mismatch.
-Entity <io_ps2_com> analyzed. Unit <io_ps2_com> generated.
 
 Analyzing Entity <sn74hc4040> in library <work> (Architecture <behavioral>).
 Entity <sn74hc4040> analyzed. Unit <sn74hc4040> generated.
 
 Analyzing Entity <Grafika> in library <work> (Architecture <structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 239: Unconnected output port 'y2_6' of component 'sn74ls08'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 254: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 254: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 254: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'y1_3' of component 'sn74ls08'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'y2_6' of component 'sn74ls08'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'y3_8' of component 'sn74ls08'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y24_3' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y23_5' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y21_9' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y14_12' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y13_14' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y12_16' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 302: Unconnected output port 'y11_18' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 336: Unconnected output port 'y1_2' of component 'sn74hc04'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 336: Unconnected output port 'y3_6' of component 'sn74hc04'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 336: Unconnected output port 'y4_8' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 243: Unconnected output port 'y2_6' of component 'sn74ls08'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 258: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 258: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 258: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 290: Unconnected output port 'y1_3' of component 'sn74ls08'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 290: Unconnected output port 'y2_6' of component 'sn74ls08'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 290: Unconnected output port 'y3_8' of component 'sn74ls08'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y24_3' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y23_5' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y21_9' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y14_12' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y13_14' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y12_16' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 306: Unconnected output port 'y11_18' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 340: Unconnected output port 'y1_2' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 340: Unconnected output port 'y3_6' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 340: Unconnected output port 'y4_8' of component 'sn74hc04'.
 Entity <Grafika> analyzed. Unit <Grafika> generated.
 
 Analyzing Entity <sn74ls08> in library <work> (Architecture <behavioral>).
@@ -237,6 +218,9 @@ Entity <fourdigitsevensegled> analyzed. Unit <fourdigitsevensegled> generated.
 
 Analyzing Entity <signalcounter> in library <work> (Architecture <behavioral>).
 Entity <signalcounter> analyzed. Unit <signalcounter> generated.
+
+Analyzing Entity <configurabledelayline> in library <work> (Architecture <behavioral>).
+Entity <configurabledelayline> analyzed. Unit <configurabledelayline> generated.
 
 
 =========================================================================
@@ -278,46 +262,15 @@ Synthesizing Unit <signalcounter>.
 Unit <signalcounter> synthesized.
 
 
-Synthesizing Unit <io_ps2_com>.
-    Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_com.vhd".
-    Found finite state machine <FSM_0> for signal <comState>.
-    -----------------------------------------------------------------------
-    | States             | 8                                              |
-    | Transitions        | 26                                             |
-    | Inputs             | 6                                              |
-    | Outputs            | 11                                             |
-    | Clock              | clk                       (rising_edge)        |
-    | Reset              | reset                     (positive)           |
-    | Reset type         | synchronous                                    |
-    | Reset State        | stateidle                                      |
-    | Power Up State     | stateidle                                      |
-    | Encoding           | automatic                                      |
-    | Implementation     | LUT                                            |
-    -----------------------------------------------------------------------
-    Found 11-bit register for signal <recvByte>.
-    Found 1-bit register for signal <recvTrigger>.
-    Found 1-bit register for signal <ps2_dat_out>.
-    Found 1-bit register for signal <ps2_clk_out>.
-    Found 4-bit register for signal <bitCount>.
-    Found 4-bit adder for signal <bitCount$share0000> created at line 127.
-    Found 4-bit down counter for signal <clkFilterCnt>.
-    Found 1-bit xor2 for signal <clkFilterCnt$xor0000> created at line 103.
-    Found 1-bit register for signal <clkReg>.
-    Found 1-bit register for signal <currentBit>.
-    Found 1-bit register for signal <parity>.
-    Found 1-bit xor2 for signal <parity$xor0000> created at line 185.
-    Found 11-bit register for signal <recvByteLoc>.
-    Found 1-bit 8-to-1 multiplexer for signal <sendByte$mux0000> created at line 184.
-    Found 1-bit register for signal <sendTriggerLoc>.
-    Found 13-bit register for signal <waitCount>.
-    Found 13-bit subtractor for signal <waitCount$share0000> created at line 127.
+Synthesizing Unit <configurabledelayline>.
+    Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/configurabledelayline.vhd".
+WARNING:Xst:646 - Signal <line<15>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 1-bit 16-to-1 multiplexer for signal <signal_out>.
+    Found 16-bit register for signal <line>.
     Summary:
-	inferred   1 Finite State Machine(s).
-	inferred   1 Counter(s).
-	inferred  46 D-type flip-flop(s).
-	inferred   2 Adder/Subtractor(s).
+	inferred  16 D-type flip-flop(s).
 	inferred   1 Multiplexer(s).
-Unit <io_ps2_com> synthesized.
+Unit <configurabledelayline> synthesized.
 
 
 Synthesizing Unit <sn74ls08>.
@@ -355,44 +308,6 @@ Synthesizing Unit <sn74s153>.
 Unit <sn74s153> synthesized.
 
 
-Synthesizing Unit <io_ps2_keyboard>.
-    Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/io_ps2_keyboard.vhd".
-WARNING:Xst:646 - Signal <recvByte<10:9>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <recvByte<0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-    Found finite state machine <FSM_1> for signal <masterState>.
-    -----------------------------------------------------------------------
-    | States             | 8                                              |
-    | Transitions        | 47                                             |
-    | Inputs             | 12                                             |
-    | Outputs            | 9                                              |
-    | Clock              | clk                       (rising_edge)        |
-    | Reset              | reset                     (positive)           |
-    | Reset type         | synchronous                                    |
-    | Reset State        | statereset                                     |
-    | Power Up State     | stateinit                                      |
-    | Encoding           | automatic                                      |
-    | Implementation     | LUT                                            |
-    -----------------------------------------------------------------------
-    Found 1-bit register for signal <trigger>.
-    Found 8-bit register for signal <scancode>.
-    Found 1-bit register for signal <caps_lock_state>.
-    Found 1-bit register for signal <num_lock_state>.
-    Found 1-bit register for signal <resetCom>.
-    Found 1-bit register for signal <scroll_lock_state>.
-    Found 8-bit register for signal <sendByte>.
-    Found 1-bit register for signal <sendTrigger>.
-    Found 1-bit xor2 for signal <sendTrigger$xor0000> created at line 205.
-    Found 1-bit xor2 for signal <sendTrigger$xor0001> created at line 205.
-    Found 1-bit xor2 for signal <sendTrigger$xor0002> created at line 205.
-    Found 28-bit register for signal <timeoutCount>.
-    Found 28-bit subtractor for signal <timeoutCount$share0000> created at line 152.
-    Summary:
-	inferred   1 Finite State Machine(s).
-	inferred  50 D-type flip-flop(s).
-	inferred   1 Adder/Subtractor(s).
-Unit <io_ps2_keyboard> synthesized.
-
-
 Synthesizing Unit <Grafika>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd".
 WARNING:Xst:647 - Input <a<14:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
@@ -418,7 +333,6 @@ WARNING:Xst:646 - Signal <u18_8> is assigned but never used. This unconnected si
 WARNING:Xst:646 - Signal <u18_6> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:653 - Signal <u13_q9> is used but never assigned. This sourceless signal will be automatically connected to value 0.
 WARNING:Xst:653 - Signal <u13_q2> is used but never assigned. This sourceless signal will be automatically connected to value 0.
-WARNING:Xst:653 - Signal <u13_q10_delayed> is used but never assigned. This sourceless signal will be automatically connected to value 0.
 WARNING:Xst:653 - Signal <u13_q10> is used but never assigned. This sourceless signal will be automatically connected to value 0.
 WARNING:Xst:653 - Signal <u13_q1> is used but never assigned. This sourceless signal will be automatically connected to value 0.
 WARNING:Xst:653 - Signal <u13_7> is used but never assigned. This sourceless signal will be automatically connected to value 0.
@@ -430,17 +344,31 @@ Unit <Grafika> synthesized.
 Synthesizing Unit <host>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd".
 WARNING:Xst:647 - Input <BTN> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:647 - Input <SW<7:2>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:653 - Signal <showlock<2:0>> is used but never assigned. This sourceless signal will be automatically connected to value 000.
+WARNING:Xst:647 - Input <PS2_DATA> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <PS2_CLOCK> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <SW<3:2>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:653 - Signal <showlock> is used but never assigned. This sourceless signal will be automatically connected to value 0000.
+WARNING:Xst:653 - Signal <kbd_data_ready> is used but never assigned. This sourceless signal will be automatically connected to value 0.
+WARNING:Xst:653 - Signal <kbd_data> is used but never assigned. This sourceless signal will be automatically connected to value 00000000.
+WARNING:Xst:646 - Signal <h> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq600> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq4800> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq300> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <freq25M> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq2400> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq19200> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <freq1200> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <data<31:24>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
     Found 32-bit register for signal <data>.
+    Found 1-bit register for signal <freq38400>.
     Found 4-bit 8-to-1 multiplexer for signal <hexdata>.
+    Found 10-bit down counter for signal <prescale_cnt>.
     Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
 	inferred   4 Multiplexer(s).
 Unit <host> synthesized.
 
-INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
 WARNING:Xst:524 - All outputs of the instance <u4> of the block <sn74ls374> are unconnected in block <Grafika>.
    This instance will be removed from the design along with all underlying logic
 WARNING:Xst:524 - All outputs of the instance <u5> of the block <sn74ls374> are unconnected in block <Grafika>.
@@ -458,31 +386,20 @@ HDL Synthesis Report
 Macro Statistics
 # ROMs                                                 : 1
  16x7-bit ROM                                          : 1
-# Adders/Subtractors                                   : 3
- 13-bit subtractor                                     : 1
- 28-bit subtractor                                     : 1
- 4-bit adder                                           : 1
-# Counters                                             : 7
- 12-bit up counter                                     : 2
+# Counters                                             : 8
+ 10-bit down counter                                   : 1
+ 12-bit up counter                                     : 3
  16-bit up counter                                     : 4
- 4-bit down counter                                    : 1
-# Registers                                            : 27
- 1-bit register                                        : 15
- 11-bit register                                       : 2
- 13-bit register                                       : 1
- 16-bit register                                       : 4
- 28-bit register                                       : 1
+# Registers                                            : 9
+ 1-bit register                                        : 3
+ 16-bit register                                       : 5
  32-bit register                                       : 1
- 4-bit register                                        : 1
- 8-bit register                                        : 2
 # Multiplexers                                         : 3
+ 1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
- 1-bit 8-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
-# Xors                                                 : 5
- 1-bit xor2                                            : 5
 
 =========================================================================
 
@@ -490,239 +407,98 @@ Macro Statistics
 *                       Advanced HDL Synthesis                          *
 =========================================================================
 
-Analyzing FSM <FSM_1> for best encoding.
-Optimizing FSM <kbd/masterState/FSM> on signal <masterState[1:8]> with one-hot encoding.
--------------------------------
- State             | Encoding
--------------------------------
- stateinit         | 00000001
- stateinitaa       | 00010000
- statereset        | 00000010
- statereset2       | 00000100
- stateresetack     | 00001000
- statewaitscancode | 00100000
- statewaitacked1   | 01000000
- statewaitacked2   | 10000000
--------------------------------
-Analyzing FSM <FSM_0> for best encoding.
-Optimizing FSM <kbd/myPs2Com/comState/FSM> on signal <comState[1:8]> with one-hot encoding.
-----------------------------------
- State                | Encoding
-----------------------------------
- stateidle            | 00000001
- statewait100         | 00000100
- statewaitclocklow    | 00100000
- statewaitclockhigh   | 00010000
- stateclockanddatalow | 00001000
- statewaitack         | 01000000
- staterecvbit         | 00000010
- statewaithighrecv    | 10000000
-----------------------------------
-WARNING:Xst:1290 - Hierarchical block <kbd> is unconnected in block <host>.
-   It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <u3> is unconnected in block <video>.
    It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <u14> is unconnected in block <video>.
    It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <u29> is unconnected in block <video>.
    It will be removed from the design.
+WARNING:Xst:1290 - Hierarchical block <testdelay> is unconnected in block <host>.
+   It will be removed from the design.
+WARNING:Xst:2677 - Node <line_15> of sequential type is unconnected in block <configurabledelayline>.
 
 =========================================================================
 Advanced HDL Synthesis Report
 
 Macro Statistics
-# FSMs                                                 : 2
 # ROMs                                                 : 1
  16x7-bit ROM                                          : 1
-# Adders/Subtractors                                   : 3
- 13-bit subtractor                                     : 1
- 28-bit subtractor                                     : 1
- 4-bit adder                                           : 1
-# Counters                                             : 7
- 12-bit up counter                                     : 2
+# Counters                                             : 8
+ 10-bit down counter                                   : 1
+ 12-bit up counter                                     : 3
  16-bit up counter                                     : 4
- 4-bit down counter                                    : 1
-# Registers                                            : 194
- Flip-Flops                                            : 194
+# Registers                                            : 114
+ Flip-Flops                                            : 114
 # Multiplexers                                         : 3
+ 1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
- 1-bit 8-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
-# Xors                                                 : 5
- 1-bit xor2                                            : 5
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-WARNING:Xst:2677 - Node <data_31> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_30> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_29> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_28> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_27> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_26> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_25> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_24> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_23> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_22> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_21> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_20> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_19> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_18> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_17> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_16> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_15> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_14> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_13> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_12> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_11> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_10> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_9> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <data_0> of sequential type is unconnected in block <host>.
+INFO:Xst:2261 - The FF/Latch <0> in Unit <LPM_DFF_5> is equivalent to the following 6 FFs/Latches, which will be removed : <1> <2> <3> <5> <6> <7> 
+WARNING:Xst:1710 - FF/Latch <31> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <30> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <29> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <28> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <27> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <26> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <25> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <24> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <23> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <22> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <21> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <20> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <19> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <18> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <17> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <16> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <15> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <14> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <13> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <12> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <11> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <10> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <9> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <8> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <4> (without init value) has a constant value of 0 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <0> (without init value) has a constant value of 1 in block <LPM_DFF_5>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:2042 - Unit sn74ls374: 8 internal tristates are replaced by logic (pull-up yes): Q<0>, Q<1>, Q<2>, Q<3>, Q<4>, Q<5>, Q<6>, Q<7>.
 
 Optimizing unit <host> ...
 
 Optimizing unit <signalcounter> ...
 
-Optimizing unit <io_ps2_com> ...
+Optimizing unit <configurabledelayline> ...
 
 Optimizing unit <sn74ls374> ...
-
-Optimizing unit <io_ps2_keyboard> ...
-WARNING:Xst:2677 - Node <kbd/myPs2Com/currentBit> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_9> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByteLoc_10> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/bitCount_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/bitCount_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/bitCount_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/bitCount_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/sendTriggerLoc> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/parity> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/ps2_dat_out> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvTrigger> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/clkReg> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_9> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_10> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_11> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/waitCount_12> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_9> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/recvByte_10> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/ps2_clk_out> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/clkFilterCnt_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/clkFilterCnt_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/clkFilterCnt_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/clkFilterCnt_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/myPs2Com/comState_FSM_FFd8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/masterState_FSM_FFd1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/trigger> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scancode_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/resetCom> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/caps_lock_state> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/scroll_lock_state> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendByte_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_27> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_26> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_25> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_24> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_23> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_22> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_21> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_20> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_19> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_18> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_17> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_16> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_15> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_14> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_13> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_12> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_11> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_10> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_9> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_8> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/timeoutCount_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/sendTrigger> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <kbd/num_lock_state> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_14> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_13> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_12> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_11> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_10> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_9> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_8> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_7> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_6> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_5> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_4> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_3> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_2> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_1> of sequential type is unconnected in block <host>.
+WARNING:Xst:2677 - Node <testdelay/line_0> of sequential type is unconnected in block <host>.
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 4.
-FlipFlop clockgen/q_11 has been replicated 1 time(s)
-FlipFlop clockgen/q_12 has been replicated 1 time(s)
+Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 5.
+FlipFlop baudgen/q_2 has been replicated 1 time(s)
+FlipFlop cnt_hsync/previous_input has been replicated 2 time(s)
+FlipFlop cnt_vsync/previous_input has been replicated 1 time(s)
 
 Final Macro Processing ...
 
@@ -730,8 +506,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 144
- Flip-Flops                                            : 144
+# Registers                                            : 169
+ Flip-Flops                                            : 169
 
 =========================================================================
 
@@ -760,22 +536,25 @@ Design Statistics
 # IOs                              : 46
 
 Cell Usage :
-# BELS                             : 306
+# BELS                             : 373
 #      GND                         : 1
-#      INV                         : 7
-#      LUT1                        : 11
+#      INV                         : 17
+#      LUT1                        : 23
 #      LUT2                        : 36
 #      LUT3                        : 84
-#      LUT4                        : 7
-#      MUXCY                       : 71
+#      LUT4                        : 9
+#      LUT4_L                      : 1
+#      MUXCY                       : 91
 #      MUXF5                       : 8
 #      MUXF6                       : 4
 #      VCC                         : 1
-#      XORCY                       : 76
-# FlipFlops/Latches                : 144
-#      FDC                         : 14
+#      XORCY                       : 98
+# FlipFlops/Latches                : 169
+#      FDC                         : 25
 #      FDCE                        : 64
-#      FDE                         : 66
+#      FDE                         : 70
+#      FDR                         : 5
+#      FDS                         : 5
 # Clock Buffers                    : 1
 #      BUFGP                       : 1
 # IO Buffers                       : 33
@@ -788,9 +567,9 @@ Device utilization summary:
 
 Selected Device : 3s200avq100-4 
 
- Number of Slices:                       86  out of   1792     4%  
- Number of Slice Flip Flops:            144  out of   3584     4%  
- Number of 4 input LUTs:                145  out of   3584     4%  
+ Number of Slices:                      102  out of   1792     5%  
+ Number of Slice Flip Flops:            169  out of   3584     4%  
+ Number of 4 input LUTs:                170  out of   3584     4%  
  Number of IOs:                          46
  Number of bonded IOBs:                  34  out of     68    50%  
  Number of GCLKs:                         1  out of     24     4%  
@@ -816,23 +595,25 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-CLK                                | BUFGP                  | 144   |
+CLK                                | BUFGP                  | 156   |
+freq38400                          | NONE(baudgen/q_1)      | 13    |
 -----------------------------------+------------------------+-------+
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
 -----------------------------------+------------------------+-------+
 Control Signal                     | Buffer(FF name)        | Load  |
 -----------------------------------+------------------------+-------+
-USR_BTN                            | IBUF                   | 78    |
+USR_BTN                            | IBUF                   | 89    |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 7.404ns (Maximum Frequency: 135.062MHz)
-   Minimum input arrival time before clock: 4.264ns
+   Minimum period: 4.909ns (Maximum Frequency: 203.707MHz)
+   Minimum input arrival time before clock: 4.268ns
    Maximum output required time after clock: 9.883ns
    Maximum combinational path delay: 11.051ns
 
@@ -842,49 +623,94 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'CLK'
-  Clock period: 7.404ns (frequency: 135.062MHz)
-  Total number of paths / destination ports: 1511 / 272
+  Clock period: 4.909ns (frequency: 203.707MHz)
+  Total number of paths / destination ports: 1591 / 261
 -------------------------------------------------------------------------
-Delay:               3.702ns (Levels of Logic = 1)
-  Source:            clockgen/q_12_1 (FF)
-  Destination:       cnt_vsync/capture_hi_15 (FF)
-  Source Clock:      CLK falling
+Delay:               4.909ns (Levels of Logic = 13)
+  Source:            cnt_vsync/previous_input (FF)
+  Destination:       cnt_vsync/cnt_lo_15 (FF)
+  Source Clock:      CLK rising
   Destination Clock: CLK rising
 
-  Data Path: clockgen/q_12_1 to cnt_vsync/capture_hi_15
+  Data Path: cnt_vsync/previous_input to cnt_vsync/cnt_lo_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q             19   0.591   1.117  clockgen/q_12_1 (clockgen/q_12_1)
-     LUT3:I2->O           16   0.648   1.034  cnt_vsync/capture_lo_and00001 (cnt_vsync/capture_lo_and0000)
-     FDE:CE                    0.312          cnt_vsync/capture_lo_0
+     FDE:C->Q             25   0.591   1.292  cnt_vsync/previous_input (cnt_vsync/previous_input)
+     LUT3:I2->O            1   0.648   0.000  cnt_vsync/Mcount_cnt_lo_lut<4> (cnt_vsync/Mcount_cnt_lo_lut<4>)
+     MUXCY:S->O            1   0.632   0.000  cnt_vsync/Mcount_cnt_lo_cy<4> (cnt_vsync/Mcount_cnt_lo_cy<4>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<5> (cnt_vsync/Mcount_cnt_lo_cy<5>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<6> (cnt_vsync/Mcount_cnt_lo_cy<6>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<7> (cnt_vsync/Mcount_cnt_lo_cy<7>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<8> (cnt_vsync/Mcount_cnt_lo_cy<8>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<9> (cnt_vsync/Mcount_cnt_lo_cy<9>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<10> (cnt_vsync/Mcount_cnt_lo_cy<10>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<11> (cnt_vsync/Mcount_cnt_lo_cy<11>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<12> (cnt_vsync/Mcount_cnt_lo_cy<12>)
+     MUXCY:CI->O           1   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<13> (cnt_vsync/Mcount_cnt_lo_cy<13>)
+     MUXCY:CI->O           0   0.065   0.000  cnt_vsync/Mcount_cnt_lo_cy<14> (cnt_vsync/Mcount_cnt_lo_cy<14>)
+     XORCY:CI->O           1   0.844   0.000  cnt_vsync/Mcount_cnt_lo_xor<15> (cnt_vsync/Mcount_cnt_lo15)
+     FDCE:D                    0.252          cnt_vsync/cnt_lo_15
     ----------------------------------------
-    Total                      3.702ns (1.551ns logic, 2.151ns route)
-                                       (41.9% logic, 58.1% route)
+    Total                      4.909ns (3.617ns logic, 1.292ns route)
+                                       (73.7% logic, 26.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'freq38400'
+  Clock period: 4.746ns (frequency: 210.704MHz)
+  Total number of paths / destination ports: 80 / 13
+-------------------------------------------------------------------------
+Delay:               4.746ns (Levels of Logic = 12)
+  Source:            baudgen/q_2_1 (FF)
+  Destination:       baudgen/q_12 (FF)
+  Source Clock:      freq38400 falling
+  Destination Clock: freq38400 falling
+
+  Data Path: baudgen/q_2_1 to baudgen/q_12
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             17   0.591   1.194  baudgen/q_2_1 (baudgen/q_2_1)
+     LUT1:I0->O            1   0.648   0.000  baudgen/Mcount_q_cy<1>_rt (baudgen/Mcount_q_cy<1>_rt)
+     MUXCY:S->O            1   0.632   0.000  baudgen/Mcount_q_cy<1> (baudgen/Mcount_q_cy<1>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<2> (baudgen/Mcount_q_cy<2>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<3> (baudgen/Mcount_q_cy<3>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<4> (baudgen/Mcount_q_cy<4>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<5> (baudgen/Mcount_q_cy<5>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<6> (baudgen/Mcount_q_cy<6>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<7> (baudgen/Mcount_q_cy<7>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<8> (baudgen/Mcount_q_cy<8>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<9> (baudgen/Mcount_q_cy<9>)
+     MUXCY:CI->O           0   0.065   0.000  baudgen/Mcount_q_cy<10> (baudgen/Mcount_q_cy<10>)
+     XORCY:CI->O           1   0.844   0.000  baudgen/Mcount_q_xor<11> (Result<11>)
+     FDC:D                     0.252          baudgen/q_12
+    ----------------------------------------
+    Total                      4.746ns (3.552ns logic, 1.194ns route)
+                                       (74.8% logic, 25.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
-  Total number of paths / destination ports: 66 / 66
+  Total number of paths / destination ports: 69 / 69
 -------------------------------------------------------------------------
-Offset:              4.264ns (Levels of Logic = 2)
+Offset:              4.268ns (Levels of Logic = 2)
   Source:            USR_BTN (PAD)
-  Destination:       cnt_vsync/capture_hi_15 (FF)
+  Destination:       cnt_vsync/capture_lo_15 (FF)
   Destination Clock: CLK rising
 
-  Data Path: USR_BTN to cnt_vsync/capture_hi_15
+  Data Path: USR_BTN to cnt_vsync/capture_lo_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            83   0.849   1.421  USR_BTN_IBUF (USR_BTN_IBUF)
+     IBUF:I->O            94   0.849   1.425  USR_BTN_IBUF (USR_BTN_IBUF)
      LUT3:I0->O           16   0.648   1.034  cnt_vsync/capture_lo_and00001 (cnt_vsync/capture_lo_and0000)
      FDE:CE                    0.312          cnt_vsync/capture_lo_0
     ----------------------------------------
-    Total                      4.264ns (1.809ns logic, 2.455ns route)
+    Total                      4.268ns (1.809ns logic, 2.459ns route)
                                        (42.4% logic, 57.6% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
-  Total number of paths / destination ports: 634 / 20
+  Total number of paths / destination ports: 628 / 15
 -------------------------------------------------------------------------
 Offset:              9.883ns (Levels of Logic = 6)
   Source:            cnt_hsync/capture_lo_0 (FF)
@@ -905,6 +731,25 @@ Offset:              9.883ns (Levels of Logic = 6)
     ----------------------------------------
     Total                      9.883ns (7.612ns logic, 2.271ns route)
                                        (77.0% logic, 23.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'freq38400'
+  Total number of paths / destination ports: 4 / 4
+-------------------------------------------------------------------------
+Offset:              5.558ns (Levels of Logic = 1)
+  Source:            baudgen/q_9 (FF)
+  Destination:       PMOD<3> (PAD)
+  Source Clock:      freq38400 falling
+
+  Data Path: baudgen/q_9 to PMOD<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              2   0.591   0.447  baudgen/q_9 (baudgen/q_9)
+     OBUF:I->O                 4.520          PMOD_3_OBUF (PMOD<3>)
+    ----------------------------------------
+    Total                      5.558ns (5.111ns logic, 0.447ns route)
+                                       (92.0% logic, 8.0% route)
 
 =========================================================================
 Timing constraint: Default path analysis
@@ -932,14 +777,14 @@ Delay:               11.051ns (Levels of Logic = 7)
 =========================================================================
 
 
-Total REAL time to Xst completion: 16.00 secs
-Total CPU time to Xst completion: 15.73 secs
+Total REAL time to Xst completion: 14.00 secs
+Total CPU time to Xst completion: 14.36 secs
  
 --> 
 
-Total memory usage is 255900 kilobytes
+Total memory usage is 253020 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  216 (   0 filtered)
-Number of infos    :    1 (   0 filtered)
+Number of warnings :  120 (   0 filtered)
+Number of infos    :    2 (   0 filtered)
 
