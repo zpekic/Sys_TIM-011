@@ -3,8 +3,8 @@ Release 14.7 Trace  (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 C:\Xilinx\14.7\ISE_DS\ISE\bin\nt\unwrapped\trce.exe -intstyle ise -v 3 -s 4 -n
-3 -fastpaths -xml host.twx host.ncd -o host.twr host.pcf -ucf baseboard.ucf
--ucf mercury.ucf
+3 -fastpaths -xml host.twx host.ncd -o host.twr host.pcf -ucf mercury.ucf -ucf
+baseboard.ucf
 
 Design file:              host.ncd
 Physical constraint file: host.pcf
@@ -37,263 +37,371 @@ INFO:Timing:3389 - This architecture does not support 'Discrete Jitter' and
 Timing constraint: TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH 50%;
 For more information, see Period Analysis in the Timing Closure User Guide (UG612).
 
- 1591 paths analyzed, 482 endpoints analyzed, 0 failing endpoints
+ 884 paths analyzed, 255 endpoints analyzed, 0 failing endpoints
  0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
- Minimum period is   6.767ns.
+ Minimum period is   4.917ns.
 --------------------------------------------------------------------------------
 
-Paths for end point cnt_hsync/capture_lo_9 (SLICE_X29Y15.CE), 2 paths
+Paths for end point prescale_cnt_2 (SLICE_X19Y10.SR), 10 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     13.233ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               freq38400 (FF)
-  Destination:          cnt_hsync/capture_lo_9 (FF)
+Slack (setup path):     15.083ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_4 (FF)
+  Destination:          prescale_cnt_2 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      6.686ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.081ns (0.558 - 0.639)
+  Data Path Delay:      4.914ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.003ns (0.014 - 0.017)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: freq38400 to cnt_hsync/capture_lo_9
+  Maximum Data Path: prescale_cnt_4 to prescale_cnt_2
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X18Y46.YQ      Tcko                  0.676   freq38400
-                                                       freq38400
-    SLICE_X26Y12.G1      net (fanout=29)       2.972   freq38400
-    SLICE_X26Y12.Y       Tilo                  0.707   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_lo_and00001
-    SLICE_X29Y15.CE      net (fanout=8)        2.020   cnt_hsync/capture_lo_and0000
-    SLICE_X29Y15.CLK     Tceck                 0.311   cnt_hsync/capture_lo<9>
-                                                       cnt_hsync/capture_lo_9
+    SLICE_X19Y11.XQ      Tcko                  0.591   prescale_cnt<4>
+                                                       prescale_cnt_4
+    SLICE_X18Y11.F2      net (fanout=2)        0.701   prescale_cnt<4>
+    SLICE_X18Y11.X       Tilo                  0.692   freq38400_cmp_eq000037
+                                                       freq38400_cmp_eq000037
+    SLICE_X18Y10.F2      net (fanout=1)        0.074   freq38400_cmp_eq000037
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_2
     -------------------------------------------------  ---------------------------
-    Total                                      6.686ns (1.694ns logic, 4.992ns route)
-                                                       (25.3% logic, 74.7% route)
+    Total                                      4.914ns (2.842ns logic, 2.072ns route)
+                                                       (57.8% logic, 42.2% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     15.363ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               cnt_hsync/previous_input (FF)
-  Destination:          cnt_hsync/capture_lo_9 (FF)
+Slack (setup path):     15.275ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_0 (FF)
+  Destination:          prescale_cnt_2 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      4.532ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.105ns (0.420 - 0.525)
+  Data Path Delay:      4.719ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.006ns (0.014 - 0.020)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: cnt_hsync/previous_input to cnt_hsync/capture_lo_9
+  Maximum Data Path: prescale_cnt_0 to prescale_cnt_2
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X26Y8.YQ       Tcko                  0.676   cnt_hsync/previous_input
-                                                       cnt_hsync/previous_input
-    SLICE_X26Y12.G4      net (fanout=17)       0.818   cnt_hsync/previous_input
-    SLICE_X26Y12.Y       Tilo                  0.707   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_lo_and00001
-    SLICE_X29Y15.CE      net (fanout=8)        2.020   cnt_hsync/capture_lo_and0000
-    SLICE_X29Y15.CLK     Tceck                 0.311   cnt_hsync/capture_lo<9>
-                                                       cnt_hsync/capture_lo_9
+    SLICE_X19Y9.XQ       Tcko                  0.591   prescale_cnt<0>
+                                                       prescale_cnt_0
+    SLICE_X18Y10.G4      net (fanout=2)        0.505   prescale_cnt<0>
+    SLICE_X18Y10.Y       Tilo                  0.707   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000012
+    SLICE_X18Y10.F4      net (fanout=1)        0.060   freq38400_cmp_eq000012/O
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_2
     -------------------------------------------------  ---------------------------
-    Total                                      4.532ns (1.694ns logic, 2.838ns route)
-                                                       (37.4% logic, 62.6% route)
+    Total                                      4.719ns (2.857ns logic, 1.862ns route)
+                                                       (60.5% logic, 39.5% route)
 
 --------------------------------------------------------------------------------
-
-Paths for end point cnt_hsync/capture_lo_8 (SLICE_X29Y15.CE), 2 paths
---------------------------------------------------------------------------------
-Slack (setup path):     13.233ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               freq38400 (FF)
-  Destination:          cnt_hsync/capture_lo_8 (FF)
+Slack (setup path):     15.294ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_5 (FF)
+  Destination:          prescale_cnt_2 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      6.686ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.081ns (0.558 - 0.639)
+  Data Path Delay:      4.703ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.003ns (0.014 - 0.017)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: freq38400 to cnt_hsync/capture_lo_8
+  Maximum Data Path: prescale_cnt_5 to prescale_cnt_2
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X18Y46.YQ      Tcko                  0.676   freq38400
-                                                       freq38400
-    SLICE_X26Y12.G1      net (fanout=29)       2.972   freq38400
-    SLICE_X26Y12.Y       Tilo                  0.707   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_lo_and00001
-    SLICE_X29Y15.CE      net (fanout=8)        2.020   cnt_hsync/capture_lo_and0000
-    SLICE_X29Y15.CLK     Tceck                 0.311   cnt_hsync/capture_lo<9>
-                                                       cnt_hsync/capture_lo_8
+    SLICE_X19Y11.YQ      Tcko                  0.580   prescale_cnt<4>
+                                                       prescale_cnt_5
+    SLICE_X18Y11.F1      net (fanout=2)        0.501   prescale_cnt<5>
+    SLICE_X18Y11.X       Tilo                  0.692   freq38400_cmp_eq000037
+                                                       freq38400_cmp_eq000037
+    SLICE_X18Y10.F2      net (fanout=1)        0.074   freq38400_cmp_eq000037
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_2
     -------------------------------------------------  ---------------------------
-    Total                                      6.686ns (1.694ns logic, 4.992ns route)
-                                                       (25.3% logic, 74.7% route)
+    Total                                      4.703ns (2.831ns logic, 1.872ns route)
+                                                       (60.2% logic, 39.8% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     15.363ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               cnt_hsync/previous_input (FF)
-  Destination:          cnt_hsync/capture_lo_8 (FF)
+
+Paths for end point prescale_cnt_3 (SLICE_X19Y10.SR), 10 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     15.083ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_4 (FF)
+  Destination:          prescale_cnt_3 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      4.532ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.105ns (0.420 - 0.525)
+  Data Path Delay:      4.914ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.003ns (0.014 - 0.017)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: cnt_hsync/previous_input to cnt_hsync/capture_lo_8
+  Maximum Data Path: prescale_cnt_4 to prescale_cnt_3
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X26Y8.YQ       Tcko                  0.676   cnt_hsync/previous_input
-                                                       cnt_hsync/previous_input
-    SLICE_X26Y12.G4      net (fanout=17)       0.818   cnt_hsync/previous_input
-    SLICE_X26Y12.Y       Tilo                  0.707   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_lo_and00001
-    SLICE_X29Y15.CE      net (fanout=8)        2.020   cnt_hsync/capture_lo_and0000
-    SLICE_X29Y15.CLK     Tceck                 0.311   cnt_hsync/capture_lo<9>
-                                                       cnt_hsync/capture_lo_8
+    SLICE_X19Y11.XQ      Tcko                  0.591   prescale_cnt<4>
+                                                       prescale_cnt_4
+    SLICE_X18Y11.F2      net (fanout=2)        0.701   prescale_cnt<4>
+    SLICE_X18Y11.X       Tilo                  0.692   freq38400_cmp_eq000037
+                                                       freq38400_cmp_eq000037
+    SLICE_X18Y10.F2      net (fanout=1)        0.074   freq38400_cmp_eq000037
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_3
     -------------------------------------------------  ---------------------------
-    Total                                      4.532ns (1.694ns logic, 2.838ns route)
-                                                       (37.4% logic, 62.6% route)
+    Total                                      4.914ns (2.842ns logic, 2.072ns route)
+                                                       (57.8% logic, 42.2% route)
 
 --------------------------------------------------------------------------------
-
-Paths for end point cnt_hsync/capture_hi_15 (SLICE_X29Y13.CE), 2 paths
---------------------------------------------------------------------------------
-Slack (setup path):     13.301ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               freq38400 (FF)
-  Destination:          cnt_hsync/capture_hi_15 (FF)
+Slack (setup path):     15.275ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_0 (FF)
+  Destination:          prescale_cnt_3 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      6.634ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.065ns (0.574 - 0.639)
+  Data Path Delay:      4.719ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.006ns (0.014 - 0.020)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: freq38400 to cnt_hsync/capture_hi_15
+  Maximum Data Path: prescale_cnt_0 to prescale_cnt_3
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X18Y46.YQ      Tcko                  0.676   freq38400
-                                                       freq38400
-    SLICE_X26Y12.F1      net (fanout=29)       2.962   freq38400
-    SLICE_X26Y12.X       Tilo                  0.692   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_hi_and00001
-    SLICE_X29Y13.CE      net (fanout=8)        1.993   cnt_hsync/capture_hi_and0000
-    SLICE_X29Y13.CLK     Tceck                 0.311   cnt_hsync/capture_hi<15>
-                                                       cnt_hsync/capture_hi_15
+    SLICE_X19Y9.XQ       Tcko                  0.591   prescale_cnt<0>
+                                                       prescale_cnt_0
+    SLICE_X18Y10.G4      net (fanout=2)        0.505   prescale_cnt<0>
+    SLICE_X18Y10.Y       Tilo                  0.707   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000012
+    SLICE_X18Y10.F4      net (fanout=1)        0.060   freq38400_cmp_eq000012/O
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_3
     -------------------------------------------------  ---------------------------
-    Total                                      6.634ns (1.679ns logic, 4.955ns route)
-                                                       (25.3% logic, 74.7% route)
+    Total                                      4.719ns (2.857ns logic, 1.862ns route)
+                                                       (60.5% logic, 39.5% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     15.467ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               cnt_hsync/previous_input (FF)
-  Destination:          cnt_hsync/capture_hi_15 (FF)
+Slack (setup path):     15.294ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_5 (FF)
+  Destination:          prescale_cnt_3 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      4.444ns (Levels of Logic = 1)
-  Clock Path Skew:      -0.089ns (0.436 - 0.525)
+  Data Path Delay:      4.703ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.003ns (0.014 - 0.017)
   Source Clock:         CLK_BUFGP rising at 0.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: cnt_hsync/previous_input to cnt_hsync/capture_hi_15
+  Maximum Data Path: prescale_cnt_5 to prescale_cnt_3
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X26Y8.YQ       Tcko                  0.676   cnt_hsync/previous_input
-                                                       cnt_hsync/previous_input
-    SLICE_X26Y12.F4      net (fanout=17)       0.772   cnt_hsync/previous_input
-    SLICE_X26Y12.X       Tilo                  0.692   cnt_hsync/capture_hi_and0000
-                                                       cnt_hsync/capture_hi_and00001
-    SLICE_X29Y13.CE      net (fanout=8)        1.993   cnt_hsync/capture_hi_and0000
-    SLICE_X29Y13.CLK     Tceck                 0.311   cnt_hsync/capture_hi<15>
-                                                       cnt_hsync/capture_hi_15
+    SLICE_X19Y11.YQ      Tcko                  0.580   prescale_cnt<4>
+                                                       prescale_cnt_5
+    SLICE_X18Y11.F1      net (fanout=2)        0.501   prescale_cnt<5>
+    SLICE_X18Y11.X       Tilo                  0.692   freq38400_cmp_eq000037
+                                                       freq38400_cmp_eq000037
+    SLICE_X18Y10.F2      net (fanout=1)        0.074   freq38400_cmp_eq000037
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y10.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y10.CLK     Tsrck                 0.867   prescale_cnt<2>
+                                                       prescale_cnt_3
     -------------------------------------------------  ---------------------------
-    Total                                      4.444ns (1.679ns logic, 2.765ns route)
-                                                       (37.8% logic, 62.2% route)
+    Total                                      4.703ns (2.831ns logic, 1.872ns route)
+                                                       (60.2% logic, 39.8% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point prescale_cnt_4 (SLICE_X19Y11.SR), 10 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     15.086ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_4 (FF)
+  Destination:          prescale_cnt_4 (FF)
+  Requirement:          20.000ns
+  Data Path Delay:      4.914ns (Levels of Logic = 2)
+  Clock Path Skew:      0.000ns
+  Source Clock:         CLK_BUFGP rising at 0.000ns
+  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: prescale_cnt_4 to prescale_cnt_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y11.XQ      Tcko                  0.591   prescale_cnt<4>
+                                                       prescale_cnt_4
+    SLICE_X18Y11.F2      net (fanout=2)        0.701   prescale_cnt<4>
+    SLICE_X18Y11.X       Tilo                  0.692   freq38400_cmp_eq000037
+                                                       freq38400_cmp_eq000037
+    SLICE_X18Y10.F2      net (fanout=1)        0.074   freq38400_cmp_eq000037
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y11.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y11.CLK     Tsrck                 0.867   prescale_cnt<4>
+                                                       prescale_cnt_4
+    -------------------------------------------------  ---------------------------
+    Total                                      4.914ns (2.842ns logic, 2.072ns route)
+                                                       (57.8% logic, 42.2% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     15.275ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_0 (FF)
+  Destination:          prescale_cnt_4 (FF)
+  Requirement:          20.000ns
+  Data Path Delay:      4.719ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.006ns (0.014 - 0.020)
+  Source Clock:         CLK_BUFGP rising at 0.000ns
+  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: prescale_cnt_0 to prescale_cnt_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y9.XQ       Tcko                  0.591   prescale_cnt<0>
+                                                       prescale_cnt_0
+    SLICE_X18Y10.G4      net (fanout=2)        0.505   prescale_cnt<0>
+    SLICE_X18Y10.Y       Tilo                  0.707   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000012
+    SLICE_X18Y10.F4      net (fanout=1)        0.060   freq38400_cmp_eq000012/O
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y11.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y11.CLK     Tsrck                 0.867   prescale_cnt<4>
+                                                       prescale_cnt_4
+    -------------------------------------------------  ---------------------------
+    Total                                      4.719ns (2.857ns logic, 1.862ns route)
+                                                       (60.5% logic, 39.5% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     15.294ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               prescale_cnt_2 (FF)
+  Destination:          prescale_cnt_4 (FF)
+  Requirement:          20.000ns
+  Data Path Delay:      4.703ns (Levels of Logic = 2)
+  Clock Path Skew:      -0.003ns (0.014 - 0.017)
+  Source Clock:         CLK_BUFGP rising at 0.000ns
+  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Clock Uncertainty:    0.000ns
+
+  Maximum Data Path: prescale_cnt_2 to prescale_cnt_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y10.XQ      Tcko                  0.591   prescale_cnt<2>
+                                                       prescale_cnt_2
+    SLICE_X18Y10.G2      net (fanout=2)        0.489   prescale_cnt<2>
+    SLICE_X18Y10.Y       Tilo                  0.707   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000012
+    SLICE_X18Y10.F4      net (fanout=1)        0.060   freq38400_cmp_eq000012/O
+    SLICE_X18Y10.X       Tilo                  0.692   freq38400_not0002_inv
+                                                       freq38400_cmp_eq000039
+    SLICE_X19Y11.SR      net (fanout=6)        1.297   freq38400_not0002_inv
+    SLICE_X19Y11.CLK     Tsrck                 0.867   prescale_cnt<4>
+                                                       prescale_cnt_4
+    -------------------------------------------------  ---------------------------
+    Total                                      4.703ns (2.857ns logic, 1.846ns route)
+                                                       (60.7% logic, 39.3% route)
 
 --------------------------------------------------------------------------------
 
 Hold Paths: TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH 50%;
 --------------------------------------------------------------------------------
 
-Paths for end point cnt_hsync/capture_lo_15 (SLICE_X27Y14.BX), 1 path
+Paths for end point cnt_vsync/capture_lo_15 (SLICE_X23Y28.BX), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.922ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               cnt_hsync/cnt_lo_15 (FF)
-  Destination:          cnt_hsync/capture_lo_15 (FF)
-  Requirement:          0.000ns
-  Data Path Delay:      0.909ns (Levels of Logic = 0)
-  Clock Path Skew:      -0.013ns (0.009 - 0.022)
-  Source Clock:         CLK_BUFGP rising at 20.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
-  Clock Uncertainty:    0.000ns
-
-  Minimum Data Path: cnt_hsync/cnt_lo_15 to cnt_hsync/capture_lo_15
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    SLICE_X27Y13.YQ      Tcko                  0.464   cnt_hsync/cnt_lo<14>
-                                                       cnt_hsync/cnt_lo_15
-    SLICE_X27Y14.BX      net (fanout=2)        0.356   cnt_hsync/cnt_lo<15>
-    SLICE_X27Y14.CLK     Tckdi       (-Th)    -0.089   cnt_hsync/capture_lo<15>
-                                                       cnt_hsync/capture_lo_15
-    -------------------------------------------------  ---------------------------
-    Total                                      0.909ns (0.553ns logic, 0.356ns route)
-                                                       (60.8% logic, 39.2% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point cnt_hsync/capture_hi_15 (SLICE_X29Y13.BX), 1 path
---------------------------------------------------------------------------------
-Slack (hold path):      0.930ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               cnt_hsync/cnt_hi_15 (FF)
-  Destination:          cnt_hsync/capture_hi_15 (FF)
+Slack (hold path):      0.938ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               cnt_vsync/cnt_lo_15 (FF)
+  Destination:          cnt_vsync/capture_lo_15 (FF)
   Requirement:          0.000ns
   Data Path Delay:      0.935ns (Levels of Logic = 0)
-  Clock Path Skew:      0.005ns (0.029 - 0.024)
+  Clock Path Skew:      -0.003ns (0.285 - 0.288)
   Source Clock:         CLK_BUFGP rising at 20.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: cnt_hsync/cnt_hi_15 to cnt_hsync/capture_hi_15
+  Minimum Data Path: cnt_vsync/cnt_lo_15 to cnt_vsync/capture_lo_15
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X29Y12.YQ      Tcko                  0.464   cnt_hsync/cnt_hi<14>
-                                                       cnt_hsync/cnt_hi_15
-    SLICE_X29Y13.BX      net (fanout=2)        0.382   cnt_hsync/cnt_hi<15>
-    SLICE_X29Y13.CLK     Tckdi       (-Th)    -0.089   cnt_hsync/capture_hi<15>
-                                                       cnt_hsync/capture_hi_15
+    SLICE_X21Y28.YQ      Tcko                  0.464   cnt_vsync/cnt_lo<14>
+                                                       cnt_vsync/cnt_lo_15
+    SLICE_X23Y28.BX      net (fanout=2)        0.382   cnt_vsync/cnt_lo<15>
+    SLICE_X23Y28.CLK     Tckdi       (-Th)    -0.089   cnt_vsync/capture_lo<15>
+                                                       cnt_vsync/capture_lo_15
     -------------------------------------------------  ---------------------------
     Total                                      0.935ns (0.553ns logic, 0.382ns route)
                                                        (59.1% logic, 40.9% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point cnt_vsync/capture_hi_15 (SLICE_X26Y41.BX), 1 path
+Paths for end point cnt_vsync/capture_hi_1 (SLICE_X24Y23.BX), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.937ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               cnt_vsync/cnt_hi_15 (FF)
-  Destination:          cnt_vsync/capture_hi_15 (FF)
+Slack (hold path):      0.942ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               cnt_vsync/cnt_hi_1 (FF)
+  Destination:          cnt_vsync/capture_hi_1 (FF)
   Requirement:          0.000ns
-  Data Path Delay:      0.984ns (Levels of Logic = 0)
-  Clock Path Skew:      0.047ns (0.293 - 0.246)
+  Data Path Delay:      0.974ns (Levels of Logic = 0)
+  Clock Path Skew:      0.032ns (0.068 - 0.036)
   Source Clock:         CLK_BUFGP rising at 20.000ns
   Destination Clock:    CLK_BUFGP rising at 20.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: cnt_vsync/cnt_hi_15 to cnt_vsync/capture_hi_15
+  Minimum Data Path: cnt_vsync/cnt_hi_1 to cnt_vsync/capture_hi_1
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X25Y41.YQ      Tcko                  0.464   cnt_vsync/cnt_hi<14>
-                                                       cnt_vsync/cnt_hi_15
-    SLICE_X26Y41.BX      net (fanout=2)        0.382   cnt_vsync/cnt_hi<15>
-    SLICE_X26Y41.CLK     Tckdi       (-Th)    -0.138   cnt_vsync/capture_hi<15>
-                                                       cnt_vsync/capture_hi_15
+    SLICE_X25Y21.YQ      Tcko                  0.464   cnt_vsync/cnt_hi<0>
+                                                       cnt_vsync/cnt_hi_1
+    SLICE_X24Y23.BX      net (fanout=2)        0.372   cnt_vsync/cnt_hi<1>
+    SLICE_X24Y23.CLK     Tckdi       (-Th)    -0.138   cnt_vsync/capture_hi<1>
+                                                       cnt_vsync/capture_hi_1
     -------------------------------------------------  ---------------------------
-    Total                                      0.984ns (0.602ns logic, 0.382ns route)
-                                                       (61.2% logic, 38.8% route)
+    Total                                      0.974ns (0.602ns logic, 0.372ns route)
+                                                       (61.8% logic, 38.2% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point cnt_vsync/capture_hi_5 (SLICE_X24Y24.BX), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.964ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               cnt_vsync/cnt_hi_5 (FF)
+  Destination:          cnt_vsync/capture_hi_5 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.994ns (Levels of Logic = 0)
+  Clock Path Skew:      0.030ns (0.088 - 0.058)
+  Source Clock:         CLK_BUFGP rising at 20.000ns
+  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: cnt_vsync/cnt_hi_5 to cnt_vsync/capture_hi_5
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X25Y23.YQ      Tcko                  0.464   cnt_vsync/cnt_hi<4>
+                                                       cnt_vsync/cnt_hi_5
+    SLICE_X24Y24.BX      net (fanout=2)        0.392   cnt_vsync/cnt_hi<5>
+    SLICE_X24Y24.CLK     Tckdi       (-Th)    -0.138   cnt_vsync/capture_hi<5>
+                                                       cnt_vsync/capture_hi_5
+    -------------------------------------------------  ---------------------------
+    Total                                      0.994ns (0.602ns logic, 0.392ns route)
+                                                       (60.6% logic, 39.4% route)
 
 --------------------------------------------------------------------------------
 
@@ -303,27 +411,27 @@ Slack: 17.036ns (period - (min low pulse limit / (low pulse / period)))
   Period: 20.000ns
   Low pulse: 10.000ns
   Low pulse limit: 1.482ns (Trpw)
-  Physical resource: cnt_vsync/cnt_hi<0>/SR
-  Logical resource: cnt_vsync/cnt_hi_0/SR
-  Location pin: SLICE_X25Y34.SR
+  Physical resource: clockgen/q<1>/SR
+  Logical resource: clockgen/q_1/SR
+  Location pin: SLICE_X21Y50.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 Slack: 17.036ns (period - (min high pulse limit / (high pulse / period)))
   Period: 20.000ns
   High pulse: 10.000ns
   High pulse limit: 1.482ns (Trpw)
-  Physical resource: cnt_vsync/cnt_hi<0>/SR
-  Logical resource: cnt_vsync/cnt_hi_0/SR
-  Location pin: SLICE_X25Y34.SR
+  Physical resource: clockgen/q<1>/SR
+  Logical resource: clockgen/q_1/SR
+  Location pin: SLICE_X21Y50.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 Slack: 17.036ns (period - (min low pulse limit / (low pulse / period)))
   Period: 20.000ns
   Low pulse: 10.000ns
   Low pulse limit: 1.482ns (Trpw)
-  Physical resource: cnt_vsync/cnt_hi<0>/SR
-  Logical resource: cnt_vsync/cnt_hi_1/SR
-  Location pin: SLICE_X25Y34.SR
+  Physical resource: clockgen/q<1>/SR
+  Logical resource: clockgen/q_2/SR
+  Location pin: SLICE_X21Y50.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 
@@ -340,7 +448,7 @@ Clock to Setup on destination clock CLK
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-CLK            |    6.767|         |         |    3.813|
+CLK            |    4.917|         |         |    3.697|
 ---------------+---------+---------+---------+---------+
 
 
@@ -349,23 +457,23 @@ Timing summary:
 
 Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
 
-Constraints cover 1591 paths, 0 nets, and 413 connections
+Constraints cover 884 paths, 0 nets, and 228 connections
 
 Design statistics:
-   Minimum period:   6.767ns{1}   (Maximum frequency: 147.776MHz)
+   Minimum period:   4.917ns{1}   (Maximum frequency: 203.376MHz)
 
 
 ------------------------------------Footnotes-----------------------------------
 1)  The minimum period statistic assumes all single cycle delays.
 
-Analysis completed Sun Sep 06 22:10:18 2020 
+Analysis completed Wed Sep 09 22:48:04 2020 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 169 MB
+Peak Memory Usage: 168 MB
 
 
 

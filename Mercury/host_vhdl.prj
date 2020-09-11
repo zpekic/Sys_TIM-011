@@ -6,6 +6,7 @@ vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\sn74hc4040
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\sn74hc04.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\sn74s153.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\signalcounter.vhd"
+vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\rx_reg.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\fourdigitsevensegled.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\configurabledelayline.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Grafika.vhd"

@@ -73,7 +73,7 @@ entity host is
 				AN: out std_logic_vector(3 downto 0); 
 				DOT: out std_logic; 
 				-- 4 LEDs on Mercury board (3 and 2 are used by VGA VSYNC and HSYNC)
-				--LED: out std_logic_vector(1 downto 0);
+				LED: out std_logic_vector(1 downto 0);
 
 				-- ADC interface
 				-- channel	input
@@ -89,8 +89,8 @@ entity host is
 				--ADC_MOSI: out std_logic;
 				--ADC_SCK: out std_logic;
 				--ADC_CSN: out std_logic;
-				PS2_DATA: in std_logic;
-				PS2_CLOCK: in std_logic;
+				--PS2_DATA: in std_logic;
+				--PS2_CLOCK: in std_logic;
 
 				--VGA interface
 				--register state is traced to VGA after each instruction if SW0 = on
@@ -226,6 +226,15 @@ component configurabledelayline is
            signal_out : out  STD_LOGIC);
 end component;
 
+component rx_reg is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           enable : in  STD_LOGIC;
+           rx : in  STD_LOGIC;
+           d : out  STD_LOGIC_VECTOR (7 downto 0);
+           dready : out  STD_LOGIC);
+end component;
+
 signal freq25M, freq12M5: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
@@ -235,6 +244,8 @@ signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0);
 signal RESET: std_logic;
 ---
 signal kbd_data_ready: std_logic;
+signal dready1, dready0: std_logic;
+signal rx_char0, rx_char1: std_logic_vector(7 downto 0);
 signal data: std_logic_vector(31 downto 0);
 signal kbd_data: unsigned(7 downto 0);
 signal showlock: std_logic_vector(3 downto 0);
@@ -247,16 +258,16 @@ begin
    
 RESET <= USR_BTN;
 	
-capture: process(kbd_data, kbd_data_ready, RESET)
-begin
-	if (RESET = '1') then
-		data <= X"DEADBEEF";
-	else
-		if (falling_edge(kbd_data_ready)) then
-			data <= data(23 downto 0) & std_logic_vector(kbd_data);
-		end if;
-	end if;
-end process; 	
+--capture: process(kbd_data, kbd_data_ready, RESET)
+--begin
+--	if (RESET = '1') then
+--		data <= X"DEADBEEF";
+--	else
+--		if (falling_edge(kbd_data_ready)) then
+--			data <= data(23 downto 0) & std_logic_vector(kbd_data);
+--		end if;
+--	end if;
+--end process; 	
 
 --kbd: ps2_keyboard generic map ( 
 --			CLK_FREQ_MHZ => 50
@@ -343,10 +354,10 @@ baudgen: sn74hc4040 port map (
 			q6_2 => freq600, 	
 			q7_4 => freq300,		
 			q8_13 => open,		
-			q9_12 =>  PMOD(3),	
-			q10_14 => PMOD(2),
-			q11_15 => PMOD(1),
-			q12_1 =>  PMOD(0)	
+			q9_12 =>  open,	
+			q10_14 => open,
+			q11_15 => open,
+			q12_1 =>  open	
 		);
 	
 	video: Grafika port map (
@@ -367,8 +378,8 @@ baudgen: sn74hc4040 port map (
 	
 	RED <= "000";
 	GRN <= "000";
-	--LED(0) <= not BTN(0);
-	--LED(1) <= not BTN(1);
+	LED(0) <= not PMOD(1);
+	LED(1) <= not PMOD(2);
 	
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
@@ -403,10 +414,10 @@ cnt_vsync: signalcounter Port map (
 hexsel <= SW(1) & digsel;
 
 with hexsel select
-	hexdata <= 	hsync_cnt(3 downto 0) when "000",
-					hsync_cnt(7 downto 4) when "001",
-					hsync_cnt(11 downto 8) when "010",
-					hsync_cnt(15 downto 12) when "011",
+	hexdata <= 	data(3 downto 0) when "000",
+					data(7 downto 4) when "001",
+					data(11 downto 8) when "010",
+					data(15 downto 12) when "011",
 					vsync_cnt(3 downto 0) when "100",
 					vsync_cnt(7 downto 4) when "101",
 					vsync_cnt(11 downto 8) when "110",
@@ -422,4 +433,36 @@ testdelay: configurabledelayline Port map (
 				signal_out => digsel0_delayed
 		);
 					
+rx0: rx_reg Port map (
+			clk => freq9600,
+         reset => RESET,
+         enable => (not dready1),
+         rx => PMOD(2),
+         d => rx_char0,
+         dready => dready0
+	);
+
+capture0: process(dready0, rx_char0)
+begin
+	if (rising_edge(dready0)) then
+		data(7 downto 0) <= rx_char0;
+	end if;
+end process;
+
+rx1: rx_reg Port map (
+			clk => not(freq9600),
+         reset => RESET,
+         enable => (not dready0),
+         rx => PMOD(2),
+         d => rx_char1,
+         dready => dready1
+	);
+
+capture1: process(dready1, rx_char1)
+begin
+	if (rising_edge(dready1)) then
+		data(15 downto 8) <= rx_char1;
+	end if;
+end process;
+			  
 end;

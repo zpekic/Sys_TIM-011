@@ -9,35 +9,35 @@ Target Device  : xc3s200a
 Target Package : vq100
 Target Speed   : -4
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Sun Sep 06 22:09:33 2020
+Mapped Date    : Wed Sep 09 22:46:08 2020
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:   11
+Number of warnings:   14
 Logic Utilization:
-  Number of Slice Flip Flops:           169 out of   3,584    4%
-  Number of 4 input LUTs:               141 out of   3,584    3%
+  Number of Slice Flip Flops:           136 out of   3,584    3%
+  Number of 4 input LUTs:               107 out of   3,584    2%
 Logic Distribution:
-  Number of occupied Slices:            122 out of   1,792    6%
-    Number of Slices containing only related logic:     122 out of     122 100%
-    Number of Slices containing unrelated logic:          0 out of     122   0%
+  Number of occupied Slices:            101 out of   1,792    5%
+    Number of Slices containing only related logic:     101 out of     101 100%
+    Number of Slices containing unrelated logic:          0 out of     101   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         164 out of   3,584    4%
-    Number used as logic:               141
-    Number used as a route-thru:         23
+  Total Number of 4 input LUTs:         120 out of   3,584    3%
+    Number used as logic:               107
+    Number used as a route-thru:         13
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                 45 out of      68   66%
-  Number of BUFGMUXs:                     1 out of      24    4%
+  Number of bonded IOBs:                 46 out of      68   67%
+  Number of BUFGMUXs:                     2 out of      24    8%
 
-Average Fanout of Non-Clock Nets:                2.50
+Average Fanout of Non-Clock Nets:                2.41
 
-Peak Memory Usage:  256 MB
-Total REAL time to MAP completion:  10 secs 
-Total CPU time to MAP completion:   4 secs 
+Peak Memory Usage:  276 MB
+Total REAL time to MAP completion:  33 secs 
+Total CPU time to MAP completion:   12 secs 
 
 NOTES:
 
@@ -78,6 +78,12 @@ Section 1 - Errors
 
 Section 2 - Warnings
 --------------------
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready0 is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready1 is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <SW<2>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <SW<3>_IBUF> is incomplete. The signal
@@ -98,15 +104,17 @@ WARNING:PhysDesignRules:367 - The signal <BTN<2>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <BTN<3>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <PS2_DATA_IBUF> is incomplete. The
+WARNING:PhysDesignRules:367 - The signal <PMOD<0>_IBUF> is incomplete. The
+   signal does not drive any load pins in the design.
+WARNING:PhysDesignRules:367 - The signal <PMOD<3>_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
 
 Section 3 - Informational
 -------------------------
-INFO:LIT:243 - Logical network PS2_CLOCK has no load.
+INFO:LIT:243 - Logical network PMOD<0>_IBUF has no load.
 INFO:LIT:395 - The above info message is repeated 11 more times for the
    following (max. 5 shown):
-   PS2_DATA_IBUF,
+   PMOD<3>_IBUF,
    BTN<3>_IBUF,
    BTN<2>_IBUF,
    BTN<1>_IBUF,
@@ -162,15 +170,16 @@ Section 6 - IOB Properties
 | GRN<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | GRN<2>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | HSYNC                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PMOD<0>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PMOD<1>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PMOD<2>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PMOD<3>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| LED<0>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| LED<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| PMOD<0>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
+| PMOD<1>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
+| PMOD<2>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
+| PMOD<3>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | PMOD<4>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<5>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<6>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<7>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PS2_DATA                           | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | RED<0>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | RED<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | RED<2>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |

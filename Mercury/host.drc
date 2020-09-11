@@ -1,10 +1,16 @@
 Release 14.7 Drc P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Sun Sep 06 22:10:25 2020
+Wed Sep 09 22:48:22 2020
 
 drc -z host.ncd host.pcf
 
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready0 is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready1 is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <SW<2>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <SW<3>_IBUF> is incomplete. The signal
@@ -25,7 +31,9 @@ WARNING:PhysDesignRules:367 - The signal <BTN<2>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <BTN<3>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <PS2_DATA_IBUF> is incomplete. The
+WARNING:PhysDesignRules:367 - The signal <PMOD<0>_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
-DRC detected 0 errors and 11 warnings.  Please see the previously displayed
+WARNING:PhysDesignRules:367 - The signal <PMOD<3>_IBUF> is incomplete. The
+   signal does not drive any load pins in the design.
+DRC detected 0 errors and 14 warnings.  Please see the previously displayed
 individual error or warning messages for more details.
