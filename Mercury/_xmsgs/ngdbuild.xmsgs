@@ -5,6 +5,214 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;PS2_DATA&quot;  LOC = &quot;P13&quot; |&gt; [baseboard.ucf(19)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_DATA</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;PS2_DATA&quot;  LOC = &quot;P13&quot; |&gt; [baseboard.ucf(19)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(19)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_DATA</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;PS2_CLK&quot;   LOC = &quot;P15&quot; |&gt; [baseboard.ucf(20)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_CLK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;PS2_CLK&quot;   LOC = &quot;P15&quot; |&gt; [baseboard.ucf(20)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(20)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_CLK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;AUDIO_OUT_R&quot; LOC = &quot;P88&quot; |&gt; [baseboard.ucf(76)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_R</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;AUDIO_OUT_R&quot; LOC = &quot;P88&quot; |&gt; [baseboard.ucf(76)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(76)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_R</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;AUDIO_OUT_L&quot; LOC = &quot;P86&quot; |&gt; [baseboard.ucf(77)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_L</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;AUDIO_OUT_L&quot; LOC = &quot;P86&quot; |&gt; [baseboard.ucf(77)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(77)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_L</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SWITCH_OEN&quot; LOC = &quot;P3&quot;  |&gt; [baseboard.ucf(80)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SWITCH_OEN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SWITCH_OEN&quot; LOC = &quot;P3&quot;  |&gt; [baseboard.ucf(80)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(80)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SWITCH_OEN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;MEMORY_OEN&quot; LOC = &quot;P30&quot; |&gt; [baseboard.ucf(81)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">MEMORY_OEN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;MEMORY_OEN&quot; LOC = &quot;P30&quot; |&gt; [baseboard.ucf(81)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(81)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">MEMORY_OEN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;FPGA_CSN&quot;	 LOC = &quot;P39&quot; |&gt; [baseboard.ucf(84)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FPGA_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;FPGA_CSN&quot;	 LOC = &quot;P39&quot; |&gt; [baseboard.ucf(84)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(84)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FPGA_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;FLASH_CSN&quot;  LOC = &quot;P27&quot; |&gt; [baseboard.ucf(85)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FLASH_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;FLASH_CSN&quot;  LOC = &quot;P27&quot; |&gt; [baseboard.ucf(85)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(85)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FLASH_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_MOSI&quot; LOC = &quot;P46&quot; |&gt; [baseboard.ucf(86)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MOSI</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_MOSI&quot; LOC = &quot;P46&quot; |&gt; [baseboard.ucf(86)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(86)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MOSI</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_MISO&quot; LOC = &quot;P51&quot; |&gt; [baseboard.ucf(87)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MISO</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_MISO&quot; LOC = &quot;P51&quot; |&gt; [baseboard.ucf(87)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(87)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MISO</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_SCK&quot;  LOC = &quot;P53&quot; |&gt; [baseboard.ucf(88)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_SCK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_SCK&quot;  LOC = &quot;P53&quot; |&gt; [baseboard.ucf(88)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(88)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_SCK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_MISO&quot;	LOC = &quot;P21&quot; |&gt; [baseboard.ucf(91)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MISO</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_MISO&quot;	LOC = &quot;P21&quot; |&gt; [baseboard.ucf(91)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(91)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MISO</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_MOSI&quot;	LOC = &quot;P10&quot; |&gt; [baseboard.ucf(92)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MOSI</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_MOSI&quot;	LOC = &quot;P10&quot; |&gt; [baseboard.ucf(92)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(92)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MOSI</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_SCK&quot; 	LOC = &quot;P9&quot;  |&gt; [baseboard.ucf(93)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_SCK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_SCK&quot; 	LOC = &quot;P9&quot;  |&gt; [baseboard.ucf(93)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(93)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_SCK</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_CSN&quot;	LOC = &quot;P12&quot; |&gt; [baseboard.ucf(94)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
+<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_CSN&quot;	LOC = &quot;P12&quot; |&gt; [baseboard.ucf(94)]&apos; could not be found and so the Locate constraint will be removed.
+</msg>
+
+<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(94)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_CSN</arg>&quot; not found.  Please verify that:
+1. The specified design element actually exists in the original design.
+2. The specified object is spelled correctly in the constraint source file.
+</msg>
+
 <msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;LED&lt;2&gt;&quot;	LOC = &quot;P16&quot; |&gt; [mercury.ucf(20)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">LED&lt;2&gt;</arg>&quot; not found.  Please verify that:
 1. The specified design element actually exists in the original design.
 2. The specified object is spelled correctly in the constraint source file.
@@ -746,215 +954,7 @@
 2. The specified object is spelled correctly in the constraint source file.
 </msg>
 
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;PS2_DATA&quot;  LOC = &quot;P13&quot; |&gt; [baseboard.ucf(19)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_DATA</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;PS2_DATA&quot;  LOC = &quot;P13&quot; |&gt; [baseboard.ucf(19)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(19)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_DATA</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;PS2_CLK&quot;   LOC = &quot;P15&quot; |&gt; [baseboard.ucf(20)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;PS2_CLK&quot;   LOC = &quot;P15&quot; |&gt; [baseboard.ucf(20)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(20)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;AUDIO_OUT_R&quot; LOC = &quot;P88&quot; |&gt; [baseboard.ucf(76)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_R</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;AUDIO_OUT_R&quot; LOC = &quot;P88&quot; |&gt; [baseboard.ucf(76)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(76)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_R</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;AUDIO_OUT_L&quot; LOC = &quot;P86&quot; |&gt; [baseboard.ucf(77)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_L</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;AUDIO_OUT_L&quot; LOC = &quot;P86&quot; |&gt; [baseboard.ucf(77)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(77)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">AUDIO_OUT_L</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SWITCH_OEN&quot; LOC = &quot;P3&quot;  |&gt; [baseboard.ucf(80)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SWITCH_OEN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SWITCH_OEN&quot; LOC = &quot;P3&quot;  |&gt; [baseboard.ucf(80)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(80)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SWITCH_OEN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;MEMORY_OEN&quot; LOC = &quot;P30&quot; |&gt; [baseboard.ucf(81)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">MEMORY_OEN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;MEMORY_OEN&quot; LOC = &quot;P30&quot; |&gt; [baseboard.ucf(81)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(81)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">MEMORY_OEN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;FPGA_CSN&quot;	 LOC = &quot;P39&quot; |&gt; [baseboard.ucf(84)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FPGA_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;FPGA_CSN&quot;	 LOC = &quot;P39&quot; |&gt; [baseboard.ucf(84)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(84)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FPGA_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;FLASH_CSN&quot;  LOC = &quot;P27&quot; |&gt; [baseboard.ucf(85)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FLASH_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;FLASH_CSN&quot;  LOC = &quot;P27&quot; |&gt; [baseboard.ucf(85)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(85)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">FLASH_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_MOSI&quot; LOC = &quot;P46&quot; |&gt; [baseboard.ucf(86)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MOSI</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_MOSI&quot; LOC = &quot;P46&quot; |&gt; [baseboard.ucf(86)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(86)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MOSI</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_MISO&quot; LOC = &quot;P51&quot; |&gt; [baseboard.ucf(87)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MISO</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_MISO&quot; LOC = &quot;P51&quot; |&gt; [baseboard.ucf(87)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(87)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_MISO</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;SPI_SCK&quot;  LOC = &quot;P53&quot; |&gt; [baseboard.ucf(88)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_SCK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;SPI_SCK&quot;  LOC = &quot;P53&quot; |&gt; [baseboard.ucf(88)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(88)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">SPI_SCK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_MISO&quot;	LOC = &quot;P21&quot; |&gt; [baseboard.ucf(91)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MISO</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_MISO&quot;	LOC = &quot;P21&quot; |&gt; [baseboard.ucf(91)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(91)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MISO</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_MOSI&quot;	LOC = &quot;P10&quot; |&gt; [baseboard.ucf(92)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MOSI</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_MOSI&quot;	LOC = &quot;P10&quot; |&gt; [baseboard.ucf(92)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(92)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_MOSI</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_SCK&quot; 	LOC = &quot;P9&quot;  |&gt; [baseboard.ucf(93)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_SCK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_SCK&quot; 	LOC = &quot;P9&quot;  |&gt; [baseboard.ucf(93)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(93)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_SCK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;ADC_CSN&quot;	LOC = &quot;P12&quot; |&gt; [baseboard.ucf(94)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;ADC_CSN&quot;	LOC = &quot;P12&quot; |&gt; [baseboard.ucf(94)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(94)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">ADC_CSN</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="NgdBuild" num="1345" delta="old" >The constraint <arg fmt="%s" index="1">&lt;TIMESPEC &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [mercury.ucf(15)]</arg> is overridden by the constraint <arg fmt="%s" index="2">&lt;TIMESPEC        &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [baseboard.ucf(16)]</arg>. The overriden constraint usually comes from the input netlist or ncf files. Please set XIL_NGDBUILD_CONSTR_OVERRIDE_ERROR to promote this message to an error.
+<msg type="warning" file="NgdBuild" num="1345" delta="old" >The constraint <arg fmt="%s" index="1">&lt;TIMESPEC        &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [baseboard.ucf(16)]</arg> is overridden by the constraint <arg fmt="%s" index="2">&lt;TIMESPEC &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [mercury.ucf(15)]</arg>. The overriden constraint usually comes from the input netlist or ncf files. Please set XIL_NGDBUILD_CONSTR_OVERRIDE_ERROR to promote this message to an error.
 </msg>
 
 <msg type="warning" file="NgdBuild" num="470" delta="old" ><arg fmt="%s" index="1">bidirect</arg> pad net &apos;<arg fmt="%s" index="2">PMOD&lt;0&gt;</arg>&apos; has no legal driver

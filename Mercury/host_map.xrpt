@@ -5,7 +5,7 @@
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Map" timeStamp="Wed Sep 09 22:46:41 2020">
+  <application stringID="Map" timeStamp="Thu Sep 10 22:33:33 2020">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
@@ -57,16 +57,16 @@
         <item dataType="int" stringID="MAP_NUM_ERRORS" value="0"/>
         <item dataType="int" stringID="MAP_FILTERED_WARNINGS" value="0"/>
         <item dataType="int" stringID="MAP_NUM_WARNINGS" value="14"/>
-        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="282532"/>
-        <item stringID="MAP_TOTAL_REAL_TIME" value="33 secs "/>
-        <item stringID="MAP_TOTAL_CPU_TIME" value="12 secs "/>
+        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="282552"/>
+        <item stringID="MAP_TOTAL_REAL_TIME" value="30 secs "/>
+        <item stringID="MAP_TOTAL_CPU_TIME" value="11 secs "/>
       </section>
       <section stringID="MAP_SLICE_REPORTING">
-        <item AVAILABLE="3584" dataType="int" label="Number of Slice Flip Flops" stringID="MAP_NUM_SLICE_FF" value="136"/>
-        <item AVAILABLE="3584" dataType="int" label="Number of 4 input LUTs" stringID="MAP_NUM_4_INPUT_LUT" value="120">
+        <item AVAILABLE="3584" dataType="int" label="Number of Slice Flip Flops" stringID="MAP_NUM_SLICE_FF" value="130"/>
+        <item AVAILABLE="3584" dataType="int" label="Number of 4 input LUTs" stringID="MAP_NUM_4_INPUT_LUT" value="130">
           <item dataType="int" label="Number of route-thrus" stringID="MAP_NUM_LUT_RT" value="13"/>
         </item>
-        <item AVAILABLE="1792" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="101">
+        <item AVAILABLE="1792" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="97">
           <item dataType="int" label="Number of Slices containing unrelated logic" stringID="MAP_NUM_SLICE_UNRELATED" value="0"/>
         </item>
       </section>

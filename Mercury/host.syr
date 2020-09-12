@@ -3,14 +3,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.70 secs
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 4.67 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.71 secs
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 4.68 secs
  
 --> Reading design: host.prj
 
@@ -127,10 +127,10 @@ Architecture behavioral of Entity signalcounter is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/configurabledelayline.vhd" in Library work.
 Architecture behavioral of Entity configurabledelayline is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/rx_reg.vhd" in Library work.
-Entity <rx_reg> compiled.
-Entity <rx_reg> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity rx_reg is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" in Library work.
-Architecture structural of Entity host is up to date.
+Entity <host> compiled.
+Entity <host> (Architecture <structural>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
@@ -287,12 +287,12 @@ Unit <configurabledelayline> synthesized.
 Synthesizing Unit <rx_reg>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/rx_reg.vhd".
 WARNING:Xst:646 - Signal <shiftreg<11>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-    Found 4-bit register for signal <bitcnt>.
-    Found 4-bit subtractor for signal <bitcnt$addsub0000> created at line 72.
+WARNING:Xst:1780 - Signal <bitcnt> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+    Found 1-bit xor9 for signal <odd>.
     Found 12-bit register for signal <shiftreg>.
     Summary:
-	inferred  16 D-type flip-flop(s).
-	inferred   1 Adder/Subtractor(s).
+	inferred  12 D-type flip-flop(s).
+	inferred   1 Xor(s).
 Unit <rx_reg> synthesized.
 
 
@@ -412,23 +412,22 @@ HDL Synthesis Report
 Macro Statistics
 # ROMs                                                 : 1
  16x7-bit ROM                                          : 1
-# Adders/Subtractors                                   : 2
- 4-bit subtractor                                      : 2
 # Counters                                             : 6
  10-bit down counter                                   : 1
  12-bit up counter                                     : 3
  16-bit up counter                                     : 2
-# Registers                                            : 25
+# Registers                                            : 23
  1-bit register                                        : 18
  12-bit register                                       : 2
  16-bit register                                       : 3
- 4-bit register                                        : 2
 # Multiplexers                                         : 3
  1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
+# Xors                                                 : 2
+ 1-bit xor9                                            : 2
 
 =========================================================================
 
@@ -444,12 +443,9 @@ WARNING:Xst:1290 - Hierarchical block <u29> is unconnected in block <video>.
    It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <testdelay> is unconnected in block <host>.
    It will be removed from the design.
-WARNING:Xst:2677 - Node <shiftreg_10> of sequential type is unconnected in block <rx0>.
 WARNING:Xst:2677 - Node <shiftreg_11> of sequential type is unconnected in block <rx0>.
-WARNING:Xst:2677 - Node <shiftreg_10> of sequential type is unconnected in block <rx1>.
 WARNING:Xst:2677 - Node <shiftreg_11> of sequential type is unconnected in block <rx1>.
 WARNING:Xst:2677 - Node <line_15> of sequential type is unconnected in block <configurabledelayline>.
-WARNING:Xst:2677 - Node <shiftreg_10> of sequential type is unconnected in block <rx_reg>.
 WARNING:Xst:2677 - Node <shiftreg_11> of sequential type is unconnected in block <rx_reg>.
 
 =========================================================================
@@ -458,20 +454,20 @@ Advanced HDL Synthesis Report
 Macro Statistics
 # ROMs                                                 : 1
  16x7-bit ROM                                          : 1
-# Adders/Subtractors                                   : 2
- 4-bit subtractor                                      : 2
 # Counters                                             : 6
  10-bit down counter                                   : 1
  12-bit up counter                                     : 3
  16-bit up counter                                     : 2
-# Registers                                            : 93
- Flip-Flops                                            : 93
+# Registers                                            : 87
+ Flip-Flops                                            : 87
 # Multiplexers                                         : 3
  1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
+# Xors                                                 : 2
+ 1-bit xor9                                            : 2
 
 =========================================================================
 
@@ -516,7 +512,6 @@ WARNING:Xst:2677 - Node <testdelay/line_1> of sequential type is unconnected in 
 WARNING:Xst:2677 - Node <testdelay/line_0> of sequential type is unconnected in block <host>.
 
 Mapping all equations...
-WARNING:Xst:2170 - Unit host : the following signal(s) form a combinatorial loop: dready0, dready1, N12, N14.
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 4.
 FlipFlop cnt_vsync/previous_input has been replicated 2 time(s)
@@ -527,8 +522,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 136
- Flip-Flops                                            : 136
+# Registers                                            : 130
+ Flip-Flops                                            : 130
 
 =========================================================================
 
@@ -557,26 +552,25 @@ Design Statistics
 # IOs                              : 46
 
 Cell Usage :
-# BELS                             : 249
+# BELS                             : 261
 #      GND                         : 1
 #      INV                         : 19
 #      LUT1                        : 13
 #      LUT2                        : 20
-#      LUT2_L                      : 4
-#      LUT3                        : 50
-#      LUT4                        : 21
+#      LUT3                        : 68
+#      LUT4                        : 17
 #      LUT4_L                      : 1
 #      MUXCY                       : 51
-#      MUXF5                       : 8
+#      MUXF5                       : 10
 #      MUXF6                       : 4
 #      VCC                         : 1
 #      XORCY                       : 56
-# FlipFlops/Latches                : 136
+# FlipFlops/Latches                : 130
 #      FD                          : 16
 #      FDC                         : 14
 #      FDCE                        : 32
 #      FDE                         : 36
-#      FDP                         : 28
+#      FDP                         : 22
 #      FDR                         : 5
 #      FDS                         : 5
 # Clock Buffers                    : 2
@@ -592,9 +586,9 @@ Device utilization summary:
 
 Selected Device : 3s200avq100-4 
 
- Number of Slices:                       87  out of   1792     4%  
- Number of Slice Flip Flops:            136  out of   3584     3%  
- Number of 4 input LUTs:                128  out of   3584     3%  
+ Number of Slices:                       84  out of   1792     4%  
+ Number of Slice Flip Flops:            130  out of   3584     3%  
+ Number of 4 input LUTs:                138  out of   3584     3%  
  Number of IOs:                          46
  Number of bonded IOBs:                  34  out of     68    50%  
  Number of GCLKs:                         2  out of     24     8%  
@@ -621,10 +615,10 @@ Clock Information:
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
 CLK                                | BUFGP                  | 90    |
-dready1(rx1/dready:O)              | NONE(*)(data_10)       | 8     |
-dready0(rx0/dready:O)              | NONE(*)(data_0)        | 8     |
+dready1(rx1/dready22:O)            | NONE(*)(data_10)       | 8     |
+dready0(rx0/dready22:O)            | NONE(*)(data_0)        | 8     |
 freq38400                          | NONE(baudgen/q_1)      | 2     |
-baudgen/q_21                       | BUFG                   | 28    |
+baudgen/q_21                       | BUFG                   | 22    |
 -----------------------------------+------------------------+-------+
 (*) These 2 clock signal(s) are generated by combinatorial logic,
 and XST is not able to identify which are the primary clock signals.
@@ -636,7 +630,7 @@ Asynchronous Control Signals Information:
 -----------------------------------+------------------------+-------+
 Control Signal                     | Buffer(FF name)        | Load  |
 -----------------------------------+------------------------+-------+
-USR_BTN                            | IBUF                   | 74    |
+USR_BTN                            | IBUF                   | 68    |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
@@ -644,7 +638,7 @@ Timing Summary:
 Speed Grade: -4
 
    Minimum period: 4.885ns (Maximum Frequency: 204.708MHz)
-   Minimum input arrival time before clock: 4.262ns
+   Minimum input arrival time before clock: 4.261ns
    Maximum output required time after clock: 9.883ns
    Maximum combinational path delay: 10.823ns
 
@@ -715,32 +709,31 @@ Delay:               3.606ns (Levels of Logic = 2)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'baudgen/q_21'
-  Clock period: 3.018ns (frequency: 331.345MHz)
-  Total number of paths / destination ports: 50 / 26
+  Clock period: 2.499ns (frequency: 400.160MHz)
+  Total number of paths / destination ports: 56 / 20
 -------------------------------------------------------------------------
-Delay:               3.018ns (Levels of Logic = 2)
-  Source:            rx1/bitcnt_3 (FF)
-  Destination:       rx1/bitcnt_2 (FF)
+Delay:               2.499ns (Levels of Logic = 1)
+  Source:            rx1/shiftreg_0 (FF)
+  Destination:       rx1/shiftreg_10 (FF)
   Source Clock:      baudgen/q_21 falling
   Destination Clock: baudgen/q_21 falling
 
-  Data Path: rx1/bitcnt_3 to rx1/bitcnt_2
+  Data Path: rx1/shiftreg_0 to rx1/shiftreg_10
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP:C->Q              5   0.591   0.776  rx1/bitcnt_3 (rx1/bitcnt_3)
-     LUT2_L:I0->LO         1   0.648   0.103  rx1/bitcnt_mux0000<1>_SW0 (N20)
-     LUT4:I3->O            1   0.648   0.000  rx1/bitcnt_mux0000<1> (rx1/bitcnt_mux0000<1>)
-     FDP:D                     0.252          rx1/bitcnt_2
+     FDP:C->Q             11   0.591   1.013  rx1/shiftreg_0 (rx1/shiftreg_0)
+     LUT3:I1->O            1   0.643   0.000  rx1/shiftreg_mux0001<9>1 (rx1/shiftreg_mux0001<9>)
+     FDP:D                     0.252          rx1/shiftreg_9
     ----------------------------------------
-    Total                      3.018ns (2.139ns logic, 0.879ns route)
-                                       (70.9% logic, 29.1% route)
+    Total                      2.499ns (1.486ns logic, 1.013ns route)
+                                       (59.5% logic, 40.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
   Total number of paths / destination ports: 35 / 35
 -------------------------------------------------------------------------
-Offset:              4.262ns (Levels of Logic = 2)
+Offset:              4.261ns (Levels of Logic = 2)
   Source:            USR_BTN (PAD)
   Destination:       cnt_vsync/capture_lo_15 (FF)
   Destination Clock: CLK rising
@@ -749,33 +742,31 @@ Offset:              4.262ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            77   0.849   1.419  USR_BTN_IBUF (USR_BTN_IBUF)
+     IBUF:I->O            71   0.849   1.418  USR_BTN_IBUF (USR_BTN_IBUF)
      LUT3:I0->O           16   0.648   1.034  cnt_vsync/capture_lo_and00001 (cnt_vsync/capture_lo_and0000)
      FDE:CE                    0.312          cnt_vsync/capture_lo_0
     ----------------------------------------
-    Total                      4.262ns (1.809ns logic, 2.453ns route)
-                                       (42.4% logic, 57.6% route)
+    Total                      4.261ns (1.809ns logic, 2.452ns route)
+                                       (42.5% logic, 57.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'baudgen/q_21'
-  Total number of paths / destination ports: 6 / 6
+  Total number of paths / destination ports: 2 / 2
 -------------------------------------------------------------------------
-Offset:              3.283ns (Levels of Logic = 3)
+Offset:              1.632ns (Levels of Logic = 1)
   Source:            PMOD<2> (PAD)
-  Destination:       rx1/bitcnt_2 (FF)
+  Destination:       rx1/shiftreg_0 (FF)
   Destination Clock: baudgen/q_21 falling
 
-  Data Path: PMOD<2> to rx1/bitcnt_2
+  Data Path: PMOD<2> to rx1/shiftreg_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             7   0.849   0.788  PMOD_2_IBUF (PMOD_2_IBUF)
-     LUT2_L:I1->LO         1   0.643   0.103  rx1/bitcnt_mux0000<2>_SW0 (N16)
-     LUT4:I3->O            1   0.648   0.000  rx1/bitcnt_mux0000<2> (rx1/bitcnt_mux0000<2>)
-     FDP:D                     0.252          rx1/bitcnt_1
+     IBUF:I->O             3   0.849   0.531  PMOD_2_IBUF (PMOD_2_IBUF)
+     FDP:D                     0.252          rx1/shiftreg_0
     ----------------------------------------
-    Total                      3.283ns (2.392ns logic, 0.891ns route)
-                                       (72.9% logic, 27.1% route)
+    Total                      1.632ns (1.101ns logic, 0.531ns route)
+                                       (67.5% logic, 32.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
@@ -873,14 +864,14 @@ Delay:               10.823ns (Levels of Logic = 7)
 =========================================================================
 
 
-Total REAL time to Xst completion: 54.00 secs
-Total CPU time to Xst completion: 54.09 secs
+Total REAL time to Xst completion: 42.00 secs
+Total CPU time to Xst completion: 41.93 secs
  
 --> 
 
-Total memory usage is 269340 kilobytes
+Total memory usage is 284848 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  118 (   0 filtered)
+Number of warnings :  115 (   0 filtered)
 Number of infos    :    1 (   0 filtered)
 

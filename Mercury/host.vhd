@@ -436,7 +436,7 @@ testdelay: configurabledelayline Port map (
 rx0: rx_reg Port map (
 			clk => freq9600,
          reset => RESET,
-         enable => (not dready1),
+         enable => '1', --(not dready1),
          rx => PMOD(2),
          d => rx_char0,
          dready => dready0
@@ -452,7 +452,7 @@ end process;
 rx1: rx_reg Port map (
 			clk => not(freq9600),
          reset => RESET,
-         enable => (not dready0),
+         enable => '1', --(not dready0),
          rx => PMOD(2),
          d => rx_char1,
          dready => dready1

@@ -5,7 +5,7 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="ConstraintSystem" num="65" delta="old" >Constraint <arg fmt="%s" index="1">&lt;TIMESPEC        &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [baseboard.ucf(16)]</arg> overrides constraint <arg fmt="%s" index="2">&lt;TIMESPEC &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [mercury.ucf(15)]</arg>.
+<msg type="warning" file="ConstraintSystem" num="65" delta="old" >Constraint <arg fmt="%s" index="1">&lt;TIMESPEC &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [mercury.ucf(15)]</arg> overrides constraint <arg fmt="%s" index="2">&lt;TIMESPEC        &quot;TS_CLK&quot; = PERIOD &quot;CLK&quot; 20 ns HIGH 50 %;&gt; [baseboard.ucf(16)]</arg>.
 </msg>
 
 <msg type="info" file="Timing" num="3412" delta="old" >To improve timing, see the Timing Closure User Guide (UG612).</msg>

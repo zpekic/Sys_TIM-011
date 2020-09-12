@@ -40,40 +40,59 @@ end rx_reg;
 
 architecture Behavioral of rx_reg is
 
-signal frame: std_logic;
+signal odd, frame: std_logic;
 signal shiftreg: std_logic_vector(11 downto 0);
 signal bitcnt: integer range 0 to 15;
 
 begin
 
-frame <= (not shiftreg(9)) and shiftreg(0) when (bitcnt = 0) else '0';
-dready <= frame and enable;
-
 flipbits: for i in 0 to 7 generate
-    d(i) <= shiftreg(8 - i);
+    d(i) <= shiftreg(9 - i);
 end generate flipbits;
-  
-receive: process(clk, reset, rx, bitcnt)
+
+frame <= (not shiftreg(10)) and shiftreg(0); -- when (bitcnt = 0) else '0';
+odd <= shiftreg(9) xor shiftreg(8) xor shiftreg(7) xor shiftreg(6) xor shiftreg(5) xor shiftreg(4) xor shiftreg(3) xor shiftreg(2) xor shiftreg(1);
+dready <= frame and enable and odd;
+
+receive: process(clk, reset, rx, frame, enable)
 begin
 	if (reset = '1') then
 		shiftreg <= X"FFF";
-		bitcnt <= 15;
 	else
 		if (rising_edge(clk)) then
-			shiftreg <= shiftreg(10 downto 0) & rx;
-			case (bitcnt) is
-				when 15 =>
-					if (rx = '0') then
-						bitcnt <= 9;
-					end if;
-				when 0 =>
-					bitcnt <= 15;
-				when others =>
-					bitcnt <= bitcnt - 1;
-			end case;
+			if ((frame and enable) = '1') then
+				shiftreg <= "11111111111" & rx;
+			else
+				shiftreg <= shiftreg(10 downto 0) & rx;
+			end if;
 		end if;
 	end if;
 end process;
+
+--frame <= (not shiftreg(9)) and shiftreg(0) when (bitcnt = 0) else '0';
+--dready <= frame and enable;
+--
+--receive: process(clk, reset, rx, bitcnt)
+--begin
+--	if (reset = '1') then
+--		shiftreg <= X"FFF";
+--		bitcnt <= 15;
+--	else
+--		if (rising_edge(clk)) then
+--			shiftreg <= shiftreg(10 downto 0) & rx;
+--			case (bitcnt) is
+--				when 15 =>
+--					if (rx = '0') then
+--						bitcnt <= 9;
+--					end if;
+--				when 0 =>
+--					bitcnt <= 15;
+--				when others =>
+--					bitcnt <= bitcnt - 1;
+--			end case;
+--		end if;
+--	end if;
+--end process;
 
 end Behavioral;
 
