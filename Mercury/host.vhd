@@ -252,6 +252,7 @@ signal showlock: std_logic_vector(3 downto 0);
 ---
 signal prescale_cnt: integer range 0 to 1023;
 signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq_uart: std_logic;
 
 
 begin
@@ -432,9 +433,20 @@ testdelay: configurabledelayline Port map (
 				signal_in => digsel(0),
 				signal_out => digsel0_delayed
 		);
-					
+
+with SW(7 downto 5) select
+		freq_uart <= 	freq38400 when "111",
+							freq19200 when "110", 
+							freq9600 when "101",
+							freq4800 when "100",		
+							freq2400 when "011",		
+							freq1200 when "010",		
+							freq600 when "001", 	
+							freq300 when others;		
+
+		
 rx0: rx_reg Port map (
-			clk => freq9600,
+			clk => freq_uart,
          reset => RESET,
          enable => '1', --(not dready1),
          rx => PMOD(2),
@@ -450,7 +462,7 @@ begin
 end process;
 
 rx1: rx_reg Port map (
-			clk => not(freq9600),
+			clk => not(freq_uart),
          reset => RESET,
          enable => '1', --(not dready0),
          rx => PMOD(2),

@@ -9,17 +9,17 @@ Target Device  : xc3s200a
 Target Package : vq100
 Target Speed   : -4
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Thu Sep 10 22:33:03 2020
+Mapped Date    : Fri Sep 11 18:12:08 2020
 
 Mapping design into LUTs...
 Running directed packing...
 Running delay-based LUT packing...
 Running related packing...
 Updating timing models...
-WARNING:PhysDesignRules:372 - Gated clock. Clock net dready1 is sourced by a
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready0 is sourced by a
    combinatorial pin. This is not good design practice. Use the CE pin to
    control the loading of data into the flip-flop.
-WARNING:PhysDesignRules:372 - Gated clock. Clock net dready0 is sourced by a
+WARNING:PhysDesignRules:372 - Gated clock. Clock net dready1 is sourced by a
    combinatorial pin. This is not good design practice. Use the CE pin to
    control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <SW<2>_IBUF> is incomplete. The signal
@@ -27,12 +27,6 @@ WARNING:PhysDesignRules:367 - The signal <SW<2>_IBUF> is incomplete. The signal
 WARNING:PhysDesignRules:367 - The signal <SW<3>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <SW<4>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<5>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<6>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<7>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <BTN<0>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
@@ -52,18 +46,18 @@ Design Summary
 
 Design Summary:
 Number of errors:      0
-Number of warnings:   14
+Number of warnings:   11
 Logic Utilization:
-  Number of Slice Flip Flops:           130 out of   3,584    3%
-  Number of 4 input LUTs:               117 out of   3,584    3%
+  Number of Slice Flip Flops:           135 out of   3,584    3%
+  Number of 4 input LUTs:               121 out of   3,584    3%
 Logic Distribution:
-  Number of occupied Slices:             97 out of   1,792    5%
-    Number of Slices containing only related logic:      97 out of      97 100%
-    Number of Slices containing unrelated logic:          0 out of      97   0%
+  Number of occupied Slices:            102 out of   1,792    5%
+    Number of Slices containing only related logic:     102 out of     102 100%
+    Number of Slices containing unrelated logic:          0 out of     102   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         130 out of   3,584    3%
-    Number used as logic:               117
-    Number used as a route-thru:         13
+  Total Number of 4 input LUTs:         139 out of   3,584    3%
+    Number used as logic:               121
+    Number used as a route-thru:         18
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
@@ -71,11 +65,11 @@ Logic Distribution:
   Number of bonded IOBs:                 46 out of      68   67%
   Number of BUFGMUXs:                     2 out of      24    8%
 
-Average Fanout of Non-Clock Nets:                2.55
+Average Fanout of Non-Clock Nets:                2.72
 
-Peak Memory Usage:  276 MB
-Total REAL time to MAP completion:  30 secs 
-Total CPU time to MAP completion:   11 secs 
+Peak Memory Usage:  256 MB
+Total REAL time to MAP completion:  12 secs 
+Total CPU time to MAP completion:   4 secs 
 
 NOTES:
 

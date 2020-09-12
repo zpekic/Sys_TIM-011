@@ -3,14 +3,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 4.67 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.56 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 4.68 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.57 secs
  
 --> Reading design: host.prj
 
@@ -168,16 +168,16 @@ Analyzing hierarchy for entity <sn74s153> in library <work> (architecture <behav
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <host> in library <work> (Architecture <structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 317: Unconnected output port 'q7_4' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 317: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 317: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 317: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 346: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 346: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 346: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 346: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 346: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:754 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 363: Unconnected inout port 'd' of component 'Grafika'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 318: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 318: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 318: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 318: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 347: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 347: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 347: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 347: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 347: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:754 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 364: Unconnected inout port 'd' of component 'Grafika'.
 Entity <host> analyzed. Unit <host> generated.
 
 Analyzing Entity <sn74hc4040> in library <work> (Architecture <behavioral>).
@@ -375,22 +375,17 @@ WARNING:Xst:1780 - Signal <kbd_data_ready> is never used or assigned. This uncon
 WARNING:Xst:1780 - Signal <kbd_data> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <hsync_cnt> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <h> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq600> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq4800> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq300> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <freq25M> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq2400> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq19200> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <freq1200> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:1780 - Signal <data<31:16>> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
     Found 16-bit register for signal <data<15:0>>.
     Found 1-bit register for signal <freq38400>.
+    Found 1-bit 8-to-1 multiplexer for signal <freq_uart>.
     Found 4-bit 8-to-1 multiplexer for signal <hexdata>.
     Found 10-bit down counter for signal <prescale_cnt>.
     Summary:
 	inferred   1 Counter(s).
 	inferred  17 D-type flip-flop(s).
-	inferred   4 Multiplexer(s).
+	inferred   5 Multiplexer(s).
 Unit <host> synthesized.
 
 WARNING:Xst:524 - All outputs of the instance <u4> of the block <sn74ls374> are unconnected in block <Grafika>.
@@ -420,9 +415,10 @@ Macro Statistics
  1-bit register                                        : 18
  12-bit register                                       : 2
  16-bit register                                       : 3
-# Multiplexers                                         : 3
+# Multiplexers                                         : 4
  1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
+ 1-bit 8-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
@@ -460,9 +456,10 @@ Macro Statistics
  16-bit up counter                                     : 2
 # Registers                                            : 87
  Flip-Flops                                            : 87
-# Multiplexers                                         : 3
+# Multiplexers                                         : 4
  1-bit 16-to-1 multiplexer                             : 1
  1-bit 4-to-1 multiplexer                              : 1
+ 1-bit 8-to-1 multiplexer                              : 1
  4-bit 8-to-1 multiplexer                              : 1
 # Decoders                                             : 1
  1-of-4 decoder                                        : 1
@@ -474,11 +471,6 @@ Macro Statistics
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-WARNING:Xst:2677 - Node <baudgen/q_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <baudgen/q_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <baudgen/q_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <baudgen/q_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <baudgen/q_7> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <baudgen/q_8> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <baudgen/q_9> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <baudgen/q_10> of sequential type is unconnected in block <host>.
@@ -522,8 +514,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 130
- Flip-Flops                                            : 130
+# Registers                                            : 135
+ Flip-Flops                                            : 135
 
 =========================================================================
 
@@ -552,22 +544,22 @@ Design Statistics
 # IOs                              : 46
 
 Cell Usage :
-# BELS                             : 261
+# BELS                             : 283
 #      GND                         : 1
 #      INV                         : 19
-#      LUT1                        : 13
+#      LUT1                        : 18
 #      LUT2                        : 20
-#      LUT3                        : 68
+#      LUT3                        : 72
 #      LUT4                        : 17
 #      LUT4_L                      : 1
-#      MUXCY                       : 51
-#      MUXF5                       : 10
-#      MUXF6                       : 4
+#      MUXCY                       : 56
+#      MUXF5                       : 12
+#      MUXF6                       : 5
 #      VCC                         : 1
-#      XORCY                       : 56
-# FlipFlops/Latches                : 130
+#      XORCY                       : 61
+# FlipFlops/Latches                : 135
 #      FD                          : 16
-#      FDC                         : 14
+#      FDC                         : 19
 #      FDCE                        : 32
 #      FDE                         : 36
 #      FDP                         : 22
@@ -576,8 +568,8 @@ Cell Usage :
 # Clock Buffers                    : 2
 #      BUFG                        : 1
 #      BUFGP                       : 1
-# IO Buffers                       : 33
-#      IBUF                        : 5
+# IO Buffers                       : 36
+#      IBUF                        : 8
 #      OBUF                        : 28
 =========================================================================
 
@@ -586,11 +578,11 @@ Device utilization summary:
 
 Selected Device : 3s200avq100-4 
 
- Number of Slices:                       84  out of   1792     4%  
- Number of Slice Flip Flops:            130  out of   3584     3%  
- Number of 4 input LUTs:                138  out of   3584     3%  
+ Number of Slices:                       89  out of   1792     4%  
+ Number of Slice Flip Flops:            135  out of   3584     3%  
+ Number of 4 input LUTs:                147  out of   3584     4%  
  Number of IOs:                          46
- Number of bonded IOBs:                  34  out of     68    50%  
+ Number of bonded IOBs:                  37  out of     68    54%  
  Number of GCLKs:                         2  out of     24     8%  
 
 ---------------------------
@@ -611,16 +603,16 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
------------------------------------+------------------------+-------+
-Clock Signal                       | Clock buffer(FF name)  | Load  |
------------------------------------+------------------------+-------+
-CLK                                | BUFGP                  | 90    |
-dready1(rx1/dready22:O)            | NONE(*)(data_10)       | 8     |
-dready0(rx0/dready22:O)            | NONE(*)(data_0)        | 8     |
-freq38400                          | NONE(baudgen/q_1)      | 2     |
-baudgen/q_21                       | BUFG                   | 22    |
------------------------------------+------------------------+-------+
-(*) These 2 clock signal(s) are generated by combinatorial logic,
+-----------------------------------+-------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)   | Load  |
+-----------------------------------+-------------------------+-------+
+CLK                                | BUFGP                   | 90    |
+dready1(rx1/dready22:O)            | NONE(*)(data_10)        | 8     |
+dready0(rx0/dready22:O)            | NONE(*)(data_0)         | 8     |
+freq38400                          | NONE(baudgen/q_1)       | 7     |
+freq_uart1(Mmux_freq_uart_2_f6:O)  | BUFG(*)(rx1/shiftreg_10)| 22    |
+-----------------------------------+-------------------------+-------+
+(*) These 3 clock signal(s) are generated by combinatorial logic,
 and XST is not able to identify which are the primary clock signals.
 Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
 INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
@@ -630,7 +622,7 @@ Asynchronous Control Signals Information:
 -----------------------------------+------------------------+-------+
 Control Signal                     | Buffer(FF name)        | Load  |
 -----------------------------------+------------------------+-------+
-USR_BTN                            | IBUF                   | 68    |
+USR_BTN                            | IBUF                   | 73    |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
@@ -638,7 +630,7 @@ Timing Summary:
 Speed Grade: -4
 
    Minimum period: 4.885ns (Maximum Frequency: 204.708MHz)
-   Minimum input arrival time before clock: 4.261ns
+   Minimum input arrival time before clock: 4.262ns
    Maximum output required time after clock: 9.883ns
    Maximum combinational path delay: 10.823ns
 
@@ -686,37 +678,42 @@ Delay:               4.885ns (Levels of Logic = 17)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'freq38400'
-  Clock period: 3.606ns (frequency: 277.316MHz)
-  Total number of paths / destination ports: 3 / 2
+  Clock period: 4.622ns (frequency: 216.357MHz)
+  Total number of paths / destination ports: 28 / 7
 -------------------------------------------------------------------------
-Delay:               3.606ns (Levels of Logic = 2)
+Delay:               4.622ns (Levels of Logic = 7)
   Source:            baudgen/q_2 (FF)
-  Destination:       baudgen/q_2 (FF)
+  Destination:       baudgen/q_7 (FF)
   Source Clock:      freq38400 falling
   Destination Clock: freq38400 falling
 
-  Data Path: baudgen/q_2 to baudgen/q_2
+  Data Path: baudgen/q_2 to baudgen/q_7
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q             24   0.591   1.395  baudgen/q_2 (baudgen/q_21)
-     LUT1:I0->O            0   0.648   0.000  baudgen/Mcount_q_xor<1>_rt (baudgen/Mcount_q_xor<1>_rt)
-     XORCY:LI->O           1   0.720   0.000  baudgen/Mcount_q_xor<1> (Result<1>1)
-     FDC:D                     0.252          baudgen/q_2
+     FDC:C->Q             24   0.591   1.395  baudgen/q_2 (baudgen/q_2)
+     LUT1:I0->O            1   0.648   0.000  baudgen/Mcount_q_cy<1>_rt (baudgen/Mcount_q_cy<1>_rt)
+     MUXCY:S->O            1   0.632   0.000  baudgen/Mcount_q_cy<1> (baudgen/Mcount_q_cy<1>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<2> (baudgen/Mcount_q_cy<2>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<3> (baudgen/Mcount_q_cy<3>)
+     MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<4> (baudgen/Mcount_q_cy<4>)
+     MUXCY:CI->O           0   0.065   0.000  baudgen/Mcount_q_cy<5> (baudgen/Mcount_q_cy<5>)
+     XORCY:CI->O           1   0.844   0.000  baudgen/Mcount_q_xor<6> (Result<6>2)
+     FDC:D                     0.252          baudgen/q_7
     ----------------------------------------
-    Total                      3.606ns (2.211ns logic, 1.395ns route)
-                                       (61.3% logic, 38.7% route)
+    Total                      4.622ns (3.227ns logic, 1.395ns route)
+                                       (69.8% logic, 30.2% route)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'baudgen/q_21'
+Timing constraint: Default period analysis for Clock 'freq_uart1'
   Clock period: 2.499ns (frequency: 400.160MHz)
   Total number of paths / destination ports: 56 / 20
 -------------------------------------------------------------------------
 Delay:               2.499ns (Levels of Logic = 1)
   Source:            rx1/shiftreg_0 (FF)
   Destination:       rx1/shiftreg_10 (FF)
-  Source Clock:      baudgen/q_21 falling
-  Destination Clock: baudgen/q_21 falling
+  Source Clock:      freq_uart1 falling
+  Destination Clock: freq_uart1 falling
 
   Data Path: rx1/shiftreg_0 to rx1/shiftreg_10
                                 Gate     Net
@@ -733,7 +730,7 @@ Delay:               2.499ns (Levels of Logic = 1)
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
   Total number of paths / destination ports: 35 / 35
 -------------------------------------------------------------------------
-Offset:              4.261ns (Levels of Logic = 2)
+Offset:              4.262ns (Levels of Logic = 2)
   Source:            USR_BTN (PAD)
   Destination:       cnt_vsync/capture_lo_15 (FF)
   Destination Clock: CLK rising
@@ -742,21 +739,21 @@ Offset:              4.261ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            71   0.849   1.418  USR_BTN_IBUF (USR_BTN_IBUF)
+     IBUF:I->O            76   0.849   1.419  USR_BTN_IBUF (USR_BTN_IBUF)
      LUT3:I0->O           16   0.648   1.034  cnt_vsync/capture_lo_and00001 (cnt_vsync/capture_lo_and0000)
      FDE:CE                    0.312          cnt_vsync/capture_lo_0
     ----------------------------------------
-    Total                      4.261ns (1.809ns logic, 2.452ns route)
-                                       (42.5% logic, 57.5% route)
+    Total                      4.262ns (1.809ns logic, 2.453ns route)
+                                       (42.4% logic, 57.6% route)
 
 =========================================================================
-Timing constraint: Default OFFSET IN BEFORE for Clock 'baudgen/q_21'
+Timing constraint: Default OFFSET IN BEFORE for Clock 'freq_uart1'
   Total number of paths / destination ports: 2 / 2
 -------------------------------------------------------------------------
 Offset:              1.632ns (Levels of Logic = 1)
   Source:            PMOD<2> (PAD)
   Destination:       rx1/shiftreg_0 (FF)
-  Destination Clock: baudgen/q_21 falling
+  Destination Clock: freq_uart1 falling
 
   Data Path: PMOD<2> to rx1/shiftreg_0
                                 Gate     Net
@@ -864,14 +861,14 @@ Delay:               10.823ns (Levels of Logic = 7)
 =========================================================================
 
 
-Total REAL time to Xst completion: 42.00 secs
-Total CPU time to Xst completion: 41.93 secs
+Total REAL time to Xst completion: 15.00 secs
+Total CPU time to Xst completion: 15.06 secs
  
 --> 
 
-Total memory usage is 284848 kilobytes
+Total memory usage is 253360 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  115 (   0 filtered)
+Number of warnings :  104 (   0 filtered)
 Number of infos    :    1 (   0 filtered)
 

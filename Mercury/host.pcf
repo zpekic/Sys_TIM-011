@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Thu Sep 10 22:33:22 2020
+// Written by: Map P.20131013 on Fri Sep 11 18:12:17 2020
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -49,8 +49,8 @@ COMP "PMOD<1>" LOCATE = SITE "P4" LEVEL 1;
 COMP "PMOD<2>" LOCATE = SITE "P6" LEVEL 1;
 COMP "SW<0>" LOCATE = SITE "P59" LEVEL 1;
 COMP "PMOD<3>" LOCATE = SITE "P98" LEVEL 1;
-TIMEGRP CLK = BEL "freq38400" BEL "prescale_cnt_0" BEL "prescale_cnt_1" BEL
-        "prescale_cnt_2" BEL "prescale_cnt_5" BEL "prescale_cnt_3" BEL
+TIMEGRP CLK = BEL "freq38400" BEL "prescale_cnt_2" BEL "prescale_cnt_0" BEL
+        "prescale_cnt_1" BEL "prescale_cnt_5" BEL "prescale_cnt_3" BEL
         "prescale_cnt_4" BEL "prescale_cnt_8" BEL "prescale_cnt_6" BEL
         "prescale_cnt_7" BEL "prescale_cnt_9" BEL "clockgen/q_1" BEL
         "clockgen/q_2" BEL "clockgen/q_3" BEL "clockgen/q_4" BEL
