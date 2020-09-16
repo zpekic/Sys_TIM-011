@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-ZOLTANP4::  Fri Sep 11 18:12:26 2020
+ZOLTANP4::  Tue Sep 15 23:55:38 2020
 
 par -w -intstyle ise -ol high -t 1 host_map.ncd host.ncd host.pcf 
 
@@ -37,7 +37,7 @@ Design Summary Report:
 
 
    Number of BUFGMUXs                        2 out of 24      8%
-   Number of Slices                        102 out of 1792    5%
+   Number of Slices                        270 out of 1792   15%
       Number of SLICEMs                      0 out of 896     0%
 
 
@@ -50,55 +50,55 @@ Router effort level (-rl):    High
 Starting initial Timing Analysis.  REAL time: 5 secs 
 Finished initial Timing Analysis.  REAL time: 5 secs 
 
-WARNING:Par:288 - The signal SW<2>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal SW<3>_IBUF has no load.  PAR will not attempt to route this signal.
 WARNING:Par:288 - The signal SW<4>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal BTN<0>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal BTN<1>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal BTN<2>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal SW<5>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal SW<6>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal SW<7>_IBUF has no load.  PAR will not attempt to route this signal.
 WARNING:Par:288 - The signal BTN<3>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal PMOD<0>_IBUF has no load.  PAR will not attempt to route this signal.
-WARNING:Par:288 - The signal PMOD<3>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal PMOD<4>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal PMOD<5>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal PMOD<6>_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal PMOD<7>_IBUF has no load.  PAR will not attempt to route this signal.
 
 Starting Placer
 Total REAL time at the beginning of Placer: 5 secs 
 Total CPU  time at the beginning of Placer: 4 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:874d32d3) REAL time: 7 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:ae232427) REAL time: 8 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:874d32d3) REAL time: 8 secs 
+Phase 2.7  Design Feasibility Check (Checksum:ae232427) REAL time: 8 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:874d32d3) REAL time: 8 secs 
+Phase 3.31  Local Placement Optimization (Checksum:ae232427) REAL time: 8 secs 
 
 Phase 4.2  Initial Clock and IO Placement
 
-Phase 4.2  Initial Clock and IO Placement (Checksum:b0c2dd71) REAL time: 12 secs 
+Phase 4.2  Initial Clock and IO Placement (Checksum:d7991326) REAL time: 14 secs 
 
 Phase 5.30  Global Clock Region Assignment
-Phase 5.30  Global Clock Region Assignment (Checksum:b0c2dd71) REAL time: 12 secs 
+Phase 5.30  Global Clock Region Assignment (Checksum:d7991326) REAL time: 14 secs 
 
 Phase 6.36  Local Placement Optimization
-Phase 6.36  Local Placement Optimization (Checksum:b0c2dd71) REAL time: 12 secs 
+Phase 6.36  Local Placement Optimization (Checksum:d7991326) REAL time: 14 secs 
 
 Phase 7.8  Global Placement
-.........
-.....
-Phase 7.8  Global Placement (Checksum:2d5d06a2) REAL time: 12 secs 
+...........................
+..................
+Phase 7.8  Global Placement (Checksum:f5e82667) REAL time: 14 secs 
 
 Phase 8.5  Local Placement Optimization
-Phase 8.5  Local Placement Optimization (Checksum:2d5d06a2) REAL time: 12 secs 
+Phase 8.5  Local Placement Optimization (Checksum:f5e82667) REAL time: 14 secs 
 
 Phase 9.18  Placement Optimization
-Phase 9.18  Placement Optimization (Checksum:bda3afee) REAL time: 12 secs 
+Phase 9.18  Placement Optimization (Checksum:83f42679) REAL time: 14 secs 
 
 Phase 10.5  Local Placement Optimization
-Phase 10.5  Local Placement Optimization (Checksum:bda3afee) REAL time: 12 secs 
+Phase 10.5  Local Placement Optimization (Checksum:83f42679) REAL time: 14 secs 
 
-Total REAL time to Placer completion: 12 secs 
-Total CPU  time to Placer completion: 9 secs 
+Total REAL time to Placer completion: 14 secs 
+Total CPU  time to Placer completion: 11 secs 
 Writing design to file host.ncd
 
 
@@ -106,30 +106,38 @@ Writing design to file host.ncd
 Starting Router
 
 
-Phase  1  : 627 unrouted;      REAL time: 16 secs 
+Phase  1  : 1668 unrouted;      REAL time: 19 secs 
 
-Phase  2  : 554 unrouted;      REAL time: 16 secs 
+Phase  2  : 1491 unrouted;      REAL time: 19 secs 
 
-Phase  3  : 83 unrouted;      REAL time: 16 secs 
+Phase  3  : 202 unrouted;      REAL time: 20 secs 
 
-Phase  4  : 83 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 17 secs 
+Phase  4  : 202 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 20 secs 
 
-Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 17 secs 
+Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 20 secs 
 
 Updating file: host.ncd with current fully routed design.
 
-Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 17 secs 
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 21 secs 
 
-Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 17 secs 
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 21 secs 
 
-Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 17 secs 
-WARNING:Route:455 - CLK Net:dready1 may have excessive skew because 
-      3 CLK pins and 0 NON_CLK pins failed to route using a CLK template.
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 21 secs 
+WARNING:Route:455 - CLK Net:video/u13/q<2> may have excessive skew because 
+      0 CLK pins and 21 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:baudgen/q<12> may have excessive skew because 
+      0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:video/delay565ns/line<6> may have excessive skew because 
+      5 CLK pins and 0 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:video/u3/q<6> may have excessive skew because 
+      0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:freq38400 may have excessive skew because 
+      0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:clockgen/q<2> may have excessive skew because 
       0 CLK pins and 2 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 17 secs 
-Total CPU time to Router completion: 14 secs 
+Total REAL time to Router completion: 21 secs 
+Total CPU time to Router completion: 17 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -147,15 +155,22 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|           freq_uart | BUFGMUX_X1Y10| No   |   12 |  0.015     |  0.983      |
+|           CLK_BUFGP |  BUFGMUX_X2Y1| No   |   78 |  0.119     |  1.084      |
 +---------------------+--------------+------+------+------------+-------------+
-|           CLK_BUFGP |  BUFGMUX_X2Y1| No   |   47 |  0.078     |  1.049      |
+|        baudgen/q<1> | BUFGMUX_X1Y10| No   |   35 |  0.047     |  1.010      |
 +---------------------+--------------+------+------+------------+-------------+
-|             dready0 |         Local|      |    4 |  0.024     |  1.591      |
+|       clockgen/q<2> |         Local|      |   11 |  0.088     |  2.181      |
 +---------------------+--------------+------+------+------------+-------------+
-|             dready1 |         Local|      |    4 |  0.395     |  1.178      |
+|      video/u13/q<2> |         Local|      |   34 |  0.243     |  2.179      |
 +---------------------+--------------+------+------+------------+-------------+
-|           freq38400 |         Local|      |    6 |  0.011     |  1.793      |
+|           freq38400 |         Local|      |    8 |  0.045     |  2.181      |
++---------------------+--------------+------+------+------------+-------------+
+|       baudgen/q<12> |         Local|      |   22 |  0.347     |  2.517      |
++---------------------+--------------+------+------+------------+-------------+
+|video/delay565ns/lin |              |      |      |            |             |
+|                e<6> |         Local|      |    5 |  1.105     |  1.974      |
++---------------------+--------------+------+------+------------+-------------+
+|       video/u3/q<6> |         Local|      |    3 |  0.031     |  2.075      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -175,8 +190,8 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-  TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH  | SETUP       |    14.391ns|     5.609ns|       0|           0
-  50%                                       | HOLD        |     0.885ns|            |       0|           0
+  TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH  | SETUP       |    14.143ns|     5.857ns|       0|           0
+  50%                                       | HOLD        |     0.884ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
 
 
@@ -189,17 +204,17 @@ All signals are completely routed.
 
 WARNING:Par:283 - There are 9 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
-Total REAL time to PAR completion: 18 secs 
-Total CPU time to PAR completion: 14 secs 
+Total REAL time to PAR completion: 22 secs 
+Total CPU time to PAR completion: 17 secs 
 
-Peak Memory Usage:  255 MB
+Peak Memory Usage:  252 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.
 Timing: Completed - No errors found.
 
 Number of error messages: 0
-Number of warning messages: 13
+Number of warning messages: 17
 Number of info messages: 0
 
 Writing design to file host.ncd

@@ -34,8 +34,8 @@ entity ff74 is
            d : in  STD_LOGIC;
            nPreset : in  STD_LOGIC;
            nClear : in  STD_LOGIC;
-           Q : in  STD_LOGIC;
-           nQ : in  STD_LOGIC);
+           Q : out  STD_LOGIC;
+           nQ : out  STD_LOGIC);
 end ff74;
 
 architecture Behavioral of ff74 is

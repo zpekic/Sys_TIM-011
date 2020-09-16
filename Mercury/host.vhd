@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 08/29/2020 11:13:02 PM
 -- Design Name: Various TIM-011 components
--- Module Name: sys0800 - Behavioral
+-- Module Name: host - Behavioral
 -- Project Name: 
 -- Target Devices: https://www.micro-nova.com/mercury/ + Baseboard
 -- Input devices: 
@@ -43,26 +43,22 @@ entity host is
 				USR_BTN: in std_logic; 
 
 				-- Switches on baseboard
-				-- SW(0) -- show trace on VGA
-				-- SW(1) -- show debug data (program and microcode program counter) on 7seg instead of calculator data
-				-- SW(2) -- enable microcode single stepping (use with BTN(3))
-				-- SW(3) -- enable calculator program breakpoints
-				-- SW(4) -- (not used)
-				-- SW(6 downto 5) -- system clock speed 
-				--   0   0	1024 Hz 
-				--   0   1	57600 Hz (close to original calculator frequency) 
-				--   1   0  6.25 MHz
-				--   1   1  12.5 MHz
+				-- SW(0) -- 
+				-- SW(1) -- 
+				-- SW(2) -- 
+				-- SW(3) -- 
+				-- SW(4) -- 
+				-- SW(6 downto 5) 
+
 				-- SW(7)
-				--   0   TI Datamath
-				--   1   Sinclair Scientific
+
 				SW: in std_logic_vector(7 downto 0); 
 
 				-- Push buttons on baseboard
-				-- BTN0 - show upper 4 digits on 7seg LEDs
-				-- BTN1 - CE[NTRY] key for TI and UP key for Sinclair
-				-- BTN2 - C[LEAR] key for both TI and Sinclair (this is also "reset" for Sinclair)
-				-- BTN3 - single step clock cycle forward if in SS mode (NOTE: single press on this button is needed after reset to unlock SS circuit)
+				-- BTN0 - 
+				-- BTN1 - 
+				-- BTN2 - 
+				-- BTN3 - 
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
@@ -235,25 +231,39 @@ component rx_reg is
            dready : out  STD_LOGIC);
 end component;
 
+component debouncer8channel is
+    Port ( clock : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           signal_raw : in STD_LOGIC_VECTOR (7 downto 0);
+           signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
 signal freq25M, freq12M5: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
 signal hexdata: std_logic_vector(3 downto 0);
-signal hexsel: std_logic_vector(2 downto 0);
+signal hexsel: std_logic_vector(3 downto 0);
 signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0); 
 signal RESET: std_logic;
 ---
-signal kbd_data_ready: std_logic;
-signal dready1, dready0: std_logic;
-signal rx_char0, rx_char1: std_logic_vector(7 downto 0);
-signal data: std_logic_vector(31 downto 0);
-signal kbd_data: unsigned(7 downto 0);
-signal showlock: std_logic_vector(3 downto 0);
+--signal kbd_data_ready: std_logic;
+--signal dready1, dready0: std_logic;
+--signal rx_char0, rx_char1: std_logic_vector(7 downto 0);
+----signal data: std_logic_vector(31 downto 0);
+--signal kbd_data: unsigned(7 downto 0);
+--signal showlock: std_logic_vector(3 downto 0);
 ---
 signal prescale_cnt: integer range 0 to 1023;
-signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq9: std_logic;		
 signal freq_uart: std_logic;
 
+---
+signal gr_hsync, gr_vsync, gr_vid2, gr_vid1: std_logic;
+signal vm_rd, vm_wr, vm_en: std_logic;
+signal addr, data, dbus: std_logic_vector(7 downto 0);
+
+---
+signal switch, button: std_logic_vector(7 downto 0);
 
 begin
    
@@ -320,10 +330,10 @@ clockgen: sn74hc4040 port map (
 			reset_11 => RESET,
 			q1_9 => freq25M, 
 			q2_7 => freq12M5,
-			q3_6 => PMOD(7),		-- 6.25
-			q4_5 => PMOD(6),		-- 3.125
-			q5_3 => PMOD(5),		-- 1.5625
-			q6_2 => PMOD(4), 		-- 0.78125
+			q3_6 => open, --PMOD(7),		-- 6.25
+			q4_5 => open, --PMOD(6),		-- 3.125
+			q5_3 => open, --PMOD(5),		-- 1.5625
+			q6_2 => open, --PMOD(4), 		-- 0.78125
 			q7_4 =>   open,		-- 0.390625
 			q8_13 =>  open,		-- 0.1953125
 			q9_12 =>  open,		-- 0.09765625
@@ -354,40 +364,126 @@ baudgen: sn74hc4040 port map (
 			q5_3 => freq1200,		
 			q6_2 => freq600, 	
 			q7_4 => freq300,		
-			q8_13 => open,		
-			q9_12 =>  open,	
-			q10_14 => open,
-			q11_15 => open,
-			q12_1 =>  open	
+			q8_13 => open,		-- 150
+			q9_12 =>  open,	-- 75
+			q10_14 => open,	-- 37.5
+			q11_15 => open,	-- 18.75
+			q12_1 =>  freq9	-- 9.375
 		);
+	
+	debounce_sw: debouncer8channel Port map ( 
+		clock => freq19200, 
+		reset => RESET,
+		signal_raw => SW,
+		signal_debounced => switch
+	);
+
+	debounce_btn: debouncer8channel Port map ( 
+		clock => freq19200, 
+		reset => RESET,
+		signal_raw(7 downto 4) => "0000",
+		signal_raw(3 downto 0) => BTN,
+		signal_debounced => button
+	);
+	
+-- test address register update
+update_addr: process(RESET, freq9, switch, button)
+begin
+	if (RESET = '1') then 
+		addr <= X"DE";
+	else
+		if (rising_edge(freq9) and switch(0) = '1') then
+			case (button(2 downto 0)) is
+				when "001" =>
+					addr <= std_logic_vector(unsigned(addr) + 1);
+				when "010" =>
+					addr <= std_logic_vector(unsigned(addr) - 1);
+				when "011" =>
+					addr <= X"00";
+				when others =>
+					null;
+			end case;
+		end if;
+	end if;
+end process;
+
+-- test data register update
+update_data: process(RESET, freq9, switch, button)
+begin
+	if (RESET = '1') then 
+		data <= X"AD";
+		vm_rd <= '0';
+		vm_wr <= '0';
+	else
+		if (rising_edge(freq9) and switch(0) = '0') then
+			case (button(2 downto 0)) is
+				when "001" =>		-- increment data reg
+					vm_rd <= '0';
+					vm_wr <= '0';
+					data <= std_logic_vector(unsigned(data) + 1);
+				when "010" =>		-- decrement data reg
+					vm_rd <= '0';
+					vm_wr <= '0';
+					data <= std_logic_vector(unsigned(data) - 1);
+				when "011" =>		-- clear data reg
+					vm_rd <= '0';
+					vm_wr <= '0';
+					data <= X"00";
+				when "101" =>		-- read from video memory
+					vm_rd <= '1';
+					vm_wr <= '0';
+					data <= dbus;
+				when "110" =>		-- write to video memory
+					vm_rd <= '0';
+					vm_wr <= '1';
+				when others =>		-- no op
+					vm_rd <= '0';
+					vm_wr <= '0';
+			end case;
+		end if;
+	end if;
+end process;
 	
 	video: Grafika port map (
 		-- system
 		  dotclk => freq12M5,
-		  a => X"0000",
-		  nRD => '1',
-		  nWR => '1',
-		  d => open,
-		  ioe => '0',
+		  a(15 downto 8) => X"80",
+		  a(7 downto 0) => addr,
+		  nRD => not vm_rd,
+		  nWR => not vm_wr,
+		  d => dbus,
+		  ioe => vm_en,
 		  nScroll => '1',
 		-- monitor side
-		  hsync => HSYNC,
-		  vsync => VSYNC,
-		  vid1 => BLU(0),
-		  vid2 => BLU(1)
+		  hsync => gr_hsync, --HSYNC,
+		  vsync => gr_vsync,--VSYNC,
+		  vid1 => gr_vid1, --BLU(0),
+		  vid2 => gr_vid2  --BLU(1)
 	);
+	
+	dbus <= data when (vm_wr = '1') else "ZZZZZZZZ";
+	vm_en <= vm_rd or vm_wr;
 	
 	RED <= "000";
 	GRN <= "000";
-	LED(0) <= not PMOD(1);
-	LED(1) <= not PMOD(2);
+	LED(0) <= vm_rd;
+	LED(1) <= vm_wr;
+
+	PMOD(3) <= gr_hsync;
+	PMOD(2) <= gr_vsync;
+	PMOD(1) <= gr_vid2;
+	PMOD(0) <= gr_vid1;
+	HSYNC <= not gr_hsync;
+	VSYNC <= not gr_vsync;
+	BLU(1) <= gr_vid2;
+	BLU(0) <= gr_vid1;
 	
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
 			digsel => digsel,
 			showdigit => "1111",
-			showdot => showlock,
+			showdot => switch(3 downto 0),
 			-- outputs
 			anode => AN,
 			segment(7) => DOT,
@@ -399,30 +495,39 @@ h <= digsel(0) and digsel0_delayed;
 cnt_hsync: signalcounter Port map ( 
 				clk => CLK,
 				reset => RESET,
-				input => freq38400,	-- TODO: hsync
-				sel => SW(0),
+				input => gr_hsync,
+				sel => switch(0),
 				count => hsync_cnt
 		);
 
 cnt_vsync: signalcounter Port map ( 
 				clk => CLK,
 				reset => RESET,
-				input => freq9600,	-- TODO: vsync
-				sel => SW(0),
+				input => gr_vsync,
+				sel => switch(0),
 				count => vsync_cnt
 		);
 
-hexsel <= SW(1) & digsel;
+hexsel <= switch(2 downto 1) & digsel;
 
 with hexsel select
-	hexdata <= 	data(3 downto 0) when "000",
-					data(7 downto 4) when "001",
-					data(11 downto 8) when "010",
-					data(15 downto 12) when "011",
-					vsync_cnt(3 downto 0) when "100",
-					vsync_cnt(7 downto 4) when "101",
-					vsync_cnt(11 downto 8) when "110",
-					vsync_cnt(15 downto 12) when "111",
+	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
+					hsync_cnt(7 downto 4) when "0001",
+					hsync_cnt(11 downto 8) when "0010",
+					hsync_cnt(15 downto 12) when "0011",
+					vsync_cnt(3 downto 0) when "0100",
+					vsync_cnt(7 downto 4) when "0101",
+					vsync_cnt(11 downto 8) when "0110",
+					vsync_cnt(15 downto 12) when "0111",
+					--
+					data(3 downto 0) when "1000",
+					data(7 downto 4) when "1001",
+					addr(3 downto 0) when "1010",
+					addr(7 downto 4) when "1011",
+					data(3 downto 0) when "1100",
+					data(7 downto 4) when "1101",
+					addr(3 downto 0) when "1110",
+					addr(7 downto 4) when "1111",
 					X"0" when others;
 					
 testdelay: configurabledelayline Port map (
@@ -434,47 +539,46 @@ testdelay: configurabledelayline Port map (
 				signal_out => digsel0_delayed
 		);
 
-with SW(7 downto 5) select
-		freq_uart <= 	freq38400 when "111",
-							freq19200 when "110", 
-							freq9600 when "101",
-							freq4800 when "100",		
-							freq2400 when "011",		
-							freq1200 when "010",		
-							freq600 when "001", 	
-							freq300 when others;		
-
-		
-rx0: rx_reg Port map (
-			clk => freq_uart,
-         reset => RESET,
-         enable => '1', --(not dready1),
-         rx => PMOD(2),
-         d => rx_char0,
-         dready => dready0
-	);
-
-capture0: process(dready0, rx_char0)
-begin
-	if (rising_edge(dready0)) then
-		data(7 downto 0) <= rx_char0;
-	end if;
-end process;
-
-rx1: rx_reg Port map (
-			clk => not(freq_uart),
-         reset => RESET,
-         enable => '1', --(not dready0),
-         rx => PMOD(2),
-         d => rx_char1,
-         dready => dready1
-	);
-
-capture1: process(dready1, rx_char1)
-begin
-	if (rising_edge(dready1)) then
-		data(15 downto 8) <= rx_char1;
-	end if;
-end process;
+--with SW(7 downto 5) select
+--		freq_uart <= 	freq38400 when "111",
+--							freq19200 when "110", 
+--							freq9600 when "101",
+--							freq4800 when "100",		
+--							freq2400 when "011",		
+--							freq1200 when "010",		
+--							freq600 when "001", 	
+--							freq300 when others;		
+--
+--rx0: rx_reg Port map (
+--			clk => freq_uart,
+--         reset => RESET,
+--         enable => '1', --(not dready1),
+--         rx => PMOD(6),
+--         d => rx_char0,
+--         dready => dready0
+--	);
+--
+--capture0: process(dready0, rx_char0)
+--begin
+--	if (rising_edge(dready0)) then
+--		data(7 downto 0) <= rx_char0;
+--	end if;
+--end process;
+--
+--rx1: rx_reg Port map (
+--			clk => not(freq_uart),
+--         reset => RESET,
+--         enable => '1', --(not dready0),
+--         rx => PMOD(6),
+--         d => rx_char1,
+--         dready => dready1
+--	);
+--
+--capture1: process(dready1, rx_char1)
+--begin
+--	if (rising_edge(dready1)) then
+--		data(15 downto 8) <= rx_char1;
+--	end if;
+--end process;
 			  
 end;

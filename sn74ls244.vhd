@@ -2,13 +2,13 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    10:58:32 09/06/2020 
+-- Create Date:    17:11:17 09/12/2020 
 -- Design Name: 
--- Module Name:    mem43256 - Behavioral 
+-- Module Name:    sn74ls244 - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
--- Description: 
+-- Description: https://www.futurlec.com/74LS/74LS244.shtml
 --
 -- Dependencies: 
 --
@@ -29,26 +29,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity mem43256 is
-    Port ( A : in  STD_LOGIC_VECTOR (14 downto 0);
-           nOE : in  STD_LOGIC;
-           nCE : in  STD_LOGIC;
-           RnW : in  STD_LOGIC;
-           IO : inout  STD_LOGIC_VECTOR (7 downto 0));
-end mem43256;
+entity sn74ls244 is
+    Port ( nG1 : in  STD_LOGIC;
+           a1 : in  STD_LOGIC_VECTOR (4 downto 1);
+           y1 : out  STD_LOGIC_VECTOR (4 downto 1);
+           nG2 : in  STD_LOGIC;
+           a2 : in  STD_LOGIC_VECTOR (4 downto 1);
+           y2 : out  STD_LOGIC_VECTOR (4 downto 1));
+end sn74ls244;
 
-architecture Behavioral of mem43256 is
-
-signal pattern: std_logic_vector(7 downto 0);
-signal rd, wr: std_logic;
+architecture Behavioral of sn74ls244 is
 
 begin
 
-rd <= RnW and (not nOE) and (not nCE);
-wr <= (not RnW) and (not nOE) and (not nCE);
-pattern <= ('0' & A(14 downto 8)) xor A(7 downto 0);
+y1 <= a1 when (nG1 = '0') else "ZZZZ";
+y2 <= a2 when (nG2 = '0') else "ZZZZ";
 
-IO <= pattern when (rd = '1') else "ZZZZZ";
- 
 end Behavioral;
 
