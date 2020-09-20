@@ -238,6 +238,18 @@ component debouncer8channel is
            signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
+component memconsole is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           control : in  STD_LOGIC_VECTOR (3 downto 0);
+           EN : out  STD_LOGIC;
+           RD : out  STD_LOGIC;
+           WR : out  STD_LOGIC;
+           A : out  STD_LOGIC_VECTOR (15 downto 0);
+           D : inout  STD_LOGIC_VECTOR (7 downto 0);
+           DD : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
 signal freq25M, freq12M5: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
@@ -253,14 +265,16 @@ signal RESET: std_logic;
 --signal kbd_data: unsigned(7 downto 0);
 --signal showlock: std_logic_vector(3 downto 0);
 ---
-signal prescale_cnt: integer range 0 to 1023;
-signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq9: std_logic;		
+signal prescale_baud, prescale_power: integer range 0 to 65535;
+signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq4096, freq2: std_logic;		
 signal freq_uart: std_logic;
 
 ---
 signal gr_hsync, gr_vsync, gr_vid2, gr_vid1: std_logic;
-signal vm_rd, vm_wr, vm_en: std_logic;
-signal addr, data, dbus: std_logic_vector(7 downto 0);
+signal vm_en, vm_rd, vm_wr: std_logic;
+signal D, DD: std_logic_vector(7 downto 0);
+signal A: std_logic_vector(15 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
@@ -342,14 +356,20 @@ clockgen: sn74hc4040 port map (
 			q12_1 =>  digsel(1)	-- 0.01220703125
 		);
 
-prescale: process(CLK, freq38400)
+prescale: process(CLK, freq38400, freq4096)
 begin
 	if (rising_edge(CLK)) then
-		if (prescale_cnt = 0) then
+		if (prescale_baud = 0) then
 			freq38400 <= not freq38400;
-			prescale_cnt <= (50000000 / (2 * 38400));
+			prescale_baud <= (50000000 / (2 * 38400));
 		else
-			prescale_cnt <= prescale_cnt - 1;
+			prescale_baud <= prescale_baud - 1;
+		end if;
+		if (prescale_power = 0) then
+			freq4096 <= not freq4096;
+			prescale_power <= (50000000 / (2 * 4096));
+		else
+			prescale_power <= prescale_power - 1;
 		end if;
 	end if;
 end process;
@@ -368,7 +388,24 @@ baudgen: sn74hc4040 port map (
 			q9_12 =>  open,	-- 75
 			q10_14 => open,	-- 37.5
 			q11_15 => open,	-- 18.75
-			q12_1 =>  freq9	-- 9.375
+			q12_1 =>  open	-- 9.375
+		);
+
+powergen: sn74hc4040 port map (
+			clock_10 => freq4096,
+			reset_11 => RESET,
+			q1_9 => open, 
+			q2_7 => open,
+			q3_6 => open,		
+			q4_5 => open,		
+			q5_3 => open,		
+			q6_2 => open, 	
+			q7_4 => open,		
+			q8_13 => open,		
+			q9_12 =>  open,	
+			q10_14 => open,	
+			q11_15 => freq2,	
+			q12_1 =>  open	
 		);
 	
 	debounce_sw: debouncer8channel Port map ( 
@@ -386,83 +423,35 @@ baudgen: sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
--- test address register update
-update_addr: process(RESET, freq9, switch, button)
-begin
-	if (RESET = '1') then 
-		addr <= X"DE";
-	else
-		if (rising_edge(freq9) and switch(0) = '1') then
-			case (button(2 downto 0)) is
-				when "001" =>
-					addr <= std_logic_vector(unsigned(addr) + 1);
-				when "010" =>
-					addr <= std_logic_vector(unsigned(addr) - 1);
-				when "011" =>
-					addr <= X"00";
-				when others =>
-					null;
-			end case;
-		end if;
-	end if;
-end process;
-
--- test data register update
-update_data: process(RESET, freq9, switch, button)
-begin
-	if (RESET = '1') then 
-		data <= X"AD";
-		vm_rd <= '0';
-		vm_wr <= '0';
-	else
-		if (rising_edge(freq9) and switch(0) = '0') then
-			case (button(2 downto 0)) is
-				when "001" =>		-- increment data reg
-					vm_rd <= '0';
-					vm_wr <= '0';
-					data <= std_logic_vector(unsigned(data) + 1);
-				when "010" =>		-- decrement data reg
-					vm_rd <= '0';
-					vm_wr <= '0';
-					data <= std_logic_vector(unsigned(data) - 1);
-				when "011" =>		-- clear data reg
-					vm_rd <= '0';
-					vm_wr <= '0';
-					data <= X"00";
-				when "101" =>		-- read from video memory
-					vm_rd <= '1';
-					vm_wr <= '0';
-					data <= dbus;
-				when "110" =>		-- write to video memory
-					vm_rd <= '0';
-					vm_wr <= '1';
-				when others =>		-- no op
-					vm_rd <= '0';
-					vm_wr <= '0';
-			end case;
-		end if;
-	end if;
-end process;
+	
+console: memconsole Port map(
+			clk => freq2,
+         reset => RESET,
+         control => button(3 downto 0),
+         EN => vm_en,
+         RD => vm_rd,
+         WR => vm_wr,
+         A => A,
+         D => D,
+         DD => DD
+	);
 	
 	video: Grafika port map (
 		-- system
 		  dotclk => freq12M5,
-		  a(15 downto 8) => X"80",
-		  a(7 downto 0) => addr,
-		  nRD => not vm_rd,
-		  nWR => not vm_wr,
-		  d => dbus,
+		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
+		  A(14 downto 0) => A(14 downto 0),
+		  nRD => not (vm_rd),
+		  nWR => not (vm_wr),
+		  d => D,
 		  ioe => vm_en,
-		  nScroll => '1',
+		  nScroll => '1',	-- not used for now
 		-- monitor side
 		  hsync => gr_hsync, --HSYNC,
 		  vsync => gr_vsync,--VSYNC,
 		  vid1 => gr_vid1, --BLU(0),
 		  vid2 => gr_vid2  --BLU(1)
 	);
-	
-	dbus <= data when (vm_wr = '1') else "ZZZZZZZZ";
-	vm_en <= vm_rd or vm_wr;
 	
 	RED <= "000";
 	GRN <= "000";
@@ -493,7 +482,7 @@ leds: fourdigitsevensegled Port map (
 h <= digsel(0) and digsel0_delayed;
 
 cnt_hsync: signalcounter Port map ( 
-				clk => CLK,
+				clk => freq12M5, --CLK,
 				reset => RESET,
 				input => gr_hsync,
 				sel => switch(0),
@@ -501,7 +490,7 @@ cnt_hsync: signalcounter Port map (
 		);
 
 cnt_vsync: signalcounter Port map ( 
-				clk => CLK,
+				clk => freq12M5, --CLK,
 				reset => RESET,
 				input => gr_vsync,
 				sel => switch(0),
@@ -520,14 +509,14 @@ with hexsel select
 					vsync_cnt(11 downto 8) when "0110",
 					vsync_cnt(15 downto 12) when "0111",
 					--
-					data(3 downto 0) when "1000",
-					data(7 downto 4) when "1001",
-					addr(3 downto 0) when "1010",
-					addr(7 downto 4) when "1011",
-					data(3 downto 0) when "1100",
-					data(7 downto 4) when "1101",
-					addr(3 downto 0) when "1110",
-					addr(7 downto 4) when "1111",
+					DD(3 downto 0) when "1000",
+					DD(7 downto 4) when "1001",
+					A(3 downto 0) when "1010",
+					A(7 downto 4) when "1011",
+					DD(3 downto 0) when "1100",
+					DD(7 downto 4) when "1101",
+					A(3 downto 0) when "1110",
+					A(7 downto 4) when "1111",
 					X"0" when others;
 					
 testdelay: configurabledelayline Port map (

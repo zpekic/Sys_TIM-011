@@ -1,3 +1,4 @@
+vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\ipcore_dir\ram32k8.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\ff74.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\sn74s153.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\sn74ls74.vhd"
@@ -15,6 +16,7 @@ vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\mem43256.v
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\debouncer.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\configurabledelayline.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\signalcounter.vhd"
+vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\memconsole.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\fourdigitsevensegled.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Grafika.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\debouncer8channel.vhd"

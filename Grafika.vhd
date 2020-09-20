@@ -186,7 +186,8 @@ component sn74ls374 is
 end component;
 
 component mem43256 is
-    Port ( A : in  STD_LOGIC_VECTOR (14 downto 0);
+    Port ( CLK: in STD_LOGIC;
+			  A : in  STD_LOGIC_VECTOR (14 downto 0);
            nOE : in  STD_LOGIC;
            nCE : in  STD_LOGIC;
            RnW : in  STD_LOGIC;
@@ -483,6 +484,7 @@ delay565ns: configurabledelayline port map (
 	);
 
 	u30: mem43256 Port map ( 
+		   CLK => dotclk,		-- FPGA block RAM needs it
 			A(14 downto 12) => u19_y(3 downto 1),
 			A(11 downto 8) => u20_y,
 			A(7 downto 4) => u21_y,

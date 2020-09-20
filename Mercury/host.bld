@@ -2,243 +2,22 @@ Release 14.7 ngdbuild P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 Command Line: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt\unwrapped\ngdbuild.exe -intstyle
-ise -dd _ngo -aul -nt timestamp -uc baseboard.ucf -uc mercury.ucf -p
-xc3s200a-vq100-4 host.ngc host.ngd
+ise -dd _ngo -sd ipcore_dir -aul -nt timestamp -uc mercury.ucf -uc baseboard.ucf
+-p xc3s200a-vq100-4 host.ngc host.ngd
 
 Reading NGO file
 "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.ngc"
 ...
+Loading design module
+"C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury/ram32k8.ngc"
+...
 Gathering constraint information from source properties...
 Done.
 
-Annotating constraints to design from ucf file "baseboard.ucf" ...
 Annotating constraints to design from ucf file "mercury.ucf" ...
+Annotating constraints to design from ucf file "baseboard.ucf" ...
 Resolving constraint associations...
 Checking Constraint Associations...
-INFO:ConstraintSystem:59 - Constraint <NET "EXT_CLK"   LOC = "P44" |>
-   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "EXT_CLK"   LOC = "P44" |> [baseboard.ucf(13)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "PS2_DATA"  LOC = "P13" |>
-   [baseboard.ucf(19)]: NET "PS2_DATA" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "PS2_DATA"  LOC = "P13" |> [baseboard.ucf(19)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(19)]: NET "PS2_DATA" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "PS2_CLK"   LOC = "P15" |>
-   [baseboard.ucf(20)]: NET "PS2_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "PS2_CLK"   LOC = "P15" |> [baseboard.ucf(20)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(20)]: NET "PS2_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "AUDIO_OUT_R" LOC = "P88" |>
-   [baseboard.ucf(76)]: NET "AUDIO_OUT_R" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "AUDIO_OUT_R" LOC = "P88" |> [baseboard.ucf(76)]' could not be found
-   and so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(76)]: NET "AUDIO_OUT_R" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "AUDIO_OUT_L" LOC = "P86" |>
-   [baseboard.ucf(77)]: NET "AUDIO_OUT_L" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "AUDIO_OUT_L" LOC = "P86" |> [baseboard.ucf(77)]' could not be found
-   and so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(77)]: NET "AUDIO_OUT_L" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "SWITCH_OEN" LOC = "P3"  |>
-   [baseboard.ucf(80)]: NET "SWITCH_OEN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "SWITCH_OEN" LOC = "P3"  |> [baseboard.ucf(80)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(80)]: NET "SWITCH_OEN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "MEMORY_OEN" LOC = "P30" |>
-   [baseboard.ucf(81)]: NET "MEMORY_OEN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "MEMORY_OEN" LOC = "P30" |> [baseboard.ucf(81)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(81)]: NET "MEMORY_OEN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "FPGA_CSN"	 LOC = "P39" |>
-   [baseboard.ucf(84)]: NET "FPGA_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "FPGA_CSN"	 LOC = "P39" |> [baseboard.ucf(84)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(84)]: NET "FPGA_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "FLASH_CSN"  LOC = "P27" |>
-   [baseboard.ucf(85)]: NET "FLASH_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "FLASH_CSN"  LOC = "P27" |> [baseboard.ucf(85)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(85)]: NET "FLASH_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "SPI_MOSI" LOC = "P46" |>
-   [baseboard.ucf(86)]: NET "SPI_MOSI" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "SPI_MOSI" LOC = "P46" |> [baseboard.ucf(86)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(86)]: NET "SPI_MOSI" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "SPI_MISO" LOC = "P51" |>
-   [baseboard.ucf(87)]: NET "SPI_MISO" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "SPI_MISO" LOC = "P51" |> [baseboard.ucf(87)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(87)]: NET "SPI_MISO" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "SPI_SCK"  LOC = "P53" |>
-   [baseboard.ucf(88)]: NET "SPI_SCK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "SPI_SCK"  LOC = "P53" |> [baseboard.ucf(88)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(88)]: NET "SPI_SCK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "ADC_MISO"	LOC = "P21" |>
-   [baseboard.ucf(91)]: NET "ADC_MISO" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "ADC_MISO"	LOC = "P21" |> [baseboard.ucf(91)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(91)]: NET "ADC_MISO" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "ADC_MOSI"	LOC = "P10" |>
-   [baseboard.ucf(92)]: NET "ADC_MOSI" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "ADC_MOSI"	LOC = "P10" |> [baseboard.ucf(92)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(92)]: NET "ADC_MOSI" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "ADC_SCK" 	LOC = "P9"  |>
-   [baseboard.ucf(93)]: NET "ADC_SCK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "ADC_SCK" 	LOC = "P9"  |> [baseboard.ucf(93)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(93)]: NET "ADC_SCK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-INFO:ConstraintSystem:59 - Constraint <NET "ADC_CSN"	LOC = "P12" |>
-   [baseboard.ucf(94)]: NET "ADC_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "ADC_CSN"	LOC = "P12" |> [baseboard.ucf(94)]' could not be found and so
-   the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(94)]: NET "ADC_CSN" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
 INFO:ConstraintSystem:59 - Constraint <NET "LED<2>"	LOC = "P16" |>
    [mercury.ucf(20)]: NET "LED<2>" not found.  Please verify that:
    1. The specified design element actually exists in the original design.
@@ -1037,12 +816,235 @@ INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;> [mercury.ucf(88)]:
    1. The specified design element actually exists in the original design.
    2. The specified object is spelled correctly in the constraint source file.
 
-WARNING:NgdBuild:1345 - The constraint <TIMESPEC        "TS_CLK" = PERIOD "CLK"
-   20 ns HIGH 50 %;> [baseboard.ucf(16)] is overridden by the constraint
-   <TIMESPEC "TS_CLK" = PERIOD "CLK" 20 ns HIGH 50 %;> [mercury.ucf(15)]. The
-   overriden constraint usually comes from the input netlist or ncf files.
-   Please set XIL_NGDBUILD_CONSTR_OVERRIDE_ERROR to promote this message to an
-   error.
+INFO:ConstraintSystem:59 - Constraint <NET "EXT_CLK"   LOC = "P44" |>
+   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "EXT_CLK"   LOC = "P44" |> [baseboard.ucf(13)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "PS2_DATA"  LOC = "P13" |>
+   [baseboard.ucf(19)]: NET "PS2_DATA" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "PS2_DATA"  LOC = "P13" |> [baseboard.ucf(19)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(19)]: NET "PS2_DATA" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "PS2_CLK"   LOC = "P15" |>
+   [baseboard.ucf(20)]: NET "PS2_CLK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "PS2_CLK"   LOC = "P15" |> [baseboard.ucf(20)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(20)]: NET "PS2_CLK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "AUDIO_OUT_R" LOC = "P88" |>
+   [baseboard.ucf(76)]: NET "AUDIO_OUT_R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "AUDIO_OUT_R" LOC = "P88" |> [baseboard.ucf(76)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(76)]: NET "AUDIO_OUT_R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "AUDIO_OUT_L" LOC = "P86" |>
+   [baseboard.ucf(77)]: NET "AUDIO_OUT_L" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "AUDIO_OUT_L" LOC = "P86" |> [baseboard.ucf(77)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(77)]: NET "AUDIO_OUT_L" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "SWITCH_OEN" LOC = "P3"  |>
+   [baseboard.ucf(80)]: NET "SWITCH_OEN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "SWITCH_OEN" LOC = "P3"  |> [baseboard.ucf(80)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(80)]: NET "SWITCH_OEN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "MEMORY_OEN" LOC = "P30" |>
+   [baseboard.ucf(81)]: NET "MEMORY_OEN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "MEMORY_OEN" LOC = "P30" |> [baseboard.ucf(81)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(81)]: NET "MEMORY_OEN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "FPGA_CSN"	 LOC = "P39" |>
+   [baseboard.ucf(84)]: NET "FPGA_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "FPGA_CSN"	 LOC = "P39" |> [baseboard.ucf(84)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(84)]: NET "FPGA_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "FLASH_CSN"  LOC = "P27" |>
+   [baseboard.ucf(85)]: NET "FLASH_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "FLASH_CSN"  LOC = "P27" |> [baseboard.ucf(85)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(85)]: NET "FLASH_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "SPI_MOSI" LOC = "P46" |>
+   [baseboard.ucf(86)]: NET "SPI_MOSI" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "SPI_MOSI" LOC = "P46" |> [baseboard.ucf(86)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(86)]: NET "SPI_MOSI" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "SPI_MISO" LOC = "P51" |>
+   [baseboard.ucf(87)]: NET "SPI_MISO" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "SPI_MISO" LOC = "P51" |> [baseboard.ucf(87)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(87)]: NET "SPI_MISO" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "SPI_SCK"  LOC = "P53" |>
+   [baseboard.ucf(88)]: NET "SPI_SCK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "SPI_SCK"  LOC = "P53" |> [baseboard.ucf(88)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(88)]: NET "SPI_SCK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "ADC_MISO"	LOC = "P21" |>
+   [baseboard.ucf(91)]: NET "ADC_MISO" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "ADC_MISO"	LOC = "P21" |> [baseboard.ucf(91)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(91)]: NET "ADC_MISO" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "ADC_MOSI"	LOC = "P10" |>
+   [baseboard.ucf(92)]: NET "ADC_MOSI" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "ADC_MOSI"	LOC = "P10" |> [baseboard.ucf(92)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(92)]: NET "ADC_MOSI" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "ADC_SCK" 	LOC = "P9"  |>
+   [baseboard.ucf(93)]: NET "ADC_SCK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "ADC_SCK" 	LOC = "P9"  |> [baseboard.ucf(93)]' could not be found and
+   so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(93)]: NET "ADC_SCK" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "ADC_CSN"	LOC = "P12" |>
+   [baseboard.ucf(94)]: NET "ADC_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "ADC_CSN"	LOC = "P12" |> [baseboard.ucf(94)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
+   [baseboard.ucf(94)]: NET "ADC_CSN" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:NgdBuild:1345 - The constraint <TIMESPEC "TS_CLK" = PERIOD "CLK" 20 ns
+   HIGH 50 %;> [mercury.ucf(15)] is overridden by the constraint <TIMESPEC      
+    "TS_CLK" = PERIOD "CLK" 20 ns HIGH 50 %;> [baseboard.ucf(16)]. The overriden
+   constraint usually comes from the input netlist or ncf files. Please set
+   XIL_NGDBUILD_CONSTR_OVERRIDE_ERROR to promote this message to an error.
 Done...
 
 Checking expanded design ...
@@ -1062,10 +1064,10 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:  78
 
-Total memory usage is 153232 kilobytes
+Total memory usage is 153936 kilobytes
 
 Writing NGD file "host.ngd" ...
-Total REAL time to NGDBUILD completion:  11 sec
-Total CPU time to NGDBUILD completion:   8 sec
+Total REAL time to NGDBUILD completion:  8 sec
+Total CPU time to NGDBUILD completion:   7 sec
 
 Writing NGDBUILD log file "host.bld"...
