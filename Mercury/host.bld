@@ -1050,7 +1050,6 @@ Done...
 Checking expanded design ...
 WARNING:NgdBuild:470 - bidirect pad net 'PMOD<4>' has no legal driver
 WARNING:NgdBuild:470 - bidirect pad net 'PMOD<5>' has no legal driver
-WARNING:NgdBuild:470 - bidirect pad net 'PMOD<6>' has no legal driver
 WARNING:NgdBuild:470 - bidirect pad net 'PMOD<7>' has no legal driver
 
 Partition Implementation Status
@@ -1062,9 +1061,9 @@ Partition Implementation Status
 
 NGDBUILD Design Results Summary:
   Number of errors:     0
-  Number of warnings:  78
+  Number of warnings:  77
 
-Total memory usage is 153936 kilobytes
+Total memory usage is 154000 kilobytes
 
 Writing NGD file "host.ngd" ...
 Total REAL time to NGDBUILD completion:  8 sec

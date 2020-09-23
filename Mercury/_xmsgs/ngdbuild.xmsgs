@@ -963,9 +963,6 @@
 <msg type="warning" file="NgdBuild" num="470" delta="old" ><arg fmt="%s" index="1">bidirect</arg> pad net &apos;<arg fmt="%s" index="2">PMOD&lt;5&gt;</arg>&apos; has no legal driver
 </msg>
 
-<msg type="warning" file="NgdBuild" num="470" delta="old" ><arg fmt="%s" index="1">bidirect</arg> pad net &apos;<arg fmt="%s" index="2">PMOD&lt;6&gt;</arg>&apos; has no legal driver
-</msg>
-
 <msg type="warning" file="NgdBuild" num="470" delta="old" ><arg fmt="%s" index="1">bidirect</arg> pad net &apos;<arg fmt="%s" index="2">PMOD&lt;7&gt;</arg>&apos; has no legal driver
 </msg>
 

@@ -9,23 +9,23 @@ Target Device  : xc3s200a
 Target Package : vq100
 Target Speed   : -4
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Sat Sep 19 18:33:08 2020
+Mapped Date    : Tue Sep 22 21:38:21 2020
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:    8
+Number of warnings:    6
 Logic Utilization:
-  Number of Slice Flip Flops:           327 out of   3,584    9%
-  Number of 4 input LUTs:               357 out of   3,584    9%
+  Number of Slice Flip Flops:           376 out of   3,584   10%
+  Number of 4 input LUTs:               371 out of   3,584   10%
 Logic Distribution:
-  Number of occupied Slices:            292 out of   1,792   16%
-    Number of Slices containing only related logic:     292 out of     292 100%
-    Number of Slices containing unrelated logic:          0 out of     292   0%
+  Number of occupied Slices:            320 out of   1,792   17%
+    Number of Slices containing only related logic:     320 out of     320 100%
+    Number of Slices containing unrelated logic:          0 out of     320   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         430 out of   3,584   11%
-    Number used as logic:               357
-    Number used as a route-thru:         73
+  Total Number of 4 input LUTs:         449 out of   3,584   12%
+    Number used as logic:               371
+    Number used as a route-thru:         78
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
@@ -37,9 +37,9 @@ Logic Distribution:
 
 Average Fanout of Non-Clock Nets:                2.88
 
-Peak Memory Usage:  260 MB
-Total REAL time to MAP completion:  14 secs 
-Total CPU time to MAP completion:   6 secs 
+Peak Memory Usage:  261 MB
+Total REAL time to MAP completion:  6 secs 
+Total CPU time to MAP completion:   5 secs 
 
 NOTES:
 
@@ -80,19 +80,17 @@ Section 1 - Errors
 
 Section 2 - Warnings
 --------------------
+WARNING:PhysDesignRules:372 - Gated clock. Clock net freq_uart4 is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net LED_0_OBUF is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
 WARNING:PhysDesignRules:367 - The signal <SW<4>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<5>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<6>_IBUF> is incomplete. The signal
-   does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <SW<7>_IBUF> is incomplete. The signal
    does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <PMOD<4>_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <PMOD<5>_IBUF> is incomplete. The
-   signal does not drive any load pins in the design.
-WARNING:PhysDesignRules:367 - The signal <PMOD<6>_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
 WARNING:PhysDesignRules:367 - The signal <PMOD<7>_IBUF> is incomplete. The
    signal does not drive any load pins in the design.
@@ -100,13 +98,11 @@ WARNING:PhysDesignRules:367 - The signal <PMOD<7>_IBUF> is incomplete. The
 Section 3 - Informational
 -------------------------
 INFO:LIT:243 - Logical network PMOD<4>_IBUF has no load.
-INFO:LIT:395 - The above info message is repeated 7 more times for the following
+INFO:LIT:395 - The above info message is repeated 3 more times for the following
    (max. 5 shown):
    PMOD<5>_IBUF,
-   PMOD<6>_IBUF,
    PMOD<7>_IBUF,
-   SW<7>_IBUF,
-   SW<6>_IBUF
+   SW<4>_IBUF
    To see the details of these info messages, please use the -detail switch.
 INFO:MapLib:562 - No environment variables are currently set.
 INFO:LIT:244 - All of the single ended outputs in this design are using slew

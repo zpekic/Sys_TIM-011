@@ -106,28 +106,28 @@ end host;
 
 architecture Structural of host is
 
-component ps2_keyboard is 
-  generic ( 
-  CLK_FREQ_MHZ   : integer 
-  ); 
- 
-  port( 
-  clk             : in    std_logic; 
-  reset           : in    std_logic; 
-  rx_data         : out   std_logic_vector(7 downto 0); 
-  rx_read         : in    std_logic; 
-  rx_data_ready   : out   std_logic; 
-  rx_extended     : out   std_logic; 
-  rx_released     : out   std_logic; 
-  rx_shift_on     : out   std_logic; 
-  tx_data         : in    std_logic_vector(7 downto 0); 
-  tx_write        : in    std_logic; 
-  tx_data_empty   : out   std_logic; 
-  tx_error	      : out   std_logic; 
-  ps2_clk         : inout std_logic; 
-  ps2_data        : inout std_logic 
-  ); 
-end component; 
+--component ps2_keyboard is 
+--  generic ( 
+--  CLK_FREQ_MHZ   : integer 
+--  ); 
+-- 
+--  port( 
+--  clk             : in    std_logic; 
+--  reset           : in    std_logic; 
+--  rx_data         : out   std_logic_vector(7 downto 0); 
+--  rx_read         : in    std_logic; 
+--  rx_data_ready   : out   std_logic; 
+--  rx_extended     : out   std_logic; 
+--  rx_released     : out   std_logic; 
+--  rx_shift_on     : out   std_logic; 
+--  tx_data         : in    std_logic_vector(7 downto 0); 
+--  tx_write        : in    std_logic; 
+--  tx_data_empty   : out   std_logic; 
+--  tx_error	      : out   std_logic; 
+--  ps2_clk         : inout std_logic; 
+--  ps2_data        : inout std_logic 
+--  ); 
+--end component; 
 
 component sn74hc4040 is
     Port ( q12_1 : out  STD_LOGIC;
@@ -175,34 +175,44 @@ component fourdigitsevensegled is
 			 );
 end component;
 
-component io_ps2_keyboard is
-	generic (
-		-- Include code for LED status updates
-		ledStatusSupport : boolean := true;
-		-- Number of system-cycles used for PS/2 clock filtering
-		clockFilter : integer := 15;
-		-- Timer calibration
-		ticksPerUsec : integer := 33   -- 33 Mhz clock
-	);
-	port (
-		clk: in std_logic;
-		reset : in std_logic := '0';
-		
-		-- PS/2 connector
-		ps2_clk_in: in std_logic;
-		ps2_dat_in: in std_logic;
-		ps2_clk_out: out std_logic;
-		ps2_dat_out: out std_logic;
+--component io_ps2_keyboard is
+--	generic (
+--		-- Include code for LED status updates
+--		ledStatusSupport : boolean := true;
+--		-- Number of system-cycles used for PS/2 clock filtering
+--		clockFilter : integer := 15;
+--		-- Timer calibration
+--		ticksPerUsec : integer := 33   -- 33 Mhz clock
+--	);
+--	port (
+--		clk: in std_logic;
+--		reset : in std_logic := '0';
+--		
+--		-- PS/2 connector
+--		ps2_clk_in: in std_logic;
+--		ps2_dat_in: in std_logic;
+--		ps2_clk_out: out std_logic;
+--		ps2_dat_out: out std_logic;
+--
+--		-- LED status
+--		caps_lock : in std_logic := '0';
+--		num_lock : in std_logic := '0';
+--		scroll_lock : in std_logic := '0';
+--
+--		-- Read scancode
+--		trigger : out std_logic;
+--		scancode : out unsigned(7 downto 0)
+--	);
+--end component;
 
-		-- LED status
-		caps_lock : in std_logic := '0';
-		num_lock : in std_logic := '0';
-		scroll_lock : in std_logic := '0';
-
-		-- Read scancode
-		trigger : out std_logic;
-		scancode : out unsigned(7 downto 0)
-	);
+component uart_receiver is
+    Port ( rx_clk4 : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           rx : in  STD_LOGIC;
+           frame_ready : out  STD_LOGIC;
+           frame_valid : out  STD_LOGIC;
+           frame_data : out  STD_LOGIC_VECTOR (15 downto 0);
+			  debug : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
 component signalcounter is
@@ -261,14 +271,15 @@ signal RESET: std_logic;
 --signal kbd_data_ready: std_logic;
 --signal dready1, dready0: std_logic;
 --signal rx_char0, rx_char1: std_logic_vector(7 downto 0);
-----signal data: std_logic_vector(31 downto 0);
+signal debug, data, frame_data: std_logic_vector(15 downto 0);
+signal freq_uart, freq_uart4: std_logic;
+signal frame_ready, frame_valid: std_logic;
 --signal kbd_data: unsigned(7 downto 0);
 --signal showlock: std_logic_vector(3 downto 0);
 ---
 signal prescale_baud, prescale_power: integer range 0 to 65535;
-signal freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
 signal freq4096, freq2: std_logic;		
-signal freq_uart: std_logic;
 
 ---
 signal gr_hsync, gr_vsync, gr_vid2, gr_vid1: std_logic;
@@ -356,12 +367,12 @@ clockgen: sn74hc4040 port map (
 			q12_1 =>  digsel(1)	-- 0.01220703125
 		);
 
-prescale: process(CLK, freq38400, freq4096)
+prescale: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
 		if (prescale_baud = 0) then
-			freq38400 <= not freq38400;
-			prescale_baud <= (50000000 / (2 * 38400));
+			freq153600 <= not freq153600;
+			prescale_baud <= (50000000 / (2 * 153600));
 		else
 			prescale_baud <= prescale_baud - 1;
 		end if;
@@ -375,20 +386,20 @@ begin
 end process;
 
 baudgen: sn74hc4040 port map (
-			clock_10 => freq38400,
+			clock_10 => freq153600,
 			reset_11 => RESET,
-			q1_9 => freq19200, 
-			q2_7 => freq9600,
-			q3_6 => freq4800,		
-			q4_5 => freq2400,		
-			q5_3 => freq1200,		
-			q6_2 => freq600, 	
-			q7_4 => freq300,		
-			q8_13 => open,		-- 150
-			q9_12 =>  open,	-- 75
-			q10_14 => open,	-- 37.5
-			q11_15 => open,	-- 18.75
-			q12_1 =>  open	-- 9.375
+			q1_9 => freq76800, 
+			q2_7 => freq38400,
+			q3_6 => freq19200,		
+			q4_5 => freq9600,		
+			q5_3 => freq4800,		
+			q6_2 => freq2400, 	
+			q7_4 => freq1200,		
+			q8_13 => freq600,		
+			q9_12 =>  freq300,
+			q10_14 => open,	
+			q11_15 => open,	
+			q12_1 =>  open	
 		);
 
 powergen: sn74hc4040 port map (
@@ -455,8 +466,8 @@ console: memconsole Port map(
 	
 	RED <= "000";
 	GRN <= "000";
-	LED(0) <= vm_rd;
-	LED(1) <= vm_wr;
+	LED(0) <= frame_ready; --vm_rd;
+	LED(1) <= PMOD(6); --vm_wr;
 
 	PMOD(3) <= gr_hsync;
 	PMOD(2) <= gr_vsync;
@@ -509,14 +520,22 @@ with hexsel select
 					vsync_cnt(11 downto 8) when "0110",
 					vsync_cnt(15 downto 12) when "0111",
 					--
-					DD(3 downto 0) when "1000",
-					DD(7 downto 4) when "1001",
-					A(3 downto 0) when "1010",
-					A(7 downto 4) when "1011",
-					DD(3 downto 0) when "1100",
-					DD(7 downto 4) when "1101",
-					A(3 downto 0) when "1110",
-					A(7 downto 4) when "1111",
+					data(3 downto 0) when "1000",
+					data(7 downto 4) when "1001",
+					data(11 downto 8) when "1010",
+					data(15 downto 12) when "1011",
+					debug(3 downto 0) when "1100",
+					debug(7 downto 4) when "1101",
+					debug(11 downto 8) when "1110",
+					debug(15 downto 12) when "1111",
+--					DD(3 downto 0) when "1000",
+--					DD(7 downto 4) when "1001",
+--					A(3 downto 0) when "1010",
+--					A(7 downto 4) when "1011",
+--					DD(3 downto 0) when "1100",
+--					DD(7 downto 4) when "1101",
+--					A(3 downto 0) when "1110",
+--					A(7 downto 4) when "1111",
 					X"0" when others;
 					
 testdelay: configurabledelayline Port map (
@@ -528,15 +547,43 @@ testdelay: configurabledelayline Port map (
 				signal_out => digsel0_delayed
 		);
 
---with SW(7 downto 5) select
---		freq_uart <= 	freq38400 when "111",
---							freq19200 when "110", 
---							freq9600 when "101",
---							freq4800 when "100",		
---							freq2400 when "011",		
---							freq1200 when "010",		
---							freq600 when "001", 	
---							freq300 when others;		
+serin: uart_receiver Port map ( 
+				rx_clk4 => freq_uart4,
+				reset => RESET,
+				rx => PMOD(6),
+				frame_ready => frame_ready, 
+				frame_valid => frame_valid,
+				frame_data => frame_data,
+				debug => debug
+		);
+
+capture: process(frame_ready, frame_data)
+begin
+	if (rising_edge(frame_ready)) then
+		data <= frame_data;
+	end if;
+end process;
+
+with SW(7 downto 5) select
+		freq_uart <= 	freq38400 when "111",
+							freq19200 when "110", 
+							freq9600 when "101",
+							freq4800 when "100",		
+							freq2400 when "011",		
+							freq1200 when "010",		
+							freq600 when "001", 	
+							freq300 when others;		
+
+with SW(7 downto 5) select
+		freq_uart4 <= 	freq153600 when "111",
+							freq76800 when "110", 
+							freq38400 when "101",
+							freq19200 when "100",		
+							freq9600 when "011",		
+							freq4800 when "010",		
+							freq2400 when "001", 	
+							freq1200 when others;		
+
 --
 --rx0: rx_reg Port map (
 --			clk => freq_uart,
@@ -569,5 +616,6 @@ testdelay: configurabledelayline Port map (
 --		data(15 downto 8) <= rx_char1;
 --	end if;
 --end process;
-			  
+			 
+			 
 end;

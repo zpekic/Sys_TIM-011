@@ -16,6 +16,7 @@ vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\mem43256.v
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\debouncer.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\configurabledelayline.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\signalcounter.vhd"
+vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\uart_receiver.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\memconsole.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\fourdigitsevensegled.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Grafika.vhd"

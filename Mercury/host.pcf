@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Sat Sep 19 18:33:19 2020
+// Written by: Map P.20131013 on Tue Sep 22 21:38:26 2020
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -49,17 +49,17 @@ COMP "PMOD<4>" LOCATE = SITE "P94" LEVEL 1;
 COMP "PMOD<5>" LOCATE = SITE "P93" LEVEL 1;
 COMP "PMOD<6>" LOCATE = SITE "P90" LEVEL 1;
 COMP "PMOD<7>" LOCATE = SITE "P89" LEVEL 1;
-TIMEGRP CLK = BEL "freq4096" BEL "freq38400" BEL "prescale_baud_1" BEL
-        "prescale_baud_0" BEL "prescale_baud_4" BEL "prescale_baud_2" BEL
-        "prescale_baud_3" BEL "prescale_baud_7" BEL "prescale_baud_5" BEL
-        "prescale_baud_6" BEL "prescale_baud_10" BEL "prescale_baud_8" BEL
-        "prescale_baud_9" BEL "prescale_baud_13" BEL "prescale_baud_11" BEL
-        "prescale_baud_12" BEL "prescale_baud_14" BEL "prescale_baud_15" BEL
-        "prescale_power_0" BEL "prescale_power_3" BEL "prescale_power_1" BEL
-        "prescale_power_2" BEL "prescale_power_6" BEL "prescale_power_4" BEL
-        "prescale_power_5" BEL "prescale_power_9" BEL "prescale_power_7" BEL
-        "prescale_power_8" BEL "prescale_power_12" BEL "prescale_power_10" BEL
-        "prescale_power_11" BEL "prescale_power_15" BEL "prescale_power_13"
+TIMEGRP CLK = BEL "freq4096" BEL "freq153600" BEL "prescale_baud_0" BEL
+        "prescale_baud_1" BEL "prescale_baud_2" BEL "prescale_baud_3" BEL
+        "prescale_baud_6" BEL "prescale_baud_4" BEL "prescale_baud_5" BEL
+        "prescale_baud_9" BEL "prescale_baud_7" BEL "prescale_baud_8" BEL
+        "prescale_baud_12" BEL "prescale_baud_10" BEL "prescale_baud_11" BEL
+        "prescale_baud_13" BEL "prescale_baud_14" BEL "prescale_baud_15" BEL
+        "prescale_power_2" BEL "prescale_power_0" BEL "prescale_power_1" BEL
+        "prescale_power_5" BEL "prescale_power_3" BEL "prescale_power_4" BEL
+        "prescale_power_8" BEL "prescale_power_6" BEL "prescale_power_7" BEL
+        "prescale_power_9" BEL "prescale_power_10" BEL "prescale_power_11" BEL
+        "prescale_power_12" BEL "prescale_power_15" BEL "prescale_power_13"
         BEL "prescale_power_14" BEL "clockgen/q_1" BEL "clockgen/q_2" BEL
         "clockgen/q_3" BEL "clockgen/q_4" BEL "clockgen/q_5" BEL
         "clockgen/q_6" BEL "clockgen/q_7" BEL "clockgen/q_8" BEL
