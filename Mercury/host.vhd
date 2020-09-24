@@ -209,6 +209,7 @@ component uart_receiver is
     Port ( rx_clk4 : in  STD_LOGIC;
            reset : in  STD_LOGIC;
            rx : in  STD_LOGIC;
+           mode : in  STD_LOGIC_VECTOR (2 downto 0);
            frame_ready : out  STD_LOGIC;
            frame_valid : out  STD_LOGIC;
            frame_data : out  STD_LOGIC_VECTOR (15 downto 0);
@@ -232,14 +233,14 @@ component configurabledelayline is
            signal_out : out  STD_LOGIC);
 end component;
 
-component rx_reg is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-           enable : in  STD_LOGIC;
-           rx : in  STD_LOGIC;
-           d : out  STD_LOGIC_VECTOR (7 downto 0);
-           dready : out  STD_LOGIC);
-end component;
+--component rx_reg is
+--    Port ( clk : in  STD_LOGIC;
+--           reset : in  STD_LOGIC;
+--           enable : in  STD_LOGIC;
+--           rx : in  STD_LOGIC;
+--           d : out  STD_LOGIC_VECTOR (7 downto 0);
+--           dready : out  STD_LOGIC);
+--end component;
 
 component debouncer8channel is
     Port ( clock : in STD_LOGIC;
@@ -547,10 +548,13 @@ testdelay: configurabledelayline Port map (
 				signal_out => digsel0_delayed
 		);
 
+freq_uart4 <= 	freq153600 when (switch(7) = '0') else freq1200;
+
 serin: uart_receiver Port map ( 
 				rx_clk4 => freq_uart4,
 				reset => RESET,
 				rx => PMOD(6),
+				mode => switch(6 downto 4), 
 				frame_ready => frame_ready, 
 				frame_valid => frame_valid,
 				frame_data => frame_data,
@@ -564,26 +568,26 @@ begin
 	end if;
 end process;
 
-with SW(7 downto 5) select
-		freq_uart <= 	freq38400 when "111",
-							freq19200 when "110", 
-							freq9600 when "101",
-							freq4800 when "100",		
-							freq2400 when "011",		
-							freq1200 when "010",		
-							freq600 when "001", 	
-							freq300 when others;		
-
-with SW(7 downto 5) select
-		freq_uart4 <= 	freq153600 when "111",
-							freq76800 when "110", 
-							freq38400 when "101",
-							freq19200 when "100",		
-							freq9600 when "011",		
-							freq4800 when "010",		
-							freq2400 when "001", 	
-							freq1200 when others;		
-
+--with switch(7 downto 5) select
+--		freq_uart <= 	freq38400 when "111",
+--							freq19200 when "110", 
+--							freq9600 when "101",
+--							freq4800 when "100",		
+--							freq2400 when "011",		
+--							freq1200 when "010",		
+--							freq600 when "001", 	
+--							freq300 when others;		
+--
+--with SW(7 downto 5) select
+--		freq_uart4 <= 	freq153600 when "111",
+--							freq76800 when "110", 
+--							freq38400 when "101",
+--							freq19200 when "100",		
+--							freq9600 when "011",		
+--							freq4800 when "010",		
+--							freq2400 when "001", 	
+--							freq1200 when others;		
+--
 --
 --rx0: rx_reg Port map (
 --			clk => freq_uart,
