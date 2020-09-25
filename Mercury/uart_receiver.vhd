@@ -58,16 +58,18 @@ end component;
 
 signal delay, ring: std_logic_vector(3 downto 0);
 signal sel: std_logic_vector(1 downto 0);
-signal data, sr2, sr3: std_logic_vector(11 downto 0);
-signal ready, valid, rx_clk, odd, even: std_logic;
-signal bitcnt: integer range 0 to 15;
+signal sr2, sr3: std_logic_vector(11 downto 0);
+signal data: std_logic_vector(15 downto 0);
+alias even: std_logic is data(15);
+alias odd: std_logic is data(14);
+signal ready, valid, rx_clk, o2, o3, e2, e3: std_logic;
 
 begin
 
 -- connect to outputs
 frame_ready <= ready;
 frame_valid <= valid;
-frame_data(15 downto 8) <= "00" & odd & even & "000" & data(1); -- & "00" & sel;
+frame_data(15 downto 8) <= valid & "0" & odd & even & "000" & data(1); -- & "00" & sel;
 
 -- internal parallel data
 --odd <= data(1) xor data(2) xor data(3) xor data(4) xor data(5) xor data(6) xor data(7) xor data(8) xor data(9);
@@ -85,12 +87,6 @@ with mode select
 				
 ready <= (not (data(9)) and data(0)) when (mode(2) = '0') else (not (data(10)) and data(0));				
 
-p_checker: Am82S62 port map ( 
-			p => data(9 downto 1),
-         inhibit => '0',
-         even => even,
-         odd => odd
-		);
 
 -- sample rx 4 times the rx baud rate, and generate rx baud rate with a ring counter
 update_delay: process(reset, ready, rx_clk4)
@@ -131,6 +127,13 @@ begin
 	end if;
 end process;
 
+pcheck2: Am82S62 port map ( 
+			p => sr2(9 downto 1),
+         inhibit => '0',
+         even => e2,
+         odd => o2
+		);
+
 -- drive shift register about 1.75 periods behind first detected space
 update_sr3: process(reset, ready, ring(3), rx)
 begin
@@ -143,10 +146,17 @@ begin
 	end if;
 end process;
 
+pcheck3: Am82S62 port map ( 
+			p => sr3(9 downto 1),
+         inhibit => '0',
+         even => e3,
+         odd => o3
+		);
+
 with sel select
-	data <= 	sr3 when "01",
-				sr2 when "10",
-				X"FFF" when others;
+	data <= 	e3 & o3 & "00" & sr3 when "01",
+				e2 & o2 & "00" & sr2 when "10",
+				X"FFFF" when others;
 
 --debug <= ring & delay & std_logic_vector(to_unsigned(bitcnt, 4)) & "00" & sel;
 

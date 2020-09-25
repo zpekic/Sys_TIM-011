@@ -205,6 +205,13 @@ end component;
 --	);
 --end component;
 
+component Am82S62 is
+    Port ( p : in  STD_LOGIC_VECTOR (9 downto 1);
+           inhibit : in  STD_LOGIC;
+           even : buffer  STD_LOGIC;
+           odd : out  STD_LOGIC);
+end component;
+
 component uart_receiver is
     Port ( rx_clk4 : in  STD_LOGIC;
            reset : in  STD_LOGIC;
@@ -264,8 +271,7 @@ end component;
 signal freq25M, freq12M5: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
-signal hexdata: std_logic_vector(3 downto 0);
-signal hexsel: std_logic_vector(3 downto 0);
+signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0); 
 signal RESET: std_logic;
 ---
@@ -479,11 +485,19 @@ console: memconsole Port map(
 	BLU(1) <= gr_vid2;
 	BLU(0) <= gr_vid1;
 	
+--pchecker: Am82S62 port map ( 
+--			p(9) => button(0),
+--			p(8 downto 1) => switch,
+--         inhibit => button(1),
+--         even => even,
+--         odd => odd
+--		);
+		
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
 			digsel => digsel,
-			showdigit => "1111",
+			showdigit => showdigit,
 			showdot => switch(3 downto 0),
 			-- outputs
 			anode => AN,
@@ -491,6 +505,7 @@ leds: fourdigitsevensegled Port map (
 			segment(6 downto 0) => A_TO_G
 		);
 
+showdigit <= "1111" when (data(15) = '1') else (others => freq2); 
 h <= digsel(0) and digsel0_delayed;
 
 cnt_hsync: signalcounter Port map ( 
@@ -588,38 +603,5 @@ end process;
 --							freq2400 when "001", 	
 --							freq1200 when others;		
 --
---
---rx0: rx_reg Port map (
---			clk => freq_uart,
---         reset => RESET,
---         enable => '1', --(not dready1),
---         rx => PMOD(6),
---         d => rx_char0,
---         dready => dready0
---	);
---
---capture0: process(dready0, rx_char0)
---begin
---	if (rising_edge(dready0)) then
---		data(7 downto 0) <= rx_char0;
---	end if;
---end process;
---
---rx1: rx_reg Port map (
---			clk => not(freq_uart),
---         reset => RESET,
---         enable => '1', --(not dready0),
---         rx => PMOD(6),
---         d => rx_char1,
---         dready => dready1
---	);
---
---capture1: process(dready1, rx_char1)
---begin
---	if (rising_edge(dready1)) then
---		data(15 downto 8) <= rx_char1;
---	end if;
---end process;
-			 
-			 
+
 end;

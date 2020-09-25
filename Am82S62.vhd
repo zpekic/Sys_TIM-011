@@ -45,13 +45,13 @@ begin
 p14 <= not ((p(1) xor p(2)) xor (p(3) xor p(4)));
 p58 <= not ((p(5) xor p(6)) xor (p(7) xor p(8)));
 
-a0 <= (not p14) and p58 and (not p(8));
-a1 <= p14 and (not p58) and (not p(8));
-a2 <= p14 and p58 and p(8);
-a3 <= (not p14) and (not p58) and p(8);
+a0 <= (not p14) and p58 and (not p(9));
+a1 <= p14 and (not p58) and (not p(9));
+a2 <= p14 and p58 and p(9);
+a3 <= (not p14) and (not p58) and p(9);
 
-even <= not (inhibit xor a0 xor a1 xor a2 xor a3);
-odd <= not (inhibit xor even);
+even <= not (inhibit or a0 or a1 or a2 or a3);
+odd <= not (inhibit or even);
 
 end Behavioral;
 

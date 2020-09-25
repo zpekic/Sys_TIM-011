@@ -3,14 +3,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.22 secs
+Total REAL time to Xst completion: 2.00 secs
+Total CPU time to Xst completion: 1.19 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.23 secs
+Total REAL time to Xst completion: 2.00 secs
+Total CPU time to Xst completion: 1.20 secs
  
 --> Reading design: host.prj
 
@@ -108,176 +108,152 @@ Cores Search Directories           : {"ipcore_dir"  }
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/ipcore_dir/ram32k8.vhd" in Library work.
-Entity <ram32k8> compiled.
-Entity <ram32k8> (Architecture <ram32k8_a>) compiled.
+Architecture ram32k8_a of Entity ram32k8 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/ff74.vhd" in Library work.
-Entity <ff74> compiled.
-Entity <ff74> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity ff74 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Am82S62.vhd" in Library work.
-Entity <Am82S62> compiled.
-Entity <Am82S62> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity am82s62 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/configurabledelayline.vhd" in Library work.
-Entity <configurabledelayline> compiled.
-Entity <configurabledelayline> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity configurabledelayline is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls08.vhd" in Library work.
-Entity <sn74ls08> compiled.
-Entity <sn74ls08> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls08 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc4040.vhd" in Library work.
-Entity <sn74hc4040> compiled.
-Entity <sn74hc4040> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74hc4040 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls374.vhd" in Library work.
-Entity <sn74ls374> compiled.
-Entity <sn74ls374> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls374 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls74.vhd" in Library work.
-Entity <sn74ls74> compiled.
-Entity <sn74ls74> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls74 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls283.vhd" in Library work.
-Entity <sn74ls283> compiled.
-Entity <sn74ls283> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls283 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls240.vhd" in Library work.
-Entity <sn74ls240> compiled.
-Entity <sn74ls240> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls240 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls20.vhd" in Library work.
-Entity <sn74ls20> compiled.
-Entity <sn74ls20> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls20 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls157.vhd" in Library work.
-Entity <sn74ls157> compiled.
-Entity <sn74ls157> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls157 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74hc04.vhd" in Library work.
-Entity <sn74hc04> compiled.
-Entity <sn74hc04> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74hc04 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74s153.vhd" in Library work.
-Entity <sn74s153> compiled.
-Entity <sn74s153> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74s153 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/mem43256.vhd" in Library work.
-Entity <mem43256> compiled.
-Entity <mem43256> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity mem43256 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls32.vhd" in Library work.
-Entity <sn74ls32> compiled.
-Entity <sn74ls32> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls32 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls244.vhd" in Library work.
-Entity <sn74ls244> compiled.
-Entity <sn74ls244> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity sn74ls244 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/debouncer.vhd" in Library work.
-Entity <debouncer> compiled.
-Entity <debouncer> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity debouncer is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/debouncer8channel.vhd" in Library work.
-Entity <debouncer8channel> compiled.
-Entity <debouncer8channel> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity debouncer8channel is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/memconsole.vhd" in Library work.
-Entity <memconsole> compiled.
-Entity <memconsole> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity memconsole is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" in Library work.
-Entity <Grafika> compiled.
-Entity <Grafika> (Architecture <Structural>) compiled.
+Architecture structural of Entity grafika is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd" in Library work.
-Entity <fourdigitsevensegled> compiled.
-Entity <fourdigitsevensegled> (Architecture <structural>) compiled.
+Architecture structural of Entity fourdigitsevensegled is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/signalcounter.vhd" in Library work.
-Entity <signalcounter> compiled.
-Entity <signalcounter> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity signalcounter is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/uart_receiver.vhd" in Library work.
-Entity <uart_receiver> compiled.
-Entity <uart_receiver> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity uart_receiver is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" in Library work.
 Entity <host> compiled.
-Entity <host> (Architecture <Structural>) compiled.
+Entity <host> (Architecture <structural>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
 =========================================================================
-Analyzing hierarchy for entity <host> in library <work> (architecture <Structural>).
+Analyzing hierarchy for entity <host> in library <work> (architecture <structural>).
 
-Analyzing hierarchy for entity <sn74hc4040> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74hc4040> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <debouncer8channel> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <debouncer8channel> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <memconsole> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <memconsole> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <Grafika> in library <work> (architecture <Structural>).
+Analyzing hierarchy for entity <Grafika> in library <work> (architecture <structural>).
 
 Analyzing hierarchy for entity <fourdigitsevensegled> in library <work> (architecture <structural>).
 
-Analyzing hierarchy for entity <signalcounter> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <signalcounter> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <configurabledelayline> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <configurabledelayline> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <uart_receiver> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <uart_receiver> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <debouncer> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <debouncer> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls08> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls08> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74hc4040> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74hc4040> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls374> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls374> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls74> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls74> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls283> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls283> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls240> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls240> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls20> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls20> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls157> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls157> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74hc04> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74hc04> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74s153> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74s153> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <mem43256> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <mem43256> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls32> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls32> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <sn74ls244> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <sn74ls244> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <Am82S62> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <Am82S62> in library <work> (architecture <behavioral>).
 
-Analyzing hierarchy for entity <ff74> in library <work> (architecture <Behavioral>).
+Analyzing hierarchy for entity <ff74> in library <work> (architecture <behavioral>).
 
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
-Analyzing Entity <host> in library <work> (Architecture <Structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q6_2' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q5_3' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q7_4' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q4_5' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q3_6' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 354: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 389: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 389: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 389: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q6_2' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q5_3' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q7_4' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q4_5' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q3_6' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q2_7' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q1_9' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 406: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+Analyzing Entity <host> in library <work> (Architecture <structural>).
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q6_2' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q5_3' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q4_5' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q3_6' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q6_2' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q5_3' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q4_5' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q3_6' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q2_7' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q1_9' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q10_14' of component 'sn74hc4040'.
 Entity <host> analyzed. Unit <host> generated.
 
-Analyzing Entity <sn74hc4040> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74hc4040> in library <work> (Architecture <behavioral>).
 Entity <sn74hc4040> analyzed. Unit <sn74hc4040> generated.
 
-Analyzing Entity <debouncer8channel> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <debouncer8channel> in library <work> (Architecture <behavioral>).
 Entity <debouncer8channel> analyzed. Unit <debouncer8channel> generated.
 
-Analyzing Entity <debouncer> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <debouncer> in library <work> (Architecture <behavioral>).
 Entity <debouncer> analyzed. Unit <debouncer> generated.
 
-Analyzing Entity <memconsole> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <memconsole> in library <work> (Architecture <behavioral>).
 Entity <memconsole> analyzed. Unit <memconsole> generated.
 
-Analyzing Entity <Grafika> in library <work> (Architecture <Structural>).
+Analyzing Entity <Grafika> in library <work> (Architecture <structural>).
 WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 270: Unconnected output port 'y2_6' of component 'sn74ls08'.
 WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'q12_1' of component 'sn74hc4040'.
 WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'q10_14' of component 'sn74hc4040'.
@@ -302,61 +278,62 @@ WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Gr
 WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 498: Unconnected output port 'y4_11' of component 'sn74ls32'.
 Entity <Grafika> analyzed. Unit <Grafika> generated.
 
-Analyzing Entity <sn74ls08> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls08> in library <work> (Architecture <behavioral>).
 Entity <sn74ls08> analyzed. Unit <sn74ls08> generated.
 
-Analyzing Entity <sn74ls374> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls374> in library <work> (Architecture <behavioral>).
 Entity <sn74ls374> analyzed. Unit <sn74ls374> generated.
 
-Analyzing Entity <sn74ls74> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls74> in library <work> (Architecture <behavioral>).
 Entity <sn74ls74> analyzed. Unit <sn74ls74> generated.
 
-Analyzing Entity <ff74> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <ff74> in library <work> (Architecture <behavioral>).
 Entity <ff74> analyzed. Unit <ff74> generated.
 
-Analyzing Entity <sn74ls283> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls283> in library <work> (Architecture <behavioral>).
 WARNING:Xst:1610 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls283.vhd" line 46: Width mismatch. <sum> has a width of 6 bits but assigned expression is 5-bit wide.
 Entity <sn74ls283> analyzed. Unit <sn74ls283> generated.
 
-Analyzing Entity <sn74ls240> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls240> in library <work> (Architecture <behavioral>).
 Entity <sn74ls240> analyzed. Unit <sn74ls240> generated.
 
-Analyzing Entity <sn74ls20> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls20> in library <work> (Architecture <behavioral>).
 Entity <sn74ls20> analyzed. Unit <sn74ls20> generated.
 
-Analyzing Entity <sn74ls157> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls157> in library <work> (Architecture <behavioral>).
 Entity <sn74ls157> analyzed. Unit <sn74ls157> generated.
 
-Analyzing Entity <sn74hc04> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74hc04> in library <work> (Architecture <behavioral>).
 Entity <sn74hc04> analyzed. Unit <sn74hc04> generated.
 
-Analyzing Entity <sn74s153> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74s153> in library <work> (Architecture <behavioral>).
 Entity <sn74s153> analyzed. Unit <sn74s153> generated.
 
-Analyzing Entity <mem43256> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <mem43256> in library <work> (Architecture <behavioral>).
 WARNING:Xst:2211 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/mem43256.vhd" line 79: Instantiating black box module <ram32k8>.
 Entity <mem43256> analyzed. Unit <mem43256> generated.
 
-Analyzing Entity <sn74ls32> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls32> in library <work> (Architecture <behavioral>).
 Entity <sn74ls32> analyzed. Unit <sn74ls32> generated.
 
-Analyzing Entity <sn74ls244> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <sn74ls244> in library <work> (Architecture <behavioral>).
 Entity <sn74ls244> analyzed. Unit <sn74ls244> generated.
 
 Analyzing Entity <fourdigitsevensegled> in library <work> (Architecture <structural>).
 Entity <fourdigitsevensegled> analyzed. Unit <fourdigitsevensegled> generated.
 
-Analyzing Entity <signalcounter> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <signalcounter> in library <work> (Architecture <behavioral>).
 Entity <signalcounter> analyzed. Unit <signalcounter> generated.
 
-Analyzing Entity <configurabledelayline> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <configurabledelayline> in library <work> (Architecture <behavioral>).
 Entity <configurabledelayline> analyzed. Unit <configurabledelayline> generated.
 
-Analyzing Entity <uart_receiver> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <uart_receiver> in library <work> (Architecture <behavioral>).
+INFO:Xst:1739 - HDL ADVISOR - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/uart_receiver.vhd" line 35: declaration of a buffer port will make it difficult for you to validate this design by simulation. It is preferable to declare it as output.
 INFO:Xst:1739 - HDL ADVISOR - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/uart_receiver.vhd" line 35: declaration of a buffer port will make it difficult for you to validate this design by simulation. It is preferable to declare it as output.
 Entity <uart_receiver> analyzed. Unit <uart_receiver> generated.
 
-Analyzing Entity <Am82S62> in library <work> (Architecture <Behavioral>).
+Analyzing Entity <Am82S62> in library <work> (Architecture <behavioral>).
 Entity <Am82S62> analyzed. Unit <Am82S62> generated.
 
 
@@ -391,12 +368,11 @@ Unit <memconsole> synthesized.
 Synthesizing Unit <fourdigitsevensegled>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd".
     Found 16x7-bit ROM for signal <internalseg>.
-    Found 1-of-4 decoder for signal <anode>.
+    Found 4-bit 4-to-1 multiplexer for signal <anode>.
     Found 1-bit 4-to-1 multiplexer for signal <dot>.
     Summary:
 	inferred   1 ROM(s).
-	inferred   1 Multiplexer(s).
-	inferred   1 Decoder(s).
+	inferred   5 Multiplexer(s).
 Unit <fourdigitsevensegled> synthesized.
 
 
@@ -509,12 +485,10 @@ Unit <ff74> synthesized.
 
 Synthesizing Unit <Am82S62>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Am82S62.vhd".
-WARNING:Xst:647 - Input <p<9>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-    Found 1-bit xor4 for signal <even$xor0000> created at line 53.
     Found 1-bit xor4 for signal <p14$xor0000> created at line 45.
     Found 1-bit xor4 for signal <p58$xor0000> created at line 46.
     Summary:
-	inferred   3 Xor(s).
+	inferred   2 Xor(s).
 Unit <Am82S62> synthesized.
 
 
@@ -527,9 +501,8 @@ Synthesizing Unit <uart_receiver>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/uart_receiver.vhd".
 WARNING:Xst:1305 - Output <debug> is never assigned. Tied to value 0000000000000000.
 WARNING:Xst:1780 - Signal <rx_clk> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <data<11>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:1780 - Signal <bitcnt> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
-    Found 12-bit 4-to-1 multiplexer for signal <data>.
+WARNING:Xst:646 - Signal <data<13:11>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 16-bit 4-to-1 multiplexer for signal <data>.
     Found 4-bit register for signal <delay>.
     Found 4-bit register for signal <ring>.
     Found 2-bit register for signal <sel>.
@@ -537,7 +510,7 @@ WARNING:Xst:1780 - Signal <bitcnt> is never used or assigned. This unconnected s
     Found 12-bit register for signal <sr3>.
     Summary:
 	inferred  30 D-type flip-flop(s).
-	inferred  12 Multiplexer(s).
+	inferred  16 Multiplexer(s).
 Unit <uart_receiver> synthesized.
 
 
@@ -617,18 +590,17 @@ Macro Statistics
  16-bit register                                       : 6
  4-bit register                                        : 2
  8-bit register                                        : 5
-# Multiplexers                                         : 5
+# Multiplexers                                         : 6
  1-bit 16-to-1 multiplexer                             : 2
  1-bit 4-to-1 multiplexer                              : 1
- 12-bit 4-to-1 multiplexer                             : 1
+ 16-bit 4-to-1 multiplexer                             : 1
  4-bit 16-to-1 multiplexer                             : 1
-# Decoders                                             : 1
- 1-of-4 decoder                                        : 1
+ 4-bit 4-to-1 multiplexer                              : 1
 # Tristates                                            : 8
  4-bit tristate buffer                                 : 2
  8-bit tristate buffer                                 : 6
-# Xors                                                 : 3
- 1-bit xor4                                            : 3
+# Xors                                                 : 4
+ 1-bit xor4                                            : 4
 
 =========================================================================
 
@@ -638,10 +610,6 @@ Macro Statistics
 
 Reading core <ram32k8.ngc>.
 Loading core <ram32k8> for timing and area information for instance <mem>.
-WARNING:Xst:1290 - Hierarchical block <channel_generate[4].di> is unconnected in block <debounce_sw>.
-   It will be removed from the design.
-WARNING:Xst:1290 - Hierarchical block <channel_generate[5].di> is unconnected in block <debounce_sw>.
-   It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <channel_generate[4].di> is unconnected in block <debounce_btn>.
    It will be removed from the design.
 WARNING:Xst:1290 - Hierarchical block <channel_generate[5].di> is unconnected in block <debounce_btn>.
@@ -664,7 +632,6 @@ WARNING:Xst:1710 - FF/Latch <data_9> (without init value) has a constant value o
 WARNING:Xst:1710 - FF/Latch <data_10> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_11> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_14> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1710 - FF/Latch <data_15> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <ff_0> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <ff_1> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <ff_2> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
@@ -692,15 +659,13 @@ Macro Statistics
  16-bit up counter                                     : 4
 # Registers                                            : 352
  Flip-Flops                                            : 352
-# Multiplexers                                         : 5
- 1-bit 16-to-1 multiplexer                             : 2
+# Multiplexers                                         : 9
+ 1-bit 16-to-1 multiplexer                             : 6
  1-bit 4-to-1 multiplexer                              : 1
- 12-bit 4-to-1 multiplexer                             : 1
- 4-bit 16-to-1 multiplexer                             : 1
-# Decoders                                             : 1
- 1-of-4 decoder                                        : 1
-# Xors                                                 : 3
- 1-bit xor4                                            : 3
+ 16-bit 4-to-1 multiplexer                             : 1
+ 4-bit 4-to-1 multiplexer                              : 1
+# Xors                                                 : 4
+ 1-bit xor4                                            : 4
 
 =========================================================================
 
@@ -740,6 +705,8 @@ WARNING:Xst:1710 - FF/Latch <video/u4/ff_0> (without init value) has a constant 
 
 Optimizing unit <host> ...
 
+Optimizing unit <fourdigitsevensegled> ...
+
 Optimizing unit <signalcounter> ...
 
 Optimizing unit <configurabledelayline> ...
@@ -753,7 +720,6 @@ WARNING:Xst:1710 - FF/Latch <data_9> (without init value) has a constant value o
 WARNING:Xst:1710 - FF/Latch <data_10> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_11> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_14> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1710 - FF/Latch <data_15> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:2677 - Node <testdelay/line_14> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <testdelay/line_13> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <testdelay/line_12> of sequential type is unconnected in block <host>.
@@ -805,24 +771,6 @@ WARNING:Xst:2677 - Node <debounce_btn/channel_generate[7].di/shifter_4> of seque
 WARNING:Xst:2677 - Node <debounce_btn/channel_generate[7].di/shifter_5> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <debounce_btn/channel_generate[7].di/shifter_6> of sequential type is unconnected in block <host>.
 WARNING:Xst:2677 - Node <debounce_btn/channel_generate[7].di/shifter_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/debounced> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[4].di/shifter_7> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/debounced> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_0> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_1> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_2> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_3> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_4> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_5> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_6> of sequential type is unconnected in block <host>.
-WARNING:Xst:2677 - Node <debounce_sw/channel_generate[5].di/shifter_7> of sequential type is unconnected in block <host>.
 
 Mapping all equations...
 Building and optimizing final netlist ...
@@ -834,7 +782,7 @@ WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_11> 
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_12> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_13> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_14> is unconnected in block <host>.
-Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 16.
+Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 17.
 FlipFlop video/u13/q_10 has been replicated 1 time(s)
 FlipFlop video/u13/q_2 has been replicated 2 time(s)
 FlipFlop video/u10/ff2/Q has been replicated 1 time(s) to handle iob=true attribute.
@@ -849,8 +797,8 @@ Unit <host> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 398
- Flip-Flops                                            : 398
+# Registers                                            : 417
+ Flip-Flops                                            : 417
 
 =========================================================================
 
@@ -879,40 +827,40 @@ Design Statistics
 # IOs                              : 46
 
 Cell Usage :
-# BELS                             : 798
+# BELS                             : 827
 #      GND                         : 2
 #      INV                         : 47
 #      LUT1                        : 46
-#      LUT2                        : 104
-#      LUT3                        : 129
+#      LUT2                        : 109
+#      LUT3                        : 132
 #      LUT3_D                      : 1
-#      LUT4                        : 127
+#      LUT4                        : 145
 #      LUT4_L                      : 2
 #      MUXCY                       : 148
-#      MUXF5                       : 19
+#      MUXF5                       : 22
 #      MUXF6                       : 8
 #      MUXF7                       : 4
 #      VCC                         : 1
 #      XORCY                       : 160
-# FlipFlops/Latches                : 399
-#      FD                          : 26
+# FlipFlops/Latches                : 418
+#      FD                          : 27
 #      FDC                         : 76
 #      FDCE                        : 64
-#      FDCP                        : 90
+#      FDCP                        : 106
 #      FDE                         : 69
 #      FDP                         : 7
 #      FDP_1                       : 22
 #      FDPE_1                      : 2
-#      FDR                         : 20
-#      FDS                         : 13
-#      FDSE                        : 10
+#      FDR                         : 19
+#      FDS                         : 14
+#      FDSE                        : 12
 # RAMS                             : 16
 #      RAMB16BWE                   : 16
 # Clock Buffers                    : 4
 #      BUFG                        : 3
 #      BUFGP                       : 1
-# IO Buffers                       : 40
-#      IBUF                        : 12
+# IO Buffers                       : 42
+#      IBUF                        : 14
 #      OBUF                        : 28
 =========================================================================
 
@@ -921,11 +869,11 @@ Device utilization summary:
 
 Selected Device : 3s200avq100-4 
 
- Number of Slices:                      299  out of   1792    16%  
- Number of Slice Flip Flops:            398  out of   3584    11%  
- Number of 4 input LUTs:                456  out of   3584    12%  
+ Number of Slices:                      315  out of   1792    17%  
+ Number of Slice Flip Flops:            417  out of   3584    11%  
+ Number of 4 input LUTs:                482  out of   3584    13%  
  Number of IOs:                          46
- Number of bonded IOBs:                  41  out of     68    60%  
+ Number of bonded IOBs:                  43  out of     68    63%  
     IOB Flip Flops:                       1
  Number of BRAMs:                        16  out of     16   100%  
  Number of GCLKs:                         4  out of     24    16%  
@@ -952,7 +900,7 @@ Clock Information:
 Clock Signal                       | Clock buffer(FF name)                                                                                                         | Load  |
 -----------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
 CLK                                | BUFGP                                                                                                                         | 46    |
-LED_0_OBUF(serin/ready:O)          | NONE(*)(data_0)                                                                                                               | 11    |
+LED_0_OBUF(serin/ready:O)          | NONE(*)(data_1)                                                                                                               | 12    |
 freq4096                           | NONE(powergen/q_1)                                                                                                            | 11    |
 freq153600                         | NONE(baudgen/q_1)                                                                                                             | 7     |
 powergen/q_111                     | BUFG                                                                                                                          | 23    |
@@ -961,7 +909,7 @@ video/u30/mem/N1                   | NONE(video/u30/mem/U0/xst_blk_mem_generator
 video/u13/q_2                      | NONE(video/u40/ff_0)                                                                                                          | 17    |
 video/u3/q_6                       | NONE(video/u10/ff2/Q)                                                                                                         | 2     |
 video/delay565ns/line_6            | NONE(video/u3/q_9)                                                                                                            | 9     |
-baudgen/q_31                       | BUFG                                                                                                                          | 90    |
+baudgen/q_31                       | BUFG                                                                                                                          | 108   |
 freq_uart4(freq_uart41:O)          | NONE(*)(serin/ring_0)                                                                                                         | 10    |
 serin/ring_3                       | NONE(serin/sr3_10)                                                                                                            | 11    |
 serin/ring_2                       | NONE(serin/sr2_10)                                                                                                            | 11    |
@@ -978,7 +926,7 @@ Control Signal                                                                  
 ---------------------------------------------------------------------------------------------------------------+----------------------------------------------------+-------+
 USR_BTN                                                                                                        | IBUF                                               | 125   |
 serin/sr2_or0000(serin/sr2_or00001:O)                                                                          | NONE(serin/sel_0)                                  | 24    |
-Mmux_hexdata_4_f5(XST_GND:G)                                                                                   | NONE(video/delay565ns/line_0)                      | 18    |
+RED_0_OBUF(XST_GND:G)                                                                                          | NONE(video/delay565ns/line_0)                      | 18    |
 video/u1_6(video/u1/y2_61:O)                                                                                   | NONE(video/u13/q_1)                                | 13    |
 video/u2_11(video/u2/y4_111:O)                                                                                 | NONE(video/u3/q_1)                                 | 9     |
 debounce_btn/channel_generate[0].di/shifter_7_and0000(debounce_btn/channel_generate[0].di/shifter_7_and00001:O)| NONE(debounce_btn/channel_generate[0].di/shifter_0)| 8     |
@@ -997,6 +945,10 @@ debounce_sw/channel_generate[2].di/shifter_7_and0000(debounce_sw/channel_generat
 debounce_sw/channel_generate[2].di/shifter_7_and0001(debounce_sw/channel_generate[2].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[2].di/shifter_0) | 8     |
 debounce_sw/channel_generate[3].di/shifter_7_and0000(debounce_sw/channel_generate[3].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[3].di/shifter_0) | 8     |
 debounce_sw/channel_generate[3].di/shifter_7_and0001(debounce_sw/channel_generate[3].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[3].di/shifter_0) | 8     |
+debounce_sw/channel_generate[4].di/shifter_7_and0000(debounce_sw/channel_generate[4].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[4].di/shifter_0) | 8     |
+debounce_sw/channel_generate[4].di/shifter_7_and0001(debounce_sw/channel_generate[4].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[4].di/shifter_0) | 8     |
+debounce_sw/channel_generate[5].di/shifter_7_and0000(debounce_sw/channel_generate[5].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[5].di/shifter_0) | 8     |
+debounce_sw/channel_generate[5].di/shifter_7_and0001(debounce_sw/channel_generate[5].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[5].di/shifter_0) | 8     |
 debounce_sw/channel_generate[6].di/shifter_7_and0000(debounce_sw/channel_generate[6].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[6].di/shifter_0) | 8     |
 debounce_sw/channel_generate[6].di/shifter_7_and0001(debounce_sw/channel_generate[6].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[6].di/shifter_0) | 8     |
 debounce_sw/channel_generate[7].di/shifter_7_and0000(debounce_sw/channel_generate[7].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[7].di/shifter_0) | 8     |
@@ -1009,7 +961,7 @@ Timing Summary:
 Speed Grade: -4
 
    Minimum period: 7.663ns (Maximum Frequency: 130.503MHz)
-   Minimum input arrival time before clock: 4.286ns
+   Minimum input arrival time before clock: 4.287ns
    Maximum output required time after clock: 11.085ns
    Maximum combinational path delay: 5.956ns
 
@@ -1023,16 +975,16 @@ Timing constraint: Default period analysis for Clock 'CLK'
   Total number of paths / destination ports: 896 / 80
 -------------------------------------------------------------------------
 Delay:               4.892ns (Levels of Logic = 2)
-  Source:            prescale_baud_3 (FF)
+  Source:            prescale_baud_4 (FF)
   Destination:       prescale_baud_0 (FF)
   Source Clock:      CLK rising
   Destination Clock: CLK rising
 
-  Data Path: prescale_baud_3 to prescale_baud_0
+  Data Path: prescale_baud_4 to prescale_baud_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDR:C->Q              2   0.591   0.590  prescale_baud_3 (prescale_baud_3)
+     FDR:C->Q              2   0.591   0.590  prescale_baud_4 (prescale_baud_4)
      LUT4:I0->O            1   0.648   0.500  freq153600_cmp_eq000025 (freq153600_cmp_eq000025)
      LUT4:I1->O           17   0.643   1.051  freq153600_cmp_eq000076 (freq153600_not0002_inv)
      FDR:R                     0.869          prescale_baud_0
@@ -1194,19 +1146,19 @@ Delay:               3.947ns (Levels of Logic = 9)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'baudgen/q_31'
   Clock period: 4.413ns (frequency: 226.603MHz)
-  Total number of paths / destination ports: 230 / 90
+  Total number of paths / destination ports: 276 / 108
 -------------------------------------------------------------------------
 Delay:               4.413ns (Levels of Logic = 2)
-  Source:            debounce_btn/channel_generate[0].di/shifter_3 (FF)
+  Source:            debounce_btn/channel_generate[0].di/shifter_0 (FF)
   Destination:       debounce_btn/channel_generate[0].di/debounced (FF)
   Source Clock:      baudgen/q_31 rising
   Destination Clock: baudgen/q_31 rising
 
-  Data Path: debounce_btn/channel_generate[0].di/shifter_3 to debounce_btn/channel_generate[0].di/debounced
+  Data Path: debounce_btn/channel_generate[0].di/shifter_0 to debounce_btn/channel_generate[0].di/debounced
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCP:C->Q             3   0.591   0.674  debounce_btn/channel_generate[0].di/shifter_3 (debounce_btn/channel_generate[0].di/shifter_3)
+     FDCP:C->Q             3   0.591   0.674  debounce_btn/channel_generate[0].di/shifter_0 (debounce_btn/channel_generate[0].di/shifter_0)
      LUT4:I0->O            1   0.648   0.563  debounce_btn/channel_generate[0].di/all1_cmp_eq00004 (debounce_btn/channel_generate[0].di/all1_cmp_eq00004)
      LUT2:I0->O            1   0.648   0.420  debounce_btn/channel_generate[0].di/all1_cmp_eq000010 (debounce_btn/channel_generate[0].di/all1)
      FDSE:S                    0.869          debounce_btn/channel_generate[0].di/debounced
@@ -1221,27 +1173,27 @@ Timing constraint: Default period analysis for Clock 'freq_uart4'
 -------------------------------------------------------------------------
 Delay:               2.165ns (Levels of Logic = 1)
   Source:            serin/delay_1 (FF)
-  Destination:       serin/sel_0 (FF)
+  Destination:       serin/sel_1 (FF)
   Source Clock:      freq_uart4 rising
   Destination Clock: freq_uart4 falling
 
-  Data Path: serin/delay_1 to serin/sel_0
+  Data Path: serin/delay_1 to serin/sel_1
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDP:C->Q              3   0.591   0.674  serin/delay_1 (serin/delay_1)
-     LUT3:I0->O            1   0.648   0.000  serin/sel_0_or00001 (serin/sel_0_or0000)
-     FDPE_1:D                  0.252          serin/sel_0
+     LUT3:I0->O            1   0.648   0.000  serin/sel_1_or00001 (serin/sel_1_or0000)
+     FDPE_1:D                  0.252          serin/sel_1
     ----------------------------------------
     Total                      2.165ns (1.491ns logic, 0.674ns route)
                                        (68.9% logic, 31.1% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'serin/ring_3'
-  Clock period: 1.374ns (frequency: 727.802MHz)
+  Clock period: 1.430ns (frequency: 699.301MHz)
   Total number of paths / destination ports: 10 / 10
 -------------------------------------------------------------------------
-Delay:               1.374ns (Levels of Logic = 0)
+Delay:               1.430ns (Levels of Logic = 0)
   Source:            serin/sr3_9 (FF)
   Destination:       serin/sr3_10 (FF)
   Source Clock:      serin/ring_3 falling
@@ -1251,18 +1203,18 @@ Delay:               1.374ns (Levels of Logic = 0)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP_1:C->Q            3   0.591   0.531  serin/sr3_9 (serin/sr3_9)
+     FDP_1:C->Q            4   0.591   0.587  serin/sr3_9 (serin/sr3_9)
      FDP_1:D                   0.252          serin/sr3_10
     ----------------------------------------
-    Total                      1.374ns (0.843ns logic, 0.531ns route)
-                                       (61.4% logic, 38.6% route)
+    Total                      1.430ns (0.843ns logic, 0.587ns route)
+                                       (59.0% logic, 41.0% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'serin/ring_2'
-  Clock period: 1.374ns (frequency: 727.802MHz)
+  Clock period: 1.430ns (frequency: 699.301MHz)
   Total number of paths / destination ports: 10 / 10
 -------------------------------------------------------------------------
-Delay:               1.374ns (Levels of Logic = 0)
+Delay:               1.430ns (Levels of Logic = 0)
   Source:            serin/sr2_9 (FF)
   Destination:       serin/sr2_10 (FF)
   Source Clock:      serin/ring_2 falling
@@ -1272,17 +1224,17 @@ Delay:               1.374ns (Levels of Logic = 0)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP_1:C->Q            3   0.591   0.531  serin/sr2_9 (serin/sr2_9)
+     FDP_1:C->Q            4   0.591   0.587  serin/sr2_9 (serin/sr2_9)
      FDP_1:D                   0.252          serin/sr2_10
     ----------------------------------------
-    Total                      1.374ns (0.843ns logic, 0.531ns route)
-                                       (61.4% logic, 38.6% route)
+    Total                      1.430ns (0.843ns logic, 0.587ns route)
+                                       (59.0% logic, 41.0% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clockgen/q_21'
   Total number of paths / destination ports: 66 / 66
 -------------------------------------------------------------------------
-Offset:              4.286ns (Levels of Logic = 2)
+Offset:              4.287ns (Levels of Logic = 2)
   Source:            USR_BTN (PAD)
   Destination:       cnt_hsync/capture_hi_15 (FF)
   Destination Clock: clockgen/q_21 rising
@@ -1291,16 +1243,16 @@ Offset:              4.286ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           151   0.849   1.443  USR_BTN_IBUF (USR_BTN_IBUF)
+     IBUF:I->O           155   0.849   1.444  USR_BTN_IBUF (USR_BTN_IBUF)
      LUT3:I0->O           16   0.648   1.034  cnt_hsync/capture_lo_and00001 (cnt_hsync/capture_lo_and0000)
      FDE:CE                    0.312          cnt_hsync/capture_lo_0
     ----------------------------------------
-    Total                      4.286ns (1.809ns logic, 2.477ns route)
+    Total                      4.287ns (1.809ns logic, 2.478ns route)
                                        (42.2% logic, 57.8% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'baudgen/q_31'
-  Total number of paths / destination ports: 10 / 10
+  Total number of paths / destination ports: 12 / 12
 -------------------------------------------------------------------------
 Offset:              1.632ns (Levels of Logic = 1)
   Source:            BTN<0> (PAD)
@@ -1379,22 +1331,22 @@ Timing constraint: Default OFFSET OUT AFTER for Clock 'clockgen/q_21'
   Total number of paths / destination ports: 462 / 13
 -------------------------------------------------------------------------
 Offset:              10.174ns (Levels of Logic = 7)
-  Source:            cnt_hsync/capture_lo_1 (FF)
+  Source:            cnt_hsync/capture_lo_0 (FF)
   Destination:       A_TO_G<6> (PAD)
   Source Clock:      clockgen/q_21 rising
 
-  Data Path: cnt_hsync/capture_lo_1 to A_TO_G<6>
+  Data Path: cnt_hsync/capture_lo_0 to A_TO_G<6>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q              1   0.591   0.500  cnt_hsync/capture_lo_1 (cnt_hsync/capture_lo_1)
-     LUT3:I1->O            1   0.643   0.500  cnt_hsync/count<1>1 (hsync_cnt<1>)
-     LUT3:I1->O            1   0.643   0.000  Mmux_hexdata_81 (Mmux_hexdata_81)
-     MUXF5:I0->O           1   0.276   0.000  Mmux_hexdata_6_f5_0 (Mmux_hexdata_6_f51)
-     MUXF6:I0->O           1   0.291   0.000  Mmux_hexdata_4_f6_0 (Mmux_hexdata_4_f61)
-     MUXF7:I0->O           7   0.291   0.851  Mmux_hexdata_2_f7_0 (hexdata<1>)
-     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg41 (A_TO_G_4_OBUF)
-     OBUF:I->O                 4.520          A_TO_G_4_OBUF (A_TO_G<4>)
+     FDE:C->Q              1   0.591   0.500  cnt_hsync/capture_lo_0 (cnt_hsync/capture_lo_0)
+     LUT3:I1->O            1   0.643   0.500  cnt_hsync/count<0>1 (hsync_cnt<0>)
+     LUT3:I1->O            1   0.643   0.000  mux_8 (mux_8)
+     MUXF5:I0->O           1   0.276   0.000  mux_6_f5 (mux_6_f5)
+     MUXF6:I0->O           1   0.291   0.000  mux_4_f6 (mux_4_f6)
+     MUXF7:I0->O           7   0.291   0.851  mux_2_f7 (hexdata<0>)
+     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg51 (A_TO_G_5_OBUF)
+     OBUF:I->O                 4.520          A_TO_G_5_OBUF (A_TO_G<5>)
     ----------------------------------------
     Total                     10.174ns (7.903ns logic, 2.271ns route)
                                        (77.7% logic, 22.3% route)
@@ -1413,8 +1365,8 @@ Offset:              8.355ns (Levels of Logic = 4)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDCP:C->Q             1   0.591   0.563  video/u10/ff1/Q (video/u10/ff1/Q)
-     LUT3:I0->O            4   0.648   0.667  video/u1/y1_321 (N39)
-     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N68)
+     LUT3:I0->O            4   0.648   0.667  video/u1/y1_321 (N27)
+     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N74)
      MUXF5:I0->O           2   0.276   0.447  video/u1/y4_11 (BLU_1_OBUF)
      OBUF:I->O                 4.520          PMOD_1_OBUF (PMOD<1>)
     ----------------------------------------
@@ -1435,8 +1387,8 @@ Offset:              8.536ns (Levels of Logic = 4)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDC:C->Q              6   0.591   0.749  video/u3/q_9 (video/u3/q_9)
-     LUT3:I1->O            4   0.643   0.667  video/u1/y1_321 (N39)
-     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N68)
+     LUT3:I1->O            4   0.643   0.667  video/u1/y1_321 (N27)
+     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N74)
      MUXF5:I0->O           2   0.276   0.447  video/u1/y4_11 (BLU_1_OBUF)
      OBUF:I->O                 4.520          PMOD_1_OBUF (PMOD<1>)
     ----------------------------------------
@@ -1445,9 +1397,9 @@ Offset:              8.536ns (Levels of Logic = 4)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
-  Total number of paths / destination ports: 257 / 16
+  Total number of paths / destination ports: 264 / 16
 -------------------------------------------------------------------------
-Offset:              9.940ns (Levels of Logic = 6)
+Offset:              9.941ns (Levels of Logic = 6)
   Source:            clockgen/q_11 (FF)
   Destination:       A_TO_G<6> (PAD)
   Source Clock:      CLK falling
@@ -1456,15 +1408,15 @@ Offset:              9.940ns (Levels of Logic = 6)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q             29   0.591   1.404  clockgen/q_11 (clockgen/q_11)
-     LUT3:I0->O            1   0.648   0.000  Mmux_hexdata_61 (Mmux_hexdata_61)
-     MUXF5:I1->O           1   0.276   0.000  Mmux_hexdata_5_f5 (Mmux_hexdata_5_f5)
-     MUXF6:I0->O           1   0.291   0.000  Mmux_hexdata_3_f6 (Mmux_hexdata_3_f6)
-     MUXF7:I1->O           7   0.291   0.851  Mmux_hexdata_2_f7 (hexdata<0>)
-     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg31 (A_TO_G_3_OBUF)
-     OBUF:I->O                 4.520          A_TO_G_3_OBUF (A_TO_G<3>)
+     FDC:C->Q             30   0.591   1.405  clockgen/q_11 (clockgen/q_11)
+     LUT3:I0->O            1   0.648   0.000  mux_61 (mux_61)
+     MUXF5:I1->O           1   0.276   0.000  mux_5_f5 (mux_5_f5)
+     MUXF6:I0->O           1   0.291   0.000  mux_3_f6 (mux_3_f6)
+     MUXF7:I1->O           7   0.291   0.851  mux_2_f7 (hexdata<0>)
+     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg51 (A_TO_G_5_OBUF)
+     OBUF:I->O                 4.520          A_TO_G_5_OBUF (A_TO_G<5>)
     ----------------------------------------
-    Total                      9.940ns (7.265ns logic, 2.675ns route)
+    Total                      9.941ns (7.265ns logic, 2.676ns route)
                                        (73.1% logic, 26.9% route)
 
 =========================================================================
@@ -1502,10 +1454,10 @@ Offset:              11.085ns (Levels of Logic = 7)
     ----------------------------------------  ------------
      FDSE:C->Q            33   0.591   1.406  debounce_sw/channel_generate[0].di/debounced (debounce_sw/channel_generate[0].di/debounced)
      LUT3:I0->O            1   0.648   0.500  cnt_vsync/count<9>1 (vsync_cnt<9>)
-     LUT3:I1->O            1   0.643   0.000  Mmux_hexdata_65 (Mmux_hexdata_65)
-     MUXF5:I1->O           1   0.276   0.000  Mmux_hexdata_5_f5_2 (Mmux_hexdata_5_f53)
-     MUXF6:I1->O           1   0.291   0.000  Mmux_hexdata_4_f6_0 (Mmux_hexdata_4_f61)
-     MUXF7:I0->O           7   0.291   0.851  Mmux_hexdata_2_f7_0 (hexdata<1>)
+     LUT3:I1->O            1   0.643   0.000  mux1_62 (mux1_62)
+     MUXF5:I1->O           1   0.276   0.000  mux1_5_f5_0 (mux1_5_f51)
+     MUXF6:I1->O           1   0.291   0.000  mux1_4_f6 (mux1_4_f6)
+     MUXF7:I0->O           7   0.291   0.851  mux1_2_f7 (hexdata<1>)
      LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg41 (A_TO_G_4_OBUF)
      OBUF:I->O                 4.520          A_TO_G_4_OBUF (A_TO_G<4>)
     ----------------------------------------
@@ -1514,33 +1466,53 @@ Offset:              11.085ns (Levels of Logic = 7)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'LED_0_OBUF'
-  Total number of paths / destination ports: 77 / 7
+  Total number of paths / destination ports: 88 / 11
 -------------------------------------------------------------------------
-Offset:              9.031ns (Levels of Logic = 6)
-  Source:            data_1 (FF)
-  Destination:       A_TO_G<6> (PAD)
+Offset:              9.201ns (Levels of Logic = 6)
+  Source:            data_15 (FF)
+  Destination:       A_TO_G<2> (PAD)
   Source Clock:      LED_0_OBUF rising
 
-  Data Path: data_1 to A_TO_G<6>
+  Data Path: data_15 to A_TO_G<2>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               1   0.591   0.500  data_1 (data_1)
-     LUT3:I1->O            1   0.643   0.000  Mmux_hexdata_73 (Mmux_hexdata_73)
-     MUXF5:I0->O           1   0.276   0.000  Mmux_hexdata_5_f5_1 (Mmux_hexdata_5_f52)
-     MUXF6:I0->O           1   0.291   0.000  Mmux_hexdata_3_f6_0 (Mmux_hexdata_3_f61)
-     MUXF7:I1->O           7   0.291   0.851  Mmux_hexdata_2_f7_0 (hexdata<1>)
-     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg41 (A_TO_G_4_OBUF)
-     OBUF:I->O                 4.520          A_TO_G_4_OBUF (A_TO_G<4>)
+     FD:C->Q               5   0.591   0.665  data_15 (data_15)
+     LUT3:I2->O            1   0.648   0.000  mux3_61 (mux3_61)
+     MUXF5:I1->O           1   0.276   0.000  mux3_5_f5 (mux3_5_f5)
+     MUXF6:I0->O           1   0.291   0.000  mux3_3_f6 (mux3_3_f6)
+     MUXF7:I1->O           7   0.291   0.851  mux3_2_f7 (hexdata<3>)
+     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg21 (A_TO_G_2_OBUF)
+     OBUF:I->O                 4.520          A_TO_G_2_OBUF (A_TO_G<2>)
     ----------------------------------------
-    Total                      9.031ns (7.260ns logic, 1.771ns route)
-                                       (80.4% logic, 19.6% route)
+    Total                      9.201ns (7.265ns logic, 1.936ns route)
+                                       (79.0% logic, 21.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'freq4096'
+  Total number of paths / destination ports: 4 / 4
+-------------------------------------------------------------------------
+Offset:              6.880ns (Levels of Logic = 2)
+  Source:            powergen/q_11 (FF)
+  Destination:       AN<2> (PAD)
+  Source Clock:      freq4096 falling
+
+  Data Path: powergen/q_11 to AN<2>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              6   0.591   0.701  powergen/q_11 (powergen/q_111)
+     LUT4:I2->O            1   0.648   0.420  leds/Mmux_anode31 (AN_2_OBUF)
+     OBUF:I->O                 4.520          AN_2_OBUF (AN<2>)
+    ----------------------------------------
+    Total                      6.880ns (5.759ns logic, 1.121ns route)
+                                       (83.7% logic, 16.3% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'freq_uart4'
   Total number of paths / destination ports: 2 / 1
 -------------------------------------------------------------------------
-Offset:              7.818ns (Levels of Logic = 2)
+Offset:              7.902ns (Levels of Logic = 2)
   Source:            serin/sel_1 (FF)
   Destination:       LED<0> (PAD)
   Source Clock:      freq_uart4 falling
@@ -1549,18 +1521,18 @@ Offset:              7.818ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDPE_1:C->Q          11   0.591   1.076  serin/sel_1 (serin/sel_1)
-     LUT4:I0->O           13   0.648   0.983  serin/ready (LED_0_OBUF)
+     FDPE_1:C->Q          14   0.591   1.143  serin/sel_1 (serin/sel_1)
+     LUT4:I0->O           14   0.648   1.000  serin/ready (LED_0_OBUF)
      OBUF:I->O                 4.520          LED_0_OBUF (LED<0>)
     ----------------------------------------
-    Total                      7.818ns (5.759ns logic, 2.059ns route)
-                                       (73.7% logic, 26.3% route)
+    Total                      7.902ns (5.759ns logic, 2.143ns route)
+                                       (72.9% logic, 27.1% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'serin/ring_3'
   Total number of paths / destination ports: 3 / 1
 -------------------------------------------------------------------------
-Offset:              8.448ns (Levels of Logic = 3)
+Offset:              8.521ns (Levels of Logic = 3)
   Source:            serin/sr3_9 (FF)
   Destination:       LED<0> (PAD)
   Source Clock:      serin/ring_3 falling
@@ -1569,19 +1541,19 @@ Offset:              8.448ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP_1:C->Q            3   0.591   0.611  serin/sr3_9 (serin/sr3_9)
-     LUT4:I1->O            1   0.643   0.452  serin/ready_SW0 (N8)
-     LUT4:I2->O           13   0.648   0.983  serin/ready (LED_0_OBUF)
+     FDP_1:C->Q            4   0.591   0.667  serin/sr3_9 (serin/sr3_9)
+     LUT4:I1->O            1   0.643   0.452  serin/ready_SW0 (N141)
+     LUT4:I2->O           14   0.648   1.000  serin/ready (LED_0_OBUF)
      OBUF:I->O                 4.520          LED_0_OBUF (LED<0>)
     ----------------------------------------
-    Total                      8.448ns (6.402ns logic, 2.046ns route)
-                                       (75.8% logic, 24.2% route)
+    Total                      8.521ns (6.402ns logic, 2.119ns route)
+                                       (75.1% logic, 24.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'serin/ring_2'
   Total number of paths / destination ports: 3 / 1
 -------------------------------------------------------------------------
-Offset:              8.419ns (Levels of Logic = 3)
+Offset:              8.492ns (Levels of Logic = 3)
   Source:            serin/sr2_9 (FF)
   Destination:       LED<0> (PAD)
   Source Clock:      serin/ring_2 falling
@@ -1590,13 +1562,13 @@ Offset:              8.419ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP_1:C->Q            3   0.591   0.611  serin/sr2_9 (serin/sr2_9)
-     LUT4:I1->O            1   0.643   0.423  serin/ready_SW2 (N66)
-     LUT4:I3->O           13   0.648   0.983  serin/ready (LED_0_OBUF)
+     FDP_1:C->Q            4   0.591   0.667  serin/sr2_9 (serin/sr2_9)
+     LUT4:I1->O            1   0.643   0.423  serin/ready_SW2 (N70)
+     LUT4:I3->O           14   0.648   1.000  serin/ready (LED_0_OBUF)
      OBUF:I->O                 4.520          LED_0_OBUF (LED<0>)
     ----------------------------------------
-    Total                      8.419ns (6.402ns logic, 2.017ns route)
-                                       (76.0% logic, 24.0% route)
+    Total                      8.492ns (6.402ns logic, 2.090ns route)
+                                       (75.4% logic, 24.6% route)
 
 =========================================================================
 Timing constraint: Default path analysis
@@ -1619,14 +1591,14 @@ Delay:               5.956ns (Levels of Logic = 2)
 =========================================================================
 
 
-Total REAL time to Xst completion: 16.00 secs
-Total CPU time to Xst completion: 16.02 secs
+Total REAL time to Xst completion: 21.00 secs
+Total CPU time to Xst completion: 20.52 secs
  
 --> 
 
-Total memory usage is 272688 kilobytes
+Total memory usage is 273520 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  215 (   0 filtered)
-Number of infos    :    7 (   0 filtered)
+Number of warnings :  191 (   0 filtered)
+Number of infos    :    8 (   0 filtered)
 
