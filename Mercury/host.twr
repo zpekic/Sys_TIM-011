@@ -37,373 +37,476 @@ INFO:Timing:3389 - This architecture does not support 'Discrete Jitter' and
 Timing constraint: TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH 50%;
 For more information, see Period Analysis in the Timing Closure User Guide (UG612).
 
- 896 paths analyzed, 140 endpoints analyzed, 0 failing endpoints
+ 78 paths analyzed, 28 endpoints analyzed, 0 failing endpoints
  0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
- Minimum period is   7.293ns.
+ Minimum period is   3.692ns.
 --------------------------------------------------------------------------------
 
-Paths for end point freq153600 (SLICE_X14Y43.CE), 16 paths
+Paths for end point clockgen/q_12 (SLICE_X21Y24.CIN), 10 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     12.707ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_15 (FF)
-  Destination:          freq153600 (FF)
+Slack (setup path):     16.308ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_2 (FF)
+  Destination:          clockgen/q_12 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      7.177ns (Levels of Logic = 2)
-  Clock Path Skew:      -0.116ns (0.545 - 0.661)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.705ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.025 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_15 to freq153600
+  Maximum Data Path: clockgen/q_2 to clockgen/q_12
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.YQ        Tcko                  0.580   prescale_baud<14>
-                                                       prescale_baud_15
-    SLICE_X4Y8.F1        net (fanout=2)        0.956   prescale_baud<15>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X14Y43.CE      net (fanout=9)        3.098   freq153600_not0002_inv
-    SLICE_X14Y43.CLK     Tceck                 0.311   freq153600
-                                                       freq153600
+    SLICE_X21Y19.YQ      Tcko                  0.580   clockgen/q<1>
+                                                       clockgen/q_2
+    SLICE_X21Y19.G1      net (fanout=1)        0.484   clockgen/q<2>
+    SLICE_X21Y19.COUT    Topcyg                1.178   clockgen/q<1>
+                                                       clockgen/q<2>_rt
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.COUT    Tbyp                  0.130   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CLK     Tcinck                0.943   clockgen/q<11>
+                                                       clockgen/Mcount_q_cy<10>
+                                                       clockgen/Mcount_q_xor<11>
+                                                       clockgen/q_12
     -------------------------------------------------  ---------------------------
-    Total                                      7.177ns (2.275ns logic, 4.902ns route)
-                                                       (31.7% logic, 68.3% route)
+    Total                                      3.705ns (3.221ns logic, 0.484ns route)
+                                                       (86.9% logic, 13.1% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     12.791ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_14 (FF)
-  Destination:          freq153600 (FF)
+Slack (setup path):     16.321ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_1 (FF)
+  Destination:          clockgen/q_12 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      7.093ns (Levels of Logic = 2)
-  Clock Path Skew:      -0.116ns (0.545 - 0.661)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.692ns (Levels of Logic = 6)
+  Clock Path Skew:      0.013ns (0.025 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_14 to freq153600
+  Maximum Data Path: clockgen/q_1 to clockgen/q_12
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.XQ        Tcko                  0.591   prescale_baud<14>
-                                                       prescale_baud_14
-    SLICE_X4Y8.F4        net (fanout=2)        0.861   prescale_baud<14>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X14Y43.CE      net (fanout=9)        3.098   freq153600_not0002_inv
-    SLICE_X14Y43.CLK     Tceck                 0.311   freq153600
-                                                       freq153600
+    SLICE_X21Y19.XQ      Tcko                  0.591   clockgen/q<1>
+                                                       clockgen/q_1
+    SLICE_X21Y19.F2      net (fanout=1)        0.443   clockgen/q<1>
+    SLICE_X21Y19.COUT    Topcyf                1.195   clockgen/q<1>
+                                                       clockgen/Mcount_q_lut<0>_INV_0
+                                                       clockgen/Mcount_q_cy<0>
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.COUT    Tbyp                  0.130   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CLK     Tcinck                0.943   clockgen/q<11>
+                                                       clockgen/Mcount_q_cy<10>
+                                                       clockgen/Mcount_q_xor<11>
+                                                       clockgen/q_12
     -------------------------------------------------  ---------------------------
-    Total                                      7.093ns (2.286ns logic, 4.807ns route)
-                                                       (32.2% logic, 67.8% route)
+    Total                                      3.692ns (3.249ns logic, 0.443ns route)
+                                                       (88.0% logic, 12.0% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     12.962ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_13 (FF)
-  Destination:          freq153600 (FF)
+Slack (setup path):     16.488ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_4 (FF)
+  Destination:          clockgen/q_12 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      6.922ns (Levels of Logic = 2)
-  Clock Path Skew:      -0.116ns (0.545 - 0.661)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.516ns (Levels of Logic = 5)
+  Clock Path Skew:      0.004ns (0.025 - 0.021)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_13 to freq153600
+  Maximum Data Path: clockgen/q_4 to clockgen/q_12
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y8.YQ        Tcko                  0.580   prescale_baud<12>
-                                                       prescale_baud_13
-    SLICE_X4Y8.F2        net (fanout=2)        0.701   prescale_baud<13>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X14Y43.CE      net (fanout=9)        3.098   freq153600_not0002_inv
-    SLICE_X14Y43.CLK     Tceck                 0.311   freq153600
-                                                       freq153600
+    SLICE_X21Y20.YQ      Tcko                  0.580   clockgen/q<3>
+                                                       clockgen/q_4
+    SLICE_X21Y20.G2      net (fanout=1)        0.425   clockgen/q<4>
+    SLICE_X21Y20.COUT    Topcyg                1.178   clockgen/q<3>
+                                                       clockgen/q<4>_rt
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.COUT    Tbyp                  0.130   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<9>
+    SLICE_X21Y24.CLK     Tcinck                0.943   clockgen/q<11>
+                                                       clockgen/Mcount_q_cy<10>
+                                                       clockgen/Mcount_q_xor<11>
+                                                       clockgen/q_12
     -------------------------------------------------  ---------------------------
-    Total                                      6.922ns (2.275ns logic, 4.647ns route)
-                                                       (32.9% logic, 67.1% route)
+    Total                                      3.516ns (3.091ns logic, 0.425ns route)
+                                                       (87.9% logic, 12.1% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point prescale_baud_4 (SLICE_X5Y4.SR), 16 paths
+Paths for end point clockgen/q_10 (SLICE_X21Y23.CIN), 8 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     14.678ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_15 (FF)
-  Destination:          prescale_baud_4 (FF)
+Slack (setup path):     16.435ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_2 (FF)
+  Destination:          clockgen/q_10 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.332ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.575ns (Levels of Logic = 5)
+  Clock Path Skew:      0.010ns (0.022 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_15 to prescale_baud_4
+  Maximum Data Path: clockgen/q_2 to clockgen/q_10
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.YQ        Tcko                  0.580   prescale_baud<14>
-                                                       prescale_baud_15
-    SLICE_X4Y8.F1        net (fanout=2)        0.956   prescale_baud<15>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_4
+    SLICE_X21Y19.YQ      Tcko                  0.580   clockgen/q<1>
+                                                       clockgen/q_2
+    SLICE_X21Y19.G1      net (fanout=1)        0.484   clockgen/q<2>
+    SLICE_X21Y19.COUT    Topcyg                1.178   clockgen/q<1>
+                                                       clockgen/q<2>_rt
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CLK     Tcinck                0.943   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_xor<9>
+                                                       clockgen/q_10
     -------------------------------------------------  ---------------------------
-    Total                                      5.332ns (2.831ns logic, 2.501ns route)
-                                                       (53.1% logic, 46.9% route)
+    Total                                      3.575ns (3.091ns logic, 0.484ns route)
+                                                       (86.5% logic, 13.5% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     14.762ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_14 (FF)
-  Destination:          prescale_baud_4 (FF)
+Slack (setup path):     16.448ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_1 (FF)
+  Destination:          clockgen/q_10 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.248ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.562ns (Levels of Logic = 5)
+  Clock Path Skew:      0.010ns (0.022 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_14 to prescale_baud_4
+  Maximum Data Path: clockgen/q_1 to clockgen/q_10
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.XQ        Tcko                  0.591   prescale_baud<14>
-                                                       prescale_baud_14
-    SLICE_X4Y8.F4        net (fanout=2)        0.861   prescale_baud<14>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_4
+    SLICE_X21Y19.XQ      Tcko                  0.591   clockgen/q<1>
+                                                       clockgen/q_1
+    SLICE_X21Y19.F2      net (fanout=1)        0.443   clockgen/q<1>
+    SLICE_X21Y19.COUT    Topcyf                1.195   clockgen/q<1>
+                                                       clockgen/Mcount_q_lut<0>_INV_0
+                                                       clockgen/Mcount_q_cy<0>
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CLK     Tcinck                0.943   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_xor<9>
+                                                       clockgen/q_10
     -------------------------------------------------  ---------------------------
-    Total                                      5.248ns (2.842ns logic, 2.406ns route)
-                                                       (54.2% logic, 45.8% route)
+    Total                                      3.562ns (3.119ns logic, 0.443ns route)
+                                                       (87.6% logic, 12.4% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     14.933ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_13 (FF)
-  Destination:          prescale_baud_4 (FF)
+Slack (setup path):     16.615ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_4 (FF)
+  Destination:          clockgen/q_10 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.077ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.386ns (Levels of Logic = 4)
+  Clock Path Skew:      0.001ns (0.022 - 0.021)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_13 to prescale_baud_4
+  Maximum Data Path: clockgen/q_4 to clockgen/q_10
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y8.YQ        Tcko                  0.580   prescale_baud<12>
-                                                       prescale_baud_13
-    SLICE_X4Y8.F2        net (fanout=2)        0.701   prescale_baud<13>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_4
+    SLICE_X21Y20.YQ      Tcko                  0.580   clockgen/q<3>
+                                                       clockgen/q_4
+    SLICE_X21Y20.G2      net (fanout=1)        0.425   clockgen/q<4>
+    SLICE_X21Y20.COUT    Topcyg                1.178   clockgen/q<3>
+                                                       clockgen/q<4>_rt
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.COUT    Tbyp                  0.130   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<7>
+    SLICE_X21Y23.CLK     Tcinck                0.943   clockgen/q<9>
+                                                       clockgen/Mcount_q_cy<8>
+                                                       clockgen/Mcount_q_xor<9>
+                                                       clockgen/q_10
     -------------------------------------------------  ---------------------------
-    Total                                      5.077ns (2.831ns logic, 2.246ns route)
-                                                       (55.8% logic, 44.2% route)
+    Total                                      3.386ns (2.961ns logic, 0.425ns route)
+                                                       (87.4% logic, 12.6% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point prescale_baud_5 (SLICE_X5Y4.SR), 16 paths
+Paths for end point clockgen/q_8 (SLICE_X21Y22.CIN), 6 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     14.678ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_15 (FF)
-  Destination:          prescale_baud_5 (FF)
+Slack (setup path):     16.565ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_2 (FF)
+  Destination:          clockgen/q_8 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.332ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.445ns (Levels of Logic = 4)
+  Clock Path Skew:      0.010ns (0.022 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_15 to prescale_baud_5
+  Maximum Data Path: clockgen/q_2 to clockgen/q_8
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.YQ        Tcko                  0.580   prescale_baud<14>
-                                                       prescale_baud_15
-    SLICE_X4Y8.F1        net (fanout=2)        0.956   prescale_baud<15>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_5
+    SLICE_X21Y19.YQ      Tcko                  0.580   clockgen/q<1>
+                                                       clockgen/q_2
+    SLICE_X21Y19.G1      net (fanout=1)        0.484   clockgen/q<2>
+    SLICE_X21Y19.COUT    Topcyg                1.178   clockgen/q<1>
+                                                       clockgen/q<2>_rt
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CLK     Tcinck                0.943   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_xor<7>
+                                                       clockgen/q_8
     -------------------------------------------------  ---------------------------
-    Total                                      5.332ns (2.831ns logic, 2.501ns route)
-                                                       (53.1% logic, 46.9% route)
+    Total                                      3.445ns (2.961ns logic, 0.484ns route)
+                                                       (86.0% logic, 14.0% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     14.762ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_14 (FF)
-  Destination:          prescale_baud_5 (FF)
+Slack (setup path):     16.578ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_1 (FF)
+  Destination:          clockgen/q_8 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.248ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.432ns (Levels of Logic = 4)
+  Clock Path Skew:      0.010ns (0.022 - 0.012)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_14 to prescale_baud_5
+  Maximum Data Path: clockgen/q_1 to clockgen/q_8
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y9.XQ        Tcko                  0.591   prescale_baud<14>
-                                                       prescale_baud_14
-    SLICE_X4Y8.F4        net (fanout=2)        0.861   prescale_baud<14>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_5
+    SLICE_X21Y19.XQ      Tcko                  0.591   clockgen/q<1>
+                                                       clockgen/q_1
+    SLICE_X21Y19.F2      net (fanout=1)        0.443   clockgen/q<1>
+    SLICE_X21Y19.COUT    Topcyf                1.195   clockgen/q<1>
+                                                       clockgen/Mcount_q_lut<0>_INV_0
+                                                       clockgen/Mcount_q_cy<0>
+                                                       clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<1>
+    SLICE_X21Y20.COUT    Tbyp                  0.130   clockgen/q<3>
+                                                       clockgen/Mcount_q_cy<2>
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CLK     Tcinck                0.943   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_xor<7>
+                                                       clockgen/q_8
     -------------------------------------------------  ---------------------------
-    Total                                      5.248ns (2.842ns logic, 2.406ns route)
-                                                       (54.2% logic, 45.8% route)
+    Total                                      3.432ns (2.989ns logic, 0.443ns route)
+                                                       (87.1% logic, 12.9% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     14.933ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               prescale_baud_13 (FF)
-  Destination:          prescale_baud_5 (FF)
+Slack (setup path):     16.745ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               clockgen/q_4 (FF)
+  Destination:          clockgen/q_8 (FF)
   Requirement:          20.000ns
-  Data Path Delay:      5.077ns (Levels of Logic = 2)
-  Clock Path Skew:      0.010ns (0.048 - 0.038)
-  Source Clock:         CLK_BUFGP rising at 0.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
+  Data Path Delay:      3.256ns (Levels of Logic = 3)
+  Clock Path Skew:      0.001ns (0.022 - 0.021)
+  Source Clock:         CLK_BUFGP falling at 10.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Maximum Data Path: prescale_baud_13 to prescale_baud_5
+  Maximum Data Path: clockgen/q_4 to clockgen/q_8
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X5Y8.YQ        Tcko                  0.580   prescale_baud<12>
-                                                       prescale_baud_13
-    SLICE_X4Y8.F2        net (fanout=2)        0.701   prescale_baud<13>
-    SLICE_X4Y8.X         Tilo                  0.692   freq153600_cmp_eq000062
-                                                       freq153600_cmp_eq000062
-    SLICE_X4Y2.F3        net (fanout=1)        0.848   freq153600_cmp_eq000062
-    SLICE_X4Y2.X         Tilo                  0.692   freq153600_not0002_inv
-                                                       freq153600_cmp_eq000076
-    SLICE_X5Y4.SR        net (fanout=9)        0.697   freq153600_not0002_inv
-    SLICE_X5Y4.CLK       Tsrck                 0.867   prescale_baud<4>
-                                                       prescale_baud_5
+    SLICE_X21Y20.YQ      Tcko                  0.580   clockgen/q<3>
+                                                       clockgen/q_4
+    SLICE_X21Y20.G2      net (fanout=1)        0.425   clockgen/q<4>
+    SLICE_X21Y20.COUT    Topcyg                1.178   clockgen/q<3>
+                                                       clockgen/q<4>_rt
+                                                       clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<3>
+    SLICE_X21Y21.COUT    Tbyp                  0.130   clockgen/q<5>
+                                                       clockgen/Mcount_q_cy<4>
+                                                       clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CIN     net (fanout=1)        0.000   clockgen/Mcount_q_cy<5>
+    SLICE_X21Y22.CLK     Tcinck                0.943   clockgen/q<7>
+                                                       clockgen/Mcount_q_cy<6>
+                                                       clockgen/Mcount_q_xor<7>
+                                                       clockgen/q_8
     -------------------------------------------------  ---------------------------
-    Total                                      5.077ns (2.831ns logic, 2.246ns route)
-                                                       (55.8% logic, 44.2% route)
+    Total                                      3.256ns (2.831ns logic, 0.425ns route)
+                                                       (86.9% logic, 13.1% route)
 
 --------------------------------------------------------------------------------
 
 Hold Paths: TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH 50%;
 --------------------------------------------------------------------------------
 
-Paths for end point freq153600 (SLICE_X14Y43.BY), 1 path
+Paths for end point clockgen/q_3 (SLICE_X21Y20.F3), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      1.140ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               freq153600 (FF)
-  Destination:          freq153600 (FF)
+Slack (hold path):      1.611ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               clockgen/q_3 (FF)
+  Destination:          clockgen/q_3 (FF)
   Requirement:          0.000ns
-  Data Path Delay:      1.140ns (Levels of Logic = 0)
-  Clock Path Skew:      0.000ns
-  Source Clock:         CLK_BUFGP rising at 20.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
-  Clock Uncertainty:    0.000ns
-
-  Minimum Data Path: freq153600 to freq153600
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    SLICE_X14Y43.YQ      Tcko                  0.541   freq153600
-                                                       freq153600
-    SLICE_X14Y43.BY      net (fanout=6)        0.426   freq153600
-    SLICE_X14Y43.CLK     Tckdi       (-Th)    -0.173   freq153600
-                                                       freq153600
-    -------------------------------------------------  ---------------------------
-    Total                                      1.140ns (0.714ns logic, 0.426ns route)
-                                                       (62.6% logic, 37.4% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point freq4096 (SLICE_X26Y13.BY), 1 path
---------------------------------------------------------------------------------
-Slack (hold path):      1.140ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               freq4096 (FF)
-  Destination:          freq4096 (FF)
-  Requirement:          0.000ns
-  Data Path Delay:      1.140ns (Levels of Logic = 0)
-  Clock Path Skew:      0.000ns
-  Source Clock:         CLK_BUFGP rising at 20.000ns
-  Destination Clock:    CLK_BUFGP rising at 20.000ns
-  Clock Uncertainty:    0.000ns
-
-  Minimum Data Path: freq4096 to freq4096
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    SLICE_X26Y13.YQ      Tcko                  0.541   freq4096
-                                                       freq4096
-    SLICE_X26Y13.BY      net (fanout=7)        0.426   freq4096
-    SLICE_X26Y13.CLK     Tckdi       (-Th)    -0.173   freq4096
-                                                       freq4096
-    -------------------------------------------------  ---------------------------
-    Total                                      1.140ns (0.714ns logic, 0.426ns route)
-                                                       (62.6% logic, 37.4% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point clockgen/q_1 (SLICE_X19Y18.F4), 1 path
---------------------------------------------------------------------------------
-Slack (hold path):      1.594ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               clockgen/q_1 (FF)
-  Destination:          clockgen/q_1 (FF)
-  Requirement:          0.000ns
-  Data Path Delay:      1.594ns (Levels of Logic = 1)
+  Data Path Delay:      1.611ns (Levels of Logic = 1)
   Clock Path Skew:      0.000ns
   Source Clock:         CLK_BUFGP falling at 30.000ns
   Destination Clock:    CLK_BUFGP falling at 30.000ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: clockgen/q_1 to clockgen/q_1
+  Minimum Data Path: clockgen/q_3 to clockgen/q_3
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X19Y18.XQ      Tcko                  0.473   clockgen/q<1>
-                                                       clockgen/q_1
-    SLICE_X19Y18.F4      net (fanout=1)        0.274   clockgen/q<1>
-    SLICE_X19Y18.CLK     Tckf        (-Th)    -0.847   clockgen/q<1>
-                                                       clockgen/Mcount_q_lut<0>_INV_0
-                                                       clockgen/Mcount_q_xor<0>
-                                                       clockgen/q_1
+    SLICE_X21Y20.XQ      Tcko                  0.473   clockgen/q<3>
+                                                       clockgen/q_3
+    SLICE_X21Y20.F3      net (fanout=1)        0.291   clockgen/q<3>
+    SLICE_X21Y20.CLK     Tckf        (-Th)    -0.847   clockgen/q<3>
+                                                       clockgen/q<3>_rt
+                                                       clockgen/Mcount_q_xor<2>
+                                                       clockgen/q_3
     -------------------------------------------------  ---------------------------
-    Total                                      1.594ns (1.320ns logic, 0.274ns route)
-                                                       (82.8% logic, 17.2% route)
+    Total                                      1.611ns (1.320ns logic, 0.291ns route)
+                                                       (81.9% logic, 18.1% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point clockgen/q_7 (SLICE_X21Y22.F3), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      1.611ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               clockgen/q_7 (FF)
+  Destination:          clockgen/q_7 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      1.611ns (Levels of Logic = 1)
+  Clock Path Skew:      0.000ns
+  Source Clock:         CLK_BUFGP falling at 30.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: clockgen/q_7 to clockgen/q_7
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X21Y22.XQ      Tcko                  0.473   clockgen/q<7>
+                                                       clockgen/q_7
+    SLICE_X21Y22.F3      net (fanout=1)        0.291   clockgen/q<7>
+    SLICE_X21Y22.CLK     Tckf        (-Th)    -0.847   clockgen/q<7>
+                                                       clockgen/q<7>_rt
+                                                       clockgen/Mcount_q_xor<6>
+                                                       clockgen/q_7
+    -------------------------------------------------  ---------------------------
+    Total                                      1.611ns (1.320ns logic, 0.291ns route)
+                                                       (81.9% logic, 18.1% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point clockgen/q_11 (SLICE_X21Y24.F4), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      1.659ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               clockgen/q_11 (FF)
+  Destination:          clockgen/q_11 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      1.659ns (Levels of Logic = 1)
+  Clock Path Skew:      0.000ns
+  Source Clock:         CLK_BUFGP falling at 30.000ns
+  Destination Clock:    CLK_BUFGP falling at 30.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: clockgen/q_11 to clockgen/q_11
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X21Y24.XQ      Tcko                  0.473   clockgen/q<11>
+                                                       clockgen/q_11
+    SLICE_X21Y24.F4      net (fanout=30)       0.339   clockgen/q<11>
+    SLICE_X21Y24.CLK     Tckf        (-Th)    -0.847   clockgen/q<11>
+                                                       clockgen/q<11>_rt
+                                                       clockgen/Mcount_q_xor<10>
+                                                       clockgen/q_11
+    -------------------------------------------------  ---------------------------
+    Total                                      1.659ns (1.320ns logic, 0.339ns route)
+                                                       (79.6% logic, 20.4% route)
 
 --------------------------------------------------------------------------------
 
@@ -415,7 +518,7 @@ Slack: 17.036ns (period - (min low pulse limit / (low pulse / period)))
   Low pulse limit: 1.482ns (Trpw)
   Physical resource: clockgen/q<1>/SR
   Logical resource: clockgen/q_1/SR
-  Location pin: SLICE_X19Y18.SR
+  Location pin: SLICE_X21Y19.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 Slack: 17.036ns (period - (min high pulse limit / (high pulse / period)))
@@ -424,7 +527,7 @@ Slack: 17.036ns (period - (min high pulse limit / (high pulse / period)))
   High pulse limit: 1.482ns (Trpw)
   Physical resource: clockgen/q<1>/SR
   Logical resource: clockgen/q_1/SR
-  Location pin: SLICE_X19Y18.SR
+  Location pin: SLICE_X21Y19.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 Slack: 17.036ns (period - (min low pulse limit / (low pulse / period)))
@@ -433,7 +536,7 @@ Slack: 17.036ns (period - (min low pulse limit / (low pulse / period)))
   Low pulse limit: 1.482ns (Trpw)
   Physical resource: clockgen/q<1>/SR
   Logical resource: clockgen/q_2/SR
-  Location pin: SLICE_X19Y18.SR
+  Location pin: SLICE_X21Y19.SR
   Clock network: USR_BTN_IBUF
 --------------------------------------------------------------------------------
 
@@ -450,7 +553,7 @@ Clock to Setup on destination clock CLK
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-CLK            |    7.293|         |         |    3.778|
+CLK            |         |         |         |    3.692|
 ---------------+---------+---------+---------+---------+
 
 
@@ -459,23 +562,23 @@ Timing summary:
 
 Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
 
-Constraints cover 896 paths, 0 nets, and 148 connections
+Constraints cover 78 paths, 0 nets, and 24 connections
 
 Design statistics:
-   Minimum period:   7.293ns{1}   (Maximum frequency: 137.118MHz)
+   Minimum period:   3.692ns{1}   (Maximum frequency: 270.856MHz)
 
 
 ------------------------------------Footnotes-----------------------------------
 1)  The minimum period statistic assumes all single cycle delays.
 
-Analysis completed Thu Sep 24 22:58:41 2020 
+Analysis completed Sat Sep 26 23:35:51 2020 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 170 MB
+Peak Memory Usage: 172 MB
 
 
 

@@ -39,32 +39,32 @@ end signalcounter;
 
 architecture Behavioral of signalcounter is
 
-signal capture_hi, capture_lo, cnt_hi, cnt_lo: std_logic_vector(15 downto 0);
+signal capture_hi, capture_lo, cnt_hi, cnt_lo: std_logic_vector(19 downto 0);
 signal previous_input: std_logic;
 
 begin
 
-count <= capture_hi when (sel = '1') else capture_lo;
+count <= capture_hi(19 downto 4) when (sel = '1') else capture_lo(19 downto 4);
 
 count_and_capture: process(clk, reset, input)
 begin
 	if (reset = '1') then
-		cnt_lo <= X"0000";
-		cnt_hi <= X"0000";
+		cnt_lo <= X"00000";
+		cnt_hi <= X"00000";
 	else
 		if (rising_edge(clk)) then
 			previous_input <= input;
 			if (input = '1') then -- count how long is input 1
 				if (previous_input = '0') then
 					capture_hi <= cnt_hi;
-					cnt_hi <= X"0001";
+					cnt_hi <= X"00001";
 				else
 					cnt_hi <= std_logic_vector(unsigned(cnt_hi) + 1);
 				end if;
 			else						-- count how long is input 0
 				if (previous_input = '1') then
 					capture_lo <= cnt_lo;
-					cnt_lo <= X"0001";
+					cnt_lo <= X"00001";
 				else
 					cnt_lo <= std_logic_vector(unsigned(cnt_lo) + 1);
 				end if;

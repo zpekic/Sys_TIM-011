@@ -229,7 +229,7 @@ signal u10_5, u10_9: std_logic;
 signal u11_s, u12_s: std_logic_vector(3 downto 0);
 signal u12_9: std_logic;
 signal u13_q1, u13_q2, u13_q3, u13_q4, u13_q5, u13_q6, u13_q7, u13_q8, u13_q9, u13_q10: std_logic;		-- 74HC4040
-signal u13_q10_delayed: std_logic;
+signal u13_q10_delayed, u1_6_delayed: std_logic;
 signal u14_7: std_logic;							-- 74LS240
 signal u18_6, u18_8: std_logic;
 signal u19_y, u20_y, u21_y, u22_y: std_logic_vector(3 downto 0);
@@ -242,7 +242,7 @@ signal u40_q: std_logic_vector(7 downto 0);
 begin
 
 	-- Delay line RC = 470*1nF = 470 ns
-	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12.5MHz
+	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12MHz
 delay565ns: configurabledelayline port map ( 
 			clk => dotclk,
          reset => '0',
@@ -252,6 +252,15 @@ delay565ns: configurabledelayline port map (
          signal_out => u13_q10_delayed
 		);
 	
+delay330uF: configurabledelayline port map ( 
+			clk => dotclk,
+         reset => '0',
+         init => '0',
+         delay => X"4",	-- TODO: this is just a random experiment number
+         signal_in => u1_6,
+         signal_out => u1_6_delayed
+		);
+		
 	u1: sn74ls08 Port map ( 
 			a1_1 => dotclk,	-- INPUT
 			b1_2 => u29_7,
@@ -358,7 +367,7 @@ delay565ns: configurabledelayline port map (
 	-- video memory scan counter, lower bits
 	u13: sn74hc4040 port map (
 			clock_10 => dotclk,	-- INPUT
-			reset_11 => u1_6,		-- TODO: delay with CX = 330 uF?
+			reset_11 => u1_6_delayed,	-- TODO: is delay needed?
 			q1_9 => u13_q1, 
 			q2_7 => u13_q2,
 			q3_6 => u13_q3,

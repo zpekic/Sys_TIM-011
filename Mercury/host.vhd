@@ -38,7 +38,10 @@ entity host is
     Port ( 
 				-- 50MHz on the Mercury board
 				CLK: in std_logic;
-
+				
+				-- 12MHz external clock
+				EXT_CLK: in std_logic;
+				
 				-- Master reset button on Mercury board
 				USR_BTN: in std_logic; 
 
@@ -106,28 +109,29 @@ end host;
 
 architecture Structural of host is
 
---component ps2_keyboard is 
---  generic ( 
---  CLK_FREQ_MHZ   : integer 
---  ); 
--- 
---  port( 
---  clk             : in    std_logic; 
---  reset           : in    std_logic; 
---  rx_data         : out   std_logic_vector(7 downto 0); 
---  rx_read         : in    std_logic; 
---  rx_data_ready   : out   std_logic; 
---  rx_extended     : out   std_logic; 
---  rx_released     : out   std_logic; 
---  rx_shift_on     : out   std_logic; 
---  tx_data         : in    std_logic_vector(7 downto 0); 
---  tx_write        : in    std_logic; 
---  tx_data_empty   : out   std_logic; 
---  tx_error	      : out   std_logic; 
---  ps2_clk         : inout std_logic; 
---  ps2_data        : inout std_logic 
---  ); 
---end component; 
+component Grafika is
+    Port ( -- 
+	 		  dotclk : in  STD_LOGIC;
+           a : in  STD_LOGIC_VECTOR (15 downto 0);
+           nRD : in  STD_LOGIC;
+           nWR : in  STD_LOGIC;
+           d : inout  STD_LOGIC_VECTOR (7 downto 0);
+           ioe : in  STD_LOGIC;
+           nScroll : in  STD_LOGIC;
+			  -- monitor side
+			  hsync: out STD_LOGIC;
+			  vsync: out STD_LOGIC;
+			  vid1: out STD_LOGIC;
+			  vid2: out STD_LOGIC
+			);
+end component;
+
+component oneshot is
+    Port ( trigger : in  STD_LOGIC;
+           tick : in  STD_LOGIC;
+           duration : in  STD_LOGIC_VECTOR (15 downto 0);
+           shot : out  STD_LOGIC);
+end component;
 
 component sn74hc4040 is
     Port ( q12_1 : out  STD_LOGIC;
@@ -144,23 +148,6 @@ component sn74hc4040 is
            q8_13 : out  STD_LOGIC;
            q10_14 : out  STD_LOGIC;
            q11_15 : out  STD_LOGIC);
-end component;
-
-component Grafika is
-    Port ( -- 
-	 		  dotclk : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (15 downto 0);
-           nRD : in  STD_LOGIC;
-           nWR : in  STD_LOGIC;
-           d : inout  STD_LOGIC_VECTOR (7 downto 0);
-           ioe : in  STD_LOGIC;
-           nScroll : in  STD_LOGIC;
-			  -- monitor side
-			  hsync: out STD_LOGIC;
-			  vsync: out STD_LOGIC;
-			  vid1: out STD_LOGIC;
-			  vid2: out STD_LOGIC
-			);
 end component;
 
 component fourdigitsevensegled is
@@ -268,7 +255,7 @@ component memconsole is
            DD : out  STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-signal freq25M, freq12M5: std_logic;
+signal freq25M, dotclk: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
@@ -290,6 +277,8 @@ signal freq4096, freq2: std_logic;
 
 ---
 signal gr_hsync, gr_vsync, gr_vid2, gr_vid1: std_logic;
+signal sh_hsync, sh_vsync : std_logic;
+signal out_hsync, out_vsync : std_logic;
 signal vm_en, vm_rd, vm_wr: std_logic;
 signal D, DD: std_logic_vector(7 downto 0);
 signal A: std_logic_vector(15 downto 0);
@@ -300,6 +289,7 @@ signal switch, button: std_logic_vector(7 downto 0);
 begin
    
 RESET <= USR_BTN;
+dotclk <= EXT_CLK;
 	
 --capture: process(kbd_data, kbd_data_ready, RESET)
 --begin
@@ -361,7 +351,7 @@ clockgen: sn74hc4040 port map (
 			clock_10 => CLK,
 			reset_11 => RESET,
 			q1_9 => freq25M, 
-			q2_7 => freq12M5,
+			q2_7 => open,
 			q3_6 => open, --PMOD(7),		-- 6.25
 			q4_5 => open, --PMOD(6),		-- 3.125
 			q5_3 => open, --PMOD(5),		-- 1.5625
@@ -374,18 +364,18 @@ clockgen: sn74hc4040 port map (
 			q12_1 =>  digsel(1)	-- 0.01220703125
 		);
 
-prescale: process(CLK, freq153600, freq4096)
+prescale: process(dotclk, freq153600, freq4096)
 begin
-	if (rising_edge(CLK)) then
+	if (rising_edge(dotclk)) then
 		if (prescale_baud = 0) then
 			freq153600 <= not freq153600;
-			prescale_baud <= (50000000 / (2 * 153600));
+			prescale_baud <= (12000000 / (2 * 153600));
 		else
 			prescale_baud <= prescale_baud - 1;
 		end if;
 		if (prescale_power = 0) then
 			freq4096 <= not freq4096;
-			prescale_power <= (50000000 / (2 * 4096));
+			prescale_power <= (12000000 / (2 * 4096));
 		else
 			prescale_power <= prescale_power - 1;
 		end if;
@@ -456,7 +446,7 @@ console: memconsole Port map(
 	
 	video: Grafika port map (
 		-- system
-		  dotclk => freq12M5,
+		  dotclk => dotclk,
 		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
 		  A(14 downto 0) => A(14 downto 0),
 		  nRD => not (vm_rd),
@@ -476,15 +466,44 @@ console: memconsole Port map(
 	LED(0) <= frame_ready; --vm_rd;
 	LED(1) <= PMOD(6); --vm_wr;
 
-	PMOD(3) <= gr_hsync;
-	PMOD(2) <= gr_vsync;
+	PMOD(3) <= out_hsync xor out_vsync;
+	PMOD(2) <= out_vsync xor out_hsync;
 	PMOD(1) <= gr_vid2;
 	PMOD(0) <= gr_vid1;
-	HSYNC <= not gr_hsync;
-	VSYNC <= not gr_vsync;
-	BLU(1) <= gr_vid2;
-	BLU(0) <= gr_vid1;
-	
+	HSYNC <= not sh_hsync;
+	VSYNC <= not sh_vsync;
+	BLU(1) <= switch(1) xor gr_vid2;
+	BLU(0) <= switch(0) xor gr_vid1;
+
+with switch(7 downto 6) select
+		out_hsync <= 	gr_hsync when "00",
+							sh_hsync when "01",
+							not gr_hsync when "10",
+							not sh_hsync when others;
+
+with switch(5 downto 4) select
+		out_vsync <= 	gr_vsync when "00",
+							sh_vsync when "01",
+							not gr_vsync when "10",
+							not sh_vsync when others;
+							
+-- 
+-- "equivalent" to circuit here: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/ploca/sch_ttl.png
+-- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml
+h_shot: oneshot Port map ( 
+			trigger => gr_hsync,
+         tick => dotclk,			-- 1 tick is 40ns
+         duration => X"0004", --X"0036", 	-- 0.7*Rx*Cx = 0.7*2.2kohm*2.2nF = 3.4 uS == 85 ticks
+         shot => sh_hsync
+		);
+
+v_shot: oneshot Port map ( 
+			trigger => gr_vsync,
+         tick => dotclk,			-- 1 tick is 40ns
+         duration => X"0200", 	-- 0.7*Rx*Cx = 0.7*47kohm*47nF = 1546 uS == 38657 ticks
+         shot => sh_vsync
+		);
+		
 --pchecker: Am82S62 port map ( 
 --			p(9) => button(0),
 --			p(8 downto 1) => switch,
@@ -509,17 +528,17 @@ showdigit <= "1111" when (data(15) = '1') else (others => freq2);
 h <= digsel(0) and digsel0_delayed;
 
 cnt_hsync: signalcounter Port map ( 
-				clk => freq12M5, --CLK,
+				clk => dotclk,
 				reset => RESET,
-				input => gr_hsync,
+				input => out_hsync,
 				sel => switch(0),
 				count => hsync_cnt
 		);
 
 cnt_vsync: signalcounter Port map ( 
-				clk => freq12M5, --CLK,
+				clk => dotclk,
 				reset => RESET,
-				input => gr_vsync,
+				input => out_vsync,
 				sel => switch(0),
 				count => vsync_cnt
 		);

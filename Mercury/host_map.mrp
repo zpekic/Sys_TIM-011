@@ -9,36 +9,34 @@ Target Device  : xc3s200a
 Target Package : vq100
 Target Speed   : -4
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Thu Sep 24 22:58:10 2020
+Mapped Date    : Sat Sep 26 23:35:28 2020
 
 Design Summary
 --------------
 Number of errors:      0
 Number of warnings:    5
 Logic Utilization:
-  Number of Slice Flip Flops:           416 out of   3,584   11%
-  Number of 4 input LUTs:               417 out of   3,584   11%
+  Number of Slice Flip Flops:           468 out of   3,584   13%
+  Number of 4 input LUTs:               525 out of   3,584   14%
 Logic Distribution:
-  Number of occupied Slices:            366 out of   1,792   20%
-    Number of Slices containing only related logic:     366 out of     366 100%
-    Number of Slices containing unrelated logic:          0 out of     366   0%
+  Number of occupied Slices:            425 out of   1,792   23%
+    Number of Slices containing only related logic:     425 out of     425 100%
+    Number of Slices containing unrelated logic:          0 out of     425   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         511 out of   3,584   14%
-    Number used as logic:               417
-    Number used as a route-thru:         94
+  Total Number of 4 input LUTs:         621 out of   3,584   17%
+    Number used as logic:               525
+    Number used as a route-thru:         96
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                 46 out of      68   67%
-    IOB Flip Flops:                       1
+  Number of bonded IOBs:                 47 out of      68   69%
   Number of BUFGMUXs:                     4 out of      24   16%
-  Number of RAMB16BWEs:                   8 out of      16   50%
 
-Average Fanout of Non-Clock Nets:                2.86
+Average Fanout of Non-Clock Nets:                2.66
 
 Peak Memory Usage:  261 MB
-Total REAL time to MAP completion:  6 secs 
+Total REAL time to MAP completion:  3 secs 
 Total CPU time to MAP completion:   3 secs 
 
 NOTES:
@@ -96,10 +94,13 @@ WARNING:PhysDesignRules:367 - The signal <PMOD<7>_IBUF> is incomplete. The
 Section 3 - Informational
 -------------------------
 INFO:LIT:243 - Logical network PMOD<4>_IBUF has no load.
-INFO:LIT:395 - The above info message is repeated 2 more times for the following
-   (max. 5 shown):
+INFO:LIT:395 - The above info message is repeated 10 more times for the
+   following (max. 5 shown):
    PMOD<5>_IBUF,
-   PMOD<7>_IBUF
+   PMOD<7>_IBUF,
+   video/u30/mem/douta<7>,
+   video/u30/mem/douta<6>,
+   video/u30/mem/douta<5>
    To see the details of these info messages, please use the -detail switch.
 INFO:MapLib:562 - No environment variables are currently set.
 INFO:LIT:244 - All of the single ended outputs in this design are using slew
@@ -108,9 +109,9 @@ INFO:LIT:244 - All of the single ended outputs in this design are using slew
 
 Section 4 - Removed Logic Summary
 ---------------------------------
-   9 block(s) removed
-   5 block(s) optimized away
-   9 signal(s) removed
+  29 block(s) removed
+   2 block(s) optimized away
+  29 signal(s) removed
 
 Section 5 - Removed Logic
 -------------------------
@@ -125,39 +126,122 @@ To quickly locate the original cause for the removal of a chain of logic, look
 above the place where that logic is listed in the trimming report, then locate
 the lines that are least indented (begin at the leftmost edge).
 
+The signal "video/u30/mem/douta<7>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<6>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<5>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<4>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<3>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<2>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<1>" is sourceless and has been removed.
+The signal "video/u30/mem/douta<0>" is sourceless and has been removed.
+The signal "video/u30/mem/N1" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/sel_pipe_0" is sourceless and has been removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux11" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux21" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux31" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux41" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux51" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux61" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux71" (ROM) removed.
+ Sourceless block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/Mmux_dout_mux81" (ROM) removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[0].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[1].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[2].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[3].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[4].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[5].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[6].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[7].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[8].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[9].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[10].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[11].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[12].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[13].ram.ram_douta" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[14].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[15].ram.ram_douta" is sourceless and has been removed.
 The signal
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ena_array<1>" is sourceless and has been removed.
+The signal
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ena_array<0>" is sourceless and has been removed.
+
+The trimmed logic reported below is either:
+   1. part of a cycle
+   2. part of disabled logic
+   3. a side-effect of other trimmed logic
+
+The signal "video/u30/RnW_inv" is unused and has been removed.
+ Unused block "video/u30/RnW_inv1" (ROM) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[0].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[10].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[11].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[12].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[13].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[14].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[15].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
@@ -166,33 +250,43 @@ Unused block
 /ramloop[1].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[2].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[3].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[4].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[5].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[6].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[7].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/ramloop[8].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /ramloop[9].ram.r/s3a_init.ram/dpram.ram" (RAMB16BWE) removed.
 Unused block
 "video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/bindec_a.bindec_inst_a/Mmux_ENOUT<0>11" (ROM) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
 /bindec_a.bindec_inst_a/Mmux_ENOUT<1>11" (ROM) removed.
+Unused block
+"video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr
+/has_mux_a.A/sel_pipe_0" (FF) removed.
+Unused block "video/u30/mem/XST_GND" (ZERO) removed.
 
 Optimized Block(s):
 TYPE 		BLOCK
 GND 		XST_GND
 VCC 		XST_VCC
-LUT2
-		video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cst
-r/bindec_a.bindec_inst_a/Mmux_ENOUT<0>11
-   optimized to 1
-FDE
-		video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cst
-r/has_mux_a.A/sel_pipe_0
-   optimized to 0
-GND 		video/u30/mem/XST_GND
 
 To enable printing of redundant blocks removed and signals merged, set the
 detailed map report option and rerun map.
@@ -223,6 +317,7 @@ Section 6 - IOB Properties
 | BTN<3>                             | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | CLK                                | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | DOT                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| EXT_CLK                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | GRN<0>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | GRN<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | GRN<2>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
@@ -231,7 +326,7 @@ Section 6 - IOB Properties
 | LED<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<0>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<1>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
-| PMOD<2>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
+| PMOD<2>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<3>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | PMOD<4>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |
 | PMOD<5>                            | IBUF             | INPUT     | LVTTL                |       |          |         |              |          | 0 / 0    |                  |

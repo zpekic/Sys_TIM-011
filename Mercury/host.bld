@@ -816,20 +816,6 @@ INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;> [mercury.ucf(88)]:
    1. The specified design element actually exists in the original design.
    2. The specified object is spelled correctly in the constraint source file.
 
-INFO:ConstraintSystem:59 - Constraint <NET "EXT_CLK"   LOC = "P44" |>
-   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
-WARNING:ConstraintSystem - A target design object for the Locate constraint
-   '<NET "EXT_CLK"   LOC = "P44" |> [baseboard.ucf(13)]' could not be found and
-   so the Locate constraint will be removed.
-
-INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVTTL ;>
-   [baseboard.ucf(13)]: NET "EXT_CLK" not found.  Please verify that:
-   1. The specified design element actually exists in the original design.
-   2. The specified object is spelled correctly in the constraint source file.
-
 INFO:ConstraintSystem:59 - Constraint <NET "PS2_DATA"  LOC = "P13" |>
    [baseboard.ucf(19)]: NET "PS2_DATA" not found.  Please verify that:
    1. The specified design element actually exists in the original design.
@@ -1061,12 +1047,12 @@ Partition Implementation Status
 
 NGDBUILD Design Results Summary:
   Number of errors:     0
-  Number of warnings:  77
+  Number of warnings:  76
 
-Total memory usage is 154128 kilobytes
+Total memory usage is 154832 kilobytes
 
 Writing NGD file "host.ngd" ...
-Total REAL time to NGDBUILD completion:  5 sec
-Total CPU time to NGDBUILD completion:   4 sec
+Total REAL time to NGDBUILD completion:  6 sec
+Total CPU time to NGDBUILD completion:   5 sec
 
 Writing NGDBUILD log file "host.bld"...

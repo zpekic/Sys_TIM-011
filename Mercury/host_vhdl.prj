@@ -17,6 +17,7 @@ vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\debouncer.
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\configurabledelayline.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Am82S62.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\signalcounter.vhd"
+vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\oneshot.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\uart_receiver.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\memconsole.vhd"
 vhdl work "C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\fourdigitsevensegled.vhd"

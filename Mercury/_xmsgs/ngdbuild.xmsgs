@@ -746,19 +746,6 @@
 2. The specified object is spelled correctly in the constraint source file.
 </msg>
 
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
-<msg type="warning" file="ConstraintSystem" num="0" >A target design object for the Locate constraint &apos;&lt;NET &quot;EXT_CLK&quot;   LOC = &quot;P44&quot; |&gt; [baseboard.ucf(13)]&apos; could not be found and so the Locate constraint will be removed.
-</msg>
-
-<msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;IOSTANDARD = LVTTL ;&gt; [baseboard.ucf(13)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">EXT_CLK</arg>&quot; not found.  Please verify that:
-1. The specified design element actually exists in the original design.
-2. The specified object is spelled correctly in the constraint source file.
-</msg>
-
 <msg type="info" file="ConstraintSystem" num="59" delta="old" >Constraint <arg fmt="%s" index="1">&lt;NET &quot;PS2_DATA&quot;  LOC = &quot;P13&quot; |&gt; [baseboard.ucf(19)]</arg>: <arg fmt="%s" index="2">NET</arg> &quot;<arg fmt="%s" index="3">PS2_DATA</arg>&quot; not found.  Please verify that:
 1. The specified design element actually exists in the original design.
 2. The specified object is spelled correctly in the constraint source file.

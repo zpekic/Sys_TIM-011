@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Thu Sep 24 22:58:34 2020
+Sat Sep 26 23:35:45 2020
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -25,7 +25,7 @@ Pinout by Pin Number:
 |P3        |           |DIFFMLR   |IO_L01P_3             |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
 |P4        |PMOD<1>    |IOB       |IO_L01N_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
 |P5        |PMOD<0>    |IOB       |IO_L02P_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P6        |PMOD<2>    |IOB       |IO_L02N_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |YES        |NONE            |
+|P6        |PMOD<2>    |IOB       |IO_L02N_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
 |P7        |BTN<2>     |IBUF      |IP_3/VREF_3           |INPUT    |LVTTL      |3             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
 |P8        |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |
 |P9        |           |DIFFMLR   |IO_L03P_3/LHCLK0      |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
@@ -63,7 +63,7 @@ Pinout by Pin Number:
 |P41       |USR_BTN    |IBUF      |IO_L08N_2/GCLK15      |INPUT    |LVTTL      |2             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
 |P42       |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |
 |P43       |CLK        |IBUF      |IO_L09P_2/GCLK0       |INPUT    |LVTTL      |2             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
-|P44       |           |DIFFSTB   |IO_L09N_2/GCLK1       |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P44       |EXT_CLK    |IBUF      |IO_L09N_2/GCLK1       |INPUT    |LVTTL      |2             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
 |P45       |           |          |VCCO_2                |         |           |2             |          |         |           |         |3.30   |          |           |                |
 |P46       |           |DIFFSTB   |IO_2/MOSI/CSI_B       |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
 |P47       |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |

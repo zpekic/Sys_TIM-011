@@ -62,7 +62,8 @@ begin
 
 --rd <= RnW and (not nCE) and (not nOE);
 --wr <= not (RnW or nCE);
-IO <= dout when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+--IO <= dout when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+IO <= ('1' & A(14 downto 8)) xor A(7 downto 0) when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
 --wrx <= (others => '1');
 wrx <= (others => (not RnW));
 --pulse <= rd or wr;

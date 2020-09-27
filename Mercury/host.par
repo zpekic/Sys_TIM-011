@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-ZOLTANP4::  Thu Sep 24 22:58:21 2020
+ZOLTANP4::  Sat Sep 26 23:35:35 2020
 
 par -w -intstyle ise -ol high -t 1 host_map.ncd host.ncd host.pcf 
 
@@ -19,12 +19,12 @@ Device speed data version:  "PRODUCTION 1.42 2013-10-13".
 
 Design Summary Report:
 
- Number of External IOBs                          46 out of 68     67%
+ Number of External IOBs                          47 out of 68     69%
 
-   Number of External Input IOBs                 18
+   Number of External Input IOBs                 19
 
-      Number of External Input IBUFs             18
-        Number of LOCed External Input IBUFs     18 out of 18    100%
+      Number of External Input IBUFs             19
+        Number of LOCed External Input IBUFs     19 out of 19    100%
 
 
    Number of External Output IOBs                28
@@ -37,8 +37,7 @@ Design Summary Report:
 
 
    Number of BUFGMUXs                        4 out of 24     16%
-   Number of RAMB16BWEs                      8 out of 16     50%
-   Number of Slices                        366 out of 1792   20%
+   Number of Slices                        425 out of 1792   23%
       Number of SLICEMs                      8 out of 896     1%
 
 
@@ -48,54 +47,53 @@ Placer effort level (-pl):    High
 Placer cost table entry (-t): 1
 Router effort level (-rl):    High 
 
-Starting initial Timing Analysis.  REAL time: 3 secs 
-Finished initial Timing Analysis.  REAL time: 3 secs 
+Starting initial Timing Analysis.  REAL time: 2 secs 
+Finished initial Timing Analysis.  REAL time: 2 secs 
 
 WARNING:Par:288 - The signal PMOD<4>_IBUF has no load.  PAR will not attempt to route this signal.
 WARNING:Par:288 - The signal PMOD<5>_IBUF has no load.  PAR will not attempt to route this signal.
 WARNING:Par:288 - The signal PMOD<7>_IBUF has no load.  PAR will not attempt to route this signal.
 
 Starting Placer
-Total REAL time at the beginning of Placer: 3 secs 
+Total REAL time at the beginning of Placer: 2 secs 
 Total CPU  time at the beginning of Placer: 2 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:5367f7b6) REAL time: 4 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:c53f5bd5) REAL time: 3 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:5367f7b6) REAL time: 4 secs 
+Phase 2.7  Design Feasibility Check (Checksum:c53f5bd5) REAL time: 3 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:5367f7b6) REAL time: 4 secs 
+Phase 3.31  Local Placement Optimization (Checksum:c53f5bd5) REAL time: 3 secs 
 
 Phase 4.2  Initial Clock and IO Placement
 
-Phase 4.2  Initial Clock and IO Placement (Checksum:bcf91ec1) REAL time: 8 secs 
+Phase 4.2  Initial Clock and IO Placement (Checksum:40f959aa) REAL time: 5 secs 
 
 Phase 5.30  Global Clock Region Assignment
-Phase 5.30  Global Clock Region Assignment (Checksum:bcf91ec1) REAL time: 8 secs 
+Phase 5.30  Global Clock Region Assignment (Checksum:40f959aa) REAL time: 5 secs 
 
 Phase 6.36  Local Placement Optimization
-Phase 6.36  Local Placement Optimization (Checksum:bcf91ec1) REAL time: 8 secs 
+Phase 6.36  Local Placement Optimization (Checksum:40f959aa) REAL time: 5 secs 
 
 Phase 7.8  Global Placement
-....................
-.................
-.......
-....
-Phase 7.8  Global Placement (Checksum:be2ccd8b) REAL time: 9 secs 
+...............
+........
+.....
+Phase 7.8  Global Placement (Checksum:4a881ee9) REAL time: 5 secs 
 
 Phase 8.5  Local Placement Optimization
-Phase 8.5  Local Placement Optimization (Checksum:be2ccd8b) REAL time: 9 secs 
+Phase 8.5  Local Placement Optimization (Checksum:4a881ee9) REAL time: 5 secs 
 
 Phase 9.18  Placement Optimization
-Phase 9.18  Placement Optimization (Checksum:66a4d0d1) REAL time: 9 secs 
+Phase 9.18  Placement Optimization (Checksum:f8f5667f) REAL time: 5 secs 
 
 Phase 10.5  Local Placement Optimization
-Phase 10.5  Local Placement Optimization (Checksum:66a4d0d1) REAL time: 9 secs 
+Phase 10.5  Local Placement Optimization (Checksum:f8f5667f) REAL time: 5 secs 
 
-Total REAL time to Placer completion: 9 secs 
-Total CPU  time to Placer completion: 6 secs 
+Total REAL time to Placer completion: 5 secs 
+Total CPU  time to Placer completion: 5 secs 
 Writing design to file host.ncd
 
 
@@ -103,40 +101,40 @@ Writing design to file host.ncd
 Starting Router
 
 
-Phase  1  : 2480 unrouted;      REAL time: 11 secs 
+Phase  1  : 2451 unrouted;      REAL time: 7 secs 
 
-Phase  2  : 2145 unrouted;      REAL time: 11 secs 
+Phase  2  : 2180 unrouted;      REAL time: 7 secs 
 
-Phase  3  : 408 unrouted;      REAL time: 11 secs 
+Phase  3  : 357 unrouted;      REAL time: 7 secs 
 
-Phase  4  : 408 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 12 secs 
+Phase  4  : 357 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 8 secs 
 
-Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 12 secs 
+Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 8 secs 
 
 Updating file: host.ncd with current fully routed design.
 
-Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 12 secs 
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 8 secs 
 
-Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 12 secs 
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 8 secs 
 
-Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 12 secs 
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 8 secs 
 WARNING:Route:455 - CLK Net:video/u13/q<2> may have excessive skew because 
-      0 CLK pins and 11 NON_CLK pins failed to route using a CLK template.
+      0 CLK pins and 3 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:freq153600 may have excessive skew because 
+      4 CLK pins and 2 NON_CLK pins failed to route using a CLK template.
+WARNING:Route:455 - CLK Net:freq4096 may have excessive skew because 
+      6 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:video/u3/q<6> may have excessive skew because 
-      0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
+      1 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:LED_0_OBUF may have excessive skew because 
       0 CLK pins and 2 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:serin/ring<2> may have excessive skew because 
       0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
 WARNING:Route:455 - CLK Net:serin/ring<3> may have excessive skew because 
-      0 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
-WARNING:Route:455 - CLK Net:freq4096 may have excessive skew because 
       6 CLK pins and 1 NON_CLK pins failed to route using a CLK template.
-WARNING:Route:455 - CLK Net:freq153600 may have excessive skew because 
-      4 CLK pins and 2 NON_CLK pins failed to route using a CLK template.
 
-Total REAL time to Router completion: 12 secs 
-Total CPU time to Router completion: 9 secs 
+Total REAL time to Router completion: 8 secs 
+Total CPU time to Router completion: 8 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -154,32 +152,32 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|           CLK_BUFGP |  BUFGMUX_X2Y1| No   |   24 |  0.077     |  1.041      |
+|        EXT_CLK_IBUF |  BUFGMUX_X2Y0| No   |  122 |  0.147     |  1.116      |
 +---------------------+--------------+------+------+------------+-------------+
-|       clockgen/q<2> |  BUFGMUX_X1Y0| No   |   86 |  0.113     |  1.077      |
+|           CLK_BUFGP |  BUFGMUX_X2Y1| No   |    6 |  0.017     |  1.005      |
 +---------------------+--------------+------+------+------------+-------------+
-|        baudgen/q<3> | BUFGMUX_X2Y11| No   |   60 |  0.064     |  1.027      |
+|        baudgen/q<3> |  BUFGMUX_X1Y0| No   |   60 |  0.093     |  1.063      |
 +---------------------+--------------+------+------+------------+-------------+
-|      powergen/q<11> | BUFGMUX_X1Y10| No   |   16 |  0.054     |  1.020      |
+|      powergen/q<11> | BUFGMUX_X1Y10| No   |   14 |  0.033     |  1.002      |
 +---------------------+--------------+------+------+------------+-------------+
-|      video/u13/q<2> |         Local|      |   21 |  0.167     |  2.249      |
+|      video/u13/q<2> |         Local|      |   13 |  0.100     |  1.807      |
 +---------------------+--------------+------+------+------------+-------------+
-|          freq153600 |         Local|      |    6 |  0.316     |  1.352      |
+|          freq153600 |         Local|      |    6 |  0.270     |  1.338      |
 +---------------------+--------------+------+------+------------+-------------+
-|            freq4096 |         Local|      |    7 |  0.299     |  1.352      |
+|            freq4096 |         Local|      |    7 |  0.520     |  1.539      |
 +---------------------+--------------+------+------+------------+-------------+
 |video/delay565ns/lin |              |      |      |            |             |
-|                e<6> |         Local|      |    5 |  0.014     |  0.818      |
+|                e<6> |         Local|      |    5 |  0.018     |  0.755      |
 +---------------------+--------------+------+------+------------+-------------+
-|       video/u3/q<6> |         Local|      |    3 |  0.011     |  2.013      |
+|       video/u3/q<6> |         Local|      |    2 |  0.000     |  0.721      |
 +---------------------+--------------+------+------+------------+-------------+
-|          LED_0_OBUF |         Local|      |   13 |  0.065     |  1.736      |
+|          LED_0_OBUF |         Local|      |   14 |  0.032     |  2.031      |
 +---------------------+--------------+------+------+------------+-------------+
-|          freq_uart4 |         Local|      |    5 |  0.017     |  1.329      |
+|          freq_uart4 |         Local|      |    5 |  0.023     |  1.628      |
 +---------------------+--------------+------+------+------------+-------------+
-|       serin/ring<2> |         Local|      |    7 |  0.041     |  2.002      |
+|       serin/ring<2> |         Local|      |    7 |  0.142     |  2.296      |
 +---------------------+--------------+------+------+------------+-------------+
-|       serin/ring<3> |         Local|      |    7 |  0.260     |  2.303      |
+|       serin/ring<3> |         Local|      |    7 |  0.331     |  1.254      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -199,8 +197,8 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-  TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH  | SETUP       |    12.707ns|     7.293ns|       0|           0
-  50%                                       | HOLD        |     1.140ns|            |       0|           0
+  TS_CLK = PERIOD TIMEGRP "CLK" 20 ns HIGH  | SETUP       |    16.308ns|     3.692ns|       0|           0
+  50%                                       | HOLD        |     1.611ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
 
 
@@ -213,10 +211,10 @@ All signals are completely routed.
 
 WARNING:Par:283 - There are 3 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
-Total REAL time to PAR completion: 13 secs 
-Total CPU time to PAR completion: 10 secs 
+Total REAL time to PAR completion: 9 secs 
+Total CPU time to PAR completion: 8 secs 
 
-Peak Memory Usage:  259 MB
+Peak Memory Usage:  258 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.

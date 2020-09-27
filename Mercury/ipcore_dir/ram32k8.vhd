@@ -75,7 +75,7 @@ END COMPONENT;
       c_axi_type => 1,
       c_byte_size => 8,
       c_common_clk => 0,
-      c_default_data => "55",
+      c_default_data => "CC",
       c_disable_warn_bhv_coll => 0,
       c_disable_warn_bhv_range => 0,
       c_enable_32bit_address => 0,

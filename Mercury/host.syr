@@ -3,14 +3,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 2.00 secs
-Total CPU time to Xst completion: 1.19 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.29 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 2.00 secs
-Total CPU time to Xst completion: 1.20 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.29 secs
  
 --> Reading design: host.prj
 
@@ -136,7 +136,8 @@ Architecture behavioral of Entity sn74hc04 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74s153.vhd" in Library work.
 Architecture behavioral of Entity sn74s153 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/mem43256.vhd" in Library work.
-Architecture behavioral of Entity mem43256 is up to date.
+Entity <mem43256> compiled.
+Entity <mem43256> (Architecture <behavioral>) compiled.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls32.vhd" in Library work.
 Architecture behavioral of Entity sn74ls32 is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/sn74ls244.vhd" in Library work.
@@ -149,6 +150,8 @@ Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/
 Architecture behavioral of Entity memconsole is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" in Library work.
 Architecture structural of Entity grafika is up to date.
+Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/oneshot.vhd" in Library work.
+Architecture behavioral of Entity oneshot is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd" in Library work.
 Architecture structural of Entity fourdigitsevensegled is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/signalcounter.vhd" in Library work.
@@ -156,8 +159,7 @@ Architecture behavioral of Entity signalcounter is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/uart_receiver.vhd" in Library work.
 Architecture behavioral of Entity uart_receiver is up to date.
 Compiling vhdl file "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" in Library work.
-Entity <host> compiled.
-Entity <host> (Architecture <structural>) compiled.
+Architecture structural of Entity host is up to date.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
@@ -171,6 +173,8 @@ Analyzing hierarchy for entity <debouncer8channel> in library <work> (architectu
 Analyzing hierarchy for entity <memconsole> in library <work> (architecture <behavioral>).
 
 Analyzing hierarchy for entity <Grafika> in library <work> (architecture <structural>).
+
+Analyzing hierarchy for entity <oneshot> in library <work> (architecture <behavioral>).
 
 Analyzing hierarchy for entity <fourdigitsevensegled> in library <work> (architecture <structural>).
 
@@ -217,28 +221,29 @@ Analyzing hierarchy for entity <ff74> in library <work> (architecture <behaviora
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <host> in library <work> (Architecture <structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q6_2' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q5_3' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q7_4' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q4_5' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q3_6' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 360: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 395: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q6_2' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q5_3' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q7_4' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q4_5' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q3_6' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q2_7' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q1_9' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q9_12' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q8_13' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 412: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q6_2' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q5_3' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q4_5' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q3_6' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q2_7' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 350: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 385: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 385: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 385: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q6_2' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q5_3' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q7_4' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q4_5' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q3_6' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q2_7' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q1_9' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q9_12' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q8_13' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/host.vhd" line 402: Unconnected output port 'q10_14' of component 'sn74hc4040'.
 Entity <host> analyzed. Unit <host> generated.
 
 Analyzing Entity <sn74hc4040> in library <work> (Architecture <behavioral>).
@@ -254,28 +259,28 @@ Analyzing Entity <memconsole> in library <work> (Architecture <behavioral>).
 Entity <memconsole> analyzed. Unit <memconsole> generated.
 
 Analyzing Entity <Grafika> in library <work> (Architecture <structural>).
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 270: Unconnected output port 'y2_6' of component 'sn74ls08'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'q10_14' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 286: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 319: Unconnected output port 'nq1_6' of component 'sn74ls74'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 319: Unconnected output port 'nq2_8' of component 'sn74ls74'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 335: Unconnected output port 'c4' of component 'sn74ls283'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 359: Unconnected output port 'q12_1' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 359: Unconnected output port 'q11_15' of component 'sn74hc4040'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y24_3' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y23_5' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y21_9' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y14_12' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y13_14' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y12_16' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 376: Unconnected output port 'y11_18' of component 'sn74ls240'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 454: Unconnected output port 'y1_2' of component 'sn74hc04'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 454: Unconnected output port 'y3_6' of component 'sn74hc04'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 454: Unconnected output port 'y4_8' of component 'sn74hc04'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 498: Unconnected output port 'y2_6' of component 'sn74ls32'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 498: Unconnected output port 'y3_8' of component 'sn74ls32'.
-WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 498: Unconnected output port 'y4_11' of component 'sn74ls32'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 279: Unconnected output port 'y2_6' of component 'sn74ls08'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 295: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 295: Unconnected output port 'q10_14' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 295: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 328: Unconnected output port 'nq1_6' of component 'sn74ls74'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 328: Unconnected output port 'nq2_8' of component 'sn74ls74'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 344: Unconnected output port 'c4' of component 'sn74ls283'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 368: Unconnected output port 'q12_1' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 368: Unconnected output port 'q11_15' of component 'sn74hc4040'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y24_3' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y23_5' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y21_9' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y14_12' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y13_14' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y12_16' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 385: Unconnected output port 'y11_18' of component 'sn74ls240'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 463: Unconnected output port 'y1_2' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 463: Unconnected output port 'y3_6' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 463: Unconnected output port 'y4_8' of component 'sn74hc04'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 507: Unconnected output port 'y2_6' of component 'sn74ls32'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 507: Unconnected output port 'y3_8' of component 'sn74ls32'.
+WARNING:Xst:753 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Grafika.vhd" line 507: Unconnected output port 'y4_11' of component 'sn74ls32'.
 Entity <Grafika> analyzed. Unit <Grafika> generated.
 
 Analyzing Entity <sn74ls08> in library <work> (Architecture <behavioral>).
@@ -310,7 +315,7 @@ Analyzing Entity <sn74s153> in library <work> (Architecture <behavioral>).
 Entity <sn74s153> analyzed. Unit <sn74s153> generated.
 
 Analyzing Entity <mem43256> in library <work> (Architecture <behavioral>).
-WARNING:Xst:2211 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/mem43256.vhd" line 79: Instantiating black box module <ram32k8>.
+WARNING:Xst:2211 - "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/mem43256.vhd" line 80: Instantiating black box module <ram32k8>.
 Entity <mem43256> analyzed. Unit <mem43256> generated.
 
 Analyzing Entity <sn74ls32> in library <work> (Architecture <behavioral>).
@@ -318,6 +323,9 @@ Entity <sn74ls32> analyzed. Unit <sn74ls32> generated.
 
 Analyzing Entity <sn74ls244> in library <work> (Architecture <behavioral>).
 Entity <sn74ls244> analyzed. Unit <sn74ls244> generated.
+
+Analyzing Entity <oneshot> in library <work> (Architecture <behavioral>).
+Entity <oneshot> analyzed. Unit <oneshot> generated.
 
 Analyzing Entity <fourdigitsevensegled> in library <work> (Architecture <structural>).
 Entity <fourdigitsevensegled> analyzed. Unit <fourdigitsevensegled> generated.
@@ -365,6 +373,16 @@ Synthesizing Unit <memconsole>.
 Unit <memconsole> synthesized.
 
 
+Synthesizing Unit <oneshot>.
+    Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/oneshot.vhd".
+    Found 16-bit down counter for signal <counter>.
+    Found 1-bit register for signal <trigger_prev>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <oneshot> synthesized.
+
+
 Synthesizing Unit <fourdigitsevensegled>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/fourdigitsevensegled.vhd".
     Found 16x7-bit ROM for signal <internalseg>.
@@ -378,14 +396,16 @@ Unit <fourdigitsevensegled> synthesized.
 
 Synthesizing Unit <signalcounter>.
     Related source file is "C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/signalcounter.vhd".
-    Found 16-bit register for signal <capture_hi>.
-    Found 16-bit register for signal <capture_lo>.
-    Found 16-bit up counter for signal <cnt_hi>.
-    Found 16-bit up counter for signal <cnt_lo>.
+WARNING:Xst:646 - Signal <capture_lo<3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <capture_hi<3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 20-bit register for signal <capture_hi>.
+    Found 20-bit register for signal <capture_lo>.
+    Found 20-bit up counter for signal <cnt_hi>.
+    Found 20-bit up counter for signal <cnt_lo>.
     Found 1-bit register for signal <previous_input>.
     Summary:
 	inferred   2 Counter(s).
-	inferred  33 D-type flip-flop(s).
+	inferred  41 D-type flip-flop(s).
 Unit <signalcounter> synthesized.
 
 
@@ -524,7 +544,15 @@ Synthesizing Unit <mem43256>.
 WARNING:Xst:1780 - Signal <wr> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:1780 - Signal <rd> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:1780 - Signal <pulse> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <dout> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
     Found 8-bit tristate buffer for signal <IO>.
+    Found 1-bit xor2 for signal <IO$xor0001> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0002> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0003> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0004> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0005> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0006> created at line 66.
+    Found 1-bit xor2 for signal <IO$xor0007> created at line 66.
     Summary:
 	inferred   8 Tristate(s).
 Unit <mem43256> synthesized.
@@ -556,16 +584,20 @@ WARNING:Xst:646 - Signal <frame_valid> is assigned but never used. This unconnec
 WARNING:Xst:646 - Signal <button<7:4>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <DD> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
 WARNING:Xst:646 - Signal <A<15>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 2-bit xor2 for signal <BLU>.
+    Found 1-bit xor2 for signal <PMOD<2>>.
     Found 16-bit register for signal <data>.
     Found 1-bit register for signal <freq153600>.
     Found 1-bit register for signal <freq4096>.
     Found 4-bit 16-to-1 multiplexer for signal <hexdata>.
+    Found 1-bit 4-to-1 multiplexer for signal <out_hsync>.
+    Found 1-bit 4-to-1 multiplexer for signal <out_vsync>.
     Found 16-bit down counter for signal <prescale_baud>.
     Found 16-bit down counter for signal <prescale_power>.
     Summary:
 	inferred   2 Counter(s).
 	inferred  18 D-type flip-flop(s).
-	inferred   4 Multiplexer(s).
+	inferred   6 Multiplexer(s).
 Unit <host> synthesized.
 
 INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
@@ -580,26 +612,28 @@ Macro Statistics
  16-bit addsub                                         : 1
  5-bit adder                                           : 2
  8-bit addsub                                          : 1
-# Counters                                             : 11
+# Counters                                             : 13
  12-bit up counter                                     : 5
- 16-bit down counter                                   : 2
- 16-bit up counter                                     : 4
-# Registers                                            : 201
- 1-bit register                                        : 186
+ 16-bit down counter                                   : 4
+ 20-bit up counter                                     : 4
+# Registers                                            : 219
+ 1-bit register                                        : 204
  12-bit register                                       : 2
- 16-bit register                                       : 6
+ 16-bit register                                       : 2
+ 20-bit register                                       : 4
  4-bit register                                        : 2
  8-bit register                                        : 5
-# Multiplexers                                         : 6
- 1-bit 16-to-1 multiplexer                             : 2
- 1-bit 4-to-1 multiplexer                              : 1
+# Multiplexers                                         : 9
+ 1-bit 16-to-1 multiplexer                             : 3
+ 1-bit 4-to-1 multiplexer                              : 3
  16-bit 4-to-1 multiplexer                             : 1
  4-bit 16-to-1 multiplexer                             : 1
  4-bit 4-to-1 multiplexer                              : 1
 # Tristates                                            : 8
  4-bit tristate buffer                                 : 2
  8-bit tristate buffer                                 : 6
-# Xors                                                 : 4
+# Xors                                                 : 14
+ 1-bit xor2                                            : 10
  1-bit xor4                                            : 4
 
 =========================================================================
@@ -632,6 +666,22 @@ WARNING:Xst:1710 - FF/Latch <data_9> (without init value) has a constant value o
 WARNING:Xst:1710 - FF/Latch <data_10> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_11> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <data_14> (without init value) has a constant value of 0 in block <host>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:2677 - Node <capture_lo_0> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_lo_1> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_lo_2> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_lo_3> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_hi_0> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_hi_1> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_hi_2> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_hi_3> of sequential type is unconnected in block <cnt_hsync>.
+WARNING:Xst:2677 - Node <capture_lo_0> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_lo_1> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_lo_2> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_lo_3> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_hi_0> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_hi_1> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_hi_2> of sequential type is unconnected in block <cnt_vsync>.
+WARNING:Xst:2677 - Node <capture_hi_3> of sequential type is unconnected in block <cnt_vsync>.
 WARNING:Xst:1710 - FF/Latch <ff_0> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <ff_1> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <ff_2> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
@@ -642,6 +692,14 @@ WARNING:Xst:1710 - FF/Latch <ff_6> (without init value) has a constant value of 
 WARNING:Xst:1710 - FF/Latch <ff_7> (without init value) has a constant value of 0 in block <u4>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1290 - Hierarchical block <u5> is unconnected in block <video>.
    It will be removed from the design.
+WARNING:Xst:2677 - Node <capture_lo_0> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_lo_1> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_lo_2> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_lo_3> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_hi_0> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_hi_1> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_hi_2> of sequential type is unconnected in block <signalcounter>.
+WARNING:Xst:2677 - Node <capture_hi_3> of sequential type is unconnected in block <signalcounter>.
 
 =========================================================================
 Advanced HDL Synthesis Report
@@ -653,18 +711,19 @@ Macro Statistics
  16-bit addsub                                         : 1
  5-bit adder                                           : 2
  8-bit addsub                                          : 1
-# Counters                                             : 11
+# Counters                                             : 13
  12-bit up counter                                     : 5
- 16-bit down counter                                   : 2
- 16-bit up counter                                     : 4
-# Registers                                            : 352
- Flip-Flops                                            : 352
-# Multiplexers                                         : 9
- 1-bit 16-to-1 multiplexer                             : 6
- 1-bit 4-to-1 multiplexer                              : 1
+ 16-bit down counter                                   : 4
+ 20-bit up counter                                     : 4
+# Registers                                            : 369
+ Flip-Flops                                            : 369
+# Multiplexers                                         : 12
+ 1-bit 16-to-1 multiplexer                             : 7
+ 1-bit 4-to-1 multiplexer                              : 3
  16-bit 4-to-1 multiplexer                             : 1
  4-bit 4-to-1 multiplexer                              : 1
-# Xors                                                 : 4
+# Xors                                                 : 14
+ 1-bit xor2                                            : 10
  1-bit xor4                                            : 4
 
 =========================================================================
@@ -774,6 +833,15 @@ WARNING:Xst:2677 - Node <debounce_btn/channel_generate[7].di/shifter_7> of seque
 
 Mapping all equations...
 Building and optimizing final netlist ...
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_7> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_8> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_9> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_10> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_11> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_12> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_13> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_14> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_6> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_7> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_8> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_9> is unconnected in block <host>.
@@ -782,10 +850,10 @@ WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_11> 
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_12> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_13> is unconnected in block <host>.
 WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay565ns/line_14> is unconnected in block <host>.
-Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 17.
-FlipFlop video/u13/q_10 has been replicated 1 time(s)
-FlipFlop video/u13/q_2 has been replicated 2 time(s)
-FlipFlop video/u10/ff2/Q has been replicated 1 time(s) to handle iob=true attribute.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_4> is unconnected in block <host>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <video/delay330uF/line_5> is unconnected in block <host>.
+Found area constraint ratio of 100 (+ 5) on block host, actual ratio is 21.
+FlipFlop video/u13/q_2 has been replicated 1 time(s)
 
 Final Macro Processing ...
 
@@ -797,8 +865,8 @@ Unit <host> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 417
- Flip-Flops                                            : 417
+# Registers                                            : 468
+ Flip-Flops                                            : 468
 
 =========================================================================
 
@@ -824,43 +892,44 @@ Optimization Goal                  : Speed
 Keep Hierarchy                     : No
 
 Design Statistics
-# IOs                              : 46
+# IOs                              : 47
 
 Cell Usage :
-# BELS                             : 827
+# BELS                             : 1028
 #      GND                         : 2
-#      INV                         : 47
-#      LUT1                        : 46
-#      LUT2                        : 109
-#      LUT3                        : 132
+#      INV                         : 75
+#      LUT1                        : 48
+#      LUT2                        : 151
+#      LUT3                        : 143
 #      LUT3_D                      : 1
-#      LUT4                        : 145
-#      LUT4_L                      : 2
-#      MUXCY                       : 148
-#      MUXF5                       : 22
+#      LUT4                        : 162
+#      LUT4_D                      : 7
+#      LUT4_L                      : 4
+#      MUXCY                       : 194
+#      MUXF5                       : 20
 #      MUXF6                       : 8
 #      MUXF7                       : 4
 #      VCC                         : 1
-#      XORCY                       : 160
-# FlipFlops/Latches                : 418
-#      FD                          : 27
-#      FDC                         : 76
-#      FDCE                        : 64
-#      FDCP                        : 106
-#      FDE                         : 69
+#      XORCY                       : 208
+# FlipFlops/Latches                : 469
+#      FD                          : 29
+#      FDC                         : 74
+#      FDCE                        : 80
+#      FDCP                        : 109
+#      FDE                         : 101
 #      FDP                         : 7
 #      FDP_1                       : 22
 #      FDPE_1                      : 2
-#      FDR                         : 19
-#      FDS                         : 14
+#      FDR                         : 22
+#      FDS                         : 11
 #      FDSE                        : 12
 # RAMS                             : 16
 #      RAMB16BWE                   : 16
 # Clock Buffers                    : 4
 #      BUFG                        : 3
 #      BUFGP                       : 1
-# IO Buffers                       : 42
-#      IBUF                        : 14
+# IO Buffers                       : 43
+#      IBUF                        : 15
 #      OBUF                        : 28
 =========================================================================
 
@@ -869,12 +938,11 @@ Device utilization summary:
 
 Selected Device : 3s200avq100-4 
 
- Number of Slices:                      315  out of   1792    17%  
- Number of Slice Flip Flops:            417  out of   3584    11%  
- Number of 4 input LUTs:                482  out of   3584    13%  
- Number of IOs:                          46
- Number of bonded IOBs:                  43  out of     68    63%  
-    IOB Flip Flops:                       1
+ Number of Slices:                      376  out of   1792    20%  
+ Number of Slice Flip Flops:            469  out of   3584    13%  
+ Number of 4 input LUTs:                591  out of   3584    16%  
+ Number of IOs:                          47
+ Number of bonded IOBs:                  44  out of     68    64%  
  Number of BRAMs:                        16  out of     16   100%  
  Number of GCLKs:                         4  out of     24    16%  
 
@@ -899,15 +967,15 @@ Clock Information:
 -----------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)                                                                                                         | Load  |
 -----------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
-CLK                                | BUFGP                                                                                                                         | 46    |
+EXT_CLK                            | IBUF+BUFG                                                                                                                     | 253   |
 LED_0_OBUF(serin/ready:O)          | NONE(*)(data_1)                                                                                                               | 12    |
+CLK                                | BUFGP                                                                                                                         | 12    |
 freq4096                           | NONE(powergen/q_1)                                                                                                            | 11    |
 freq153600                         | NONE(baudgen/q_1)                                                                                                             | 7     |
 powergen/q_111                     | BUFG                                                                                                                          | 23    |
-clockgen/q_21                      | BUFG                                                                                                                          | 167   |
 video/u30/mem/N1                   | NONE(video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram)| 16    |
 video/u13/q_2                      | NONE(video/u40/ff_0)                                                                                                          | 17    |
-video/u3/q_6                       | NONE(video/u10/ff2/Q)                                                                                                         | 2     |
+video/u3/q_6                       | NONE(video/u10/ff2/Q)                                                                                                         | 1     |
 video/delay565ns/line_6            | NONE(video/u3/q_9)                                                                                                            | 9     |
 baudgen/q_31                       | BUFG                                                                                                                          | 108   |
 freq_uart4(freq_uart41:O)          | NONE(*)(serin/ring_0)                                                                                                         | 10    |
@@ -924,10 +992,10 @@ Asynchronous Control Signals Information:
 ---------------------------------------------------------------------------------------------------------------+----------------------------------------------------+-------+
 Control Signal                                                                                                 | Buffer(FF name)                                    | Load  |
 ---------------------------------------------------------------------------------------------------------------+----------------------------------------------------+-------+
-USR_BTN                                                                                                        | IBUF                                               | 125   |
+USR_BTN                                                                                                        | IBUF                                               | 141   |
+RED_0_OBUF(XST_GND:G)                                                                                          | NONE(video/delay330uF/line_0)                      | 25    |
 serin/sr2_or0000(serin/sr2_or00001:O)                                                                          | NONE(serin/sel_0)                                  | 24    |
-RED_0_OBUF(XST_GND:G)                                                                                          | NONE(video/delay565ns/line_0)                      | 18    |
-video/u1_6(video/u1/y2_61:O)                                                                                   | NONE(video/u13/q_1)                                | 13    |
+video/delay330uF/line_3(video/delay330uF/line_3:Q)                                                             | NONE(video/u13/q_1)                                | 11    |
 video/u2_11(video/u2/y4_111:O)                                                                                 | NONE(video/u3/q_1)                                 | 9     |
 debounce_btn/channel_generate[0].di/shifter_7_and0000(debounce_btn/channel_generate[0].di/shifter_7_and00001:O)| NONE(debounce_btn/channel_generate[0].di/shifter_0)| 8     |
 debounce_btn/channel_generate[0].di/shifter_7_and0001(debounce_btn/channel_generate[0].di/shifter_7_and00011:O)| NONE(debounce_btn/channel_generate[0].di/shifter_0)| 8     |
@@ -953,44 +1021,69 @@ debounce_sw/channel_generate[6].di/shifter_7_and0000(debounce_sw/channel_generat
 debounce_sw/channel_generate[6].di/shifter_7_and0001(debounce_sw/channel_generate[6].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[6].di/shifter_0) | 8     |
 debounce_sw/channel_generate[7].di/shifter_7_and0000(debounce_sw/channel_generate[7].di/shifter_7_and00001:O)  | NONE(debounce_sw/channel_generate[7].di/shifter_0) | 8     |
 debounce_sw/channel_generate[7].di/shifter_7_and0001(debounce_sw/channel_generate[7].di/shifter_7_and00011:O)  | NONE(debounce_sw/channel_generate[7].di/shifter_0) | 8     |
-video/u10/ff2/Q_and0000(video/u10/ff2/Q_and00001_INV_0:O)                                                      | NONE(video/u10/ff2/Q)                              | 2     |
+video/u10/ff2/Q_and0000(video/u10/ff2/Q_and00001_INV_0:O)                                                      | NONE(video/u10/ff2/Q)                              | 1     |
 ---------------------------------------------------------------------------------------------------------------+----------------------------------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 7.663ns (Maximum Frequency: 130.503MHz)
-   Minimum input arrival time before clock: 4.287ns
-   Maximum output required time after clock: 11.085ns
-   Maximum combinational path delay: 5.956ns
+   Minimum period: 9.656ns (Maximum Frequency: 103.563MHz)
+   Minimum input arrival time before clock: 5.364ns
+   Maximum output required time after clock: 11.937ns
+   Maximum combinational path delay: 9.740ns
 
 Timing Detail:
 --------------
 All values displayed in nanoseconds (ns)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'CLK'
-  Clock period: 4.892ns (frequency: 204.415MHz)
-  Total number of paths / destination ports: 896 / 80
+Timing constraint: Default period analysis for Clock 'EXT_CLK'
+  Clock period: 9.656ns (frequency: 103.563MHz)
+  Total number of paths / destination ports: 7499 / 749
 -------------------------------------------------------------------------
-Delay:               4.892ns (Levels of Logic = 2)
-  Source:            prescale_baud_4 (FF)
-  Destination:       prescale_baud_0 (FF)
-  Source Clock:      CLK rising
-  Destination Clock: CLK rising
+Delay:               4.828ns (Levels of Logic = 3)
+  Source:            video/u13/q_2_1 (FF)
+  Destination:       video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram (RAM)
+  Source Clock:      EXT_CLK falling
+  Destination Clock: EXT_CLK rising
 
-  Data Path: prescale_baud_4 to prescale_baud_0
+  Data Path: video/u13/q_2_1 to video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDR:C->Q              2   0.591   0.590  prescale_baud_4 (prescale_baud_4)
-     LUT4:I0->O            1   0.648   0.500  freq153600_cmp_eq000025 (freq153600_cmp_eq000025)
-     LUT4:I1->O           17   0.643   1.051  freq153600_cmp_eq000076 (freq153600_not0002_inv)
-     FDR:R                     0.869          prescale_baud_0
+     FDC:C->Q             15   0.591   1.049  video/u13/q_2_1 (video/u13/q_2_1)
+     LUT3:I2->O           17   0.648   1.083  video/u21/u<4>1 (video/u21/u<4>)
+     LUT3:I2->O            4   0.648   0.587  video/u30_d<7>LogicTrst1 (video/u30_d<7>)
+     begin scope: 'video/u30/mem'
+     RAMB16BWE:DIA0            0.222          U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram
     ----------------------------------------
-    Total                      4.892ns (2.751ns logic, 2.141ns route)
-                                       (56.2% logic, 43.8% route)
+    Total                      4.828ns (2.109ns logic, 2.719ns route)
+                                       (43.7% logic, 56.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK'
+  Clock period: 4.372ns (frequency: 228.750MHz)
+  Total number of paths / destination ports: 78 / 12
+-------------------------------------------------------------------------
+Delay:               4.372ns (Levels of Logic = 3)
+  Source:            clockgen/q_11 (FF)
+  Destination:       clockgen/q_12 (FF)
+  Source Clock:      CLK falling
+  Destination Clock: CLK falling
+
+  Data Path: clockgen/q_11 to clockgen/q_12
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             30   0.591   1.405  clockgen/q_11 (clockgen/q_11)
+     LUT1:I0->O            1   0.648   0.000  clockgen/Mcount_q_cy<10>_rt (clockgen/Mcount_q_cy<10>_rt)
+     MUXCY:S->O            0   0.632   0.000  clockgen/Mcount_q_cy<10> (clockgen/Mcount_q_cy<10>)
+     XORCY:CI->O           1   0.844   0.000  clockgen/Mcount_q_xor<11> (Result<11>2)
+     FDC:D                     0.252          clockgen/q_12
+    ----------------------------------------
+    Total                      4.372ns (2.967ns logic, 1.405ns route)
+                                       (67.9% logic, 32.1% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'freq4096'
@@ -1018,7 +1111,7 @@ Delay:               4.050ns (Levels of Logic = 11)
      MUXCY:CI->O           1   0.065   0.000  powergen/Mcount_q_cy<7> (powergen/Mcount_q_cy<7>)
      MUXCY:CI->O           1   0.065   0.000  powergen/Mcount_q_cy<8> (powergen/Mcount_q_cy<8>)
      MUXCY:CI->O           0   0.065   0.000  powergen/Mcount_q_cy<9> (powergen/Mcount_q_cy<9>)
-     XORCY:CI->O           1   0.844   0.000  powergen/Mcount_q_xor<10> (Result<10>2)
+     XORCY:CI->O           1   0.844   0.000  powergen/Mcount_q_xor<10> (Result<10>3)
      FDC:D                     0.252          powergen/q_11
     ----------------------------------------
     Total                      4.050ns (3.487ns logic, 0.563ns route)
@@ -1046,7 +1139,7 @@ Delay:               3.790ns (Levels of Logic = 7)
      MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<3> (baudgen/Mcount_q_cy<3>)
      MUXCY:CI->O           1   0.065   0.000  baudgen/Mcount_q_cy<4> (baudgen/Mcount_q_cy<4>)
      MUXCY:CI->O           0   0.065   0.000  baudgen/Mcount_q_cy<5> (baudgen/Mcount_q_cy<5>)
-     XORCY:CI->O           1   0.844   0.000  baudgen/Mcount_q_xor<6> (Result<6>3)
+     XORCY:CI->O           1   0.844   0.000  baudgen/Mcount_q_xor<6> (Result<6>4)
      FDC:D                     0.252          baudgen/q_7
     ----------------------------------------
     Total                      3.790ns (3.227ns logic, 0.563ns route)
@@ -1055,7 +1148,7 @@ Delay:               3.790ns (Levels of Logic = 7)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'powergen/q_111'
   Clock period: 5.586ns (frequency: 179.019MHz)
-  Total number of paths / destination ports: 309 / 23
+  Total number of paths / destination ports: 298 / 23
 -------------------------------------------------------------------------
 Delay:               5.586ns (Levels of Logic = 17)
   Source:            console/addr_0 (FF)
@@ -1091,27 +1184,27 @@ Delay:               5.586ns (Levels of Logic = 17)
                                        (79.8% logic, 20.2% route)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'clockgen/q_21'
-  Clock period: 7.663ns (frequency: 130.503MHz)
-  Total number of paths / destination ports: 1885 / 549
+Timing constraint: Default period analysis for Clock 'video/u13/q_2'
+  Clock period: 6.448ns (frequency: 155.087MHz)
+  Total number of paths / destination ports: 16 / 16
 -------------------------------------------------------------------------
-Delay:               3.831ns (Levels of Logic = 2)
-  Source:            video/u13/q_2_1 (FF)
-  Destination:       video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram (RAM)
-  Source Clock:      clockgen/q_21 falling
-  Destination Clock: clockgen/q_21 rising
+Delay:               3.224ns (Levels of Logic = 2)
+  Source:            video/u41/ff_0 (FF)
+  Destination:       video/u40/ff_0 (FF)
+  Source Clock:      video/u13/q_2 falling
+  Destination Clock: video/u13/q_2 rising
 
-  Data Path: video/u13/q_2_1 to video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram
+  Data Path: video/u41/ff_0 to video/u40/ff_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              1   0.591   0.423  video/u13/q_2_1 (video/u13/q_2_1)
-     LUT4:I3->O           64   0.648   1.272  video/u30/RnW_inv1 (video/u30/RnW_inv)
-     begin scope: 'video/u30/mem'
-     RAMB16BWE:WEA3            0.897          U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram
+     FD:C->Q               1   0.591   0.500  video/u41/ff_0 (video/u41/ff_0)
+     LUT4:I1->O            2   0.643   0.590  D<0>LogicTrst1 (D<0>)
+     LUT4:I0->O            4   0.648   0.000  video/u30_d<0>LogicTrst1 (video/u30_d<0>)
+     FD:D                      0.252          video/u40/ff_0
     ----------------------------------------
-    Total                      3.831ns (2.136ns logic, 1.695ns route)
-                                       (55.8% logic, 44.2% route)
+    Total                      3.224ns (2.134ns logic, 1.090ns route)
+                                       (66.2% logic, 33.8% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'video/delay565ns/line_6'
@@ -1149,16 +1242,16 @@ Timing constraint: Default period analysis for Clock 'baudgen/q_31'
   Total number of paths / destination ports: 276 / 108
 -------------------------------------------------------------------------
 Delay:               4.413ns (Levels of Logic = 2)
-  Source:            debounce_btn/channel_generate[0].di/shifter_0 (FF)
+  Source:            debounce_btn/channel_generate[0].di/shifter_3 (FF)
   Destination:       debounce_btn/channel_generate[0].di/debounced (FF)
   Source Clock:      baudgen/q_31 rising
   Destination Clock: baudgen/q_31 rising
 
-  Data Path: debounce_btn/channel_generate[0].di/shifter_0 to debounce_btn/channel_generate[0].di/debounced
+  Data Path: debounce_btn/channel_generate[0].di/shifter_3 to debounce_btn/channel_generate[0].di/debounced
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCP:C->Q             3   0.591   0.674  debounce_btn/channel_generate[0].di/shifter_0 (debounce_btn/channel_generate[0].di/shifter_0)
+     FDCP:C->Q             3   0.591   0.674  debounce_btn/channel_generate[0].di/shifter_3 (debounce_btn/channel_generate[0].di/shifter_3)
      LUT4:I0->O            1   0.648   0.563  debounce_btn/channel_generate[0].di/all1_cmp_eq00004 (debounce_btn/channel_generate[0].di/all1_cmp_eq00004)
      LUT2:I0->O            1   0.648   0.420  debounce_btn/channel_generate[0].di/all1_cmp_eq000010 (debounce_btn/channel_generate[0].di/all1)
      FDSE:S                    0.869          debounce_btn/channel_generate[0].di/debounced
@@ -1172,16 +1265,16 @@ Timing constraint: Default period analysis for Clock 'freq_uart4'
   Total number of paths / destination ports: 17 / 11
 -------------------------------------------------------------------------
 Delay:               2.165ns (Levels of Logic = 1)
-  Source:            serin/delay_1 (FF)
+  Source:            serin/delay_2 (FF)
   Destination:       serin/sel_1 (FF)
   Source Clock:      freq_uart4 rising
   Destination Clock: freq_uart4 falling
 
-  Data Path: serin/delay_1 to serin/sel_1
+  Data Path: serin/delay_2 to serin/sel_1
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP:C->Q              3   0.591   0.674  serin/delay_1 (serin/delay_1)
+     FDP:C->Q              3   0.591   0.674  serin/delay_2 (serin/delay_2)
      LUT3:I0->O            1   0.648   0.000  serin/sel_1_or00001 (serin/sel_1_or0000)
      FDPE_1:D                  0.252          serin/sel_1
     ----------------------------------------
@@ -1231,24 +1324,25 @@ Delay:               1.430ns (Levels of Logic = 0)
                                        (59.0% logic, 41.0% route)
 
 =========================================================================
-Timing constraint: Default OFFSET IN BEFORE for Clock 'clockgen/q_21'
-  Total number of paths / destination ports: 66 / 66
+Timing constraint: Default OFFSET IN BEFORE for Clock 'EXT_CLK'
+  Total number of paths / destination ports: 98 / 66
 -------------------------------------------------------------------------
-Offset:              4.287ns (Levels of Logic = 2)
+Offset:              5.364ns (Levels of Logic = 3)
   Source:            USR_BTN (PAD)
-  Destination:       cnt_hsync/capture_hi_15 (FF)
-  Destination Clock: clockgen/q_21 rising
+  Destination:       cnt_hsync/capture_hi_19 (FF)
+  Destination Clock: EXT_CLK rising
 
-  Data Path: USR_BTN to cnt_hsync/capture_hi_15
+  Data Path: USR_BTN to cnt_hsync/capture_hi_19
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           155   0.849   1.444  USR_BTN_IBUF (USR_BTN_IBUF)
-     LUT3:I0->O           16   0.648   1.034  cnt_hsync/capture_lo_and00001 (cnt_hsync/capture_lo_and0000)
-     FDE:CE                    0.312          cnt_hsync/capture_lo_0
+     IBUF:I->O           173   0.849   1.450  USR_BTN_IBUF (USR_BTN_IBUF)
+     LUT4:I0->O            1   0.648   0.423  Mmux_out_hsync_2_f5_SW0 (N43)
+     LUT4:I3->O           16   0.648   1.034  cnt_hsync/capture_lo_and00001 (cnt_hsync/capture_lo_and0000)
+     FDE:CE                    0.312          cnt_hsync/capture_lo_4
     ----------------------------------------
-    Total                      4.287ns (1.809ns logic, 2.478ns route)
-                                       (42.2% logic, 57.8% route)
+    Total                      5.364ns (2.457ns logic, 2.907ns route)
+                                       (45.8% logic, 54.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'baudgen/q_31'
@@ -1327,77 +1421,123 @@ Offset:              1.688ns (Levels of Logic = 1)
                                        (65.2% logic, 34.8% route)
 
 =========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'clockgen/q_21'
-  Total number of paths / destination ports: 462 / 13
+Timing constraint: Default OFFSET OUT AFTER for Clock 'EXT_CLK'
+  Total number of paths / destination ports: 558 / 15
 -------------------------------------------------------------------------
-Offset:              10.174ns (Levels of Logic = 7)
-  Source:            cnt_hsync/capture_lo_0 (FF)
-  Destination:       A_TO_G<6> (PAD)
-  Source Clock:      clockgen/q_21 rising
+Offset:              11.937ns (Levels of Logic = 5)
+  Source:            h_shot/counter_4 (FF)
+  Destination:       PMOD<2> (PAD)
+  Source Clock:      EXT_CLK rising
 
-  Data Path: cnt_hsync/capture_lo_0 to A_TO_G<6>
+  Data Path: h_shot/counter_4 to PMOD<2>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q              1   0.591   0.500  cnt_hsync/capture_lo_0 (cnt_hsync/capture_lo_0)
-     LUT3:I1->O            1   0.643   0.500  cnt_hsync/count<0>1 (hsync_cnt<0>)
-     LUT3:I1->O            1   0.643   0.000  mux_8 (mux_8)
-     MUXF5:I0->O           1   0.276   0.000  mux_6_f5 (mux_6_f5)
-     MUXF6:I0->O           1   0.291   0.000  mux_4_f6 (mux_4_f6)
-     MUXF7:I0->O           7   0.291   0.851  mux_2_f7 (hexdata<0>)
-     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg51 (A_TO_G_5_OBUF)
-     OBUF:I->O                 4.520          A_TO_G_5_OBUF (A_TO_G<5>)
+     FDE:C->Q              2   0.591   0.590  h_shot/counter_4 (h_shot/counter_4)
+     LUT4:I0->O            1   0.648   0.500  h_shot/shot_cmp_eq000025 (h_shot/shot_cmp_eq000025)
+     LUT4:I1->O           24   0.643   1.395  h_shot/shot_cmp_eq000076 (HSYNC_OBUF)
+     LUT4:I0->O           22   0.648   1.307  Mmux_out_hsync_2_f5 (out_hsync)
+     LUT2:I0->O            2   0.648   0.447  Mxor_PMOD<2>_Result1 (PMOD_3_OBUF)
+     OBUF:I->O                 4.520          PMOD_2_OBUF (PMOD<2>)
     ----------------------------------------
-    Total                     10.174ns (7.903ns logic, 2.271ns route)
-                                       (77.7% logic, 22.3% route)
+    Total                     11.937ns (7.698ns logic, 4.239ns route)
+                                       (64.5% logic, 35.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'video/u13/q_2'
   Total number of paths / destination ports: 24 / 4
 -------------------------------------------------------------------------
-Offset:              8.355ns (Levels of Logic = 4)
+Offset:              9.566ns (Levels of Logic = 5)
   Source:            video/u10/ff1/Q (FF)
-  Destination:       PMOD<0> (PAD)
+  Destination:       BLU<1> (PAD)
   Source Clock:      video/u13/q_2 rising
 
-  Data Path: video/u10/ff1/Q to PMOD<0>
+  Data Path: video/u10/ff1/Q to BLU<1>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDCP:C->Q             1   0.591   0.563  video/u10/ff1/Q (video/u10/ff1/Q)
-     LUT3:I0->O            4   0.648   0.667  video/u1/y1_321 (N27)
-     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N74)
-     MUXF5:I0->O           2   0.276   0.447  video/u1/y4_11 (BLU_1_OBUF)
-     OBUF:I->O                 4.520          PMOD_1_OBUF (PMOD<1>)
+     LUT3:I0->O            4   0.648   0.667  video/u1/y1_321 (N13)
+     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N55)
+     MUXF5:I0->O           2   0.276   0.590  video/u1/y4_11 (PMOD_1_OBUF)
+     LUT2:I0->O            1   0.648   0.420  Mxor_BLU<1>_Result1 (BLU_1_OBUF)
+     OBUF:I->O                 4.520          BLU_1_OBUF (BLU<1>)
     ----------------------------------------
-    Total                      8.355ns (6.678ns logic, 1.677ns route)
-                                       (79.9% logic, 20.1% route)
+    Total                      9.566ns (7.326ns logic, 2.240ns route)
+                                       (76.6% logic, 23.4% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'video/delay565ns/line_6'
   Total number of paths / destination ports: 8 / 4
 -------------------------------------------------------------------------
-Offset:              8.536ns (Levels of Logic = 4)
+Offset:              9.711ns (Levels of Logic = 5)
   Source:            video/u3/q_9 (FF)
-  Destination:       PMOD<0> (PAD)
+  Destination:       BLU<1> (PAD)
   Source Clock:      video/delay565ns/line_6 falling
 
-  Data Path: video/u3/q_9 to PMOD<0>
+  Data Path: video/u3/q_9 to BLU<1>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              6   0.591   0.749  video/u3/q_9 (video/u3/q_9)
-     LUT3:I1->O            4   0.643   0.667  video/u1/y1_321 (N27)
-     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N74)
-     MUXF5:I0->O           2   0.276   0.447  video/u1/y4_11 (BLU_1_OBUF)
-     OBUF:I->O                 4.520          PMOD_1_OBUF (PMOD<1>)
+     FDC:C->Q              5   0.591   0.713  video/u3/q_9 (video/u3/q_9)
+     LUT3:I1->O            4   0.643   0.667  video/u1/y1_321 (N13)
+     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N55)
+     MUXF5:I0->O           2   0.276   0.590  video/u1/y4_11 (PMOD_1_OBUF)
+     LUT2:I0->O            1   0.648   0.420  Mxor_BLU<1>_Result1 (BLU_1_OBUF)
+     OBUF:I->O                 4.520          BLU_1_OBUF (BLU<1>)
     ----------------------------------------
-    Total                      8.536ns (6.673ns logic, 1.863ns route)
-                                       (78.2% logic, 21.8% route)
+    Total                      9.711ns (7.321ns logic, 2.390ns route)
+                                       (75.4% logic, 24.6% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'baudgen/q_31'
+  Total number of paths / destination ports: 324 / 13
+-------------------------------------------------------------------------
+Offset:              11.085ns (Levels of Logic = 7)
+  Source:            debounce_sw/channel_generate[0].di/debounced (FF)
+  Destination:       A_TO_G<6> (PAD)
+  Source Clock:      baudgen/q_31 rising
+
+  Data Path: debounce_sw/channel_generate[0].di/debounced to A_TO_G<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDSE:C->Q            34   0.591   1.406  debounce_sw/channel_generate[0].di/debounced (debounce_sw/channel_generate[0].di/debounced)
+     LUT3:I0->O            1   0.648   0.500  cnt_vsync/count<9>1 (vsync_cnt<9>)
+     LUT3:I1->O            1   0.643   0.000  mux1_62 (mux1_62)
+     MUXF5:I1->O           1   0.276   0.000  mux1_5_f5_0 (mux1_5_f51)
+     MUXF6:I1->O           1   0.291   0.000  mux1_4_f6 (mux1_4_f6)
+     MUXF7:I0->O           7   0.291   0.851  mux1_2_f7 (hexdata<1>)
+     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg41 (A_TO_G_4_OBUF)
+     OBUF:I->O                 4.520          A_TO_G_4_OBUF (A_TO_G<4>)
+    ----------------------------------------
+    Total                     11.085ns (7.908ns logic, 3.177ns route)
+                                       (71.3% logic, 28.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'video/u3/q_6'
+  Total number of paths / destination ports: 2 / 2
+-------------------------------------------------------------------------
+Offset:              8.911ns (Levels of Logic = 3)
+  Source:            video/u10/ff2/Q (FF)
+  Destination:       PMOD<2> (PAD)
+  Source Clock:      video/u3/q_6 rising
+
+  Data Path: video/u10/ff2/Q to PMOD<2>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCP:C->Q             4   0.591   0.730  video/u10/ff2/Q (video/u10/ff2/Q)
+     LUT4:I0->O           24   0.648   1.332  Mmux_out_vsync_2_f5 (out_vsync)
+     LUT2:I1->O            2   0.643   0.447  Mxor_PMOD<2>_Result1 (PMOD_3_OBUF)
+     OBUF:I->O                 4.520          PMOD_2_OBUF (PMOD<2>)
+    ----------------------------------------
+    Total                      8.911ns (6.402ns logic, 2.509ns route)
+                                       (71.8% logic, 28.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
-  Total number of paths / destination ports: 264 / 16
+  Total number of paths / destination ports: 256 / 12
 -------------------------------------------------------------------------
 Offset:              9.941ns (Levels of Logic = 6)
   Source:            clockgen/q_11 (FF)
@@ -1418,51 +1558,6 @@ Offset:              9.941ns (Levels of Logic = 6)
     ----------------------------------------
     Total                      9.941ns (7.265ns logic, 2.676ns route)
                                        (73.1% logic, 26.9% route)
-
-=========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'video/u3/q_6'
-  Total number of paths / destination ports: 2 / 2
--------------------------------------------------------------------------
-Offset:              7.912ns (Levels of Logic = 2)
-  Source:            video/u10/ff2/Q (FF)
-  Destination:       VSYNC (PAD)
-  Source Clock:      video/u3/q_6 rising
-
-  Data Path: video/u10/ff2/Q to VSYNC
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     FDCP:C->Q            20   0.591   1.102  video/u10/ff2/Q (video/u10/ff2/Q)
-     INV:I->O             17   0.648   1.051  cnt_vsync/input_inv1_INV_0 (VSYNC_OBUF)
-     OBUF:I->O                 4.520          VSYNC_OBUF (VSYNC)
-    ----------------------------------------
-    Total                      7.912ns (5.759ns logic, 2.153ns route)
-                                       (72.8% logic, 27.2% route)
-
-=========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'baudgen/q_31'
-  Total number of paths / destination ports: 314 / 9
--------------------------------------------------------------------------
-Offset:              11.085ns (Levels of Logic = 7)
-  Source:            debounce_sw/channel_generate[0].di/debounced (FF)
-  Destination:       A_TO_G<6> (PAD)
-  Source Clock:      baudgen/q_31 rising
-
-  Data Path: debounce_sw/channel_generate[0].di/debounced to A_TO_G<6>
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     FDSE:C->Q            33   0.591   1.406  debounce_sw/channel_generate[0].di/debounced (debounce_sw/channel_generate[0].di/debounced)
-     LUT3:I0->O            1   0.648   0.500  cnt_vsync/count<9>1 (vsync_cnt<9>)
-     LUT3:I1->O            1   0.643   0.000  mux1_62 (mux1_62)
-     MUXF5:I1->O           1   0.276   0.000  mux1_5_f5_0 (mux1_5_f51)
-     MUXF6:I1->O           1   0.291   0.000  mux1_4_f6 (mux1_4_f6)
-     MUXF7:I0->O           7   0.291   0.851  mux1_2_f7 (hexdata<1>)
-     LUT4:I0->O            1   0.648   0.420  leds/Mrom_internalseg41 (A_TO_G_4_OBUF)
-     OBUF:I->O                 4.520          A_TO_G_4_OBUF (A_TO_G<4>)
-    ----------------------------------------
-    Total                     11.085ns (7.908ns logic, 3.177ns route)
-                                       (71.3% logic, 28.7% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'LED_0_OBUF'
@@ -1492,7 +1587,7 @@ Offset:              9.201ns (Levels of Logic = 6)
 Timing constraint: Default OFFSET OUT AFTER for Clock 'freq4096'
   Total number of paths / destination ports: 4 / 4
 -------------------------------------------------------------------------
-Offset:              6.880ns (Levels of Logic = 2)
+Offset:              6.923ns (Levels of Logic = 2)
   Source:            powergen/q_11 (FF)
   Destination:       AN<2> (PAD)
   Source Clock:      freq4096 falling
@@ -1501,12 +1596,12 @@ Offset:              6.880ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              6   0.591   0.701  powergen/q_11 (powergen/q_111)
-     LUT4:I2->O            1   0.648   0.420  leds/Mmux_anode31 (AN_2_OBUF)
+     FDC:C->Q              6   0.591   0.749  powergen/q_11 (powergen/q_111)
+     LUT4:I1->O            1   0.643   0.420  leds/Mmux_anode31 (AN_2_OBUF)
      OBUF:I->O                 4.520          AN_2_OBUF (AN<2>)
     ----------------------------------------
-    Total                      6.880ns (5.759ns logic, 1.121ns route)
-                                       (83.7% logic, 16.3% route)
+    Total                      6.923ns (5.754ns logic, 1.169ns route)
+                                       (83.1% logic, 16.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'freq_uart4'
@@ -1542,7 +1637,7 @@ Offset:              8.521ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDP_1:C->Q            4   0.591   0.667  serin/sr3_9 (serin/sr3_9)
-     LUT4:I1->O            1   0.643   0.452  serin/ready_SW0 (N141)
+     LUT4:I1->O            1   0.643   0.452  serin/ready_SW0 (N81)
      LUT4:I2->O           14   0.648   1.000  serin/ready (LED_0_OBUF)
      OBUF:I->O                 4.520          LED_0_OBUF (LED<0>)
     ----------------------------------------
@@ -1563,7 +1658,7 @@ Offset:              8.492ns (Levels of Logic = 3)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDP_1:C->Q            4   0.591   0.667  serin/sr2_9 (serin/sr2_9)
-     LUT4:I1->O            1   0.643   0.423  serin/ready_SW2 (N70)
+     LUT4:I1->O            1   0.643   0.423  serin/ready_SW2 (N49)
      LUT4:I3->O           14   0.648   1.000  serin/ready (LED_0_OBUF)
      OBUF:I->O                 4.520          LED_0_OBUF (LED<0>)
     ----------------------------------------
@@ -1572,33 +1667,37 @@ Offset:              8.492ns (Levels of Logic = 3)
 
 =========================================================================
 Timing constraint: Default path analysis
-  Total number of paths / destination ports: 1 / 1
+  Total number of paths / destination ports: 9 / 5
 -------------------------------------------------------------------------
-Delay:               5.956ns (Levels of Logic = 2)
-  Source:            PMOD<6> (PAD)
-  Destination:       LED<1> (PAD)
+Delay:               9.740ns (Levels of Logic = 6)
+  Source:            EXT_CLK (PAD)
+  Destination:       BLU<1> (PAD)
 
-  Data Path: PMOD<6> to LED<1>
+  Data Path: EXT_CLK to BLU<1>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             4   0.849   0.587  PMOD_6_IBUF (LED_1_OBUF)
-     OBUF:I->O                 4.520          LED_1_OBUF (LED<1>)
+     IBUF:I->O             2   0.849   0.479  EXT_CLK_IBUF (EXT_CLK_IBUF1)
+     LUT3:I2->O            4   0.648   0.667  video/u1/y1_321 (N13)
+     LUT4:I1->O            1   0.643   0.000  video/u1/y4_11_F (N55)
+     MUXF5:I0->O           2   0.276   0.590  video/u1/y4_11 (PMOD_1_OBUF)
+     LUT2:I0->O            1   0.648   0.420  Mxor_BLU<1>_Result1 (BLU_1_OBUF)
+     OBUF:I->O                 4.520          BLU_1_OBUF (BLU<1>)
     ----------------------------------------
-    Total                      5.956ns (5.369ns logic, 0.587ns route)
-                                       (90.1% logic, 9.9% route)
+    Total                      9.740ns (7.584ns logic, 2.156ns route)
+                                       (77.9% logic, 22.1% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 21.00 secs
-Total CPU time to Xst completion: 20.52 secs
+Total REAL time to Xst completion: 23.00 secs
+Total CPU time to Xst completion: 22.84 secs
  
 --> 
 
-Total memory usage is 273520 kilobytes
+Total memory usage is 274032 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  191 (   0 filtered)
+Number of warnings :  230 (   0 filtered)
 Number of infos    :    8 (   0 filtered)
 

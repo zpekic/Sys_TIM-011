@@ -9,7 +9,7 @@ Target Device  : xc3s200a
 Target Package : vq100
 Target Speed   : -4
 Mapper Version : spartan3a -- $Revision: 1.55 $
-Mapped Date    : Thu Sep 24 22:58:10 2020
+Mapped Date    : Sat Sep 26 23:35:28 2020
 
 Mapping design into LUTs...
 Running directed packing...
@@ -36,29 +36,27 @@ Design Summary:
 Number of errors:      0
 Number of warnings:    5
 Logic Utilization:
-  Number of Slice Flip Flops:           416 out of   3,584   11%
-  Number of 4 input LUTs:               417 out of   3,584   11%
+  Number of Slice Flip Flops:           468 out of   3,584   13%
+  Number of 4 input LUTs:               525 out of   3,584   14%
 Logic Distribution:
-  Number of occupied Slices:            366 out of   1,792   20%
-    Number of Slices containing only related logic:     366 out of     366 100%
-    Number of Slices containing unrelated logic:          0 out of     366   0%
+  Number of occupied Slices:            425 out of   1,792   23%
+    Number of Slices containing only related logic:     425 out of     425 100%
+    Number of Slices containing unrelated logic:          0 out of     425   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         511 out of   3,584   14%
-    Number used as logic:               417
-    Number used as a route-thru:         94
+  Total Number of 4 input LUTs:         621 out of   3,584   17%
+    Number used as logic:               525
+    Number used as a route-thru:         96
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                 46 out of      68   67%
-    IOB Flip Flops:                       1
+  Number of bonded IOBs:                 47 out of      68   69%
   Number of BUFGMUXs:                     4 out of      24   16%
-  Number of RAMB16BWEs:                   8 out of      16   50%
 
-Average Fanout of Non-Clock Nets:                2.86
+Average Fanout of Non-Clock Nets:                2.66
 
 Peak Memory Usage:  261 MB
-Total REAL time to MAP completion:  6 secs 
+Total REAL time to MAP completion:  3 secs 
 Total CPU time to MAP completion:   3 secs 
 
 NOTES:

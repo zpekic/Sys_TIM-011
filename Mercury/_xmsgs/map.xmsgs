@@ -8,9 +8,12 @@
 <msg type="info" file="LIT" num="243" delta="old" >Logical network <arg fmt="%s" index="1">PMOD&lt;4&gt;_IBUF</arg> has no load.
 </msg>
 
-<msg type="info" file="LIT" num="395" delta="old" >The above <arg fmt="%s" index="1">info</arg> message is repeated <arg fmt="%d" index="2">2</arg> more times for the following (max. 5 shown):
+<msg type="info" file="LIT" num="395" delta="old" >The above <arg fmt="%s" index="1">info</arg> message is repeated <arg fmt="%d" index="2">10</arg> more times for the following (max. 5 shown):
 <arg fmt="%s" index="3">PMOD&lt;5&gt;_IBUF,
-PMOD&lt;7&gt;_IBUF</arg>
+PMOD&lt;7&gt;_IBUF,
+video/u30/mem/douta&lt;7&gt;,
+video/u30/mem/douta&lt;6&gt;,
+video/u30/mem/douta&lt;5&gt;</arg>
 To see the details of these <arg fmt="%s" index="4">info</arg> messages, please use the -detail switch.
 </msg>
 
