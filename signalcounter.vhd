@@ -44,7 +44,8 @@ signal previous_input: std_logic;
 
 begin
 
-count <= capture_hi(19 downto 4) when (sel = '1') else capture_lo(19 downto 4);
+--count <= capture_hi(19 downto 4) when (sel = '1') else capture_lo(19 downto 4);
+count <= capture_hi(15 downto 0) when (sel = '1') else capture_lo(15 downto 0);
 
 count_and_capture: process(clk, reset, input)
 begin

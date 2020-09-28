@@ -31,6 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity mem43256 is
     Port ( CLK: in STD_LOGIC;
+			  TEST: in STD_LOGIC;
 			  A : in  STD_LOGIC_VECTOR (14 downto 0);
            nOE : in  STD_LOGIC;
            nCE : in  STD_LOGIC;
@@ -56,14 +57,29 @@ END component;
 --signal mem: ram32k8 := (others => X"AA");
 signal rd, wr, pulse: std_logic;
 signal wrx: std_logic_vector(0 downto 0);
-signal dout: std_logic_vector(7 downto 0);
+signal dout, testpattern, data: std_logic_vector(7 downto 0);
+alias char_col: std_logic_vector(5 downto 0) is A(9 downto 4);		-- 64 cols if char is 8*8 pixels
+alias char_row: std_logic_vector(4 downto 0) is A(14 downto 10);	-- 32 rows if char is 8*8 pixels
 
 begin
 
+testpattern(7) <= char_row(1) xor char_col(1);
+testpattern(6) <= char_row(0) xor char_col(0);
+testpattern(5) <= char_row(1) xor char_col(1);
+testpattern(4) <= char_row(0) xor char_col(0);
+testpattern(3) <= char_row(1) xor char_col(1);
+testpattern(2) <= char_row(0) xor char_col(0);
+testpattern(1) <= char_row(1) xor char_col(1);
+testpattern(0) <= char_row(0) xor char_col(0);
+						
+data <= testpattern when (TEST = '1') else dout;
+
 --rd <= RnW and (not nCE) and (not nOE);
 --wr <= not (RnW or nCE);
---IO <= dout when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
-IO <= ('1' & A(14 downto 8)) xor A(7 downto 0) when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+--IO <= A(14 downto 7) when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+--IO <= "11100100" when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+IO <= data when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
+--IO <= ('0' & A(14 downto 8)) xor A(7 downto 0) when (RnW = '1' and nCE = '0' and nOE = '0') else "ZZZZZZZZ";
 --wrx <= (others => '1');
 wrx <= (others => (not RnW));
 --pulse <= rd or wr;

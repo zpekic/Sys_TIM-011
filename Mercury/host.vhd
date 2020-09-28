@@ -95,11 +95,11 @@ entity host is
 				--register state is traced to VGA after each instruction if SW0 = on
 				--640*480 50Hz mode is used, which give 80*60 character display
 				--but to save memory, only 80*50 are used which fits into 4k video RAM
-				HSYNC: out std_logic;
-				VSYNC: out std_logic;
-				RED: out std_logic_vector(2 downto 0);
-				GRN: out std_logic_vector(2 downto 0);
-				BLU: out std_logic_vector(1 downto 0);
+				--HSYNC: out std_logic;
+				--VSYNC: out std_logic;
+				--RED: out std_logic_vector(2 downto 0);
+				--GRN: out std_logic_vector(2 downto 0);
+				--BLU: out std_logic_vector(1 downto 0);
 				
 				--PMOD interface
 				--connection to https://store.digilentinc.com/pmod-kypd-16-button-keypad/
@@ -118,6 +118,8 @@ component Grafika is
            d : inout  STD_LOGIC_VECTOR (7 downto 0);
            ioe : in  STD_LOGIC;
            nScroll : in  STD_LOGIC;
+			  -- debug
+			  test: in STD_LOGIC;
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -192,11 +194,14 @@ end component;
 --	);
 --end component;
 
-component Am82S62 is
-    Port ( p : in  STD_LOGIC_VECTOR (9 downto 1);
-           inhibit : in  STD_LOGIC;
-           even : buffer  STD_LOGIC;
-           odd : out  STD_LOGIC);
+component interactivereg is
+    Port ( reset : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           enable : in  STD_LOGIC;
+           init : in  STD_LOGIC_VECTOR (15 downto 0);
+           up : in  STD_LOGIC;
+           down : in  STD_LOGIC;
+           value : buffer  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
 component uart_receiver is
@@ -255,11 +260,49 @@ component memconsole is
            DD : out  STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-signal freq25M, dotclk: std_logic;
+component memtester is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+			  execute: in STD_LOGIC;
+           EN : out  STD_LOGIC;
+           RD : out  STD_LOGIC;
+           WR : out  STD_LOGIC;
+           A : out  STD_LOGIC_VECTOR (15 downto 0);
+           D : inout  STD_LOGIC_VECTOR (7 downto 0);
+           DD : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
+type palette is array (0 to 15) of std_logic_vector(2 downto 0);
+signal bgr: palette := (
+	"000",	-- black
+	"010",	-- green
+	"001",	-- red
+	"111",	-- white
+
+	"000",	-- black
+	"001",	-- red
+	"100",	-- blue
+	"111",	-- white
+
+	"000",	-- black
+	"101",	-- blue
+	"010",	-- green
+	"111",	-- white
+
+	"000",	-- black
+	"011",	-- yellow
+	"101",	-- purple
+	"110" 	-- cyan
+);
+
+signal color: std_logic_vector(3 downto 0); -- combines one of 1 palettes plus vid2 and vid1
+
+signal freq25M, freq12M5, dotclk: std_logic;
+signal test_static, test_dynamic: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
-signal hsync_cnt, vsync_cnt: std_logic_vector(15 downto 0); 
+signal hsync_cnt, vsync_cnt, h_duration, v_duration: std_logic_vector(15 downto 0); 
 signal RESET: std_logic;
 ---
 --signal kbd_data_ready: std_logic;
@@ -291,67 +334,11 @@ begin
 RESET <= USR_BTN;
 dotclk <= EXT_CLK;
 	
---capture: process(kbd_data, kbd_data_ready, RESET)
---begin
---	if (RESET = '1') then
---		data <= X"DEADBEEF";
---	else
---		if (falling_edge(kbd_data_ready)) then
---			data <= data(23 downto 0) & std_logic_vector(kbd_data);
---		end if;
---	end if;
---end process; 	
-
---kbd: ps2_keyboard generic map ( 
---			CLK_FREQ_MHZ => 50
---  )
---  port map( 
---		  clk             => CLK, 
---		  reset           => RESET, 
---		  rx_data         => kbd_data, 
---		  rx_read         => BTN(3), --kbd_read, 
---		  rx_data_ready   => kbd_data_ready, 
---		  rx_extended     => open, 
---		  rx_released     => open, 
---		  rx_shift_on     => open, 
---		  tx_data         => X"00", 
---		  tx_write        => '0', 
---		  tx_data_empty   => open, 
---		  tx_error	      => open, 
---		  ps2_clk         => PS2_CLOCK,
---		  ps2_data        => PS2_DATA
---  ); 
-
---kbd: io_ps2_keyboard generic map (
---		ticksPerUsec => 50
---	)
---	port map (
---		clk => CLK,
---		reset => RESET,
---		
---		-- PS/2 connector
---		ps2_clk_in => PS2_CLOCK,
---		ps2_dat_in => PS2_DATA,
---		ps2_clk_out => open,
---		ps2_dat_out => open,
---
---		-- LED status
---		caps_lock => showlock(0),
---		num_lock  => showlock(1),
---		scroll_lock  => showlock(2),
---
---		-- Read scancode
---		trigger => kbd_data_ready,
---		scancode => kbd_data
---	);
---
---	showlock(3) <= '1';
-	
 clockgen: sn74hc4040 port map (
 			clock_10 => CLK,
 			reset_11 => RESET,
 			q1_9 => freq25M, 
-			q2_7 => open,
+			q2_7 => freq12M5,
 			q3_6 => open, --PMOD(7),		-- 6.25
 			q4_5 => open, --PMOD(6),		-- 3.125
 			q5_3 => open, --PMOD(5),		-- 1.5625
@@ -431,11 +418,22 @@ powergen: sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
-	
-console: memconsole Port map(
-			clk => freq2,
+--console: memconsole Port map(
+--			clk => freq2,
+--         reset => RESET,
+--         control => button(3 downto 0),
+--         EN => vm_en,
+--         RD => vm_rd,
+--         WR => vm_wr,
+--         A => A,
+--         D => D,
+--         DD => DD
+--	);
+
+mtest: memtester Port map(
+			clk => freq38400,
          reset => RESET,
-         control => button(3 downto 0),
+			execute => test_dynamic,
          EN => vm_en,
          RD => vm_rd,
          WR => vm_wr,
@@ -443,6 +441,9 @@ console: memconsole Port map(
          D => D,
          DD => DD
 	);
+	
+	test_static <= '1' when (button(3 downto 0) = "1110") else '0';
+	test_dynamic <= '1' when (button(3 downto 0) = "1111") else '0';
 	
 	video: Grafika port map (
 		-- system
@@ -454,6 +455,8 @@ console: memconsole Port map(
 		  d => D,
 		  ioe => vm_en,
 		  nScroll => '1',	-- not used for now
+		-- debug
+		  test => test_static,
 		-- monitor side
 		  hsync => gr_hsync, --HSYNC,
 		  vsync => gr_vsync,--VSYNC,
@@ -461,28 +464,32 @@ console: memconsole Port map(
 		  vid2 => gr_vid2  --BLU(1)
 	);
 	
-	RED <= "000";
-	GRN <= "000";
-	LED(0) <= frame_ready; --vm_rd;
-	LED(1) <= PMOD(6); --vm_wr;
+	LED(0) <= vm_rd;
+	LED(1) <= vm_wr;
 
+
+-- Connect to GBS8200 gray wire
 	PMOD(3) <= out_hsync xor out_vsync;
-	PMOD(2) <= out_vsync xor out_hsync;
-	PMOD(1) <= gr_vid2;
-	PMOD(0) <= gr_vid1;
-	HSYNC <= not sh_hsync;
-	VSYNC <= not sh_vsync;
-	BLU(1) <= switch(1) xor gr_vid2;
-	BLU(0) <= switch(0) xor gr_vid1;
+	
+-- connect to GBS8200 blue / green / red wires
+	PMOD(2 downto 0) <= bgr(to_integer(unsigned(color)));
+	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;
+
+--	HSYNC <= not sh_hsync;
+--	VSYNC <= not sh_vsync;
+--	BLU(1) <= switch(1) xor gr_vid2;
+--	BLU(0) <= switch(0) xor gr_vid1;
+--	RED <= "000";
+--	GRN <= "000";
 
 with switch(7 downto 6) select
 		out_hsync <= 	gr_hsync when "00",
 							sh_hsync when "01",
-							not gr_hsync when "10",
+							not gr_hsync when "10",			-- STABLE SETTING
 							not sh_hsync when others;
 
 with switch(5 downto 4) select
-		out_vsync <= 	gr_vsync when "00",
+		out_vsync <= 	gr_vsync when "00",				-- STABLE SETTING
 							sh_vsync when "01",
 							not gr_vsync when "10",
 							not sh_vsync when others;
@@ -492,26 +499,38 @@ with switch(5 downto 4) select
 -- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml
 h_shot: oneshot Port map ( 
 			trigger => gr_hsync,
-         tick => dotclk,			-- 1 tick is 40ns
-         duration => X"0004", --X"0036", 	-- 0.7*Rx*Cx = 0.7*2.2kohm*2.2nF = 3.4 uS == 85 ticks
+         tick => dotclk,			-- 1 tick is 83.33ns
+         duration => h_duration, 
          shot => sh_hsync
+		);
+
+h_shot_reg: interactivereg Port map ( 
+				reset => RESET,
+				clk => freq2,
+				enable => '0', --button(3),
+				init => X"00AD",		-- STABLE SETTING, about 144ms
+				up => button(1),
+				down => button(0),
+				value => h_duration
 		);
 
 v_shot: oneshot Port map ( 
 			trigger => gr_vsync,
-         tick => dotclk,			-- 1 tick is 40ns
-         duration => X"0200", 	-- 0.7*Rx*Cx = 0.7*47kohm*47nF = 1546 uS == 38657 ticks
+         tick => dotclk,			-- 1 tick is 83.33ns
+         duration => v_duration, 	
          shot => sh_vsync
 		);
 		
---pchecker: Am82S62 port map ( 
---			p(9) => button(0),
---			p(8 downto 1) => switch,
---         inhibit => button(1),
---         even => even,
---         odd => odd
---		);
-		
+v_shot_reg: interactivereg Port map ( 
+				reset => RESET,
+				clk => freq2,
+				enable => '0', --button(2),
+				init => X"0200", 		-- STABLE SETTING, about 426ms -- NOT USED!
+				up => button(1),
+				down => button(0),
+				value => v_duration
+		);
+
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
@@ -546,41 +565,49 @@ cnt_vsync: signalcounter Port map (
 hexsel <= switch(2 downto 1) & digsel;
 
 with hexsel select
-	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
-					hsync_cnt(7 downto 4) when "0001",
-					hsync_cnt(11 downto 8) when "0010",
-					hsync_cnt(15 downto 12) when "0011",
-					vsync_cnt(3 downto 0) when "0100",
-					vsync_cnt(7 downto 4) when "0101",
-					vsync_cnt(11 downto 8) when "0110",
-					vsync_cnt(15 downto 12) when "0111",
+--	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
+--					hsync_cnt(7 downto 4) when "0001",
+--					hsync_cnt(11 downto 8) when "0010",
+--					hsync_cnt(15 downto 12) when "0011",
+--					vsync_cnt(3 downto 0) when "0100",
+--					vsync_cnt(7 downto 4) when "0101",
+--					vsync_cnt(11 downto 8) when "0110",
+--					vsync_cnt(15 downto 12) when "0111",
+	hexdata <= 	h_duration(3 downto 0) when "0000",	
+					h_duration(7 downto 4) when "0001",
+					h_duration(11 downto 8) when "0010",
+					h_duration(15 downto 12) when "0011",
+					v_duration(3 downto 0) when "0100",
+					v_duration(7 downto 4) when "0101",
+					v_duration(11 downto 8) when "0110",
+					v_duration(15 downto 12) when "0111",
 					--
-					data(3 downto 0) when "1000",
-					data(7 downto 4) when "1001",
-					data(11 downto 8) when "1010",
-					data(15 downto 12) when "1011",
-					debug(3 downto 0) when "1100",
-					debug(7 downto 4) when "1101",
-					debug(11 downto 8) when "1110",
-					debug(15 downto 12) when "1111",
---					DD(3 downto 0) when "1000",
---					DD(7 downto 4) when "1001",
---					A(3 downto 0) when "1010",
---					A(7 downto 4) when "1011",
---					DD(3 downto 0) when "1100",
---					DD(7 downto 4) when "1101",
---					A(3 downto 0) when "1110",
---					A(7 downto 4) when "1111",
+					--data(3 downto 0) when "1000",
+					--data(7 downto 4) when "1001",
+					--data(11 downto 8) when "1010",
+					--data(15 downto 12) when "1011",
+					--debug(3 downto 0) when "1100",
+					--debug(7 downto 4) when "1101",
+					--debug(11 downto 8) when "1110",
+					--debug(15 downto 12) when "1111",
+					DD(3 downto 0) when "1000",
+					DD(7 downto 4) when "1001",
+					D(3 downto 0) when "1010",
+					D(7 downto 4) when "1011",
+					A(3 downto 0) when "1100",
+					A(7 downto 4) when "1101",
+					A(11 downto 8) when "1110",
+					A(15 downto 12) when "1111",
 					X"0" when others;
 					
-testdelay: configurabledelayline Port map (
-				clk => CLK,
-				reset => RESET,
-				init => '1',
-				delay => SW(7 downto 4),
-				signal_in => digsel(0),
-				signal_out => digsel0_delayed
-		);
+--testdelay: configurabledelayline Port map (
+--				clk => CLK,
+--				reset => RESET,
+--				init => '1',
+--				delay => SW(7 downto 4),
+--				signal_in => digsel(0),
+--				signal_out => digsel0_delayed
+--		);
 
 freq_uart4 <= 	freq153600 when (switch(7) = '0') else freq1200;
 

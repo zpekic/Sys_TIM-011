@@ -38,6 +38,8 @@ entity Grafika is
            d : inout  STD_LOGIC_VECTOR (7 downto 0);
            ioe : in  STD_LOGIC;
            nScroll : in  STD_LOGIC;
+			  -- debug
+			  test: in STD_LOGIC;
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -187,6 +189,7 @@ end component;
 
 component mem43256 is
     Port ( CLK: in STD_LOGIC;
+			  TEST: in STD_LOGIC;
 			  A : in  STD_LOGIC_VECTOR (14 downto 0);
            nOE : in  STD_LOGIC;
            nCE : in  STD_LOGIC;
@@ -247,7 +250,7 @@ delay565ns: configurabledelayline port map (
 			clk => dotclk,
          reset => '0',
          init => '0',
-         delay => X"7",
+         delay => X"6",
          signal_in => u13_q10,
          signal_out => u13_q10_delayed
 		);
@@ -256,7 +259,7 @@ delay330uF: configurabledelayline port map (
 			clk => dotclk,
          reset => '0',
          init => '0',
-         delay => X"4",	-- TODO: this is just a random experiment number
+         delay => X"3",	-- TODO: this is just a random experiment number
          signal_in => u1_6,
          signal_out => u1_6_delayed
 		);
@@ -494,6 +497,7 @@ delay330uF: configurabledelayline port map (
 
 	u30: mem43256 Port map ( 
 		   CLK => dotclk,		-- FPGA block RAM needs it
+			TEST => test,
 			A(14 downto 12) => u19_y(3 downto 1),
 			A(11 downto 8) => u20_y,
 			A(7 downto 4) => u21_y,

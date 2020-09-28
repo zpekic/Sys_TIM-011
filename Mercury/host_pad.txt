@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Sat Sep 26 23:35:45 2020
+Sun Sep 27 20:17:35 2020
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -35,11 +35,11 @@ Pinout by Pin Number:
 |P13       |LED<0>     |IOB       |IO_L04N_3/IRDY2/LHCLK3|OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
 |P14       |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |
 |P15       |LED<1>     |IOB       |IO_L05P_3/TRDY2/LHCLK6|OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P16       |HSYNC      |IOB       |IO_L05N_3/LHCLK7      |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
+|P16       |           |DIFFSLR   |IO_L05N_3/LHCLK7      |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
 |P17       |           |          |VCCINT                |         |           |              |          |         |           |         |1.2    |          |           |                |
 |P18       |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |
-|P19       |VSYNC      |IOB       |IO_L06P_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P20       |RED<0>     |IOB       |IO_L06N_3             |OUTPUT   |LVTTL      |3             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
+|P19       |           |DIFFMLR   |IO_L06P_3             |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
+|P20       |           |DIFFSLR   |IO_L06N_3             |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
 |P21       |           |DIFFMI_NDT|IP_3                  |UNUSED   |           |3             |          |         |           |         |       |          |           |                |
 |P22       |           |          |VCCAUX                |         |           |              |          |         |           |         |2.5    |          |           |                |
 |P23       |           |DIFFMTB   |IO_L01P_2/M1          |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
@@ -51,15 +51,15 @@ Pinout by Pin Number:
 |P29       |           |DIFFSTB   |IO_L03N_2/VS2         |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
 |P30       |           |DIFFMTB   |IO_L04P_2/VS1         |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
 |P31       |           |DIFFSTB   |IO_L04N_2/VS0         |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
-|P32       |RED<1>     |IOB       |IO_L05P_2             |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P33       |RED<2>     |IOB       |IO_L05N_2             |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P34       |GRN<0>     |IOB       |IO_L06P_2/D7          |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P35       |GRN<1>     |IOB       |IO_L06N_2/D6          |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P36       |GRN<2>     |IOB       |IO_L07P_2/D5          |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
-|P37       |BLU<0>     |IOB       |IO_L07N_2/D4          |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
+|P32       |           |DIFFMTB   |IO_L05P_2             |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P33       |           |DIFFSTB   |IO_L05N_2             |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P34       |           |DIFFMTB   |IO_L06P_2/D7          |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P35       |           |DIFFSTB   |IO_L06N_2/D6          |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P36       |           |DIFFMTB   |IO_L07P_2/D5          |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
+|P37       |           |DIFFSTB   |IO_L07N_2/D4          |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
 |P38       |           |          |VCCINT                |         |           |              |          |         |           |         |1.2    |          |           |                |
 |P39       |           |IBUF      |IP_2/VREF_2           |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
-|P40       |BLU<1>     |IOB       |IO_L08P_2/GCLK14      |OUTPUT   |LVTTL      |2             |12        |SLOW     |NONE**     |         |       |LOCATED   |NO         |NONE            |
+|P40       |           |DIFFMTB   |IO_L08P_2/GCLK14      |UNUSED   |           |2             |          |         |           |         |       |          |           |                |
 |P41       |USR_BTN    |IBUF      |IO_L08N_2/GCLK15      |INPUT    |LVTTL      |2             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
 |P42       |           |          |GND                   |         |           |              |          |         |           |         |       |          |           |                |
 |P43       |CLK        |IBUF      |IO_L09P_2/GCLK0       |INPUT    |LVTTL      |2             |          |         |           |IBUF     |       |LOCATED   |NO         |NONE            |
