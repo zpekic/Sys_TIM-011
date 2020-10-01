@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="ram32k8">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2020-9-26T5:41:14</timestamp>
+    <timestamp>2020-9-28T21:6:51</timestamp>
     <pin polarity="Input" x="0" y="80" name="addra[14:0]" />
     <pin polarity="Input" x="0" y="112" name="dina[7:0]" />
     <pin polarity="Input" x="0" y="144" name="ena" />

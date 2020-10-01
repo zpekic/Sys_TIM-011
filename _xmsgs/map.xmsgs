@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="info" file="LIT" num="243" delta="old" >Logical network <arg fmt="%s" index="1">PMOD&lt;4&gt;</arg> has no load.
+</msg>
+
+<msg type="info" file="LIT" num="395" delta="old" >The above <arg fmt="%s" index="1">info</arg> message is repeated <arg fmt="%d" index="2">2</arg> more times for the following (max. 5 shown):
+<arg fmt="%s" index="3">PMOD&lt;5&gt;,
+PMOD&lt;7&gt;</arg>
+To see the details of these <arg fmt="%s" index="4">info</arg> messages, please use the -detail switch.
+</msg>
+
+<msg type="info" file="MapLib" num="562" delta="old" >No environment variables are currently set.
+</msg>
+
+<msg type="info" file="LIT" num="244" delta="old" >All of the single ended outputs in this design are using slew rate limited output drivers. The delay on speed critical single ended outputs can be dramatically reduced by designating them as fast outputs.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="372" delta="old" >Gated clock. Clock net <arg fmt="%s" index="1">frame_ready</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="372" delta="old" >Gated clock. Clock net <arg fmt="%s" index="1">freq_uart4</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[7].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[3].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[13].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[8].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[4].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[14].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[5].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[1].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[11].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[6].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="812" delta="new" >Dangling pin &lt;<arg fmt="%s" index="1">DIA0</arg>&gt; on block:&lt;<arg fmt="%s" index="2">video/u30/mem/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[12].ram.r/s3a_init.ram/dpram.ram</arg>&gt;:&lt;<arg fmt="%s" index="3">RAMB16BWE_RAMB16BWE</arg>&gt;.
+</msg>
+
+</messages>
+
