@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Mon Sep 28 21:05:31 2020
+# Date: Thu Oct 01 04:16:55 2020
 #
 ##############################################################
 #
@@ -40,12 +40,12 @@ SELECT Block_Memory_Generator xilinx.com:ip:blk_mem_gen:7.3
 # END Select
 # BEGIN Parameters
 CSET additional_inputs_for_power_estimation=false
-CSET algorithm=Fixed_Primitives
+CSET algorithm=Minimum_Area
 CSET assume_synchronous_clk=false
 CSET axi_id_width=4
 CSET axi_slave_type=Memory_Slave
 CSET axi_type=AXI4_Full
-CSET byte_size=8
+CSET byte_size=9
 CSET coe_file=no_coe_file_loaded
 CSET collision_warnings=ALL
 CSET component_name=ram32k8
@@ -73,7 +73,7 @@ CSET port_a_write_rate=50
 CSET port_b_clock=100
 CSET port_b_enable_rate=100
 CSET port_b_write_rate=50
-CSET primitive=2kx9
+CSET primitive=8kx2
 CSET read_width_a=8
 CSET read_width_b=8
 CSET register_porta_input_of_softecc=false
@@ -82,7 +82,7 @@ CSET register_porta_output_of_memory_primitives=false
 CSET register_portb_output_of_memory_core=false
 CSET register_portb_output_of_memory_primitives=false
 CSET register_portb_output_of_softecc=false
-CSET remaining_memory_locations=FF
+CSET remaining_memory_locations=C6
 CSET reset_memory_latch_a=false
 CSET reset_memory_latch_b=false
 CSET reset_priority_a=CE
@@ -91,7 +91,7 @@ CSET reset_type=SYNC
 CSET softecc=false
 CSET use_axi_id=false
 CSET use_bram_block=Stand_Alone
-CSET use_byte_write_enable=true
+CSET use_byte_write_enable=false
 CSET use_error_injection_pins=false
 CSET use_regcea_pin=false
 CSET use_regceb_pin=false
@@ -105,4 +105,4 @@ CSET write_width_b=8
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: e13266cb
+# CRC: 7b1b6379
