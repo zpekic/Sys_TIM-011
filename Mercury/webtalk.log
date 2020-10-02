@@ -1,0 +1,16 @@
+Release 14.7 - WebTalk (P.20131013)
+Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+
+Project Information
+--------------------
+ProjectID=77903B83453B49BB936BF27A8499C537
+ProjectIteration=30
+
+WebTalk Summary
+----------------
+INFO:WebTalk:1 - WebTalk is enabled because you are using a WebPACK license.
+
+INFO:WebTalk:8 - WebTalk Install setting is ON.
+INFO:WebTalk:7 - WebTalk User setting is OFF.
+
+INFO:WebTalk:5 - C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/usage_statistics_webtalk.html WebTalk report has not been sent to Xilinx.  Please check your network and proxy settings.  For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/14.7/ISE_DS/ISE/data/reports/webtalk_introduction.html

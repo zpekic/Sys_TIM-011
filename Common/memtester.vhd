@@ -33,6 +33,7 @@ entity memtester is
     Port ( clk : in  STD_LOGIC;
            reset : in  STD_LOGIC;
 			  execute: in STD_LOGIC;
+			  direction: in STD_LOGIC;	-- 0: vertical, 1: horizontal
            EN : out  STD_LOGIC;
            RD : out  STD_LOGIC;
            WR : out  STD_LOGIC;
@@ -45,22 +46,28 @@ architecture Behavioral of memtester is
 
 signal counter: std_logic_vector(20 downto 0);
 alias color: std_logic_vector(1 downto 0) is counter(20 downto 19);
-alias y: std_logic_vector(7 downto 0) is counter(18 downto 11);
-alias x: std_logic_vector(8 downto 0) is counter(10 downto 2);
+--alias y: std_logic_vector(7 downto 0) is counter(18 downto 11);
+--alias x: std_logic_vector(8 downto 0) is counter(10 downto 2);
+alias pixel: std_logic_vector(16 downto 0) is counter(18 downto 2); -- there are 512*256 pixels (2^17)
 alias cycle: std_logic_vector(1 downto 0) is counter(1 downto 0); 
+
+signal y: std_logic_vector(7 downto 0); -- 256 rows
+signal x: std_logic_vector(8 downto 0); -- 512 cols == 128 bytes across
 
 signal data, setpixel: std_logic_vector(7 downto 0);
 signal state: std_logic_vector(3 downto 0);
 
 begin
 
+y <= pixel(16 downto 9) when (direction = '1') else pixel(7 downto 0);
+x <= pixel(8 downto 0)  when (direction = '1') else pixel(16 downto 8);
+
 DD <= data;
 D <= data when (state(3) = '1') else "ZZZZZZZZ";
 EN <= state(2);
 RD <= state(1);
 WR <= state(0); 
-A(15) <= '1';
-A(14 downto 0) <= y & x(8 downto 2);
+A <= '1' & x(8 downto 2) & y; 
 
 doit: process(clk, reset, setpixel, cycle, D)
 begin

@@ -1,8 +1,8 @@
 INTSTYLE=ise
-INFILE=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Mercury\sys_tim011_mercury.ncd
-OUTFILE=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Mercury\sys_tim011_mercury.bit
+INFILE=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\sys_tim011_mercury.ncd
+OUTFILE=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury\sys_tim011_mercury.bit
 FAMILY=Spartan3A and Spartan3AN
 PART=xc3s200a-4vq100
-WORKINGDIR=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Mercury
+WORKINGDIR=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Mercury
 LICENSE=WebPack
 USER_INFO=210994392_0_0_816

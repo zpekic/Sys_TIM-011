@@ -72,7 +72,7 @@ entity sys_tim011_mercury is
 				AN: out std_logic_vector(3 downto 0); 
 				DOT: out std_logic; 
 				-- 4 LEDs on Mercury board (3 and 2 are used by VGA VSYNC and HSYNC)
-				LED: out std_logic_vector(1 downto 0);
+				LED: out std_logic_vector(3 downto 0);
 
 				-- ADC interface
 				-- channel	input
@@ -264,6 +264,7 @@ component memtester is
     Port ( clk : in  STD_LOGIC;
            reset : in  STD_LOGIC;
 			  execute: in STD_LOGIC;
+			  direction: in STD_LOGIC;
            EN : out  STD_LOGIC;
            RD : out  STD_LOGIC;
            WR : out  STD_LOGIC;
@@ -274,25 +275,25 @@ end component;
 
 type palette is array (0 to 15) of std_logic_vector(2 downto 0);
 signal bgr: palette := (
-	"000",	-- black
-	"010",	-- green
-	"001",	-- red
+	"011",	-- yellow
+	"110",	-- cyan
+	"101",	-- purple
 	"111",	-- white
 
 	"000",	-- black
-	"001",	-- red
+	"101",	-- purple
+	"110",	-- cyan
 	"100",	-- blue
-	"111",	-- white
 
 	"000",	-- black
-	"101",	-- blue
+	"011",	-- yellow
+	"110",	-- cyan
 	"010",	-- green
-	"111",	-- white
 
 	"000",	-- black
 	"011",	-- yellow
 	"101",	-- purple
-	"110" 	-- cyan
+	"001" 	-- red
 );
 
 signal RESET: std_logic;
@@ -439,6 +440,7 @@ mtest: memtester Port map(
 			clk => freq300,
          reset => RESET,
 			execute => test_dynamic,
+			direction => switch(0),
          EN => vm_en,
          RD => vm_rd,
          WR => vm_wr,
@@ -449,7 +451,7 @@ mtest: memtester Port map(
 --	
 test_static <= '1' when (button(3 downto 0) = "1110") else '0';
 test_dynamic <= '1' when (button(3 downto 0) = "1101") else '0';
-test_scroll <= '0' when (button(3 downto 0) = "1111") else '1';
+test_scroll <= freq2 when (button(3 downto 0) = "1111") else '1';
 --	
 	video: Grafika port map (
 		-- system
@@ -472,6 +474,8 @@ test_scroll <= '0' when (button(3 downto 0) = "1111") else '1';
 	
 	LED(0) <= vm_rd;
 	LED(1) <= vm_wr;
+	LED(2) <= vm_en;
+	LED(3) <= dotclk;
 
 -- Connect to GBS8200 gray wire
 	PMOD(3) <= out_hsync xor out_vsync;
@@ -505,7 +509,7 @@ with switch(5 downto 4) select
 h_shot: oneshot Port map ( 
 			trigger => gr_hsync,
          tick => dotclk,			-- 1 tick is 83.33ns
-         duration => h_duration, 
+         duration => X"00AD", --h_duration, 
          shot => sh_hsync
 		);
 
@@ -523,7 +527,7 @@ h_shot_reg: interactivereg Port map (
 v_shot: oneshot Port map ( 
 			trigger => gr_vsync,
          tick => dotclk,			-- 1 tick is 83.33ns
-         duration => v_duration, 	
+         duration => X"2000", --v_duration, 	
          shot => sh_vsync
 		);
 		
