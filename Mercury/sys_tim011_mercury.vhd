@@ -120,6 +120,7 @@ component Grafika is
            nScroll : in  STD_LOGIC;
 			  -- debug
 			  test: in STD_LOGIC;
+			  vid_gated: STD_LOGIC;
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -275,7 +276,7 @@ end component;
 
 type palette is array (0 to 15) of std_logic_vector(2 downto 0);
 signal bgr: palette := (
-	"011",	-- yellow
+	"011",	-- yellow -- this palette looks bad probably because base background color is not black
 	"110",	-- cyan
 	"101",	-- purple
 	"111",	-- white
@@ -437,7 +438,7 @@ powergen: sn74hc4040 port map (
 --	);
 
 mtest: memtester Port map(
-			clk => freq300,
+			clk => freq4,
          reset => RESET,
 			execute => test_dynamic,
 			direction => switch(0),
@@ -465,6 +466,7 @@ test_scroll <= freq2 when (button(3 downto 0) = "1111") else '1';
 		  nScroll => test_scroll,
 		-- debug
 		  test => test_static,
+		  vid_gated => '0', -- do not gate vid1/2 on dotclk (this is different from original!)
 		-- monitor side
 		  hsync => gr_hsync, --HSYNC,
 		  vsync => gr_vsync,--VSYNC,

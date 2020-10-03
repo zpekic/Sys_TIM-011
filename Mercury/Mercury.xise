@@ -316,7 +316,7 @@
     <property xil_pn:name="Preferred Language" xil_pn:value="VHDL" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Priority Encoder Extraction" xil_pn:value="Yes" xil_pn:valueState="default"/>
     <property xil_pn:name="Produce Verbose Report" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Project Description" xil_pn:value="Various components to recreate vintage TIM-011 computer.&#xA;&#xA;Description: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/&#xA;&#xA;Code: https://github.com/zpekic/Sys_TIM-011&#xA;" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Project Description" xil_pn:value="Various components to recreate vintage TIM-011 computer.&#xA;&#xA;Description:&#xA;https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/&#xA;https://www.4shared.com/folder/T45Nfg6G/TIM011.html&#xA;https://forum.benchmark.rs/showthread.php?305324-Tim-011&#xA;&#xA;Code: &#xA;https://github.com/zpekic/Sys_TIM-011&#xA;" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Property Specification in Project File" xil_pn:value="Store all values" xil_pn:valueState="default"/>
     <property xil_pn:name="RAM Extraction" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="RAM Style" xil_pn:value="Auto" xil_pn:valueState="default"/>

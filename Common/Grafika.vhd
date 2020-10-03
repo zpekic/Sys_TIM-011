@@ -8,7 +8,7 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
--- Description: 
+-- Description: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/%C5%A0ema/tim011_grafika.png
 --
 -- Dependencies: 
 --
@@ -40,6 +40,7 @@ entity Grafika is
            nScroll : in  STD_LOGIC;
 			  -- debug
 			  test: in STD_LOGIC;
+			  vid_gated: STD_LOGIC;
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -241,6 +242,7 @@ signal u29_7, u29_9: std_logic;
 signal u30_d: std_logic_vector(7 downto 0);
 signal u31_3: std_logic;
 signal u40_q: std_logic_vector(7 downto 0);
+signal dotclk_g: std_logic;
 
 begin
 
@@ -250,7 +252,7 @@ delay565ns: configurabledelayline port map (
 			clk => dotclk,
          reset => '0',
          init => '0',
-         delay => X"6",
+         delay => X"1", -- was 6
          signal_in => u13_q10,
          signal_out => u13_q10_delayed
 		);
@@ -259,13 +261,17 @@ delay330uF: configurabledelayline port map (
 			clk => dotclk,
          reset => '0',
          init => '0',
-         delay => X"5",	-- TODO: this is just a random experiment number
+         delay => X"0",	-- TODO: this is just a random experiment number
          signal_in => u1_6,
          signal_out => u1_6_delayed
 		);
 		
+	-- original vid1 and vid2 are gated on dotclk
+	-- on GBS8200 this causes vertical black/blank bars so allow for not gating on dotclk
+	dotclk_g <= dotclk when (vid_gated = '1') else '1';
+	
 	u1: sn74ls08 Port map ( 
-			a1_1 => dotclk,	-- INPUT
+			a1_1 => dotclk_g,	-- INPUT
 			b1_2 => u29_7,
 			y1_3 => vid1,		-- OUTPUT
 			a2_4 => u13_q9,
@@ -276,7 +282,7 @@ delay330uF: configurabledelayline port map (
 			b3_10 => u13_q10,
 			y4_11 => vid2,		-- OUTPUT
 			a4_12 => u29_9,
-			b4_13 => dotclk	-- INPUT
+			b4_13 => dotclk_g	-- INPUT
 	);
 
 	u2: sn74ls08 Port map ( 

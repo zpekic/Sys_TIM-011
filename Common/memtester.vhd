@@ -72,7 +72,9 @@ A <= '1' & x(8 downto 2) & y;
 doit: process(clk, reset, setpixel, cycle, D)
 begin
 	if (reset = '1') then
-		counter <= (others => '0');
+		color <= "11"; 					-- start with "white"
+		pixel <= "10000000000000000";	-- start with pixel at the screen middle
+		cycle <= "00";
 	else
 		if (rising_edge(clk) and (execute = '1')) then
 			case cycle is
