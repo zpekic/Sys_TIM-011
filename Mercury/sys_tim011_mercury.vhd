@@ -300,7 +300,7 @@ signal bgr: palette := (
 signal RESET: std_logic;
 
 -- debug
-signal test_static, test_dynamic, test_scroll: std_logic;
+signal test_static, test_dynamic, test_scroll, test_clk: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 --signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
@@ -438,10 +438,10 @@ powergen: sn74hc4040 port map (
 --	);
 
 mtest: memtester Port map(
-			clk => freq4,
+			clk => test_clk,
          reset => RESET,
 			execute => test_dynamic,
-			direction => switch(0),
+			direction => button(2),
          EN => vm_en,
          RD => vm_rd,
          WR => vm_wr,
@@ -450,9 +450,11 @@ mtest: memtester Port map(
          DD => DD
 	);
 --	
-test_static <= '1' when (button(3 downto 0) = "1110") else '0';
-test_dynamic <= '1' when (button(3 downto 0) = "1101") else '0';
-test_scroll <= freq2 when (button(3 downto 0) = "1111") else '1';
+test_static <= '1' when (button(3 downto 0) = "0010") else '0';
+test_dynamic <= '0' when (button(3 downto 2) = "00") else '1';
+test_scroll <= freq2 when (button(3 downto 0) = "0001") else '1';
+
+test_clk <= freq38400 when (button(3 downto 2) = "11") else freq9600;
 --	
 	video: Grafika port map (
 		-- system

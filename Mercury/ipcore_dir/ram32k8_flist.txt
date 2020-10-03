@@ -2,6 +2,7 @@
 _xmsgs\pn_parser.xmsgs
 ram32k8.asy
 ram32k8.gise
+ram32k8.mif
 ram32k8.ngc
 ram32k8.sym
 ram32k8.vhd

@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Fri Oct 02 03:28:50 2020
+# Date: Sat Oct 03 22:59:08 2020
 #
 ##############################################################
 #
@@ -46,7 +46,7 @@ CSET axi_id_width=4
 CSET axi_slave_type=Memory_Slave
 CSET axi_type=AXI4_Full
 CSET byte_size=9
-CSET coe_file=no_coe_file_loaded
+CSET coe_file=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Banners\tim011_banner.coe
 CSET collision_warnings=ALL
 CSET component_name=ram32k8
 CSET disable_collision_warnings=false
@@ -59,7 +59,7 @@ CSET enable_b=Always_Enabled
 CSET error_injection_type=Single_Bit_Error_Injection
 CSET fill_remaining_memory_locations=true
 CSET interface_type=Native
-CSET load_init_file=false
+CSET load_init_file=true
 CSET mem_file=no_Mem_file_loaded
 CSET memory_type=Single_Port_RAM
 CSET operating_mode_a=WRITE_FIRST
@@ -82,7 +82,7 @@ CSET register_porta_output_of_memory_primitives=false
 CSET register_portb_output_of_memory_core=false
 CSET register_portb_output_of_memory_primitives=false
 CSET register_portb_output_of_softecc=false
-CSET remaining_memory_locations=A5
+CSET remaining_memory_locations=E4
 CSET reset_memory_latch_a=false
 CSET reset_memory_latch_b=false
 CSET reset_priority_a=CE
@@ -105,4 +105,4 @@ CSET write_width_b=8
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: aae1d643
+# CRC: 5736b9cd

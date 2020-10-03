@@ -44,6 +44,7 @@
 # THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 # PART OF THIS FILE AT ALL TIMES.
 #--------------------------------------------------------------------------------
+cp ../../../ram32k8.mif .
  vlib work 
 vmap work work
 

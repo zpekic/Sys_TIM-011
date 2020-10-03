@@ -97,10 +97,12 @@ begin
 end process;
 
 -- combine read byte with the pixel of certain color
+-- the pixel org in a byte is pure insanity!!!
+-- pixel1 : pixel 0 : pixel 3 : pixel 2
 with x(1 downto 0) select
-	setpixel <= color & data(5 downto 0) when "00",
-					data(7 downto 6) & color & data(3 downto 0) when "01",
-					data(7 downto 4) & color & data(1 downto 0) when "10",
+	setpixel <= color & data(5 downto 0) when "01",
+					data(7 downto 6) & color & data(3 downto 0) when "00",
+					data(7 downto 4) & color & data(1 downto 0) when "11",
 					data(7 downto 2) & color when others;
 					
 end Behavioral;

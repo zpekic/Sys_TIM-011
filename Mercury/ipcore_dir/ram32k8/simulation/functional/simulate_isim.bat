@@ -45,6 +45,7 @@
 :: PART OF THIS FILE AT ALL TIMES.
 ::--------------------------------------------------------------------------------
 
+cp ..\..\..\ram32k8.mif .
 
 
 echo "Compiling Core VHDL UNISIM/Behavioral model"
