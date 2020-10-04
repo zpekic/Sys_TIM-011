@@ -264,7 +264,7 @@ end component;
 component memtester is
     Port ( clk : in  STD_LOGIC;
            reset : in  STD_LOGIC;
-			  execute: in STD_LOGIC;
+			  fill: in STD_LOGIC;
 			  direction: in STD_LOGIC;
            EN : out  STD_LOGIC;
            RD : out  STD_LOGIC;
@@ -300,7 +300,7 @@ signal bgr: palette := (
 signal RESET: std_logic;
 
 -- debug
-signal test_static, test_dynamic, test_scroll, test_clk: std_logic;
+signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
 --signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
@@ -440,7 +440,7 @@ powergen: sn74hc4040 port map (
 mtest: memtester Port map(
 			clk => test_clk,
          reset => RESET,
-			execute => test_dynamic,
+			fill => test_dynamic,
 			direction => button(2),
          EN => vm_en,
          RD => vm_rd,
@@ -452,9 +452,13 @@ mtest: memtester Port map(
 --	
 test_static <= '1' when (button(3 downto 0) = "0010") else '0';
 test_dynamic <= '0' when (button(3 downto 2) = "00") else '1';
-test_scroll <= freq2 when (button(3 downto 0) = "0001") else '1';
+test_scroll <= nScrollEnable when (button(3 downto 0) = "0001") else '1';
 
 test_clk <= freq38400 when (button(3 downto 2) = "11") else freq9600;
+
+-- scroll logic
+nScrollEnable <= vm_en or vm_rd or vm_wr;	-- low if all all, meaning no other bus activity
+D <= switch when (nScrollEnable = '0') else "ZZZZZZZZ";
 --	
 	video: Grafika port map (
 		-- system

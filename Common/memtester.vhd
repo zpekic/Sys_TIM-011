@@ -32,7 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity memtester is
     Port ( clk : in  STD_LOGIC;
            reset : in  STD_LOGIC;
-			  execute: in STD_LOGIC;
+			  fill: in STD_LOGIC;
 			  direction: in STD_LOGIC;	-- 0: vertical, 1: horizontal
            EN : out  STD_LOGIC;
            RD : out  STD_LOGIC;
@@ -63,35 +63,42 @@ y <= pixel(16 downto 9) when (direction = '1') else pixel(7 downto 0);
 x <= pixel(8 downto 0)  when (direction = '1') else pixel(16 downto 8);
 
 DD <= data;
+-- drive bus
 D <= data when (state(3) = '1') else "ZZZZZZZZ";
 EN <= state(2);
 RD <= state(1);
 WR <= state(0); 
 A <= '1' & x(8 downto 2) & y; 
+-- 
 
 doit: process(clk, reset, setpixel, cycle, D)
 begin
 	if (reset = '1') then
-		color <= "11"; 					-- start with "white"
-		pixel <= "10000000000000000";	-- start with pixel at the screen middle
-		cycle <= "00";
+		counter <= (others => '0');
+		--color <= "11"; 					-- start with "white"
+		--pixel <= "00000000000000000";	-- start with pixel at the top left
+		--cycle <= "00";
 	else
-		if (rising_edge(clk) and (execute = '1')) then
-			case cycle is
-				when "00" =>
-					state <= "0000"; -- internal, no bus activity
-					data <= D;
-				when "01" =>
-					data <= setpixel;
-					state <= "1101"; -- write
-				when "10" =>
-					state <= "0000"; -- internal, no bus activity
-				when "11" =>
-					state <= "0110"; -- read next
-				when others =>
-					null;
-			end case;
-			counter <= std_logic_vector(unsigned(counter) + 1);
+		if (rising_edge(clk)) then
+			if (fill = '1') then
+				case cycle is
+					when "00" =>
+						state <= "0000"; -- internal, no bus activity
+						data <= D;
+					when "01" =>
+						data <= setpixel;
+						state <= "1101"; -- write
+					when "10" =>
+						state <= "0000"; -- internal, no bus activity
+					when "11" =>
+						state <= "0110"; -- read next
+					when others =>
+						null;
+				end case;
+				counter <= std_logic_vector(unsigned(counter) + 1);
+			else
+				state <= "0000"; -- idle
+			end if;
 		end if;
 	end if;
 end process;
