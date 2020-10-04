@@ -46,22 +46,22 @@ entity sys_tim011_mercury is
 				USR_BTN: in std_logic; 
 
 				-- Switches on baseboard
-				-- SW(0) -- 
-				-- SW(1) -- 
-				-- SW(2) -- 
-				-- SW(3) -- 
-				-- SW(4) -- 
-				-- SW(6 downto 5) 
-
-				-- SW(7)
+				-- SW(0) -- direction when scrolling
+				-- SW(1) -- data source selection for 7seg display
+				-- SW(2) -- palette selection (best on)
+				-- SW(3) -- palette selection (best off)
+				-- SW(4) -- off
+				-- SW(5) -- on
+				-- SW(6) -- off
+				-- SW(7)	-- off
 
 				SW: in std_logic_vector(7 downto 0); 
 
 				-- Push buttons on baseboard
-				-- BTN0 - 
-				-- BTN1 - 
-				-- BTN2 - 
-				-- BTN3 - 
+				-- BTN0 - scroll
+				-- BTN1 - video only test pattern (memory not affected)
+				-- BTN2 - fill left/right
+				-- BTN3 - fill top/down
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
@@ -134,6 +134,21 @@ component oneshot is
            tick : in  STD_LOGIC;
            duration : in  STD_LOGIC_VECTOR (15 downto 0);
            shot : out  STD_LOGIC);
+end component;
+
+component sn74ls283 is
+    Port ( c0 : in  STD_LOGIC;
+           a : in  STD_LOGIC_VECTOR (4 downto 1);
+           b : in  STD_LOGIC_VECTOR (4 downto 1);
+           s : out  STD_LOGIC_VECTOR (4 downto 1);
+           c4 : out  STD_LOGIC);
+end component;
+
+component sn74ls374 is
+    Port ( nOC : in  STD_LOGIC;
+           CLK : in  STD_LOGIC;
+           D : in  STD_LOGIC_VECTOR (7 downto 0);
+           Q : out  STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
 component sn74hc4040 is
@@ -302,17 +317,14 @@ signal RESET: std_logic;
 -- debug
 signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
+signal offset_new: std_logic_vector(7 downto 0);
+signal offset_add_lo_cout: std_logic;
 --signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
---signal kbd_data_ready: std_logic;
---signal dready1, dready0: std_logic;
---signal rx_char0, rx_char1: std_logic_vector(7 downto 0);
 signal debug, data, frame_data: std_logic_vector(15 downto 0);
 signal freq_uart, freq_uart4: std_logic;
 signal frame_ready, frame_valid: std_logic;
---signal kbd_data: unsigned(7 downto 0);
---signal showlock: std_logic_vector(3 downto 0);
 --- frequency signals
 signal freq25M, freq12M5, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
@@ -458,8 +470,37 @@ test_clk <= freq38400 when (button(3 downto 2) = "11") else freq9600;
 
 -- scroll logic
 nScrollEnable <= vm_en or vm_rd or vm_wr;	-- low if all all, meaning no other bus activity
-D <= switch when (nScrollEnable = '0') else "ZZZZZZZZ";
+
+offset_reg: sn74ls374 Port map ( 
+			nOC => nScrollEnable,
+         CLK => test_scroll,
+         D => offset_new,
+         Q => D
+	);
+
+offset_add_hi: sn74ls283 Port map ( -- add +1 or -1 to offset)
+			c0 => offset_add_lo_cout,
+			a(4) => switch(0),
+			a(3) => switch(0),
+			a(2) => switch(0),
+			a(1) => switch(0),
+			b => D(7 downto 4),
+			s => offset_new(7 downto 4),
+			c4 => open
+	);
+	
+offset_add_lo: sn74ls283 Port map ( 
+			c0 => '0',
+			a(4) => switch(0),
+			a(3) => switch(0),
+			a(2) => switch(0),
+			a(1) => '1',
+			b => D(3 downto 0),
+			s => offset_new(3 downto 0),
+			c4 => offset_add_lo_cout
+	);	
 --	
+
 	video: Grafika port map (
 		-- system
 		  dotclk => dotclk,
@@ -480,10 +521,10 @@ D <= switch when (nScrollEnable = '0') else "ZZZZZZZZ";
 		  vid2 => gr_vid2  --BLU(1)
 	);
 	
-	LED(0) <= vm_rd;
-	LED(1) <= vm_wr;
-	LED(2) <= vm_en;
-	LED(3) <= dotclk;
+LED(0) <= vm_rd;
+LED(1) <= vm_wr;
+LED(2) <= vm_en;
+LED(3) <= dotclk;
 
 -- Connect to GBS8200 gray wire
 	PMOD(3) <= out_hsync xor out_vsync;
