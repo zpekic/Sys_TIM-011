@@ -1,0 +1,6 @@
+%---------------------------------%
+WIDTH=8;
+DEPTH=0;
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+CONTENT BEGIN

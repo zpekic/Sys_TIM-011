@@ -72,7 +72,7 @@ entity sys_tim011_mercury is
 				AN: out std_logic_vector(3 downto 0); 
 				DOT: out std_logic; 
 				-- 4 LEDs on Mercury board (3 and 2 are used by VGA VSYNC and HSYNC)
-				LED: out std_logic_vector(3 downto 0);
+				LED: inout std_logic_vector(3 downto 0);
 
 				-- ADC interface
 				-- channel	input
@@ -180,36 +180,6 @@ component fourdigitsevensegled is
 			 );
 end component;
 
---component io_ps2_keyboard is
---	generic (
---		-- Include code for LED status updates
---		ledStatusSupport : boolean := true;
---		-- Number of system-cycles used for PS/2 clock filtering
---		clockFilter : integer := 15;
---		-- Timer calibration
---		ticksPerUsec : integer := 33   -- 33 Mhz clock
---	);
---	port (
---		clk: in std_logic;
---		reset : in std_logic := '0';
---		
---		-- PS/2 connector
---		ps2_clk_in: in std_logic;
---		ps2_dat_in: in std_logic;
---		ps2_clk_out: out std_logic;
---		ps2_dat_out: out std_logic;
---
---		-- LED status
---		caps_lock : in std_logic := '0';
---		num_lock : in std_logic := '0';
---		scroll_lock : in std_logic := '0';
---
---		-- Read scancode
---		trigger : out std_logic;
---		scancode : out unsigned(7 downto 0)
---	);
---end component;
-
 component interactivereg is
     Port ( reset : in  STD_LOGIC;
            clk : in  STD_LOGIC;
@@ -218,6 +188,32 @@ component interactivereg is
            up : in  STD_LOGIC;
            down : in  STD_LOGIC;
            value : buffer  STD_LOGIC_VECTOR (15 downto 0));
+end component;
+
+--component mouse_ctrl is
+--  generic (
+--    X_MAX : integer := 799; -- maximum X position
+--    Y_MAX : integer := 599  -- maximum Y position
+--    );
+--  port(
+--    clk25        : in    std_logic;                 -- 25MHz clock
+--    clr          : in    std_logic;                 -- async clear
+--    PS2C         : inout std_logic;                 -- PS/2 clock
+--    PS2D         : inout std_logic;                 -- PS/2 data
+--    click_middle : out   std_logic;                 -- middle click
+--    click_right  : out   std_logic;                 -- right click
+--    click_left   : out   std_logic;                 -- left click
+--    x_position   : out   integer range 0 to X_MAX;  -- current X position
+--    y_position   : out   integer range 0 to Y_MAX   -- current Y position
+--    );
+--end component;
+
+component freqcounter is
+    Port ( reset : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           freq : in  STD_LOGIC;
+			  bcd:	in STD_LOGIC;
+           value : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
 component uart_receiver is
@@ -256,6 +252,16 @@ end component;
 --           d : out  STD_LOGIC_VECTOR (7 downto 0);
 --           dready : out  STD_LOGIC);
 --end component;
+
+component ps2tim is
+    Port ( reset : in  STD_LOGIC;
+           uart_clk4 : in  STD_LOGIC;
+           uart_rx : in  STD_LOGIC;
+           uart_tx : out  STD_LOGIC;
+           ps2_clk : inout  STD_LOGIC;
+           ps2_data : inout  STD_LOGIC;
+           debug : out  STD_LOGIC_VECTOR (15 downto 0));
+end component;
 
 component debouncer8channel is
     Port ( clock : in STD_LOGIC;
@@ -322,9 +328,9 @@ signal offset_add_lo_cout: std_logic;
 --signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
-signal debug, data, frame_data: std_logic_vector(15 downto 0);
+signal debug, data: std_logic_vector(15 downto 0);
 signal freq_uart, freq_uart4: std_logic;
-signal frame_ready, frame_valid: std_logic;
+
 --- frequency signals
 signal freq25M, freq12M5, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
@@ -347,6 +353,14 @@ signal A: std_logic_vector(15 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
+--- test mouse
+--signal mouse_left, mouse_right, mouse_middle: std_logic;
+--signal mouse_x: integer range 0 to 511;
+--signal mouse_y: integer range 0 to 255;
+
+--alias ps2_data: std_logic is LED(0);
+--alias ps2_clk: std_logic is LED(1);
+--signal frame_parity: std_logic;
 
 begin
    
@@ -437,6 +451,34 @@ powergen: sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
+kbd: ps2tim Port map ( 
+			reset => RESET,
+         uart_clk4 => freq38400, -- baudrate = /4 = 9600
+         uart_rx => PMOD(5),		-- TODO: verify pin
+         uart_tx => PMOD(6),		-- TODO: verify pin
+         ps2_clk => LED(1),
+         ps2_data => LED(0),
+         debug => open --debug
+		);
+	
+--  -- mouse controller
+--  mouse : entity work.mouse_ctrl
+--    generic map (
+--      X_MAX => 511,
+--      Y_MAX => 255
+--      )
+--    port map(
+--      clk25        => freq25M,
+--      clr          => '0',
+--      PS2C         => ps2_clk,
+--      PS2D         => ps2_data,
+--      click_middle => mouse_middle,
+--      click_right  => mouse_right,
+--      click_left   => mouse_left,
+--      x_position   => mouse_x,
+--      y_position   => mouse_y
+--      );
+--		
 --console: memconsole Port map(
 --			clk => freq2,
 --         reset => RESET,
@@ -521,10 +563,10 @@ offset_add_lo: sn74ls283 Port map (
 		  vid2 => gr_vid2  --BLU(1)
 	);
 	
-LED(0) <= vm_rd;
-LED(1) <= vm_wr;
-LED(2) <= vm_en;
-LED(3) <= dotclk;
+--LED(0) <= dotclk;
+--LED(1) <= vm_en;
+LED(2) <= vm_rd;
+LED(3) <= vm_wr;
 
 -- Connect to GBS8200 gray wire
 	PMOD(3) <= out_hsync xor out_vsync;
@@ -540,57 +582,58 @@ LED(3) <= dotclk;
 --	RED <= "000";
 --	GRN <= "000";
 
-with switch(7 downto 6) select
-		out_hsync <= 	gr_hsync when "00",
-							sh_hsync when "01",
-							not gr_hsync when "10",			-- STABLE SETTING
-							not sh_hsync when others;
+--with switch(7 downto 6) select
+		out_hsync <= 	gr_hsync; -- when "00",
+							--sh_hsync when "01",
+							--not gr_hsync when "10",			-- STABLE SETTING
+							--not sh_hsync when others;
 
-with switch(5 downto 4) select
-		out_vsync <= 	gr_vsync when "00",				-- STABLE SETTING
-							sh_vsync when "01",
-							not gr_vsync when "10",
-							not sh_vsync when others;
+--with switch(5 downto 4) select
+		out_vsync <= 	--gr_vsync when "00",				-- STABLE SETTING
+							--sh_vsync when "01",
+							not gr_vsync; -- when "10",
+							--not sh_vsync when others;
 							
 -- 
 -- "equivalent" to circuit here: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/ploca/sch_ttl.png
 -- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml
-h_shot: oneshot Port map ( 
-			trigger => gr_hsync,
-         tick => dotclk,			-- 1 tick is 83.33ns
-         duration => X"00AD", --h_duration, 
-         shot => sh_hsync
-		);
-
-enable_hshot <= '0' when (switch(2 downto 1) = "00") else '0';		
-h_shot_reg: interactivereg Port map ( 
-				reset => RESET,
-				clk => freq2,
-				enable => enable_hshot,
-				init => X"00AD",		-- STABLE SETTING, about 144ms
-				up => button(1),
-				down => button(0),
-				value => h_duration
-		);
-
-v_shot: oneshot Port map ( 
-			trigger => gr_vsync,
-         tick => dotclk,			-- 1 tick is 83.33ns
-         duration => X"2000", --v_duration, 	
-         shot => sh_vsync
-		);
-		
-enable_vshot <= '0' when (switch(2 downto 1) = "01") else '0';		
-v_shot_reg: interactivereg Port map ( 
-				reset => RESET,
-				clk => freq2,
-				enable => enable_vshot,
-				init => X"0200", 		-- STABLE SETTING, about 426ms -- NOT USED!
-				up => button(1),
-				down => button(0),
-				value => v_duration
-		);
+--h_shot: oneshot Port map ( 
+--			trigger => gr_hsync,
+--         tick => dotclk,			-- 1 tick is 83.33ns
+--         duration => X"00AD", --h_duration, 
+--         shot => sh_hsync
+--		);
 --
+--enable_hshot <= '0' when (switch(2 downto 1) = "00") else '0';		
+--h_shot_reg: interactivereg Port map ( 
+--				reset => RESET,
+--				clk => freq2,
+--				enable => enable_hshot,
+--				init => X"00AD",		-- STABLE SETTING, about 144ms
+--				up => button(1),
+--				down => button(0),
+--				value => open --h_duration
+--		);
+--
+--v_shot: oneshot Port map ( 
+--			trigger => gr_vsync,
+--         tick => dotclk,			-- 1 tick is 83.33ns
+--         duration => X"2000", --v_duration, 	
+--         shot => sh_vsync
+--		);
+--		
+--enable_vshot <= '0' when (switch(2 downto 1) = "01") else '0';		
+--v_shot_reg: interactivereg Port map ( 
+--				reset => RESET,
+--				clk => freq2,
+--				enable => enable_vshot,
+--				init => X"0200", 		-- STABLE SETTING, about 426ms -- NOT USED!
+--				up => button(1),
+--				down => button(0),
+--				value => open --v_duration
+--		);
+--
+
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
@@ -622,6 +665,10 @@ showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2);
 --				count => vsync_cnt
 --		);
 --
+
+--h_duration <= std_logic_vector(to_unsigned(mouse_x, 16));
+--v_duration <= std_logic_vector(to_unsigned(mouse_y, 16));
+
 hexsel <= switch(2 downto 1) & digsel;
 
 with hexsel select
@@ -646,14 +693,14 @@ with hexsel select
 					--data(7 downto 4) when "1001",
 					--data(11 downto 8) when "1010",
 					--data(15 downto 12) when "1011",
-					--debug(3 downto 0) when "1100",
-					--debug(7 downto 4) when "1101",
-					--debug(11 downto 8) when "1110",
-					--debug(15 downto 12) when "1111",
-					DD(3 downto 0) when "1000",
-					DD(7 downto 4) when "1001",
-					D(3 downto 0) when "1010",
-					D(7 downto 4) when "1011",
+					debug(3 downto 0) when "1000",
+					debug(7 downto 4) when "1001",
+					debug(11 downto 8) when "1010",
+					debug(15 downto 12) when "1011",
+					--DD(3 downto 0) when "1000",
+					--DD(7 downto 4) when "1001",
+					--D(3 downto 0) when "1010",
+					--D(7 downto 4) when "1011",
 					A(3 downto 0) when "1100",
 					A(7 downto 4) when "1101",
 					A(11 downto 8) when "1110",
@@ -682,22 +729,25 @@ with hexsel select
 --				debug => debug
 --		);
 --
---capture: process(frame_ready, frame_data)
---begin
---	if (rising_edge(frame_ready)) then
---		data <= frame_data;
---	end if;
---end process;
 
---with switch(7 downto 5) select
---		freq_uart <= 	freq38400 when "111",
---							freq19200 when "110", 
---							freq9600 when "101",
---							freq4800 when "100",		
---							freq2400 when "011",		
---							freq1200 when "010",		
---							freq600 when "001", 	
---							freq300 when others;		
+with switch(7 downto 5) select
+		freq_uart <= 	freq38400 when "111",
+							freq19200 when "110", 
+							freq9600 when "101",
+							freq4800 when "100",		
+							freq2400 when "011",		
+							freq1200 when "010",		
+							freq600 when "001", 	
+							freq300 when others;		
+							
+cnt: freqcounter port map (
+			reset => RESET,
+         clk => freq2,
+         freq => freq_uart,
+			bcd => '0',
+         value => debug
+		);
+
 --
 --with SW(7 downto 5) select
 --		freq_uart4 <= 	freq153600 when "111",
