@@ -8,8 +8,7 @@
 -- Project Name: 
 -- Target Devices: https://www.micro-nova.com/mercury/ + Baseboard
 -- Input devices: 
--- 	https://store.digilentinc.com/pmod-kypd-16-button-keypad/ (use when SW(0) is off)
--- 	https://www.parallax.com/product/28024 (use when SW(0) is on, RX = PMOD(0), TX = PMOD(4), RST = N/C, GND = PMOD_GND)
+--
 -- Tool Versions: ISE 14.7 (nt)
 -- Description: 
 -- 
@@ -65,7 +64,7 @@ entity sys_tim011_mercury is
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
-				--AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
+				AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
 
 				-- 7seg LED on baseboard 
 				A_TO_G: out std_logic_vector(6 downto 0); 
@@ -84,10 +83,10 @@ entity sys_tim011_mercury is
 				-- 5			Channel 5 (free)
 				-- 6			Channel 6 (free)
 				-- 7			Channel 7 (free)
-				--ADC_MISO: in std_logic;
-				--ADC_MOSI: out std_logic;
-				--ADC_SCK: out std_logic;
-				--ADC_CSN: out std_logic;
+				ADC_MISO: in std_logic;
+				ADC_MOSI: out std_logic;
+				ADC_SCK: out std_logic;
+				ADC_CSN: out std_logic;
 				--PS2_DATA: in std_logic;
 				--PS2_CLOCK: in std_logic;
 
@@ -362,6 +361,18 @@ signal switch, button: std_logic_vector(7 downto 0);
 --alias ps2_clk: std_logic is LED(1);
 --signal frame_parity: std_logic;
 
+-- adc
+signal adc_trigger  : std_logic := '1';              -- go sample from ADC
+signal adc_done     : std_logic := '0';              -- done sampling ADC
+signal adc_dout     : std_logic_vector(9 downto 0);  -- ADC data out
+signal adc_data_reg : unsigned(9 downto 0);          -- ADC data registered
+signal adc_channel  : std_logic_vector(2 downto 0);  -- ADC channel
+signal adc_clk: std_logic;
+signal min: unsigned(9 downto 0) := "1111111111";
+signal max: unsigned(9 downto 0) := "0000000000";
+signal freq_value: std_logic_vector(15 downto 0);
+signal audio_fin, audio_fout: std_logic;
+  
 begin
    
 RESET <= USR_BTN;
@@ -454,8 +465,8 @@ powergen: sn74hc4040 port map (
 kbd: ps2tim Port map ( 
 			reset => RESET,
          uart_clk4 => freq38400, -- baudrate = /4 = 9600
-         uart_rx => PMOD(5),		-- TODO: verify pin
-         uart_tx => PMOD(6),		-- TODO: verify pin
+         uart_rx => '1', --PMOD(5),		-- TODO: verify pin
+         uart_tx => open, --PMOD(6),		-- TODO: verify pin
          ps2_clk => LED(1),
          ps2_data => LED(0),
          debug => open --debug
@@ -730,24 +741,94 @@ with hexsel select
 --		);
 --
 
-with switch(7 downto 5) select
-		freq_uart <= 	freq38400 when "111",
-							freq19200 when "110", 
-							freq9600 when "101",
-							freq4800 when "100",		
-							freq2400 when "011",		
-							freq1200 when "010",		
-							freq600 when "001", 	
-							freq300 when others;		
-							
+AUDIO_OUT_L <= freq2400 when (PMOD(6) = '1') else freq4800;
+PMOD(5) <= '0' when (unsigned(freq_value) > 4) else '1';
+--PMOD(5) <= not(freq_value(2) or (freq_value(1) and freq_value(0))); -- values 4 or 3
+
+--with switch(7 downto 5) select
+--	AUDIO_OUT_L <= 	freq38400 when "111",
+--							freq19200 when "110", 
+--							freq9600 when "101",
+--							freq4800 when "100",		
+--							freq2400 when "011",		
+--							freq1200 when "010",		
+--							freq600 when "001", 	
+--							freq300 when others;		
+	
+--AUDIO_OUT_L <= audio_fout;
+AUDIO_OUT_R <= '0'; --audio_fout;
+	
 cnt: freqcounter port map (
 			reset => RESET,
-         clk => freq2,
-         freq => freq_uart,
+         clk => freq600,
+         freq => audio_fout,
 			bcd => '0',
-         value => debug
+         value => freq_value
 		);
 
+-------------------------------------------------------------------------------
+-- ADC
+-------------------------------------------------------------------------------
+  -- Set ADC channel to 0 (audio left) or 1 (audio right)
+  adc_channel <= "000"; -- & switch(0);
+
+  adc_clk <= freq25M;
+  
+  -- Mercury ADC component
+  ADC : entity work.MercuryADC
+    port map(
+      clock    => adc_clk,
+      trigger  => adc_trigger,
+      diffn    => '0',
+      channel  => adc_channel,
+      Dout     => adc_dout,
+      OutVal   => adc_done,
+      adc_miso => ADC_MISO,
+      adc_mosi => ADC_MOSI,
+      adc_cs   => ADC_CSN,
+      adc_clk  => ADC_SCK
+      );
+
+  -- ADC sampling process
+  sample_adc : process (adc_clk)
+  begin
+    if (rising_edge(adc_clk)) then
+      -- Sample the ADC continuously
+      if adc_trigger = '1' then  -- Reset the ADC trigger after a single clock cycle
+        adc_trigger <= '0';
+      elsif adc_done = '1' then  -- After a trigger, wait for the ADC's done signal
+--        debug <= "000000" & std_logic_vector(unsigned(adc_dout));  --  Register the data
+--
+--			if (audio_fout = '0') then
+--				if (adc_dout(9 downto 8) /= X"00") then
+--					audio_fout <= '1';
+--				end if;
+--			else
+--				if (adc_dout(9 downto 2) = X"00") then
+--					audio_fout <= '0';
+--				end if;
+--			end if;
+		  
+		  if (adc_dout(9 downto 2) = "00000000") then
+				audio_fout <= '0';
+			else
+				audio_fout <= '1';
+			end if;
+				
+		  if (unsigned(adc_dout) > max) then
+				max <= unsigned(adc_dout);
+			end if;
+			
+			if (unsigned(adc_dout) < min) then
+				min <= unsigned(adc_dout);
+			end if;
+			
+        adc_trigger  <= '1';            -- Request another sample
+      end if;
+    end if;
+  end process;
+
+debug <= std_logic_vector(max(9 downto 2)) & std_logic_vector(min(9 downto 2)) when (switch(0) = '0') else freq_value;
 --
 --with SW(7 downto 5) select
 --		freq_uart4 <= 	freq153600 when "111",
