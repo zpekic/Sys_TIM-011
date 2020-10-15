@@ -220,10 +220,10 @@ component uart_receiver is
            reset : in  STD_LOGIC;
            rx : in  STD_LOGIC;
            mode : in  STD_LOGIC_VECTOR (2 downto 0);
+			  frame_active: out  STD_LOGIC;
            frame_ready : out  STD_LOGIC;
            frame_valid : out  STD_LOGIC;
-           frame_data : out  STD_LOGIC_VECTOR (15 downto 0);
-			  debug : out  STD_LOGIC_VECTOR (15 downto 0));
+           frame_data : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
 component signalcounter is
@@ -259,6 +259,7 @@ component ps2tim is
            uart_tx : out  STD_LOGIC;
            ps2_clk : inout  STD_LOGIC;
            ps2_data : inout  STD_LOGIC;
+			  debugsel: in STD_LOGIC;
            debug : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
@@ -327,11 +328,11 @@ signal offset_add_lo_cout: std_logic;
 --signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
-signal debug, data: std_logic_vector(15 downto 0);
+signal data: std_logic_vector(15 downto 0);
 signal freq_uart, freq_uart4: std_logic;
 
 --- frequency signals
-signal freq25M, freq12M5, dotclk: std_logic;
+signal freq24M, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
@@ -361,7 +362,7 @@ signal switch, button: std_logic_vector(7 downto 0);
 --alias ps2_clk: std_logic is LED(1);
 --signal frame_parity: std_logic;
 
--- adc
+-- ADC
 signal adc_trigger  : std_logic := '1';              -- go sample from ADC
 signal adc_done     : std_logic := '0';              -- done sampling ADC
 signal adc_dout     : std_logic_vector(9 downto 0);  -- ADC data out
@@ -370,19 +371,26 @@ signal adc_channel  : std_logic_vector(2 downto 0);  -- ADC channel
 signal adc_clk: std_logic;
 signal min: unsigned(9 downto 0) := "1111111111";
 signal max: unsigned(9 downto 0) := "0000000000";
-signal freq_value: std_logic_vector(15 downto 0);
-signal audio_fin, audio_fout: std_logic;
+signal adc_count, adc_old_count, freq_value: std_logic_vector(15 downto 0);
+signal adc_value: std_logic_vector(7 downto 0);
+signal f_in, f_out, f_in_audio: std_logic;
+-- UART
+signal frame_ready, frame_valid, frame_active: std_logic;
+signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
+signal rx, rx_analog, rx_digital: std_logic;
+signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
+signal sr: std_logic_vector(31 downto 0);
   
 begin
    
 RESET <= USR_BTN;
-dotclk <= EXT_CLK;	-- 12MHz "half-size" crystal on Mercury baseboard
+--dotclk <= EXT_CLK;	-- 12MHz "half-size" crystal on Mercury baseboard
 	
 clockgen: sn74hc4040 port map (
-			clock_10 => CLK,
+			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
-			q1_9 => freq25M, 
-			q2_7 => freq12M5,
+			q1_9 => freq24M, 
+			q2_7 => dotclk,
 			q3_6 => open, --PMOD(7),		-- 6.25
 			q4_5 => open, --PMOD(6),		-- 3.125
 			q5_3 => open, --PMOD(5),		-- 1.5625
@@ -395,18 +403,18 @@ clockgen: sn74hc4040 port map (
 			q12_1 =>  digsel(1)	-- 0.01220703125
 		);
 --
-prescale: process(dotclk, freq153600, freq4096)
+prescale: process(CLK, freq153600, freq4096)
 begin
-	if (rising_edge(dotclk)) then
+	if (rising_edge(CLK)) then
 		if (prescale_baud = 0) then
 			freq153600 <= not freq153600;
-			prescale_baud <= (12000000 / (2 * 153600));
+			prescale_baud <= (50000000 / (2 * 153600));
 		else
 			prescale_baud <= prescale_baud - 1;
 		end if;
 		if (prescale_power = 0) then
 			freq4096 <= not freq4096;
-			prescale_power <= (12000000 / (2 * 4096));
+			prescale_power <= (50000000 / (2 * 4096));
 		else
 			prescale_power <= prescale_power - 1;
 		end if;
@@ -469,7 +477,8 @@ kbd: ps2tim Port map (
          uart_tx => open, --PMOD(6),		-- TODO: verify pin
          ps2_clk => LED(1),
          ps2_data => LED(0),
-         debug => open --debug
+			debugsel => switch(0),
+         debug => open--display
 		);
 	
 --  -- mouse controller
@@ -650,7 +659,8 @@ leds: fourdigitsevensegled Port map (
 			hexdata => hexdata,
 			digsel => digsel,
 			showdigit => showdigit,
-			showdot => switch(3 downto 0),
+			showdot(3 downto 2) => std_logic_vector(max(9 downto 8)),
+			showdot(1 downto 0) => std_logic_vector(min(9 downto 8)),
 			-- outputs
 			anode => AN,
 			segment(7) => DOT,
@@ -680,7 +690,7 @@ showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2);
 --h_duration <= std_logic_vector(to_unsigned(mouse_x, 16));
 --v_duration <= std_logic_vector(to_unsigned(mouse_y, 16));
 
-hexsel <= switch(2 downto 1) & digsel;
+hexsel <= switch(3 downto 2) & digsel;
 
 with hexsel select
 --	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
@@ -704,10 +714,10 @@ with hexsel select
 					--data(7 downto 4) when "1001",
 					--data(11 downto 8) when "1010",
 					--data(15 downto 12) when "1011",
-					debug(3 downto 0) when "1000",
-					debug(7 downto 4) when "1001",
-					debug(11 downto 8) when "1010",
-					debug(15 downto 12) when "1011",
+					display(3 downto 0) when "1000",
+					display(7 downto 4) when "1001",
+					display(11 downto 8) when "1010",
+					display(15 downto 12) when "1011",
 					--DD(3 downto 0) when "1000",
 					--DD(7 downto 4) when "1001",
 					--D(3 downto 0) when "1010",
@@ -727,52 +737,131 @@ with hexsel select
 --				signal_out => digsel0_delayed
 --		);
 
---freq_uart4 <= 	freq153600 when (switch(7) = '0') else freq1200;
+--
+-- UART input coming either directly from USB2UART, or ADC
+-- 
+--with switch(7 downto 5) select
+--		baudrate_x4 <= freq153600 when "111",
+--							freq76800 when "110", 
+--							freq38400 when "101",
+--							freq19200 when "100",		
+--							freq9600 when "011",		
+--							freq4800 when "010",		
+--							freq2400 when "001", 	
+--							freq1200 when others;		
+
+with switch(7 downto 5) select
+		baudrate_x2 <= freq76800 when "111", 
+							freq38400 when "110",
+							freq19200 when "101",		
+							freq9600 when "100",		
+							freq4800 when "011",		
+							freq2400 when "010", 	
+							freq1200 when "001",
+						   freq600 when others;
+
+with switch(7 downto 5) select
+		baudrate_x1 <= freq38400 when "111",
+							freq19200 when "110",		
+							freq9600 when "101",		
+							freq4800 when "100",		
+							freq2400 when "011", 
+							freq1200 when "010",
+							freq600  when "001",
+							freq300 when others;		
+--
+--update_cnt: process(audio_level)
+--begin
+--	if (rising_edge(audio_level)) then
+--		adc_count <= std_logic_vector(unsigned(adc_count) + 1);
+--	end if;
+--end process;
+--
+--get_rx_analog: process(baudrate_x4, adc_count, adc_old_count)
+--begin
+--	if (rising_edge(baudrate_x4)) then
+--		if (adc_count /= adc_old_count) then
+--			rx_analog <= '0'; -- freq x4 detected as at least 1 "zero" crossing happened in t/4 time
+--		else
+--			rx_analog <= '1';	-- no freq x4 in this t/4 period
+--		end if;
+--		adc_old_count <= adc_count;
+--	end if;
+--end process;
+--
+--rx_digital <= PMOD(6);
+--rx <= rx_analog when (switch(1) = '1') else rx_digital;
 --
 --serin: uart_receiver Port map ( 
---				rx_clk4 => freq_uart4,
+--				rx_clk4 => baudrate_x4,
 --				reset => RESET,
---				rx => PMOD(6),
---				mode => switch(6 downto 4), 
+--				rx => rx,
+--				mode => switch(4 downto 2), 
+--				frame_active => frame_active,
 --				frame_ready => frame_ready, 
 --				frame_valid => frame_valid,
---				frame_data => frame_data,
---				debug => debug
+--				frame_data => frame_data
 --		);
 --
+--capture_frame: process(RESET, frame_data, frame_ready)
+--begin
+--	if (RESET = '1') then
+--		sr <= X"FFFFFFFF";
+--	else
+--		if (rising_edge(frame_ready)) then
+--			sr <= sr(15 downto 0) & frame_data;
+--		end if;
+--	end if;
+--end process;
+--
+--AUDIO_OUT_L <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
+--AUDIO_OUT_R <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
+--	
 
-AUDIO_OUT_L <= freq2400 when (PMOD(6) = '1') else freq4800;
-PMOD(5) <= '0' when (unsigned(freq_value) > 4) else '1';
---PMOD(5) <= not(freq_value(2) or (freq_value(1) and freq_value(0))); -- values 4 or 3
+f_out <= baudrate_x1 when (switch(0) = '0') else baudrate_x2;
+AUDIO_OUT_L <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
+AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 
---with switch(7 downto 5) select
---	AUDIO_OUT_L <= 	freq38400 when "111",
---							freq19200 when "110", 
---							freq9600 when "101",
---							freq4800 when "100",		
---							freq2400 when "011",		
---							freq1200 when "010",		
---							freq600 when "001", 	
---							freq300 when others;		
-	
---AUDIO_OUT_L <= audio_fout;
-AUDIO_OUT_R <= '0'; --audio_fout;
-	
+--f_in_audio <= '0' when (adc_value = X"00") else '1';
+f_in <= f_out when (switch(1) = '0') else f_in_audio;
+
 cnt: freqcounter port map (
 			reset => RESET,
-         clk => freq600,
-         freq => audio_fout,
-			bcd => '0',
+         clk => freq2,
+         freq => f_in,
+			bcd => '1',
          value => freq_value
 		);
-
--------------------------------------------------------------------------------
--- ADC
--------------------------------------------------------------------------------
-  -- Set ADC channel to 0 (audio left) or 1 (audio right)
+		
+display <= std_logic_vector(max(7 downto 0)) & std_logic_vector(min(7 downto 0)) when (switch(1) = '0') else freq_value;
+--	sel 	freq	max<<2	min<<2 (diff=1)
+--	000	300		C2			28
+-- 001	600		C2			28
+-- 010	1200		C1			28
+-- 011	2400		BF			2C
+-- 100	4800		BB			33
+-- 101	9600		A8			3B
+-- 110	19200		9A			67
+-- 111	38400		83			73
+-- 1111	76800		80			69
+--	sel	freq		max		min (diff=0)	f_out		f_in_audio
+--	000	300		49			00					12B		12B
+-- 001	600		48			00					257		257
+-- 010	1200		48			00					4AE		4AE
+-- 011	2400		43			00					95D		0000
+-- 100	4800		36			00					12B9		0000
+-- 101	9600		03			00					2573		0000
+-- 110	19200		03			00					4AE5		0000
+-- 111	38400		01			00					95CA		0000
+-- 1111	76800		00			00					????		????
+--
+---------------------------------------------------------------------------------
+---- ADC
+---------------------------------------------------------------------------------
+--  -- Set ADC channel to 0 (audio left) or 1 (audio right)
   adc_channel <= "000"; -- & switch(0);
 
-  adc_clk <= freq25M;
+  adc_clk <= freq24M;
   
   -- Mercury ADC component
   ADC : entity work.MercuryADC
@@ -788,57 +877,48 @@ cnt: freqcounter port map (
       adc_cs   => ADC_CSN,
       adc_clk  => ADC_SCK
       );
-
-  -- ADC sampling process
-  sample_adc : process (adc_clk)
+--
+--  -- ADC sampling process
+  sample_adc : process (adc_clk, adc_trigger, adc_dout)
   begin
     if (rising_edge(adc_clk)) then
       -- Sample the ADC continuously
-      if adc_trigger = '1' then  -- Reset the ADC trigger after a single clock cycle
+      if (adc_trigger = '1') then  -- Reset the ADC trigger after a single clock cycle
         adc_trigger <= '0';
-      elsif adc_done = '1' then  -- After a trigger, wait for the ADC's done signal
---        debug <= "000000" & std_logic_vector(unsigned(adc_dout));  --  Register the data
---
---			if (audio_fout = '0') then
---				if (adc_dout(9 downto 8) /= X"00") then
---					audio_fout <= '1';
+      else
+			if (adc_done = '1') then  -- After a trigger, wait for the ADC's done signal
+
+--				if (adc_dout(9 downto 1) = "000000000") then
+--					audio_level <= '0';
+--				else
+--					audio_level <= '1';
 --				end if;
---			else
---				if (adc_dout(9 downto 2) = X"00") then
---					audio_fout <= '0';
---				end if;
---			end if;
-		  
-		  if (adc_dout(9 downto 2) = "00000000") then
-				audio_fout <= '0';
-			else
-				audio_fout <= '1';
+				if (f_in_audio = '0') then
+					if (unsigned(adc_dout) /= "0000000000") then
+						f_in_audio <= '1';
+					end if;
+				else
+					if (adc_dout = "0000000000") then
+						f_in_audio <= '0';
+					end if;
+				end if;
+				adc_value <= adc_dout(9 downto 2);
+					
+				if (unsigned(adc_dout) > max) then
+					max <= unsigned(adc_dout);
+				end if;
+
+				if (unsigned(adc_dout) < min) then
+					min <= unsigned(adc_dout);
+				end if;
+
+				adc_trigger  <= '1';            -- Request another sample
 			end if;
-				
-		  if (unsigned(adc_dout) > max) then
-				max <= unsigned(adc_dout);
-			end if;
-			
-			if (unsigned(adc_dout) < min) then
-				min <= unsigned(adc_dout);
-			end if;
-			
-        adc_trigger  <= '1';            -- Request another sample
-      end if;
+		end if;
     end if;
   end process;
 
-debug <= std_logic_vector(max(9 downto 2)) & std_logic_vector(min(9 downto 2)) when (switch(0) = '0') else freq_value;
---
---with SW(7 downto 5) select
---		freq_uart4 <= 	freq153600 when "111",
---							freq76800 when "110", 
---							freq38400 when "101",
---							freq19200 when "100",		
---							freq9600 when "011",		
---							freq4800 when "010",		
---							freq2400 when "001", 	
---							freq1200 when others;		
---
+--display <= sr(15 downto 0) when (switch(0) = '0') else freq_value;
+--debug <= std_logic_vector(max(9 downto 2)) & std_logic_vector(min(9 downto 2)) when (switch(0) = '0') else freq_value;
 
 end;

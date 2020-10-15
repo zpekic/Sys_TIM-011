@@ -40,11 +40,11 @@ entity uart_receiver is
 			  -- 1 1 0 -- 8 bits, odd parity (10 bit frame)
 			  -- 1 1 1 -- 8 bits, mark parity == 8 bits, 2 stop bits
 			  mode: in STD_LOGIC_VECTOR (2 downto 0);
+			  frame_active: out  STD_LOGIC;
            frame_ready : out  STD_LOGIC;
            frame_valid : out  STD_LOGIC;
-           frame_data : out  STD_LOGIC_VECTOR (15 downto 0);
-			  debug: out STD_LOGIC_VECTOR (15 downto 0)
-			  );
+           frame_data : out  STD_LOGIC_VECTOR (15 downto 0)
+	);
 end uart_receiver;
 
 architecture Behavioral of uart_receiver is
@@ -67,6 +67,7 @@ signal ready, valid, rx_clk, o2, o3, e2, e3: std_logic;
 begin
 
 -- connect to outputs
+frame_active <= sel(1) xor sel(0);
 frame_ready <= ready;
 frame_valid <= valid;
 frame_data(15 downto 8) <= valid & "0" & odd & even & "000" & data(1); -- & "00" & sel;

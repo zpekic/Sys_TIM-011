@@ -36,6 +36,7 @@ entity ps2tim is
            uart_tx : out  STD_LOGIC;
            ps2_clk : inout  STD_LOGIC;
            ps2_data : inout  STD_LOGIC;
+			  debugsel: in STD_LOGIC;
            debug : out  STD_LOGIC_VECTOR (15 downto 0));
 end ps2tim;
 
@@ -49,16 +50,17 @@ component Am82S62 is
 end component;
 
 signal frame_ready, frame_parity: std_logic;
-signal data, frame_data: std_logic_vector(15 downto 0);
+signal frame_data: std_logic_vector(15 downto 0);
+signal scancodes: std_logic_vector(31 downto 0);
 
 begin
 
-debug <= data;
+debug <= scancodes(31 downto 16) when (debugsel = '1') else scancodes(15 downto 0);
 
 capture: process(frame_ready, frame_data)
 begin
 	if (rising_edge(frame_ready)) then
-		data <= data(7 downto 0) & frame_data(2) & frame_data(3) & frame_data(4) & frame_data(5) & frame_data(6) & frame_data(7) & frame_data(8) & frame_data(9);
+		scancodes <= scancodes(23 downto 0) & frame_data(2) & frame_data(3) & frame_data(4) & frame_data(5) & frame_data(6) & frame_data(7) & frame_data(8) & frame_data(9);
 	end if;
 end process;
 
@@ -82,6 +84,5 @@ ps2_pcheck: Am82S62 port map (
          odd => frame_parity 
 		);
 		
-
 end Behavioral;
 
