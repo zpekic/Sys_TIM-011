@@ -57,52 +57,59 @@ component Am82S62 is
 end component;
 
 signal bitcnt: std_logic_vector(5 downto 0);
---signal startbit: std_logic_vector(2 downto 0);
 signal data: std_logic_vector(15 downto 0);
-signal enable, done, busy: std_logic;
+signal enable, done, busy, even, odd, valid: std_logic;
+signal delay: std_logic_vector(2 downto 0);
 
 begin
 
 -- connect to outputs
 frame_ready <= done;
 frame_active <= busy;
-frame_valid <= '1';
+frame_valid <= valid;
 
--- internal parallel data
-done <= '1' when (bitcnt = "000000") else '0';
-busy <= '0' when (bitcnt = "111111") else '1'; 
-
-on_done: process(done, data)
-begin
-	if (rising_edge(done)) then
-		frame_data <= data; --"00" & bitcnt & data(9 downto 2); --data(15 downto 12) & data(4) & data(5) & data(6) & data(7) & data(8) & data(9) & data(10) & data(11) & data(3 downto 0);
-	end if;
-end process;
-
-on_rx: process(reset, rx)
-begin
-	if ((reset or done) = '1') then
-		enable <= '0';
-	else
-		if (falling_edge(rx) and (busy = '0')) then
-			enable <= '1';
-		end if;
-	end if;
-end process;
+with mode select
+			valid <= (not (data(10)) and (not data(1)) and data(0)) when "100",
+						(not (data(10)) and even and data(0)) when "101",
+						(not (data(10)) and odd and data(0)) when "110",
+						(not (data(10)) and data(1) and data(0)) when "111",
+						(not (data(10)) and data(1)) when others; -- start and stop
 
 -- assume space is detected when 3 samples in a row are '0'
 on_rxclk4: process(reset, rx_clk4, rx, enable)
 begin
 	if (reset = '1') then
 		bitcnt <= "111111";
+		delay <= "111";
+		busy <= '0';
+		done <= '0';
 	else
-		if (rising_edge(rx_clk4) and (enable = '1')) then
+		if (rising_edge(rx_clk4)) then
+
+			delay <= delay(1 downto 0) & rx;
+
 			if (bitcnt = "111111") then
-				bitcnt <= "110110"; -- 0x29 = 41 = 10 bits * 4 clocks +1
-				data <= X"FFFF"; --"1111111111111111";
+				if (delay = "000") then
+					bitcnt <= "101001"; -- 0x2B = 43 = 10 bits * 4 clocks +3
+					data <= X"FFFE"; --"1111111111111111";
+					busy <= '1';
+					done <= '0';
+				else
+					busy <= '0';
+					done <= '0';
+				end if;
 			else
-				if (bitcnt(1 downto 0) = "00") then
-					data <= rx & data(15 downto 1); -- & rx;
+				if (bitcnt = "000000") then
+					busy <= '0';
+					done <= '1';
+					frame_data <= valid & "00000" & even & odd & data(2) & data(3) & data(4) & data(5) & data(6) & data(7) & data(8) & data(9);
+					bitcnt <= "111111";
+				else
+					if (bitcnt(1 downto 0) = "00") then
+						data <= data(14 downto 0) & rx; -- & rx;
+					end if;
+					busy <= '1';
+					done <= '0';
 				end if;
 				bitcnt <= std_logic_vector(unsigned(bitcnt) - 1);
 			end if;
@@ -110,12 +117,12 @@ begin
 	end if;
 end process;
 
---pcheck2: Am82S62 port map ( 
---			p => sr2(9 downto 1),
---         inhibit => '0',
---         even => e2,
---         odd => o2
---		);
+pcheck: Am82S62 port map ( 
+			p => data(9 downto 1),
+         inhibit => '0',
+         even => even,
+         odd => odd
+		);
 
 end Behavioral;
 
