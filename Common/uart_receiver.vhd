@@ -56,110 +56,66 @@ component Am82S62 is
            odd : out  STD_LOGIC);
 end component;
 
-signal delay, ring: std_logic_vector(3 downto 0);
-signal sel: std_logic_vector(1 downto 0);
-signal sr2, sr3: std_logic_vector(11 downto 0);
+signal bitcnt: std_logic_vector(5 downto 0);
+--signal startbit: std_logic_vector(2 downto 0);
 signal data: std_logic_vector(15 downto 0);
-alias even: std_logic is data(15);
-alias odd: std_logic is data(14);
-signal ready, valid, rx_clk, o2, o3, e2, e3: std_logic;
+signal enable, done, busy: std_logic;
 
 begin
 
 -- connect to outputs
-frame_active <= sel(1) xor sel(0);
-frame_ready <= ready;
-frame_valid <= valid;
-frame_data(15 downto 8) <= valid & "0" & odd & even & "000" & data(1); -- & "00" & sel;
+frame_ready <= done;
+frame_active <= busy;
+frame_valid <= '1';
 
 -- internal parallel data
---odd <= data(1) xor data(2) xor data(3) xor data(4) xor data(5) xor data(6) xor data(7) xor data(8) xor data(9);
+done <= '1' when (bitcnt = "000000") else '0';
+busy <= '0' when (bitcnt = "111111") else '1'; 
 
-with mode(2) select
-	frame_data(7 downto 0) <=  (data(1) & data(2) & data(3) & data(4) & data(5) & data(6) & data(7) & data(8)) when '0',	-- 9 bit frame
-										(data(2) & data(3) & data(4) & data(5) & data(6) & data(7) & data(8) & data(9)) when others; -- 10 bit frame
-				
-with mode select
-	valid <= (not data(1))	when "100", -- valid if bit before stop is 0
-				even				when "101",	-- valid if parity bit is even 
-				odd				when "110", -- valid if parity bit is odd
-				data(1)			when "111", -- valid if bit before stop is 1
-				'1' when others;				-- no validity check
-				
-ready <= (not (data(9)) and data(0)) when (mode(2) = '0') else (not (data(10)) and data(0));				
-
-
--- sample rx 4 times the rx baud rate, and generate rx baud rate with a ring counter
-update_delay: process(reset, ready, rx_clk4)
+on_done: process(done, data)
 begin
-	if (reset = '1') then
-		delay <= "1111";
-		ring <= "1110";
+	if (rising_edge(done)) then
+		frame_data <= data; --"00" & bitcnt & data(9 downto 2); --data(15 downto 12) & data(4) & data(5) & data(6) & data(7) & data(8) & data(9) & data(10) & data(11) & data(3 downto 0);
+	end if;
+end process;
+
+on_rx: process(reset, rx)
+begin
+	if ((reset or done) = '1') then
+		enable <= '0';
 	else
-		if (rising_edge(rx_clk4)) then
-			delay <= delay(2 downto 0) & rx;
-			ring <= ring(2 downto 0) & ring(3);
+		if (falling_edge(rx) and (busy = '0')) then
+			enable <= '1';
 		end if;
 	end if;
 end process;
 
 -- assume space is detected when 3 samples in a row are '0'
-update_sel: process(reset, ready, delay, rx_clk4, sel)
+on_rxclk4: process(reset, rx_clk4, rx, enable)
 begin
-	if (reset = '1' or ready = '1') then
-		sel <= "11";
+	if (reset = '1') then
+		bitcnt <= "111111";
 	else
-		if (falling_edge(rx_clk4) and (sel = "11")) then
-			sel(0) <= delay(2) or delay(1) or delay(0);
-			sel(1) <= delay(3) or delay(2) or delay(1);
+		if (rising_edge(rx_clk4) and (enable = '1')) then
+			if (bitcnt = "111111") then
+				bitcnt <= "110110"; -- 0x29 = 41 = 10 bits * 4 clocks +1
+				data <= X"FFFF"; --"1111111111111111";
+			else
+				if (bitcnt(1 downto 0) = "00") then
+					data <= rx & data(15 downto 1); -- & rx;
+				end if;
+				bitcnt <= std_logic_vector(unsigned(bitcnt) - 1);
+			end if;
 		end if;
 	end if;
 end process;
 
--- drive shift register about 1.5 periods behind first detected space
-update_sr2: process(reset, ready, ring(2), rx)
-begin
-	if (reset = '1' or ready = '1') then 
-		sr2 <= X"FFF";
-	else
-		if (falling_edge(ring(2))) then
-			sr2 <= sr2(10 downto 0) & rx;
-		end if;
-	end if;
-end process;
-
-pcheck2: Am82S62 port map ( 
-			p => sr2(9 downto 1),
-         inhibit => '0',
-         even => e2,
-         odd => o2
-		);
-
--- drive shift register about 1.75 periods behind first detected space
-update_sr3: process(reset, ready, ring(3), rx)
-begin
-	if (reset = '1' or ready = '1') then 
-		sr3 <= X"FFF";
-	else
-		if (falling_edge(ring(3))) then
-			sr3 <= sr3(10 downto 0) & rx;
-		end if;
-	end if;
-end process;
-
-pcheck3: Am82S62 port map ( 
-			p => sr3(9 downto 1),
-         inhibit => '0',
-         even => e3,
-         odd => o3
-		);
-
-with sel select
-	data <= 	e3 & o3 & "00" & sr3 when "01",
-				e2 & o2 & "00" & sr2 when "10",
-				X"FFFF" when others;
-
---debug <= ring & delay & std_logic_vector(to_unsigned(bitcnt, 4)) & "00" & sel;
+--pcheck2: Am82S62 port map ( 
+--			p => sr2(9 downto 1),
+--         inhibit => '0',
+--         even => e2,
+--         odd => o2
+--		);
 
 end Behavioral;
 

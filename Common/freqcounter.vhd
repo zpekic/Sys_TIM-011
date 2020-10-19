@@ -34,6 +34,7 @@ entity freqcounter is
            clk : in  STD_LOGIC;
            freq : in  STD_LOGIC;
 			  bcd:	in STD_LOGIC;
+			  double: in STD_LOGIC;
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end freqcounter;
 
@@ -72,9 +73,9 @@ with display select
 
 -- hook up 4 nibble adders which can work either as binary or BCD
 s0: nibbleadder Port map ( 
-				cin => '1',
+				cin => double,
 				a => a(3 downto 0),
-				b => X"0",
+				b => X"1",
 				na => '0',
 				nb => '0',
 				bcd => bcd,
