@@ -64,7 +64,7 @@ entity sys_tim011_mercury is
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
-				--AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
+				AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
 
 				-- 7seg LED on baseboard 
 				A_TO_G: out std_logic_vector(6 downto 0); 
@@ -83,10 +83,10 @@ entity sys_tim011_mercury is
 				-- 5			Channel 5 (free)
 				-- 6			Channel 6 (free)
 				-- 7			Channel 7 (free)
-				--ADC_MISO: in std_logic;
-				--ADC_MOSI: out std_logic;
-				--ADC_SCK: out std_logic;
-				--ADC_CSN: out std_logic;
+				ADC_MISO: in std_logic;
+				ADC_MOSI: out std_logic;
+				ADC_SCK: out std_logic;
+				ADC_CSN: out std_logic;
 				--PS2_DATA: in std_logic;
 				--PS2_CLOCK: in std_logic;
 
@@ -213,6 +213,8 @@ component freqcounter is
            freq : in  STD_LOGIC;
 			  bcd:	in STD_LOGIC;
 			  double: in STD_LOGIC;
+			  limit: in STD_LOGIC_VECTOR(15 downto 0);
+			  nOver: out STD_LOGIC;
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
@@ -395,10 +397,12 @@ signal sr: std_logic_vector(31 downto 0);
 
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
 alias nRTS: std_logic is PMOD(4); 	-- out, active low
-alias RXD: std_logic is PMOD(5);		-- in
-alias TXD: std_logic is PMOD(6);		-- out
+alias RXD_TTY: std_logic is PMOD(5);		-- in
+alias TXD_TTY: std_logic is PMOD(6);		-- out
 alias nCTS: std_logic is PMOD(7);	-- in, active low
 
+signal txd, txd_audio: std_logic;
+signal rxd, rxd_audio: std_logic;
   
 begin
    
@@ -604,8 +608,8 @@ offset_add_lo: sn74ls283 Port map (
 	
 --LED(0) <= dotclk;
 --LED(1) <= vm_en;
-LED(2) <= vm_rd;
-LED(3) <= vm_wr;
+LED(2) <= txd_audio; --vm_rd;
+LED(3) <= txd_audio; --vm_wr;
 
 -- Connect to GBS8200 gray wire
 	PMOD(3) <= out_hsync xor out_vsync;
@@ -633,46 +637,6 @@ LED(3) <= vm_wr;
 							not gr_vsync; -- when "10",
 							--not sh_vsync when others;
 							
--- 
--- "equivalent" to circuit here: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/ploca/sch_ttl.png
--- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml
---h_shot: oneshot Port map ( 
---			trigger => gr_hsync,
---         tick => dotclk,			-- 1 tick is 83.33ns
---         duration => X"00AD", --h_duration, 
---         shot => sh_hsync
---		);
---
---enable_hshot <= '0' when (switch(2 downto 1) = "00") else '0';		
---h_shot_reg: interactivereg Port map ( 
---				reset => RESET,
---				clk => freq2,
---				enable => enable_hshot,
---				init => X"00AD",		-- STABLE SETTING, about 144ms
---				up => button(1),
---				down => button(0),
---				value => open --h_duration
---		);
---
---v_shot: oneshot Port map ( 
---			trigger => gr_vsync,
---         tick => dotclk,			-- 1 tick is 83.33ns
---         duration => X"2000", --v_duration, 	
---         shot => sh_vsync
---		);
---		
---enable_vshot <= '0' when (switch(2 downto 1) = "01") else '0';		
---v_shot_reg: interactivereg Port map ( 
---				reset => RESET,
---				clk => freq2,
---				enable => enable_vshot,
---				init => X"0200", 		-- STABLE SETTING, about 426ms -- NOT USED!
---				up => button(1),
---				down => button(0),
---				value => open --v_duration
---		);
---
-
 leds: fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
@@ -687,27 +651,6 @@ leds: fourdigitsevensegled Port map (
 		);
 
 showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2); 
-----h <= digsel(0) and digsel0_delayed;
---
---cnt_hsync: signalcounter Port map ( 
---				clk => dotclk,
---				reset => RESET,
---				input => out_hsync,
---				sel => switch(0),
---				count => hsync_cnt
---		);
---
---cnt_vsync: signalcounter Port map ( 
---				clk => dotclk,
---				reset => RESET,
---				input => out_vsync,
---				sel => switch(0),
---				count => vsync_cnt
---		);
---
-
---h_duration <= std_logic_vector(to_unsigned(mouse_x, 16));
---v_duration <= std_logic_vector(to_unsigned(mouse_y, 16));
 
 hexsel <= switch(3 downto 2) & digsel;
 
@@ -741,10 +684,10 @@ with hexsel select
 					--DD(7 downto 4) when "1001",
 					--D(3 downto 0) when "1010",
 					--D(7 downto 4) when "1011",
-					A(3 downto 0) when "1100",
-					A(7 downto 4) when "1101",
-					A(11 downto 8) when "1110",
-					A(15 downto 12) when "1111",
+					std_logic_vector(min(3 downto 0)) when "1100",
+					std_logic_vector(min(7 downto 4)) when "1101",
+					std_logic_vector(max(3 downto 0)) when "1110",
+					std_logic_vector(max(7 downto 4)) when "1111",
 					X"0" when others;
 					
 --testdelay: configurabledelayline Port map (
@@ -788,33 +731,12 @@ with switch(7 downto 5) select
 							freq1200 when "010",
 							freq600  when "001",
 							freq300 when others;		
---
---update_cnt: process(audio_level)
---begin
---	if (rising_edge(audio_level)) then
---		adc_count <= std_logic_vector(unsigned(adc_count) + 1);
---	end if;
---end process;
---
---get_rx_analog: process(baudrate_x4, adc_count, adc_old_count)
---begin
---	if (rising_edge(baudrate_x4)) then
---		if (adc_count /= adc_old_count) then
---			rx_analog <= '0'; -- freq x4 detected as at least 1 "zero" crossing happened in t/4 time
---		else
---			rx_analog <= '1';	-- no freq x4 in this t/4 period
---		end if;
---		adc_old_count <= adc_count;
---	end if;
---end process;
---
---rx_digital <= PMOD(6);
---rx <= rx_analog when (switch(1) = '1') else rx_digital;
+
 --
 serin: uart_receiver Port map ( 
 				rx_clk4 => baudrate_x4,
 				reset => RESET,
-				rx => TXD,	-- "txd" looking from the sender side
+				rx => txd,	-- "txd" looking from the sender side
 				mode => switch(4 downto 2), 
 				frame_active => frame_active,
 				frame_ready => frame_ready, 
@@ -836,7 +758,7 @@ end process;
 serout: uart_sender port map (
 				tx_clk => baudrate_x1,
 				reset => RESET,
-				tx => RXD,	-- "rxd" looking from the receiver side
+				tx => RXD_TTY,	-- "rxd" looking from the receiver side
 				ready => open,
 				mode => switch(4 downto 2), 
 				send => frame_ready, 
@@ -844,28 +766,34 @@ serout: uart_sender port map (
 				data => frame_data(7 downto 0)
 		);
 		
-display <= sr(15 downto 0);
+display <= freq_value; --sr(15 downto 0);
 
 --AUDIO_OUT_L <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --AUDIO_OUT_R <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --	
 
---f_out <= baudrate_x1 when (switch(0) = '0') else baudrate_x2;
---AUDIO_OUT_L <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
---AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
+f_out <= freq4800 when (TXD_TTY = '0') else freq2400;	-- always output to audio
+--f_out <= freq4800 when (button(0) = '1') else freq2400;
+AUDIO_OUT_L <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
+AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --
-----f_in_audio <= '0' when (adc_value = X"00") else '1';
---f_in <= f_out when (switch(1) = '0') else f_in_audio;
+--f_in_audio <= '0' when (adc_value = X"00") else '1';
+f_in <= f_out when (switch(1) = '0') else f_in_audio;
 --
---cnt: freqcounter port map (
---			reset => RESET,
---         clk => freq2,
---         freq => f_in,
---			bcd => '1',
---			double => '1',		-- because refresh is 2Hz, count twice to normalize display to Hz
---         value => freq_value
---		);
+cnt: freqcounter port map (
+			reset => RESET,
+         clk => freq300,
+         freq => f_in,
+			bcd => '0',
+			double => '0',		
+			limit => X"0008", --- 2400/600 + 1
+			nOver => txd_audio,
+         value => freq_value
+		);
 --		
+txd <= TXD_TTY when (switch(2) = '0') else txd_audio;
+
+
 ----display <= std_logic_vector(max(7 downto 0)) & std_logic_vector(min(7 downto 0)) when (switch(1) = '0') else freq_value;
 --display <= freq_value;
 --	sel 	freq	max<<2	min<<2 (diff=1)
@@ -892,67 +820,129 @@ display <= sr(15 downto 0);
 ---------------------------------------------------------------------------------
 ---- ADC
 ---------------------------------------------------------------------------------
---  -- Set ADC channel to 0 (audio left) or 1 (audio right)
---  adc_channel <= "000"; -- & switch(0);
+  -- Set ADC channel to 0 (audio left) or 1 (audio right)
+  adc_channel <= "000"; -- & switch(0);
+
+  adc_clk <= freq24M;
+  
+  -- Mercury ADC component
+  ADC : entity work.MercuryADC
+    port map(
+      clock    => adc_clk,
+      trigger  => adc_trigger,
+      diffn    => '0',
+      channel  => adc_channel,
+      Dout     => adc_dout,
+      OutVal   => adc_done,
+      adc_miso => ADC_MISO,
+      adc_mosi => ADC_MOSI,
+      adc_cs   => ADC_CSN,
+      adc_clk  => ADC_SCK
+      );
 --
---  adc_clk <= freq24M;
---  
---  -- Mercury ADC component
---  ADC : entity work.MercuryADC
---    port map(
---      clock    => adc_clk,
---      trigger  => adc_trigger,
---      diffn    => '0',
---      channel  => adc_channel,
---      Dout     => adc_dout,
---      OutVal   => adc_done,
---      adc_miso => ADC_MISO,
---      adc_mosi => ADC_MOSI,
---      adc_cs   => ADC_CSN,
---      adc_clk  => ADC_SCK
---      );
-----
-----  -- ADC sampling process
---  sample_adc : process (adc_clk, adc_trigger, adc_dout)
---  begin
---    if (rising_edge(adc_clk)) then
---      -- Sample the ADC continuously
---      if (adc_trigger = '1') then  -- Reset the ADC trigger after a single clock cycle
---        adc_trigger <= '0';
---      else
---			if (adc_done = '1') then  -- After a trigger, wait for the ADC's done signal
---
-----				if (adc_dout(9 downto 1) = "000000000") then
-----					audio_level <= '0';
-----				else
-----					audio_level <= '1';
-----				end if;
---				if (f_in_audio = '0') then
---					if (unsigned(adc_dout) /= "0000000000") then
---						f_in_audio <= '1';
---					end if;
+--  -- ADC sampling process
+  sample_adc : process (adc_clk, adc_trigger, adc_dout)
+  begin
+    if (rising_edge(adc_clk)) then
+      -- Sample the ADC continuously
+      if (adc_trigger = '1') then  -- Reset the ADC trigger after a single clock cycle
+        adc_trigger <= '0';
+      else
+			if (adc_done = '1') then  -- After a trigger, wait for the ADC's done signal
+
+--				if (adc_dout(9 downto 1) = "000000000") then
+--					audio_level <= '0';
 --				else
---					if (adc_dout = "0000000000") then
---						f_in_audio <= '0';
---					end if;
+--					audio_level <= '1';
 --				end if;
---				adc_value <= adc_dout(9 downto 2);
---					
---				if (unsigned(adc_dout) > max) then
---					max <= unsigned(adc_dout);
---				end if;
---
---				if (unsigned(adc_dout) < min) then
---					min <= unsigned(adc_dout);
---				end if;
---
---				adc_trigger  <= '1';            -- Request another sample
---			end if;
---		end if;
---    end if;
---  end process;
+				if (f_in_audio = '0') then
+					if (unsigned(adc_dout) > "0000100100") then
+						f_in_audio <= '1';
+					end if;
+				else
+					if (unsigned(adc_dout) < "0000100100") then
+						f_in_audio <= '0';
+					end if;
+				end if;
+				adc_value <= adc_dout(9 downto 2);
+					
+				if (unsigned(adc_dout) > max) then
+					max <= unsigned(adc_dout);
+				end if;
+
+				if (unsigned(adc_dout) < min) then
+					min <= unsigned(adc_dout);
+				end if;
+
+				adc_trigger  <= '1';            -- Request another sample
+			end if;
+		end if;
+    end if;
+  end process;
 
 --display <= sr(15 downto 0) when (switch(0) = '0') else freq_value;
 --debug <= std_logic_vector(max(9 downto 2)) & std_logic_vector(min(9 downto 2)) when (switch(0) = '0') else freq_value;
+
+----h <= digsel(0) and digsel0_delayed;
+--
+--cnt_hsync: signalcounter Port map ( 
+--				clk => dotclk,
+--				reset => RESET,
+--				input => out_hsync,
+--				sel => switch(0),
+--				count => hsync_cnt
+--		);
+--
+--cnt_vsync: signalcounter Port map ( 
+--				clk => dotclk,
+--				reset => RESET,
+--				input => out_vsync,
+--				sel => switch(0),
+--				count => vsync_cnt
+--		);
+--
+
+--h_duration <= std_logic_vector(to_unsigned(mouse_x, 16));
+--v_duration <= std_logic_vector(to_unsigned(mouse_y, 16));
+
+-- 
+-- "equivalent" to circuit here: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/ploca/sch_ttl.png
+-- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml
+--h_shot: oneshot Port map ( 
+--			trigger => gr_hsync,
+--         tick => dotclk,			-- 1 tick is 83.33ns
+--         duration => X"00AD", --h_duration, 
+--         shot => sh_hsync
+--		);
+--
+--enable_hshot <= '0' when (switch(2 downto 1) = "00") else '0';		
+--h_shot_reg: interactivereg Port map ( 
+--				reset => RESET,
+--				clk => freq2,
+--				enable => enable_hshot,
+--				init => X"00AD",		-- STABLE SETTING, about 144ms
+--				up => button(1),
+--				down => button(0),
+--				value => open --h_duration
+--		);
+--
+--v_shot: oneshot Port map ( 
+--			trigger => gr_vsync,
+--         tick => dotclk,			-- 1 tick is 83.33ns
+--         duration => X"2000", --v_duration, 	
+--         shot => sh_vsync
+--		);
+--		
+--enable_vshot <= '0' when (switch(2 downto 1) = "01") else '0';		
+--v_shot_reg: interactivereg Port map ( 
+--				reset => RESET,
+--				clk => freq2,
+--				enable => enable_vshot,
+--				init => X"0200", 		-- STABLE SETTING, about 426ms -- NOT USED!
+--				up => button(1),
+--				down => button(0),
+--				value => open --v_duration
+--		);
+--
 
 end;

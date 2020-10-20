@@ -35,6 +35,8 @@ entity freqcounter is
            freq : in  STD_LOGIC;
 			  bcd:	in STD_LOGIC;
 			  double: in STD_LOGIC;
+			  limit: in STD_LOGIC_VECTOR(15 downto 0);
+			  nOver: out STD_LOGIC;
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end freqcounter;
 
@@ -54,8 +56,13 @@ end component;
 signal r0, r1, r2, a, sum: std_logic_vector(15 downto 0);
 signal cout3, cout7, cout11: std_logic;
 signal display: std_logic_vector(2 downto 0);
+signal nOver0, nOver1, nOver2: std_logic;
 
 begin
+
+nOver0 <= '0' when (unsigned(r0) > unsigned(limit)) else '1';
+nOver1 <= '0' when (unsigned(r1) > unsigned(limit)) else '1';
+nOver2 <= '0' when (unsigned(r2) > unsigned(limit)) else '1';
 
 -- select which reg to display
 with display select
@@ -63,6 +70,12 @@ with display select
 					r1 when "010",
 					r2 when "100",
 					X"FFFF" when others;
+
+with display select
+	nOver <= 	nOver0 when "001",
+					nOver1 when "010",
+					nOver2 when "100",
+					'1' when others;
 					
 -- the "next" reg is being updated, so bring it to the nibble adder "a" inputs
 with display select
