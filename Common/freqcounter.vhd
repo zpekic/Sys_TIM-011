@@ -36,33 +36,28 @@ entity freqcounter is
 			  bcd:	in STD_LOGIC;
 			  double: in STD_LOGIC;
 			  limit: in STD_LOGIC_VECTOR(15 downto 0);
-			  nOver: out STD_LOGIC;
+			  ge: out STD_LOGIC;
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end freqcounter;
 
 architecture Behavioral of freqcounter is
 
-component nibbleadder is
+component adder16 is
     Port ( cin : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (3 downto 0);
-           b : in  STD_LOGIC_VECTOR (3 downto 0);
+           a : in  STD_LOGIC_VECTOR (15 downto 0);
+           b : in  STD_LOGIC_VECTOR (15 downto 0);
            na : in  STD_LOGIC;
            nb : in  STD_LOGIC;
            bcd : in  STD_LOGIC;
-           y : out  STD_LOGIC_VECTOR (3 downto 0);
+           y : out  STD_LOGIC_VECTOR (15 downto 0);
            cout : out  STD_LOGIC);
 end component;
 
 signal r0, r1, r2, a, sum: std_logic_vector(15 downto 0);
-signal cout3, cout7, cout11: std_logic;
 signal display: std_logic_vector(2 downto 0);
-signal nOver0, nOver1, nOver2: std_logic;
+signal c0, c1, c2, cout: std_logic;
 
 begin
-
-nOver0 <= '0' when (unsigned(r0) > unsigned(limit)) else '1';
-nOver1 <= '0' when (unsigned(r1) > unsigned(limit)) else '1';
-nOver2 <= '0' when (unsigned(r2) > unsigned(limit)) else '1';
 
 -- select which reg to display
 with display select
@@ -72,10 +67,10 @@ with display select
 					X"FFFF" when others;
 
 with display select
-	nOver <= 	nOver0 when "001",
-					nOver1 when "010",
-					nOver2 when "100",
-					'1' when others;
+	ge <=		 	c0 when "001",
+					c1 when "010",
+					c2 when "100",
+					'0' when others;
 					
 -- the "next" reg is being updated, so bring it to the nibble adder "a" inputs
 with display select
@@ -84,48 +79,27 @@ with display select
 					r0 when "100",
 					X"0000" when others;
 
--- hook up 4 nibble adders which can work either as binary or BCD
-s0: nibbleadder Port map ( 
+-- compare with limit, BCD or binary
+comparator: adder16 Port map ( 
+				cin => '1',
+				a => sum,
+				b => limit,
+				na => '0',
+				nb => '1',
+				bcd => bcd,
+				y => open,
+				cout => cout
+			);
+
+-- add to count, BCD or binary, 1 or 2
+adder: adder16 Port map ( 
 				cin => double,
-				a => a(3 downto 0),
-				b => X"1",
+				a => a,
+				b => X"0001",
 				na => '0',
 				nb => '0',
 				bcd => bcd,
-				y => sum(3 downto 0),
-				cout => cout3
-			);
-
-s1: nibbleadder Port map ( 
-				cin => cout3,
-				a => a(7 downto 4),
-				b => X"0",
-				na => '0',
-				nb => '0',
-				bcd => bcd,
-				y => sum(7 downto 4),
-				cout => cout7
-			);
-
-s2: nibbleadder Port map ( 
-				cin => cout7,
-				a => a(11 downto 8),
-				b => X"0",
-				na => '0',
-				nb => '0',
-				bcd => bcd,
-				y => sum(11 downto 8),
-				cout => cout11
-			);
-
-s3: nibbleadder Port map ( 
-				cin => cout11,
-				a => a(15 downto 12),
-				b => X"0",
-				na => '0',
-				nb => '0',
-				bcd => bcd,
-				y => sum(15 downto 12),
+				y => sum,
 				cout => open
 			);
 
@@ -151,6 +125,7 @@ begin
 	else
 		if (rising_edge(freq) and display(2) = '1') then
 			r0 <= sum; --std_logic_vector(unsigned(r0) + 1);
+			c0 <= cout;
 		end if;
 	end if;
 end process;
@@ -162,6 +137,7 @@ begin
 	else
 		if (rising_edge(freq) and display(0) = '1') then
 			r1 <= sum; --std_logic_vector(unsigned(r1) + 1);
+			c1 <= cout;
 		end if;
 	end if;
 end process;
@@ -173,6 +149,7 @@ begin
 	else
 		if (rising_edge(freq) and display(1) = '1') then
 			r2 <= sum; --std_logic_vector(unsigned(r2) + 1);
+			c2 <= cout;
 		end if;
 	end if;
 end process;

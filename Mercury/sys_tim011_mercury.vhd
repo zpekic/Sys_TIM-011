@@ -214,7 +214,7 @@ component freqcounter is
 			  bcd:	in STD_LOGIC;
 			  double: in STD_LOGIC;
 			  limit: in STD_LOGIC_VECTOR(15 downto 0);
-			  nOver: out STD_LOGIC;
+			  ge: out STD_LOGIC;
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 
@@ -346,10 +346,11 @@ signal data: std_logic_vector(15 downto 0);
 signal freq_uart, freq_uart4: std_logic;
 
 --- frequency signals
-signal freq24M, dotclk: std_logic;
+signal freq24M, dotclk, freq0M75: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
-signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
+signal tick, delta, prev: std_logic_vector(31 downto 0);
 
 --- video sync signals
 signal gr_hsync, gr_vsync: std_logic;
@@ -401,7 +402,7 @@ alias RXD_TTY: std_logic is PMOD(5);		-- in
 alias TXD_TTY: std_logic is PMOD(6);		-- out
 alias nCTS: std_logic is PMOD(7);	-- in, active low
 
-signal txd, txd_audio: std_logic;
+signal txd, ntxd, f4, f8, txd_audio, n_trigger: std_logic;
 signal rxd, rxd_audio: std_logic;
   
 begin
@@ -414,16 +415,16 @@ clockgen: sn74hc4040 port map (
 			reset_11 => RESET,
 			q1_9 => freq24M, 
 			q2_7 => dotclk,
-			q3_6 => open, --PMOD(7),		-- 6.25
-			q4_5 => open, --PMOD(6),		-- 3.125
-			q5_3 => open, --PMOD(5),		-- 1.5625
-			q6_2 => open, --PMOD(4), 		-- 0.78125
-			q7_4 =>   open,		-- 0.390625
-			q8_13 =>  open,		-- 0.1953125
-			q9_12 =>  open,		-- 0.09765625
-			q10_14 => open,		-- 0.048828125
-			q11_15 => digsel(0),	-- 0.0244140625
-			q12_1 =>  digsel(1)	-- 0.01220703125
+			q3_6 => open, --PMOD(7),			-- 6
+			q4_5 => open, --PMOD(6),			-- 3
+			q5_3 => open, --PMOD(5),			-- 1.5
+			q6_2 => freq0M75, --PMOD(4), 		-- 0.75
+			q7_4 =>   open,		-- 0.325
+			q8_13 =>  open,		-- 0.1625
+			q9_12 =>  open,		-- 0.08125
+			q10_14 => open,		-- 0.040625
+			q11_15 => digsel(0),	-- 0.0203125
+			q12_1 =>  digsel(1)	-- 0.01015625
 		);
 --
 prescale: process(CLK, freq153600, freq4096)
@@ -456,7 +457,7 @@ baudgen: sn74hc4040 port map (
 			q7_4 => freq1200,		
 			q8_13 => freq600,		
 			q9_12 =>  freq300,
-			q10_14 => open,	
+			q10_14 => freq150,	
 			q11_15 => open,	
 			q12_1 =>  open	
 		);
@@ -504,24 +505,7 @@ kbd: ps2tim Port map (
          debug => open--display
 		);
 	
---  -- mouse controller
---  mouse : entity work.mouse_ctrl
---    generic map (
---      X_MAX => 511,
---      Y_MAX => 255
---      )
---    port map(
---      clk25        => freq25M,
---      clr          => '0',
---      PS2C         => ps2_clk,
---      PS2D         => ps2_data,
---      click_middle => mouse_middle,
---      click_right  => mouse_right,
---      click_left   => mouse_left,
---      x_position   => mouse_x,
---      y_position   => mouse_y
---      );
---		
+
 --console: memconsole Port map(
 --			clk => freq2,
 --         reset => RESET,
@@ -586,25 +570,25 @@ offset_add_lo: sn74ls283 Port map (
 	);	
 --	
 
-	video: Grafika port map (
-		-- system
-		  dotclk => dotclk,
-		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
-		  A(14 downto 0) => A(14 downto 0),
-		  nRD => not (vm_rd),
-		  nWR => not (vm_wr),
-		  d => D,
-		  ioe => vm_en,
-		  nScroll => test_scroll,
-		-- debug
-		  test => test_static,
-		  vid_gated => '0', -- do not gate vid1/2 on dotclk (this is different from original!)
-		-- monitor side
-		  hsync => gr_hsync, --HSYNC,
-		  vsync => gr_vsync,--VSYNC,
-		  vid1 => gr_vid1, --BLU(0),
-		  vid2 => gr_vid2  --BLU(1)
-	);
+--	video: Grafika port map (
+--		-- system
+--		  dotclk => dotclk,
+--		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
+--		  A(14 downto 0) => A(14 downto 0),
+--		  nRD => not (vm_rd),
+--		  nWR => not (vm_wr),
+--		  d => D,
+--		  ioe => vm_en,
+--		  nScroll => test_scroll,
+--		-- debug
+--		  test => test_static,
+--		  vid_gated => '0', -- do not gate vid1/2 on dotclk (this is different from original!)
+--		-- monitor side
+--		  hsync => gr_hsync, --HSYNC,
+--		  vsync => gr_vsync,--VSYNC,
+--		  vid1 => gr_vid1, --BLU(0),
+--		  vid2 => gr_vid2  --BLU(1)
+--	);
 	
 --LED(0) <= dotclk;
 --LED(1) <= vm_en;
@@ -612,10 +596,10 @@ LED(2) <= txd_audio; --vm_rd;
 LED(3) <= txd_audio; --vm_wr;
 
 -- Connect to GBS8200 gray wire
-	PMOD(3) <= out_hsync xor out_vsync;
+	--PMOD(3) <= out_hsync xor out_vsync;
 	
 -- connect to GBS8200 blue / green / red wires
-	PMOD(2 downto 0) <= bgr(to_integer(unsigned(color)));
+	--PMOD(2 downto 0) <= bgr(to_integer(unsigned(color)));
 	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;
 
 --	HSYNC <= not sh_hsync;
@@ -652,43 +636,12 @@ leds: fourdigitsevensegled Port map (
 
 showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2); 
 
-hexsel <= switch(3 downto 2) & digsel;
-
-with hexsel select
---	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
---					hsync_cnt(7 downto 4) when "0001",
---					hsync_cnt(11 downto 8) when "0010",
---					hsync_cnt(15 downto 12) when "0011",
---					vsync_cnt(3 downto 0) when "0100",
---					vsync_cnt(7 downto 4) when "0101",
---					vsync_cnt(11 downto 8) when "0110",
---					vsync_cnt(15 downto 12) when "0111",
-	hexdata <= 	h_duration(3 downto 0) when "0000",	
-					h_duration(7 downto 4) when "0001",
-					h_duration(11 downto 8) when "0010",
-					h_duration(15 downto 12) when "0011",
-					v_duration(3 downto 0) when "0100",
-					v_duration(7 downto 4) when "0101",
-					v_duration(11 downto 8) when "0110",
-					v_duration(15 downto 12) when "0111",
-					--
-					--data(3 downto 0) when "1000",
-					--data(7 downto 4) when "1001",
-					--data(11 downto 8) when "1010",
-					--data(15 downto 12) when "1011",
-					display(3 downto 0) when "1000",
-					display(7 downto 4) when "1001",
-					display(11 downto 8) when "1010",
-					display(15 downto 12) when "1011",
-					--DD(3 downto 0) when "1000",
-					--DD(7 downto 4) when "1001",
-					--D(3 downto 0) when "1010",
-					--D(7 downto 4) when "1011",
-					std_logic_vector(min(3 downto 0)) when "1100",
-					std_logic_vector(min(7 downto 4)) when "1101",
-					std_logic_vector(max(3 downto 0)) when "1110",
-					std_logic_vector(max(7 downto 4)) when "1111",
-					X"0" when others;
+with digsel select
+	hexdata <= 	freq_value(3 downto 0) when "00",	
+					freq_value(7 downto 4) when "01",
+					freq_value(11 downto 8) when "10",
+					freq_value(15 downto 12) when others;
+	
 					
 --testdelay: configurabledelayline Port map (
 --				clk => CLK,
@@ -755,44 +708,64 @@ begin
 	end if;
 end process;
 
-serout: uart_sender port map (
-				tx_clk => baudrate_x1,
-				reset => RESET,
-				tx => RXD_TTY,	-- "rxd" looking from the receiver side
-				ready => open,
-				mode => switch(4 downto 2), 
-				send => frame_ready, 
-				enable => frame_valid,
-				data => frame_data(7 downto 0)
-		);
+--serout: uart_sender port map (
+--				tx_clk => baudrate_x1,
+--				reset => RESET,
+--				tx => RXD_TTY,	-- "rxd" looking from the receiver side
+--				ready => open,
+--				mode => switch(4 downto 2), 
+--				send => frame_ready, 
+--				enable => frame_valid,
+--				data => frame_data(7 downto 0)
+--		);
 		
-display <= freq_value; --sr(15 downto 0);
 
 --AUDIO_OUT_L <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --AUDIO_OUT_R <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --	
 
-f_out <= freq4800 when (TXD_TTY = '0') else freq2400;	-- always output to audio
---f_out <= freq4800 when (button(0) = '1') else freq2400;
+f_out <= freq2400 when (TXD_TTY = '0') else freq4800;	-- always output to audio
+--f_out <= freq1200 when (button(1) = '1') else freq2400;
+--f_out <= freq2400 when (freq150 = '1') else freq4800;
 AUDIO_OUT_L <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --
 --f_in_audio <= '0' when (adc_value = X"00") else '1';
-f_in <= f_out when (switch(1) = '0') else f_in_audio;
+f_in <= f_out when (button(0) = '1') else f_in_audio;
+--f_in <= f_in_audio;
 --
-cnt: freqcounter port map (
-			reset => RESET,
-         clk => freq300,
-         freq => f_in,
-			bcd => '0',
-			double => '0',		
-			limit => X"0008", --- 2400/600 + 1
-			nOver => txd_audio,
-         value => freq_value
-		);
---		
-txd <= TXD_TTY when (switch(2) = '0') else txd_audio;
+--cnt: freqcounter port map (
+--			reset => RESET,
+--         clk => freq300,
+--         freq => f_in,
+--			bcd => '0',
+--			double => '0',		
+--			limit => X"0007", --- 2400/600 + 1
+--			ge => txd_audio,
+--         value => freq_value
+--		);
+----		
+RXD_TTY <= not(txd);
 
+f8 <= '1' when (delta > X"00000120") else '0'; -- X240 for 300baud, 120 for 600
+f4 <= '1' when (delta < X"000000B0") else '0'; -- X160 for 300baud, B0 for 600
+
+ntxd <= not (f8 or txd);
+txd <= not (f4 or ntxd);
+
+--PMOD(3 downto 0) <= freq_value(3 downto 0);
+PMOD(0) <= f_out;
+PMOD(1) <= f_in;
+PMOD(2) <= f4; --f_out;
+PMOD(3) <= f8; --f_in_audio;
+
+on_fin: process(f_in)
+begin
+	if (rising_edge(f_in)) then
+		delta <= std_logic_vector(unsigned(tick) - unsigned(prev));
+		prev <= tick;
+	end if;
+end process;
 
 ----display <= std_logic_vector(max(7 downto 0)) & std_logic_vector(min(7 downto 0)) when (switch(1) = '0') else freq_value;
 --display <= freq_value;
@@ -839,46 +812,128 @@ txd <= TXD_TTY when (switch(2) = '0') else txd_audio;
       adc_cs   => ADC_CSN,
       adc_clk  => ADC_SCK
       );
---
---  -- ADC sampling process
-  sample_adc : process (adc_clk, adc_trigger, adc_dout)
-  begin
-    if (rising_edge(adc_clk)) then
-      -- Sample the ADC continuously
-      if (adc_trigger = '1') then  -- Reset the ADC trigger after a single clock cycle
-        adc_trigger <= '0';
-      else
-			if (adc_done = '1') then  -- After a trigger, wait for the ADC's done signal
+		
+--adc_trigger <= not (adc_done or n_trigger);
+--n_trigger <= not (freq153600 or adc_trigger);
 
---				if (adc_dout(9 downto 1) = "000000000") then
---					audio_level <= '0';
---				else
---					audio_level <= '1';
---				end if;
-				if (f_in_audio = '0') then
-					if (unsigned(adc_dout) > "0000100100") then
-						f_in_audio <= '1';
-					end if;
-				else
-					if (unsigned(adc_dout) < "0000100100") then
-						f_in_audio <= '0';
-					end if;
-				end if;
-				adc_value <= adc_dout(9 downto 2);
-					
-				if (unsigned(adc_dout) > max) then
-					max <= unsigned(adc_dout);
-				end if;
+on_f_trigger: process(freq0M75)
+begin
+	if (adc_done = '1') then
+		adc_trigger <= '0';
+	else
+		if (rising_edge(freq0M75)) then
+			adc_trigger <= not adc_done;
+			tick <= std_logic_vector(unsigned(tick) + 1);
+		end if;
+	end if;
+end process;
 
-				if (unsigned(adc_dout) < min) then
-					min <= unsigned(adc_dout);
-				end if;
-
-				adc_trigger  <= '1';            -- Request another sample
+  -- ADC sampling process
+on_adc_done : process (adc_done)
+begin
+ if (rising_edge(adc_done)) then
+		if (f_in_audio = '0') then
+			if (unsigned(adc_dout) > "00" & X"24") then
+				f_in_audio <= '1';
+			end if;
+		else
+			if (unsigned(adc_dout) < "00" & X"24") then
+				f_in_audio <= '0';
 			end if;
 		end if;
-    end if;
-  end process;
+		adc_value <= adc_dout(9 downto 2);
+			
+		if (unsigned(adc_dout) > max) then
+			max <= unsigned(adc_dout);
+		end if;
+
+		if (unsigned(adc_dout) < min) then
+			min <= unsigned(adc_dout);
+		end if;
+
+	end if;
+end process;
+		
+--
+--  -- ADC sampling process
+--  sample_adc : process (adc_clk, adc_trigger, adc_dout)
+--  begin
+--    if (rising_edge(adc_clk)) then
+--      -- Sample the ADC continuously
+--      if (adc_trigger = '1') then  -- Reset the ADC trigger after a single clock cycle
+--        adc_trigger <= '0';
+--      end if;
+--		
+--		if (adc_done = '1') then  -- After a trigger, wait for the ADC's done signal
+--
+----				if (adc_dout(9 downto 1) = "000000000") then
+----					audio_level <= '0';
+----				else
+----					audio_level <= '1';
+----				end if;
+--			if (f_in_audio = '0') then
+--				if (unsigned(adc_dout) > "0000100100") then
+--					f_in_audio <= '1';
+--				end if;
+--			else
+--				if (unsigned(adc_dout) < "0000100100") then
+--					f_in_audio <= '0';
+--				end if;
+--			end if;
+--			adc_value <= adc_dout(9 downto 2);
+--				
+--			if (unsigned(adc_dout) > max) then
+--				max <= unsigned(adc_dout);
+--			end if;
+--
+--			if (unsigned(adc_dout) < min) then
+--				min <= unsigned(adc_dout);
+--			end if;
+--
+--			adc_trigger  <= '1';            -- Request another sample
+--		end if;
+--    end if;
+--  end process;
+
+--hexsel <= switch(3 downto 2) & digsel;
+--
+--with hexsel select
+----	hexdata <= 	hsync_cnt(3 downto 0) when "0000",	
+----					hsync_cnt(7 downto 4) when "0001",
+----					hsync_cnt(11 downto 8) when "0010",
+----					hsync_cnt(15 downto 12) when "0011",
+----					vsync_cnt(3 downto 0) when "0100",
+----					vsync_cnt(7 downto 4) when "0101",
+----					vsync_cnt(11 downto 8) when "0110",
+----					vsync_cnt(15 downto 12) when "0111",
+--	hexdata <= 	h_duration(3 downto 0) when "0000",	
+--					h_duration(7 downto 4) when "0001",
+--					h_duration(11 downto 8) when "0010",
+--					h_duration(15 downto 12) when "0011",
+--					v_duration(3 downto 0) when "0100",
+--					v_duration(7 downto 4) when "0101",
+--					v_duration(11 downto 8) when "0110",
+--					v_duration(15 downto 12) when "0111",
+--					--
+--					--data(3 downto 0) when "1000",
+--					--data(7 downto 4) when "1001",
+--					--data(11 downto 8) when "1010",
+--					--data(15 downto 12) when "1011",
+--					display(3 downto 0) when "1000",
+--					display(7 downto 4) when "1001",
+--					display(11 downto 8) when "1010",
+--					display(15 downto 12) when "1011",
+--					--DD(3 downto 0) when "1000",
+--					--DD(7 downto 4) when "1001",
+--					--D(3 downto 0) when "1010",
+--					--D(7 downto 4) when "1011",
+--					std_logic_vector(min(3 downto 0)) when "1100",
+--					std_logic_vector(min(7 downto 4)) when "1101",
+--					std_logic_vector(max(3 downto 0)) when "1110",
+--					std_logic_vector(max(7 downto 4)) when "1111",
+--					X"0" when others;
+
+--display <= freq_value; --sr(15 downto 0);
 
 --display <= sr(15 downto 0) when (switch(0) = '0') else freq_value;
 --debug <= std_logic_vector(max(9 downto 2)) & std_logic_vector(min(9 downto 2)) when (switch(0) = '0') else freq_value;
