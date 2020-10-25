@@ -153,6 +153,10 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="292"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
+    <file xil_pn:name="../tapeuart.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="293"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
     <file xil_pn:name="ipcore_dir/ram32k8.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>

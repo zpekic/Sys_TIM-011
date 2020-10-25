@@ -350,7 +350,6 @@ signal freq24M, dotclk, freq0M75: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
-signal tick, delta, prev: std_logic_vector(31 downto 0);
 
 --- video sync signals
 signal gr_hsync, gr_vsync: std_logic;
@@ -368,14 +367,10 @@ signal A: std_logic_vector(15 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
---- test mouse
---signal mouse_left, mouse_right, mouse_middle: std_logic;
---signal mouse_x: integer range 0 to 511;
---signal mouse_y: integer range 0 to 255;
+
 
 --alias ps2_data: std_logic is LED(0);
 --alias ps2_clk: std_logic is LED(1);
---signal frame_parity: std_logic;
 
 -- ADC
 signal adc_trigger  : std_logic := '1';              -- go sample from ADC
@@ -389,10 +384,14 @@ signal max: unsigned(9 downto 0) := "0000000000";
 signal adc_count, adc_old_count, freq_value: std_logic_vector(15 downto 0);
 signal adc_value: std_logic_vector(7 downto 0);
 signal f_in, f_out, f_in_audio: std_logic;
+signal tick, delta, prev: std_logic_vector(31 downto 0);
+signal limit0, prev0: std_logic_vector(31 downto 0);
+signal limit1, prev1: std_logic_vector(31 downto 0);
+signal f0, f1: std_logic;
 -- UART
 signal frame_ready, frame_valid, frame_active: std_logic;
 signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
-signal rx, rx_analog, rx_digital: std_logic;
+--signal rx, rx_analog, rx_digital: std_logic;
 signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 signal sr: std_logic_vector(31 downto 0);
 
@@ -402,7 +401,7 @@ alias RXD_TTY: std_logic is PMOD(5);		-- in
 alias TXD_TTY: std_logic is PMOD(6);		-- out
 alias nCTS: std_logic is PMOD(7);	-- in, active low
 
-signal txd, ntxd, f4, f8, txd_audio, n_trigger: std_logic;
+signal txd, ntxd, detect0, detect1, txd_audio: std_logic;
 signal rxd, rxd_audio: std_logic;
   
 begin
@@ -637,11 +636,12 @@ leds: fourdigitsevensegled Port map (
 showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2); 
 
 with digsel select
-	hexdata <= 	freq_value(3 downto 0) when "00",	
-					freq_value(7 downto 4) when "01",
-					freq_value(11 downto 8) when "10",
-					freq_value(15 downto 12) when others;
+	hexdata <= 	display(3 downto 0) when "00",	
+					display(7 downto 4) when "01",
+					display(11 downto 8) when "10",
+					display(15 downto 12) when others;
 	
+display <= limit0(15 downto 0) when (switch(0) = '0') else limit1(15 downto 0);
 					
 --testdelay: configurabledelayline Port map (
 --				clk => CLK,
@@ -718,15 +718,11 @@ end process;
 --				enable => frame_valid,
 --				data => frame_data(7 downto 0)
 --		);
+
+f0 <= freq2400;
+f1 <= freq4800;
 		
-
---AUDIO_OUT_L <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
---AUDIO_OUT_R <= baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
---	
-
-f_out <= freq2400 when (TXD_TTY = '0') else freq4800;	-- always output to audio
---f_out <= freq1200 when (button(1) = '1') else freq2400;
---f_out <= freq2400 when (freq150 = '1') else freq4800;
+f_out <= f0 when (TXD_TTY = '0') else f1;	-- always output to audio
 AUDIO_OUT_L <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 --
@@ -734,36 +730,125 @@ AUDIO_OUT_R <= f_out; --baudrate_x2 when (PMOD(6) = '1') else baudrate_x4;
 f_in <= f_out when (button(0) = '1') else f_in_audio;
 --f_in <= f_in_audio;
 --
---cnt: freqcounter port map (
+--cnt0: freqcounter port map (
 --			reset => RESET,
---         clk => freq300,
---         freq => f_in,
+--         clk => f0,
+--         freq => freq0M75,
 --			bcd => '0',
 --			double => '0',		
---			limit => X"0007", --- 2400/600 + 1
---			ge => txd_audio,
---         value => freq_value
+--			limit => X"0000",
+--			ge => open,
+--         value => count0
+--		);
+--
+--cnt1: freqcounter port map (
+--			reset => RESET,
+--         clk => f1,
+--         freq => freq0M75,
+--			bcd => '0',
+--			double => '0',		
+--			limit => X"0000",
+--			ge => open,
+--         value => count1
 --		);
 ----		
-RXD_TTY <= not(txd);
-
-f8 <= '1' when (delta > X"00000120") else '0'; -- X240 for 300baud, 120 for 600
-f4 <= '1' when (delta < X"000000B0") else '0'; -- X160 for 300baud, B0 for 600
-
-ntxd <= not (f8 or txd);
-txd <= not (f4 or ntxd);
-
---PMOD(3 downto 0) <= freq_value(3 downto 0);
+RXD_TTY <= not (txd);
 PMOD(0) <= f_out;
 PMOD(1) <= f_in;
-PMOD(2) <= f4; --f_out;
-PMOD(3) <= f8; --f_in_audio;
+PMOD(2) <= detect0; --f_out;
+PMOD(3) <= detect1; --f_in_audio;
+
+--limit0 <= X"0120"; --std_logic_vector(unsigned(count0) - 32);
+--limit1 <= X"00B0"; --std_logic_vector(unsigned(count1) + 32);
+
+detect0 <= '1' when (delta > std_logic_vector(unsigned(limit0) - 16)) else '0'; -- X240 for 300baud, 120 for 600
+detect1 <= '1' when (delta < std_logic_vector(unsigned(limit1) + 16)) else '0'; -- X160 for 300baud, B0 for 600
+
+--f8 <= '1' when (delta > X"00000120") else '0'; -- X240 for 300baud, 120 for 600
+--f4 <= '1' when (delta < X"000000B0") else '0'; -- X160 for 300baud, B0 for 600
+
+ntxd <= not (detect0 or txd);
+txd <= not (detect1 or ntxd);
 
 on_fin: process(f_in)
 begin
 	if (rising_edge(f_in)) then
 		delta <= std_logic_vector(unsigned(tick) - unsigned(prev));
 		prev <= tick;
+	end if;
+end process;
+
+on_f0: process(f0)
+begin
+	if (rising_edge(f0)) then
+		limit0 <= std_logic_vector(unsigned(tick) - unsigned(prev0));
+		prev0 <= tick;
+	end if;
+end process;
+
+on_f1: process(f1)
+begin
+	if (rising_edge(f1)) then
+		limit1 <= std_logic_vector(unsigned(tick) - unsigned(prev1));
+		prev1 <= tick;
+	end if;
+end process;
+
+---------------------------------------------------------------------------------
+---- ADC
+---------------------------------------------------------------------------------
+  adc_clk <= freq24M;
+  
+  -- Mercury ADC component
+  ADC : entity work.MercuryADC
+    port map(
+      clock    => adc_clk,
+      trigger  => adc_trigger,
+      diffn    => '0',
+      channel  => "000",	-- channel 0 = left audio
+      Dout     => adc_dout,
+      OutVal   => adc_done,
+      adc_miso => ADC_MISO,
+      adc_mosi => ADC_MOSI,
+      adc_cs   => ADC_CSN,
+      adc_clk  => ADC_SCK
+      );
+		
+on_f_trigger: process(freq0M75)
+begin
+	if (adc_done = '1') then
+		adc_trigger <= '0';
+	else
+		if (rising_edge(freq0M75)) then
+			adc_trigger <= not adc_done;
+			tick <= std_logic_vector(unsigned(tick) + 1);
+		end if;
+	end if;
+end process;
+
+  -- ADC sampling process
+on_adc_done : process (adc_done)
+begin
+ if (rising_edge(adc_done)) then
+		if (f_in_audio = '0') then
+			if (unsigned(adc_dout) > "00" & X"24") then
+				f_in_audio <= '1';
+			end if;
+		else
+			if (unsigned(adc_dout) < "00" & X"24") then
+				f_in_audio <= '0';
+			end if;
+		end if;
+		--adc_value <= adc_dout(9 downto 2);
+			
+		if (unsigned(adc_dout) > max) then
+			max <= unsigned(adc_dout);
+		end if;
+
+		if (unsigned(adc_dout) < min) then
+			min <= unsigned(adc_dout);
+		end if;
+
 	end if;
 end process;
 
@@ -790,69 +875,6 @@ end process;
 -- 111	38400		01			00					95CA		0000
 -- 1111	76800		00			00					????		????
 --
----------------------------------------------------------------------------------
----- ADC
----------------------------------------------------------------------------------
-  -- Set ADC channel to 0 (audio left) or 1 (audio right)
-  adc_channel <= "000"; -- & switch(0);
-
-  adc_clk <= freq24M;
-  
-  -- Mercury ADC component
-  ADC : entity work.MercuryADC
-    port map(
-      clock    => adc_clk,
-      trigger  => adc_trigger,
-      diffn    => '0',
-      channel  => adc_channel,
-      Dout     => adc_dout,
-      OutVal   => adc_done,
-      adc_miso => ADC_MISO,
-      adc_mosi => ADC_MOSI,
-      adc_cs   => ADC_CSN,
-      adc_clk  => ADC_SCK
-      );
-		
---adc_trigger <= not (adc_done or n_trigger);
---n_trigger <= not (freq153600 or adc_trigger);
-
-on_f_trigger: process(freq0M75)
-begin
-	if (adc_done = '1') then
-		adc_trigger <= '0';
-	else
-		if (rising_edge(freq0M75)) then
-			adc_trigger <= not adc_done;
-			tick <= std_logic_vector(unsigned(tick) + 1);
-		end if;
-	end if;
-end process;
-
-  -- ADC sampling process
-on_adc_done : process (adc_done)
-begin
- if (rising_edge(adc_done)) then
-		if (f_in_audio = '0') then
-			if (unsigned(adc_dout) > "00" & X"24") then
-				f_in_audio <= '1';
-			end if;
-		else
-			if (unsigned(adc_dout) < "00" & X"24") then
-				f_in_audio <= '0';
-			end if;
-		end if;
-		adc_value <= adc_dout(9 downto 2);
-			
-		if (unsigned(adc_dout) > max) then
-			max <= unsigned(adc_dout);
-		end if;
-
-		if (unsigned(adc_dout) < min) then
-			min <= unsigned(adc_dout);
-		end if;
-
-	end if;
-end process;
 		
 --
 --  -- ADC sampling process
