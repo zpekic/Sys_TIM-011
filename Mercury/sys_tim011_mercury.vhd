@@ -273,8 +273,13 @@ component ps2tim is
            uart_clk4 : in  STD_LOGIC;
            uart_rx : in  STD_LOGIC;
            uart_tx : out  STD_LOGIC;
+			  uart_mode: in STD_LOGIC_VECTOR(2 downto 0);
            ps2_clk : inout  STD_LOGIC;
            ps2_data : inout  STD_LOGIC;
+			  kbd_alt: buffer STD_LOGIC;
+			  kbd_shift: buffer STD_LOGIC;
+			  kbd_ctrl: buffer STD_LOGIC;
+			  kbd_caps: buffer STD_LOGIC;
 			  debugsel: in STD_LOGIC;
            debug : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
@@ -381,6 +386,8 @@ signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
 signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 signal sr: std_logic_vector(31 downto 0);
 
+signal kbd_alt, kbd_shift, kbd_ctrl, kbd_caps: STD_LOGIC;
+
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
 alias nRTS: std_logic is PMOD(4); 	-- out, active low
 alias RXD_TTY: std_logic is PMOD(5);		-- in
@@ -479,13 +486,18 @@ powergen: sn74hc4040 port map (
 	
 kbd: ps2tim Port map ( 
 			reset => RESET,
-         uart_clk4 => freq38400, -- baudrate = /4 = 9600
+         uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
          uart_rx => '1', --PMOD(5),		-- TODO: verify pin
          uart_tx => open, --PMOD(6),		-- TODO: verify pin
+			uart_mode => switch(4 downto 2),
          ps2_clk => LED(1),
          ps2_data => LED(0),
+			kbd_alt => kbd_alt,
+			kbd_shift => kbd_shift,
+			kbd_ctrl => kbd_ctrl,
+			kbd_caps => kbd_caps,
 			debugsel => switch(0),
-         debug => open--display
+         debug => display
 		);
 
 --console: memconsole Port map(
@@ -608,8 +620,12 @@ leds: fourdigitsevensegled Port map (
 			hexdata => hexdata,
 			digsel => digsel,
 			showdigit => showdigit,
-			showdot(3 downto 2) => "00", --std_logic_vector(max(9 downto 8)),
-			showdot(1 downto 0) => "00", --std_logic_vector(min(9 downto 8)),
+			--showdot(3) => "00", --std_logic_vector(max(9 downto 8)),
+			--showdot(2) => "00", --std_logic_vector(min(9 downto 8)),
+			showdot(3) => kbd_alt,
+			showdot(2) => kbd_shift,
+			showdot(1) => kbd_ctrl,
+			showdot(0) => kbd_caps,
 			-- outputs
 			anode => AN,
 			segment(7) => DOT,
@@ -673,7 +689,7 @@ streamer: tapeuart port map (
 				adc_csn => ADC_CSN,
 				----
 				debugsel => switch(0),
-				debug => display
+				debug => open --display
 			);
 
 --
