@@ -487,8 +487,8 @@ powergen: sn74hc4040 port map (
 kbd: ps2tim Port map ( 
 			reset => RESET,
          uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
-         uart_rx => '1', --PMOD(5),		-- TODO: verify pin
-         uart_tx => open, --PMOD(6),		-- TODO: verify pin
+         uart_rx => TXD_TTY,
+         uart_tx => RXD_TTY,
 			uart_mode => switch(4 downto 2),
          ps2_clk => LED(1),
          ps2_data => LED(0),
@@ -675,8 +675,8 @@ with switch(7 downto 5) select
 
 streamer: tapeuart port map ( 
 				reset => RESET,
-				serout => RXD_TTY,
-				serin => TXD_TTY,
+				serout => open, --RXD_TTY,
+				serin => '1', --TXD_TTY,
 				freq_mark => freq4800,
 				freq_space => freq2400,
 				audio_left => AUDIO_OUT_L,

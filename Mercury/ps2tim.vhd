@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -102,6 +102,146 @@ component Am82S62 is
            odd : out  STD_LOGIC);
 end component;
 
+constant sb: std_logic_vector(7 downto 0) := "00000000";
+
+-- temporary character generator table
+type scanlookup is array (0 to 127) of std_logic_vector(15 downto 0);
+constant scanmap: scanlookup :=(
+----------------------------------------------------------
+-- 
+----------------------------------------------------------
+ sb & X"00", -- 00
+ sb & X"00", -- 01
+ sb & X"00", -- 02
+ sb & X"00", -- 03
+ sb & X"00", -- 04
+ sb & X"00", -- 05
+ sb & X"00", -- 06
+ sb & X"00", -- 07
+ sb & X"00", -- 08	<BACKSPACE>
+ sb & X"00", -- 09	<TAB>
+ sb & X"00", -- 0A
+ sb & X"00", -- 0B
+ sb & X"00", -- 0C
+ sb & X"00", -- 0D	<ENTER>
+ sb & X"00", -- 0E
+ sb & X"00", -- 0F
+ sb & X"00", -- 10
+ sb & X"00", -- 11
+ sb & X"00", -- 12
+ sb & X"00", -- 13
+ sb & X"00", -- 14
+ sb & X"00", -- 15
+ sb & X"00", -- 16
+ sb & X"00", -- 17
+ sb & X"00", -- 18
+ sb & X"00", -- 19
+ sb & X"00", -- 1A
+ sb & X"00", -- 1B	<ESC>
+ sb & X"00", -- 1C
+ sb & X"00", -- 1D
+ sb & X"00", -- 1E
+ sb & X"00", -- 1F
+ sb & X"00", -- <SPACE>
+ sb & X"00", -- !
+ sb & X"00", -- "
+ sb & X"00", -- #
+ sb & X"00", -- $
+ sb & X"00", -- %
+ sb & X"00", -- &
+ sb & X"00", -- '
+ sb & X"00", -- (
+ sb & X"00", -- )
+ sb & X"00", -- *
+ sb & X"00", -- +
+ sb & X"00", -- , --
+ sb & X"00", -- -
+ sb & X"00", -- .
+ sb & X"00", -- /
+ sb & X"45", -- 0
+ sb & X"16", -- 1
+ sb & X"1E", -- 2
+ sb & X"26", -- 3
+ sb & X"25", -- 4
+ sb & X"2E", -- 5
+ sb & X"36", -- 6
+ sb & X"3D", -- 7
+ sb & X"3E", -- 8
+ sb & X"46", -- 9
+ sb & X"00", -- :
+ sb & X"00", -- ;
+ sb & X"00", -- <
+ sb & X"00", -- =
+ sb & X"00", -- >
+ sb & X"00", -- ?
+ sb & X"00", -- @
+ sb & X"00", -- A
+ sb & X"00", -- B
+ sb & X"00", -- C
+ sb & X"00", -- D
+ sb & X"24", -- E
+ sb & X"00", -- F
+ sb & X"00", -- G
+ sb & X"00", -- H
+ sb & X"00", -- I
+ sb & X"00", -- J
+ sb & X"00", -- K
+ sb & X"00", -- L
+ sb & X"00", -- M
+ sb & X"00", -- N
+ sb & X"00", -- O
+ sb & X"00", -- P
+ sb & X"15", -- Q
+ sb & X"00", -- R
+ sb & X"00", -- S
+ sb & X"00", -- T
+ sb & X"00", -- U
+ sb & X"00", -- V
+ sb & X"1D", -- W
+ sb & X"00", -- X
+ sb & X"00", -- Y
+ sb & X"00", -- Z
+ sb & X"00", -- [
+ sb & X"00", -- \
+ sb & X"00", -- ]
+ sb & X"00", -- ^
+ sb & X"00", -- _
+ sb & X"00", -- `
+ sb & X"00", -- a
+ sb & X"00", -- b
+ sb & X"00", -- c
+ sb & X"00", -- d
+ sb & X"24", -- e
+ sb & X"00", -- f
+ sb & X"00", -- g
+ sb & X"00", -- h
+ sb & X"00", -- i
+ sb & X"00", -- j
+ sb & X"00", -- k
+ sb & X"00", -- l
+ sb & X"00", -- m
+ sb & X"00", -- n
+ sb & X"00", -- o
+ sb & X"00", -- p
+ sb & X"15", -- q
+ sb & X"00", -- r
+ sb & X"00", -- s
+ sb & X"00", -- t
+ sb & X"00", -- u
+ sb & X"00", -- v
+ sb & X"1D", -- w
+ sb & X"00", -- x
+ sb & X"00", -- y
+ sb & X"00", -- z
+ sb & X"00", -- {
+ sb & X"00", -- |
+ sb & X"00", -- }
+ sb & X"00",  -- ~
+ sb & X"00"  -- <DEL>
+);
+--attribute rom_style : string;
+--attribute rom_style of tinyfont : signal is "block";
+
 signal frame_ready, frame_parity: std_logic;
 signal frame_data: std_logic_vector(15 downto 0);
 signal frame_code: std_logic_vector(7 downto 0);
@@ -115,7 +255,9 @@ signal kbd_altleft, kbd_altright, key_alt: std_logic;
 
 signal uart_clk: std_logic;
 signal clk_scanfast, clk_scanslow: std_logic;
-signal ascii: std_logic_vector(7 downto 0);
+signal ascii: std_logic_vector(6 downto 0);
+signal current_scan: std_logic_vector(15 downto 0);
+signal send, rescan: std_logic;
 
 
 begin
@@ -131,10 +273,10 @@ kbdclock: sn74hc4040 port map (
 			q2_7 => uart_clk,
 			q3_6 => open, 
 			q4_5 => open, 
-			q5_3 => open, 
-			q6_2 => 	 open, 
-			q7_4 =>   clk_scanfast,		
-			q8_13 =>  clk_scanslow,		
+			q5_3 => clk_scanfast, 
+			q6_2 => 	 clk_scanslow, 
+			q7_4 =>   open,		
+			q8_13 =>  open,		
 			q9_12 =>  open,		
 			q10_14 => open,		
 			q11_15 => open,	
@@ -143,7 +285,7 @@ kbdclock: sn74hc4040 port map (
 
 kbdscanner: sn74hc4040 port map (
 			clock_10 => clk_scanfast,
-			reset_11 => reset,
+			reset_11 => rescan,
 			q1_9 => ascii(0), 
 			q2_7 => ascii(1),
 			q3_6 => ascii(2), 
@@ -151,11 +293,28 @@ kbdscanner: sn74hc4040 port map (
 			q5_3 => ascii(4), 
 			q6_2 => 	 ascii(5), 
 			q7_4 =>   ascii(6),		
-			q8_13 =>  ascii(7),		
+			q8_13 =>  open,		
 			q9_12 =>  open,		
 			q10_14 => open,		
 			q11_15 => open,	
 			q12_1 =>  open	
+		);
+
+current_scan <= scanmap(to_integer(unsigned(ascii)));
+rescan <= reset;-- or send; 
+		
+send <= make when (current_scan(7 downto 0) = key_code) else '0';
+
+tx: uart_sender Port map (  
+			tx_clk  => uart_clk,
+			reset  => reset,
+			tx  => uart_tx,
+			ready => open,
+			mode => uart_mode, 
+			send => send, 
+			enable => '1',
+			data(7) => '0',
+			data(6 downto 0) => ascii
 		);
 		
 make_ext <= '1' when (scancodes(15 downto 8) = X"E0") else '0';
