@@ -30,23 +30,26 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity keydetector is
-    Port ( make : in  STD_LOGIC;
-           break : in  STD_LOGIC;
-           code : in  STD_LOGIC;
-           key : buffer  STD_LOGIC);
+    Port ( 	reset : in STD_LOGIC;
+				code : in  STD_LOGIC_VECTOR(15 downto 0);
+				match : in  STD_LOGIC_VECTOR(15 downto 0);
+				pressed : buffer  STD_LOGIC);
 end keydetector;
 
 architecture Behavioral of keydetector is
 
-signal s, r, nkey: std_logic;
+signal detect, s, r, up, n_pressed: std_logic;
 
 begin
 
-s <= code and make;
-r <= code and break;
+detect <= '1' when (code(7 downto 0) = match(7 downto 0)) else '0';
+up <= '1' when (code(15 downto 8) = match(15 downto 0)) else '0';
 
-nkey <= s nor key;
-key <= r nor nkey;
+s <= detect and (not up);
+r <= reset or (detect and up);
+
+pressed <= not (r or n_pressed);
+n_pressed <= not (s or pressed);
 
 end Behavioral;
 

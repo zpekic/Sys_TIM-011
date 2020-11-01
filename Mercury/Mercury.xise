@@ -149,15 +149,15 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="91"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
     </file>
-    <file xil_pn:name="../adder16.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="../Common/adder16.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="292"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="../tapeuart.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="tapeuart.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="293"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="7"/>
     </file>
-    <file xil_pn:name="../keydetector.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="../Common/keydetector.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="493"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
@@ -230,7 +230,7 @@
     <property xil_pn:name="Enable Debugging of Serial Mode BitStream" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Enable Filter on Suspend Input" xil_pn:value="Please use the ENABLE_SUSPEND implementation constraint." xil_pn:valueState="default"/>
     <property xil_pn:name="Enable Internal Done Pipe" xil_pn:value="true" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Enable Message Filtering" xil_pn:value="false" xil_pn:valueState="default"/>
+    <property xil_pn:name="Enable Message Filtering" xil_pn:value="true" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Enable Multi-Threading" xil_pn:value="Off" xil_pn:valueState="default"/>
     <property xil_pn:name="Enable Outputs (Output Events)" xil_pn:value="Default (5)" xil_pn:valueState="default"/>
     <property xil_pn:name="Enable Power-On Reset Detection" xil_pn:value="true" xil_pn:valueState="default"/>

@@ -47,13 +47,6 @@ end ps2tim;
 
 architecture Behavioral of ps2tim is
 
-component keydetector is
-    Port ( 	reset : in STD_LOGIC;
-				code : in  STD_LOGIC_VECTOR(15 downto 0);
-				match : in  STD_LOGIC_VECTOR(15 downto 0);
-				pressed : buffer  STD_LOGIC);
-end component;
-
 component ff74 is
     Port ( clk : in  STD_LOGIC;
            d : in  STD_LOGIC;
@@ -109,158 +102,152 @@ component Am82S62 is
            odd : out  STD_LOGIC);
 end component;
 
-constant e_m: std_logic_vector(3 downto 0) := X"0";
-constant e_ms: std_logic_vector(3 downto 0) := X"1";
-constant e_msu: std_logic_vector(3 downto 0) := X"2";
-constant e_ma: std_logic_vector(3 downto 0) := X"3";
-constant e_mc: std_logic_vector(3 downto 0) := X"4";
-constant e_x: std_logic_vector(3 downto 0) := X"5";
-constant e_xs: std_logic_vector(3 downto 0) := X"6";
+constant sb: std_logic_vector(7 downto 0) := "00000000";
 
 -- temporary character generator table
-type scanlookup is array (0 to 127) of std_logic_vector(11 downto 0);
+type scanlookup is array (0 to 127) of std_logic_vector(15 downto 0);
 constant scanmap: scanlookup :=(
 ----------------------------------------------------------
 -- 
 ----------------------------------------------------------
- e_m & X"00", -- 00
- e_m & X"00", -- 01
- e_m & X"00", -- 02
- e_m & X"00", -- 03
- e_m & X"00", -- 04
- e_m & X"00", -- 05
- e_m & X"00", -- 06
- e_m & X"00", -- 07
- e_m & X"66", -- 08	<BACKSPACE>
- e_m & X"0D", -- 09	<TAB>
- e_m & X"00", -- 0A
- e_m & X"00", -- 0B
- e_m & X"00", -- 0C
- e_x & X"5A", -- 0D	<ENTER>
- e_m & X"00", -- 0E
- e_m & X"00", -- 0F
- e_m & X"00", -- 10
- e_m & X"00", -- 11
- e_m & X"00", -- 12
- e_m & X"00", -- 13
- e_m & X"00", -- 14
- e_m & X"00", -- 15
- e_m & X"00", -- 16
- e_m & X"00", -- 17
- e_m & X"00", -- 18
- e_m & X"00", -- 19
- e_m & X"00", -- 1A
- e_m & X"76", -- 1B	<ESC>
- e_m & X"00", -- 1C
- e_m & X"00", -- 1D
- e_m & X"00", -- 1E
- e_m & X"00", -- 1F
- e_m & X"29", -- <SPACE>
- e_ms & X"16", -- !
- e_ms & X"52", -- "
- e_ms & X"26", -- #
- e_ms & X"25", -- $
- e_ms & X"2E", -- %
- e_ms & X"3D", -- &
- e_m & X"52", -- '
- e_ms & X"46", -- (
- e_ms & X"45", -- )
- e_ms & X"3E", -- *
- e_ms & X"55", -- +
- e_m & X"41", -- , --
- e_m & X"4E", -- -
- e_m & X"49", -- .
- e_x & X"4A", -- /
- e_m & X"45", -- 0
- e_m & X"16", -- 1
- e_m & X"1E", -- 2
- e_m & X"26", -- 3
- e_m & X"25", -- 4
- e_m & X"2E", -- 5
- e_m & X"36", -- 6
- e_m & X"3D", -- 7
- e_m & X"3E", -- 8
- e_m & X"46", -- 9
- e_ms & X"4C", -- :
- e_m & X"4C", -- ;
- e_ms & X"41", -- <
- e_m & X"55", -- =
- e_ms & X"49", -- >
- e_xs & X"4A", -- ?
- e_ms & X"1E", -- @
- e_msu & X"1C", -- A
- e_msu & X"32", -- B
- e_msu & X"21", -- C
- e_msu & X"23", -- D
- e_msu & X"24", -- E
- e_msu & X"2B", -- F
- e_msu & X"34", -- G
- e_msu & X"33", -- H
- e_msu & X"43", -- I
- e_msu & X"3B", -- J
- e_msu & X"42", -- K
- e_msu & X"4B", -- L
- e_msu & X"3A", -- M
- e_msu & X"31", -- N
- e_msu & X"44", -- O
- e_msu & X"4D", -- P
- e_msu & X"15", -- Q
- e_msu & X"2D", -- R
- e_msu & X"1B", -- S
- e_msu & X"2C", -- T
- e_msu & X"3C", -- U
- e_msu & X"2A", -- V
- e_msu & X"1D", -- W
- e_msu & X"22", -- X
- e_msu & X"35", -- Y
- e_msu & X"1A", -- Z
- e_m & X"57", -- [ 
- e_m & X"5D", -- \
- e_m & X"5B", -- ]
- e_ms & X"36", -- ^
- e_ms & X"4E", -- _
- e_m & X"0E", -- `
- e_m & X"1C", -- a
- e_m & X"32", -- b
- e_m & X"21", -- c
- e_m & X"23", -- d
- e_m & X"24", -- e
- e_m & X"2B", -- f
- e_m & X"34", -- g
- e_m & X"33", -- h
- e_m & X"43", -- i
- e_m & X"3B", -- j
- e_m & X"42", -- k
- e_m & X"4B", -- l
- e_m & X"3A", -- m
- e_m & X"31", -- n
- e_m & X"44", -- o
- e_m & X"4D", -- p
- e_m & X"15", -- q
- e_m & X"2D", -- r
- e_m & X"1B", -- s
- e_m & X"2C", -- t
- e_m & X"3C", -- u
- e_m & X"2A", -- v
- e_m & X"1D", -- w
- e_m & X"22", -- x
- e_m & X"35", -- y
- e_m & X"1A", -- z
- e_ms & X"54", -- {
- e_ms & X"5D", -- |
- e_ms & X"5B", -- }
- e_ms & X"0E",  -- ~
- e_x & X"71"  -- <DEL>
+ sb & X"00", -- 00
+ sb & X"00", -- 01
+ sb & X"00", -- 02
+ sb & X"00", -- 03
+ sb & X"00", -- 04
+ sb & X"00", -- 05
+ sb & X"00", -- 06
+ sb & X"00", -- 07
+ sb & X"00", -- 08	<BACKSPACE>
+ sb & X"00", -- 09	<TAB>
+ sb & X"00", -- 0A
+ sb & X"00", -- 0B
+ sb & X"00", -- 0C
+ sb & X"00", -- 0D	<ENTER>
+ sb & X"00", -- 0E
+ sb & X"00", -- 0F
+ sb & X"00", -- 10
+ sb & X"00", -- 11
+ sb & X"00", -- 12
+ sb & X"00", -- 13
+ sb & X"00", -- 14
+ sb & X"00", -- 15
+ sb & X"00", -- 16
+ sb & X"00", -- 17
+ sb & X"00", -- 18
+ sb & X"00", -- 19
+ sb & X"00", -- 1A
+ sb & X"00", -- 1B	<ESC>
+ sb & X"00", -- 1C
+ sb & X"00", -- 1D
+ sb & X"00", -- 1E
+ sb & X"00", -- 1F
+ sb & X"00", -- <SPACE>
+ sb & X"00", -- !
+ sb & X"00", -- "
+ sb & X"00", -- #
+ sb & X"00", -- $
+ sb & X"00", -- %
+ sb & X"00", -- &
+ sb & X"00", -- '
+ sb & X"00", -- (
+ sb & X"00", -- )
+ sb & X"00", -- *
+ sb & X"00", -- +
+ sb & X"00", -- , --
+ sb & X"00", -- -
+ sb & X"00", -- .
+ sb & X"00", -- /
+ sb & X"45", -- 0
+ sb & X"16", -- 1
+ sb & X"1E", -- 2
+ sb & X"26", -- 3
+ sb & X"25", -- 4
+ sb & X"2E", -- 5
+ sb & X"36", -- 6
+ sb & X"3D", -- 7
+ sb & X"3E", -- 8
+ sb & X"46", -- 9
+ sb & X"00", -- :
+ sb & X"00", -- ;
+ sb & X"00", -- <
+ sb & X"00", -- =
+ sb & X"00", -- >
+ sb & X"00", -- ?
+ sb & X"00", -- @
+ sb & X"00", -- A
+ sb & X"00", -- B
+ sb & X"00", -- C
+ sb & X"00", -- D
+ sb & X"24", -- E
+ sb & X"00", -- F
+ sb & X"00", -- G
+ sb & X"00", -- H
+ sb & X"00", -- I
+ sb & X"00", -- J
+ sb & X"00", -- K
+ sb & X"00", -- L
+ sb & X"00", -- M
+ sb & X"00", -- N
+ sb & X"00", -- O
+ sb & X"00", -- P
+ sb & X"15", -- Q
+ sb & X"00", -- R
+ sb & X"00", -- S
+ sb & X"00", -- T
+ sb & X"00", -- U
+ sb & X"00", -- V
+ sb & X"1D", -- W
+ sb & X"00", -- X
+ sb & X"00", -- Y
+ sb & X"00", -- Z
+ sb & X"00", -- [
+ sb & X"00", -- \
+ sb & X"00", -- ]
+ sb & X"00", -- ^
+ sb & X"00", -- _
+ sb & X"00", -- `
+ sb & X"00", -- a
+ sb & X"00", -- b
+ sb & X"00", -- c
+ sb & X"00", -- d
+ sb & X"24", -- e
+ sb & X"00", -- f
+ sb & X"00", -- g
+ sb & X"00", -- h
+ sb & X"00", -- i
+ sb & X"00", -- j
+ sb & X"00", -- k
+ sb & X"00", -- l
+ sb & X"00", -- m
+ sb & X"00", -- n
+ sb & X"00", -- o
+ sb & X"00", -- p
+ sb & X"15", -- q
+ sb & X"00", -- r
+ sb & X"00", -- s
+ sb & X"00", -- t
+ sb & X"00", -- u
+ sb & X"00", -- v
+ sb & X"1D", -- w
+ sb & X"00", -- x
+ sb & X"00", -- y
+ sb & X"00", -- z
+ sb & X"00", -- {
+ sb & X"00", -- |
+ sb & X"00", -- }
+ sb & X"00",  -- ~
+ sb & X"00"  -- <DEL>
 );
 --attribute rom_style : string;
 --attribute rom_style of tinyfont : signal is "block";
 
 signal frame_ready, frame_parity: std_logic;
-signal frame_data: std_logic_vector(11 downto 0);
+signal frame_data: std_logic_vector(15 downto 0);
 signal frame_code: std_logic_vector(7 downto 0);
-signal ps2buffer: std_logic_vector(23 downto 0);
-alias key_code: std_logic_vector(7 downto 0) is ps2buffer(7 downto 0);
-signal make, make_ext, break, break_ext: std_logic;
+signal scancodes: std_logic_vector(31 downto 0);
+alias key_code: std_logic_vector(7 downto 0) is scancodes(7 downto 0);
+signal make, make_ext, make_not_break, break_ext: std_logic;
 signal kbd_capslock, key_capslock: std_logic;
 signal kbd_shiftleft, kbd_shiftright, key_shiftleft, key_shiftright: std_logic;
 signal kbd_ctrlleft, kbd_ctrlright, key_ctrl: std_logic;
@@ -268,25 +255,24 @@ signal kbd_altleft, kbd_altright, key_alt: std_logic;
 
 signal uart_clk: std_logic;
 signal clk_scanfast, clk_scanslow: std_logic;
-signal ascii_code: std_logic_vector(7 downto 0);
-signal current_scan: std_logic_vector(11 downto 0);
-signal scancnt: std_logic_vector(8 downto 0);
-signal send, enable, scan_clk, scan_enabled, scan_reset, match: std_logic;
+signal ascii: std_logic_vector(7 downto 0);
+signal current_scan: std_logic_vector(15 downto 0);
+signal send, rescan: std_logic;
 
 
 begin
 
 -- debug output (can be removed)
-debug <= scancnt(7 downto 0) & ps2buffer(23 downto 16) when (debugsel = '1') else ps2buffer(15 downto 0);
+debug <= scancodes(31 downto 16) when (debugsel = '1') else scancodes(15 downto 0);
 
 -- 
 kbdclock: sn74hc4040 port map (
 			clock_10 => uart_clk4,
 			reset_11 => reset,
-			q1_9 => clk_scanfast, 
+			q1_9 => open, 
 			q2_7 => uart_clk,
-			q3_6 => open, 
-			q4_5 => open, 
+			q3_6 => clk_scanfast, 
+			q4_5 => clk_scanslow, 
 			q5_3 => open, 
 			q6_2 => 	 open, 
 			q7_4 =>   open,		
@@ -294,93 +280,49 @@ kbdclock: sn74hc4040 port map (
 			q9_12 =>  open,		
 			q10_14 => open,		
 			q11_15 => open,	
-			q12_1 =>  clk_scanslow	
-		);
-
-kbdscanner: sn74hc4040 port map (
-			clock_10 => scan_clk,
-			reset_11 => scan_reset,
-			q1_9 => scancnt(0), 
-			q2_7 => scancnt(1),
-			q3_6 => scancnt(2), 
-			q4_5 => scancnt(3), 
-			q5_3 => scancnt(4), 
-			q6_2 => scancnt(5), 
-			q7_4 => scancnt(6),		
-			q8_13 =>  scancnt(7),	-- not used		
-			q9_12 =>  scancnt(8),	-- when '1' auto-resets
-			q10_14 => open,		
-			q11_15 => open,	
 			q12_1 =>  open	
 		);
 
-scan_reset <= reset or scancnt(8);
+--kbdscanner: sn74hc4040 port map (
+--			clock_10 => clk_scanfast,
+--			reset_11 => not frame_ready,
+--			q1_9 => ascii(0), 
+--			q2_7 => ascii(1),
+--			q3_6 => ascii(2), 
+--			q4_5 => ascii(3), 
+--			q5_3 => ascii(4), 
+--			q6_2 => 	 ascii(5), 
+--			q7_4 =>   ascii(6),		
+--			q8_13 =>  ascii(7),		
+--			q9_12 =>  open,		
+--			q10_14 => open,		
+--			q11_15 => open,	
+--			q12_1 =>  open	
+--		);
 
-ff_enablescan: ff74 Port map ( 
-				clk => not frame_ready,
-				d => '1',
-				nPreset => '1',
-				nClear => not scancnt(8),
-				Q => scan_enabled,
-				nQ => open
-			);
-
---scan_clk <= clk_scanslow when scan_enabled = '1' else '0';
-scan_clk <= clk_scanfast when scan_enabled = '1' else '0';
-
-current_scan <= scanmap(to_integer(unsigned(scancnt(6 downto 0))));
+--current_scan <= scanmap(to_integer(unsigned(ascii(6 downto 0))));
+--rescan <= reset or (send and ascii(7)); 
 		
--- send only if key code in PS/2 buffer matches current scan		
-on_scan_clk: process(scan_clk)
-begin
-	if (rising_edge(scan_clk)) then
-		if (current_scan(7 downto 0) = key_code) then
-			send <= enable;
-			ascii_code <= '0' & scancnt(6 downto 0);
-		else
-			send <= '0';
-			ascii_code <= X"00";
-		end if;
-	end if;
-end process;
+--send <= '1' when (current_scan(7 downto 0) = key_code) else '0';
+--
+--tx: uart_sender Port map (  
+--			tx_clk  => uart_clk,
+--			reset  => reset,
+--			tx  => uart_tx,
+--			ready => open,
+--			mode => uart_mode, 
+--			send => send, 
+--			enable => make,
+--			data(7) => '0',
+--			data(6 downto 0) => ascii(6 downto 0)
+--		);
+--		
+make_ext <= '1' when (scancodes(15 downto 8) = X"E0") else '0';
+make <= '0' when (scancodes(15 downto 8) = X"F0") else '1';
+break_ext <= '1' when (scancodes(23 downto 8) = X"E0F0") else '0';
+make_not_break <= make_ext and (not break_ext);
 
--- enable sending only on certain conditions
-with current_scan(11 downto 8) select
-	enable <= 	make when					e_m,
-					make and kbd_shift when	e_ms,
-					make and (kbd_shift or kbd_caps) when e_msu,
-					make and kbd_ctrl when	e_mc,
-					make and kbd_alt when	e_ma,
-					make_ext when				e_x,
-					make_ext and kbd_shift when	e_xs,
-					'0' when others;
-
---ff_enablesend: ff74 Port map ( 
---				clk => scan_clk,
---				d => enable,
---				nPreset => '1',
---				nClear => match,
---				Q => send,
---				nQ => open
---			);
-	
-tx: uart_sender Port map (  
-			tx_clk  => uart_clk,
-			reset  => reset,
-			tx  => uart_tx,
-			ready => open,
-			mode => uart_mode, 
-			send => send, 
-			enable => not scancnt(8),
-			data => ascii_code
-		);
-			
---make <= '0' when (ps2buffer(15 downto 8) = X"F0") else '1';
---break <= not make;
---make_ext <=  '1' when (ps2buffer(15 downto 8) = X"E0") else '0';
---break_ext <= '1' when (ps2buffer(23 downto 8) = X"E0F0") else '0';
-
--- CAPS LOCK -----------
+---- CAPS LOCK -----------
 --key_capslock <= frame_ready when (key_code = X"58") else '0';
 --ff_capslock: ff74 Port map ( 
 --				clk => key_capslock,
@@ -404,20 +346,6 @@ ff_capstoggle: ff74 Port map (
 -- SHIFT
 kbd_shift <= kbd_shiftleft or kbd_shiftright;
 
---detect_sl: keydetector port map (
---				reset => reset,
---				code => ps2buffer(7 downto 0),
---				match => X"12",
---				pressed => kbd_shiftleft
---			);
---
---detect_sr: keydetector port map (
---				reset => reset,
---				code => ps2buffer(7 downto 0),
---				match => X"59",
---				pressed => kbd_shiftright
---			);
-	
 --key_shiftleft <= frame_ready when (key_code = X"12") else '0';
 --ff_shiftleft: ff74 Port map ( 
 --				clk => key_shiftleft,
@@ -453,7 +381,7 @@ kbd_ctrl <= kbd_ctrlleft or kbd_ctrlright;
 --
 --ff_ctrlright: ff74 Port map ( 
 --				clk => key_ctrl,
---				d => make_ext,
+--				d => make_not_break,
 --				nPreset => '1',
 --				nClear => not reset,
 --				Q => kbd_ctrlright,
@@ -475,7 +403,7 @@ kbd_alt <= kbd_altleft or kbd_altright;
 --
 --ff_altright: ff74 Port map ( 
 --				clk => key_alt,
---				d => make_ext,
+--				d => make_not_break,
 --				nPreset => '1',
 --				nClear => not reset,
 --				Q => kbd_altright,
@@ -485,47 +413,22 @@ kbd_alt <= kbd_altleft or kbd_altright;
 --
 on_frame_ready: process(reset, frame_ready, frame_code)
 begin
-	if (reset = '1') then
-		ps2buffer <= X"000000";
+	if (reset = '1' or frame_ready = '1') then
+		scancodes <= X"00000000";
 	else
 		if (rising_edge(frame_ready)) then
-			ps2buffer <= ps2buffer(15 downto 0) & frame_code;
-			if (ps2buffer(7 downto 0) = X"F0") then
-				if (ps2buffer(15 downto 8) = X"E0") then
-					make <= '0';	-- E0F0XX
-					break <= '0';
-					make_ext <= '0';
-					break_ext <= '1';
-				else
-					make <= '0';	-- XXF0XX
-					break <= '1';
-					make_ext <= '0';
-					break_ext <= '0';
-				end if;
-			else
-				if (ps2buffer(7 downto 0) = X"E0") then
-					make <= '0';	-- XXE0XX
-					break <= '0';
-					make_ext <= '1';
-					break_ext <= '0';
-				else
-					make <= '1';	-- XXXXXX
-					break <= '0';
-					make_ext <= '0';
-					break_ext <= '0';
-				end if;
-			end if;
+			scancodes <= scancodes(23 downto 0) & frame_code;
 		end if;
 	end if;
 end process;
 
 on_ps2_clk: process(ps2_data, ps2_clk, reset, frame_ready)
 begin
-	if (reset = '1' or frame_ready = '1') then
-		frame_data <= X"FFF";
+	if (rescan = '1') then
+		frame_data <= X"FFFF";
 	else
 		if (falling_edge(ps2_clk)) then
-			frame_data <= frame_data(10 downto 0) & ps2_data;
+			frame_data <= frame_data(14 downto 0) & ps2_data;
 		end if;
 	end if;
 end process;

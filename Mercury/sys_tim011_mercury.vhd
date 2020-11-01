@@ -395,8 +395,15 @@ alias TXD_TTY: std_logic is PMOD(6);		-- out
 alias nCTS: std_logic is PMOD(7);	-- in, active low
 
 
+
 begin
    
+-- connect to "oscilloscope"
+PMOD(0) <= baudrate_x4;
+PMOD(1) <= baudrate_x1;
+PMOD(2) <= RXD_TTY;
+PMOD(3) <= TXD_TTY;
+	
 RESET <= USR_BTN;
 --dotclk <= EXT_CLK;	-- 12MHz "half-size" crystal on Mercury baseboard
 	
