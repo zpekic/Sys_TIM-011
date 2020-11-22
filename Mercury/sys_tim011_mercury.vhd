@@ -64,14 +64,14 @@ entity sys_tim011_mercury is
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
-				AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
+				--AUDIO_OUT_L, AUDIO_OUT_R: out std_logic;
 
 				-- 7seg LED on baseboard 
 				A_TO_G: out std_logic_vector(6 downto 0); 
 				AN: out std_logic_vector(3 downto 0); 
 				DOT: out std_logic; 
 				-- 4 LEDs on Mercury board (3 and 2 are used by VGA VSYNC and HSYNC)
-				LED: inout std_logic_vector(3 downto 0);
+				--LED: inout std_logic_vector(3 downto 0);
 
 				-- ADC interface
 				-- channel	input
@@ -83,22 +83,22 @@ entity sys_tim011_mercury is
 				-- 5			Channel 5 (free)
 				-- 6			Channel 6 (free)
 				-- 7			Channel 7 (free)
-				ADC_MISO: in std_logic;
-				ADC_MOSI: out std_logic;
-				ADC_SCK: out std_logic;
-				ADC_CSN: out std_logic;
-				--PS2_DATA: in std_logic;
-				--PS2_CLOCK: in std_logic;
+				--ADC_MISO: in std_logic;
+				--ADC_MOSI: out std_logic;
+				--ADC_SCK: out std_logic;
+				--ADC_CSN: out std_logic;
+				PS2_DATA: inout std_logic;
+				PS2_CLOCK: inout std_logic;
 
 				--VGA interface
 				--register state is traced to VGA after each instruction if SW0 = on
 				--640*480 50Hz mode is used, which give 80*60 character display
 				--but to save memory, only 80*50 are used which fits into 4k video RAM
-				--HSYNC: out std_logic;
-				--VSYNC: out std_logic;
-				--RED: out std_logic_vector(2 downto 0);
-				--GRN: out std_logic_vector(2 downto 0);
-				--BLU: out std_logic_vector(1 downto 0);
+				HSYNC: out std_logic;
+				VSYNC: out std_logic;
+				RED: out std_logic_vector(2 downto 0);
+				GRN: out std_logic_vector(2 downto 0);
+				BLU: out std_logic_vector(1 downto 0);
 				
 				--PMOD interface
 				--connection to https://store.digilentinc.com/pmod-kypd-16-button-keypad/
@@ -239,6 +239,19 @@ component configurabledelayline is
            signal_out : out  STD_LOGIC);
 end component;
 
+component vga_controller is
+    Port ( reset : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           hsync : out  STD_LOGIC;
+           vsync : out  STD_LOGIC;
+			  x_valid: out STD_LOGIC;
+			  y_valid: out STD_LOGIC;
+			  h_active: out STD_LOGIC;
+			  v_active: out STD_LOGIC;
+           x : out  STD_LOGIC_VECTOR (8 downto 0);
+           y : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
 --component rx_reg is
 --    Port ( clk : in  STD_LOGIC;
 --           reset : in  STD_LOGIC;
@@ -248,25 +261,37 @@ end component;
 --           dready : out  STD_LOGIC);
 --end component;
 
-component tapeuart is
-    Port ( reset : in  STD_LOGIC;
-           serout : out  STD_LOGIC;
-           serin : in  STD_LOGIC;
-			  freq_mark: in STD_LOGIC;
-			  freq_space: in STD_LOGIC;
-           audio_left : out  STD_LOGIC;
-           audio_right : out  STD_LOGIC;
-           adc_clk : in  STD_LOGIC;
-           adc_samplefreq : in  STD_LOGIC;
-           adc_miso : in  STD_LOGIC;
-           adc_mosi : out  STD_LOGIC;
-           adc_sck : out  STD_LOGIC;
-           adc_csn : out  STD_LOGIC;
-			  --
-			  debugsel: in STD_LOGIC;
-			  debug: out STD_LOGIC_VECTOR(15 downto 0)
-			);
-end component;
+--component tapeuart is
+--    Port ( reset : in  STD_LOGIC;
+--           serout : out  STD_LOGIC;
+--           serin : in  STD_LOGIC;
+--			  freq_mark: in STD_LOGIC;
+--			  freq_space: in STD_LOGIC;
+--           audio_left : out  STD_LOGIC;
+--           audio_right : out  STD_LOGIC;
+--           adc_clk : in  STD_LOGIC;
+--           adc_samplefreq : in  STD_LOGIC;
+--           adc_miso : in  STD_LOGIC;
+--           adc_mosi : out  STD_LOGIC;
+--           adc_sck : out  STD_LOGIC;
+--           adc_csn : out  STD_LOGIC;
+--			  --
+--			  debugsel: in STD_LOGIC;
+--			  debug: out STD_LOGIC_VECTOR(15 downto 0)
+--			);
+--end component;
+
+--component memconsole is
+--    Port ( clk : in  STD_LOGIC;
+--           reset : in  STD_LOGIC;
+--           control : in  STD_LOGIC_VECTOR (3 downto 0);
+--           EN : out  STD_LOGIC;
+--           RD : out  STD_LOGIC;
+--           WR : out  STD_LOGIC;
+--           A : out  STD_LOGIC_VECTOR (15 downto 0);
+--           D : inout  STD_LOGIC_VECTOR (7 downto 0);
+--           DD : out  STD_LOGIC_VECTOR (7 downto 0));
+--end component;
 
 component ps2tim is
     Port ( reset : in  STD_LOGIC;
@@ -291,86 +316,102 @@ component debouncer8channel is
            signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-component memconsole is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-           control : in  STD_LOGIC_VECTOR (3 downto 0);
-           EN : out  STD_LOGIC;
-           RD : out  STD_LOGIC;
-           WR : out  STD_LOGIC;
-           A : out  STD_LOGIC_VECTOR (15 downto 0);
-           D : inout  STD_LOGIC_VECTOR (7 downto 0);
-           DD : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
 
-component memtester is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-			  fill: in STD_LOGIC;
-			  direction: in STD_LOGIC;
-           EN : out  STD_LOGIC;
-           RD : out  STD_LOGIC;
-           WR : out  STD_LOGIC;
-           A : out  STD_LOGIC_VECTOR (15 downto 0);
-           D : inout  STD_LOGIC_VECTOR (7 downto 0);
-           DD : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
 
-type palette is array (0 to 15) of std_logic_vector(2 downto 0);
-signal bgr: palette := (
-	"011",	-- yellow -- this palette looks bad probably because base background color is not black
-	"110",	-- cyan
-	"101",	-- purple
-	"111",	-- white
+component ram32k8 IS
+  PORT (
+    clka : IN STD_LOGIC;
+    ena : IN STD_LOGIC;
+    wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
+    dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+  );
+END component;
 
-	"000",	-- black
-	"101",	-- purple
-	"110",	-- cyan
-	"100",	-- blue
+--component memtester is
+--    Port ( clk : in  STD_LOGIC;
+--           reset : in  STD_LOGIC;
+--			  fill: in STD_LOGIC;
+--			  direction: in STD_LOGIC;
+--           EN : out  STD_LOGIC;
+--           RD : out  STD_LOGIC;
+--           WR : out  STD_LOGIC;
+--           A : out  STD_LOGIC_VECTOR (15 downto 0);
+--           D : inout  STD_LOGIC_VECTOR (7 downto 0);
+--           DD : out  STD_LOGIC_VECTOR (7 downto 0));
+--end component;
+--
+--type palette is array (0 to 15) of std_logic_vector(2 downto 0);
+--signal bgr: palette := (
+--	"011",	-- yellow -- this palette looks bad probably because base background color is not black
+--	"110",	-- cyan
+--	"101",	-- purple
+--	"111",	-- white
+--
+--	"000",	-- black
+--	"101",	-- purple
+--	"110",	-- cyan
+--	"100",	-- blue
+--
+--	"000",	-- black
+--	"011",	-- yellow
+--	"110",	-- cyan
+--	"010",	-- green
+--
+--	"000",	-- black
+--	"011",	-- yellow
+--	"101",	-- purple
+--	"001" 	-- red
+--);
 
-	"000",	-- black
-	"011",	-- yellow
-	"110",	-- cyan
-	"010",	-- green
-
-	"000",	-- black
-	"011",	-- yellow
-	"101",	-- purple
-	"001" 	-- red
+type vga_palette is array (0 to 15) of std_logic_vector(7 downto 0);
+signal rgb: vga_palette := (
+	"00000011", -- screen outside of TIM window
+	"00000011", -- screen outside of TIM window
+	"00000011", -- screen outside of TIM window
+	"00000011", -- screen outside of TIM window
+	"00011100", -- screen outside of TIM window
+	"00011100", -- screen outside of TIM window
+	"00011100", -- screen outside of TIM window
+	"00011100", -- screen outside of TIM window
+	"11100000", -- screen outside of TIM window
+	"11100000", -- screen outside of TIM window
+	"11100000", -- screen outside of TIM window
+	"11100000", -- screen outside of TIM window
+	"00000000", -- black
+	"01001001", -- dk gray
+	"10010010", -- lt gray
+	"11111111"  -- white
 );
 
 signal RESET: std_logic;
 
 -- debug
-signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
 signal digsel: std_logic_vector(1 downto 0);
-signal offset_new: std_logic_vector(7 downto 0);
-signal offset_add_lo_cout: std_logic;
---signal h, digsel0_delayed: std_logic;
 signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
-signal data: std_logic_vector(15 downto 0);
-signal freq_uart, freq_uart4: std_logic;
 
 --- frequency signals
-signal freq24M, dotclk, freq0M75: std_logic;
+signal freq24M, freq25M, dotclk, freq0M75: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
 
 --- video sync signals
-signal gr_hsync, gr_vsync: std_logic;
-signal sh_hsync, sh_vsync : std_logic;
-signal out_hsync, out_vsync : std_logic;
-signal hsync_cnt, vsync_cnt, h_duration, v_duration: std_logic_vector(15 downto 0); 
-signal enable_hshot, enable_vshot : std_logic;
+signal x_valid, y_valid: std_logic;
+signal h_active, v_active : std_logic;
+signal vga_x: std_logic_vector(8 downto 0); -- 512 pixels horizontally
+signal vga_y: std_logic_vector(7 downto 0); -- 256 pixels vertically
 -- video data signals
-signal gr_vid2, gr_vid1: std_logic;
-signal color: std_logic_vector(3 downto 0); -- combines one of 1 palettes plus vid2 and vid1
+signal color_index: std_logic_vector(3 downto 0);
+signal vga_color: std_logic_vector(7 downto 0);
+signal pair: std_logic_vector(1 downto 0); -- 2 bit pixel
 -- video memory bus
-signal vm_en, vm_rd, vm_wr: std_logic;
-signal D, DD: std_logic_vector(7 downto 0);
-signal A: std_logic_vector(15 downto 0);
+signal vram_wr_nrd, tim_wr_nrd: std_logic;
+signal vram_dina, vram_douta: std_logic_vector(7 downto 0);
+signal vram_addra, vga_a, tim_a: std_logic_vector(14 downto 0);
+signal vram_wea: std_logic_vector(0 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
@@ -394,8 +435,6 @@ alias RXD_TTY: std_logic is PMOD(5);		-- in
 alias TXD_TTY: std_logic is PMOD(6);		-- out
 alias nCTS: std_logic is PMOD(7);	-- in, active low
 
-
-
 begin
    
 -- connect to "oscilloscope"
@@ -405,7 +444,6 @@ PMOD(2) <= RXD_TTY;
 PMOD(3) <= TXD_TTY;
 	
 RESET <= USR_BTN;
---dotclk <= EXT_CLK;	-- 12MHz "half-size" crystal on Mercury baseboard
 	
 clockgen: sn74hc4040 port map (
 			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
@@ -427,6 +465,7 @@ clockgen: sn74hc4040 port map (
 prescale: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
+		freq25M <= not freq25M;	-- used for VGA 640*480
 		if (prescale_baud = 0) then
 			freq153600 <= not freq153600;
 			prescale_baud <= (50000000 / (2 * 153600));
@@ -497,8 +536,8 @@ kbd: ps2tim Port map (
          uart_rx => TXD_TTY,
          uart_tx => RXD_TTY,
 			uart_mode => switch(4 downto 2),
-         ps2_clk => LED(1),
-         ps2_data => LED(0),
+         ps2_clk => PS2_CLOCK, --LED(1),
+         ps2_data => PS2_DATA, --LED(0),
 			kbd_alt => kbd_alt,
 			kbd_shift => kbd_shift,
 			kbd_ctrl => kbd_ctrl,
@@ -506,6 +545,50 @@ kbd: ps2tim Port map (
 			debugsel => switch(0),
          debug => display
 		);
+
+vga: vga_controller Port map ( 
+		reset => RESET,
+      clk => freq25M,
+      hsync => HSYNC,
+      vsync => VSYNC,
+		x_valid => x_valid,
+		y_valid => y_valid,
+		h_active => open,
+		v_active => open,
+      x => vga_x,
+      y => vga_y
+	);
+
+mem: ram32k8 PORT MAP (
+    clka => CLK,
+	 ena => '1',
+    wea => vram_wea,
+    addra => vram_addra,
+    dina => vram_dina,
+    douta => vram_douta
+  );
+
+vram_wr_nrd <= '0'; --'0' when (y_valid = '1') else tim_rd_nwr;
+
+vram_addra <= (vga_y & vga_x(8 downto 2)) when (y_valid = '1') else tim_a;
+vram_wea <= (others => vram_wr_nrd);
+
+-- pixels are stored 11003322
+-- see https://github.com/zpekic/Sys_TIM-011/blob/master/Img2Tim/Img2Tim/Program.cs
+with vga_x(1 downto 0) select pair <=
+	vram_douta(5 downto 4) when "00",
+	vram_douta(7 downto 6) when "01",
+	vram_douta(1 downto 0) when "10",
+	vram_douta(3 downto 2) when others;
+
+-- color index also takes into account selected palette and if in TIM window
+color_index <= y_valid & x_valid & pair; 
+
+-- now convert to VGA 8-bit color
+vga_color <= rgb(to_integer(unsigned(color_index)));
+RED <= vga_color(7 downto 5);
+GRN <= vga_color(4 downto 2);
+BLU <= vga_color(1 downto 0);
 
 --console: memconsole Port map(
 --			clk => freq2,
@@ -519,56 +602,56 @@ kbd: ps2tim Port map (
 --         DD => DD
 --	);
 
-mtest: memtester Port map(
-			clk => test_clk,
-         reset => RESET,
-			fill => test_dynamic,
-			direction => button(2),
-         EN => vm_en,
-         RD => vm_rd,
-         WR => vm_wr,
-         A => A,
-         D => D,
-         DD => DD
-	);
+--mtest: memtester Port map(
+--			clk => test_clk,
+--         reset => RESET,
+--			fill => test_dynamic,
+--			direction => button(2),
+--         EN => vm_en,
+--         RD => vm_rd,
+--         WR => vm_wr,
+--         A => A,
+--         D => D,
+--         DD => DD
+--	);
+----	
+--test_static <= '1' when (button(3 downto 0) = "0010") else '0';
+--test_dynamic <= '0' when (button(3 downto 2) = "00") else '1';
+--test_scroll <= nScrollEnable when (button(3 downto 0) = "0001") else '1';
+--
+--test_clk <= freq38400 when (button(3 downto 2) = "11") else freq9600;
+--
+---- scroll logic
+--nScrollEnable <= vm_en or vm_rd or vm_wr;	-- low if all all, meaning no other bus activity
+--
+--offset_reg: sn74ls374 Port map ( 
+--			nOC => nScrollEnable,
+--         CLK => test_scroll,
+--         D => offset_new,
+--         Q => D
+--	);
+--
+--offset_add_hi: sn74ls283 Port map ( -- add +1 or -1 to offset)
+--			c0 => offset_add_lo_cout,
+--			a(4) => switch(0),
+--			a(3) => switch(0),
+--			a(2) => switch(0),
+--			a(1) => switch(0),
+--			b => D(7 downto 4),
+--			s => offset_new(7 downto 4),
+--			c4 => open
+--	);
 --	
-test_static <= '1' when (button(3 downto 0) = "0010") else '0';
-test_dynamic <= '0' when (button(3 downto 2) = "00") else '1';
-test_scroll <= nScrollEnable when (button(3 downto 0) = "0001") else '1';
-
-test_clk <= freq38400 when (button(3 downto 2) = "11") else freq9600;
-
--- scroll logic
-nScrollEnable <= vm_en or vm_rd or vm_wr;	-- low if all all, meaning no other bus activity
-
-offset_reg: sn74ls374 Port map ( 
-			nOC => nScrollEnable,
-         CLK => test_scroll,
-         D => offset_new,
-         Q => D
-	);
-
-offset_add_hi: sn74ls283 Port map ( -- add +1 or -1 to offset)
-			c0 => offset_add_lo_cout,
-			a(4) => switch(0),
-			a(3) => switch(0),
-			a(2) => switch(0),
-			a(1) => switch(0),
-			b => D(7 downto 4),
-			s => offset_new(7 downto 4),
-			c4 => open
-	);
-	
-offset_add_lo: sn74ls283 Port map ( 
-			c0 => '0',
-			a(4) => switch(0),
-			a(3) => switch(0),
-			a(2) => switch(0),
-			a(1) => '1',
-			b => D(3 downto 0),
-			s => offset_new(3 downto 0),
-			c4 => offset_add_lo_cout
-	);	
+--offset_add_lo: sn74ls283 Port map ( 
+--			c0 => '0',
+--			a(4) => switch(0),
+--			a(3) => switch(0),
+--			a(2) => switch(0),
+--			a(1) => '1',
+--			b => D(3 downto 0),
+--			s => offset_new(3 downto 0),
+--			c4 => offset_add_lo_cout
+--	);	
 --	
 
 --	video: Grafika port map (
@@ -593,15 +676,15 @@ offset_add_lo: sn74ls283 Port map (
 	
 --LED(0) <= dotclk;
 --LED(1) <= vm_en;
-LED(2) <= vm_rd;
-LED(3) <= vm_wr;
+--LED(2) <= x_valid;
+--LED(3) <= y_valid;
 
 -- Connect to GBS8200 gray wire
 	--PMOD(3) <= out_hsync xor out_vsync;
 	
 -- connect to GBS8200 blue / green / red wires
 	--PMOD(2 downto 0) <= bgr(to_integer(unsigned(color)));
-	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;
+	--color <= switch(3 downto 2) & gr_vid2 & gr_vid1;
 
 --	HSYNC <= not sh_hsync;
 --	VSYNC <= not sh_vsync;
@@ -611,15 +694,15 @@ LED(3) <= vm_wr;
 --	GRN <= "000";
 
 --with switch(7 downto 6) select
-		out_hsync <= 	gr_hsync; -- when "00",
+		--out_hsync <= 	gr_hsync; -- when "00",
 							--sh_hsync when "01",
 							--not gr_hsync when "10",			-- STABLE SETTING
 							--not sh_hsync when others;
 
 --with switch(5 downto 4) select
-		out_vsync <= 	--gr_vsync when "00",				-- STABLE SETTING
+		--out_vsync <= 	--gr_vsync when "00",				-- STABLE SETTING
 							--sh_vsync when "01",
-							not gr_vsync; -- when "10",
+							--not gr_vsync; -- when "10",
 							--not sh_vsync when others;
 							
 leds: fourdigitsevensegled Port map ( 
@@ -680,47 +763,47 @@ with switch(7 downto 5) select
 							freq600  when "001",
 							freq300 when others;		
 
-streamer: tapeuart port map ( 
-				reset => RESET,
-				serout => open, --RXD_TTY,
-				serin => '1', --TXD_TTY,
-				freq_mark => freq4800,
-				freq_space => freq2400,
-				audio_left => AUDIO_OUT_L,
-				audio_right => AUDIO_OUT_R,
-				adc_clk => freq24M,
-				adc_samplefreq => freq0M75,
-				adc_miso => ADC_MISO,
-				adc_mosi => ADC_MOSI,
-				adc_sck => ADC_SCK,
-				adc_csn => ADC_CSN,
-				----
-				debugsel => switch(0),
-				debug => open --display
-			);
+--streamer: tapeuart port map ( 
+--				reset => RESET,
+--				serout => open, --RXD_TTY,
+--				serin => '1', --TXD_TTY,
+--				freq_mark => freq4800,
+--				freq_space => freq2400,
+--				audio_left => AUDIO_OUT_L,
+--				audio_right => AUDIO_OUT_R,
+--				adc_clk => freq24M,
+--				adc_samplefreq => freq0M75,
+--				adc_miso => ADC_MISO,
+--				adc_mosi => ADC_MOSI,
+--				adc_sck => ADC_SCK,
+--				adc_csn => ADC_CSN,
+--				----
+--				debugsel => switch(0),
+--				debug => open --display
+--			);
 
 --
-serin: uart_receiver Port map ( 
-				rx_clk4 => baudrate_x4,
-				reset => RESET,
-				rx => RXD_TTY,	-- "txd" looking from the sender side
-				mode => switch(4 downto 2), 
-				frame_active => frame_active,
-				frame_ready => frame_ready, 
-				frame_valid => frame_valid,
-				frame_data => frame_data
-		);
-
-capture_frame: process(RESET, frame_data, frame_ready)
-begin
-	if (RESET = '1') then
-		sr <= X"FFFFFFFF";
-	else
-		if (rising_edge(frame_ready)) then
-			sr <= sr(15 downto 0) & frame_data;
-		end if;
-	end if;
-end process;
+--serin: uart_receiver Port map ( 
+--				rx_clk4 => baudrate_x4,
+--				reset => RESET,
+--				rx => RXD_TTY,	-- "txd" looking from the sender side
+--				mode => switch(4 downto 2), 
+--				frame_active => frame_active,
+--				frame_ready => frame_ready, 
+--				frame_valid => frame_valid,
+--				frame_data => frame_data
+--		);
+--
+--capture_frame: process(RESET, frame_data, frame_ready)
+--begin
+--	if (RESET = '1') then
+--		sr <= X"FFFFFFFF";
+--	else
+--		if (rising_edge(frame_ready)) then
+--			sr <= sr(15 downto 0) & frame_data;
+--		end if;
+--	end if;
+--end process;
 
 --serout: uart_sender port map (
 --				tx_clk => baudrate_x1,
@@ -732,7 +815,6 @@ end process;
 --				enable => frame_valid,
 --				data => frame_data(7 downto 0)
 --		);
-
 
 ----display <= std_logic_vector(max(7 downto 0)) & std_logic_vector(min(7 downto 0)) when (switch(1) = '0') else freq_value;
 --display <= freq_value;

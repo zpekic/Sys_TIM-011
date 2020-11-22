@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Sat Oct 03 22:59:08 2020
+# Date: Sun Nov 22 06:58:05 2020
 #
 ##############################################################
 #
@@ -46,7 +46,7 @@ CSET axi_id_width=4
 CSET axi_slave_type=Memory_Slave
 CSET axi_type=AXI4_Full
 CSET byte_size=9
-CSET coe_file=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Banners\tim011_banner.coe
+CSET coe_file=C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Banners\TIM-011_skolski_racunar_1987.coe
 CSET collision_warnings=ALL
 CSET component_name=ram32k8
 CSET disable_collision_warnings=false
@@ -105,4 +105,4 @@ CSET write_width_b=8
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: 5736b9cd
+# CRC: 7645f750
