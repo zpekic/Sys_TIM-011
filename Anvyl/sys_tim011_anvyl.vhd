@@ -121,10 +121,10 @@ entity sys_tim011_anvyl is
 				-- breadboard signal connections
 				BB1: in std_logic;
 				--BB2: out std_logic;
-				--BB3: out std_logic;
-				--BB4: out std_logic;
-				--BB5: out std_logic;
-				--BB6: out std_logic;
+				BB3: out std_logic;
+				BB4: out std_logic;
+				BB5: out std_logic;
+				BB6: out std_logic;
 				BB7: out std_logic;
 				BB8: out std_logic;
 				BB9: out std_logic;
@@ -301,11 +301,15 @@ signal bgr: palette := (
 alias RESET: std_logic is BTN(3);
 alias EXT_CLK: std_logic is BB1;
 --		GBS8200_BLACK							-- GND on breadboard
-alias GBS8200_GRAY: std_logic is BB10; -- next to GND on breadboard
-alias GBS8200_BLUE: std_logic is BB9; 
-alias GBS8200_GREEN: std_logic is BB8;
-alias GBS8200_RED: std_logic is BB7; 
-
+alias GBS8200_GRAY: std_logic is BB10; -- CSYNC next to GND on breadboard
+alias GBS8200_BLUE: std_logic is BB9; 	-- BLUE
+alias GBS8200_GREEN: std_logic is BB8;	-- GREEN
+alias GBS8200_RED: std_logic is BB7; 	-- RED
+-- 	MERCURY BLACK 							-- GND on breaboard
+alias MERCURY_WHITE: std_logic is BB6;	-- HSYNC
+alias MERCURY_BLUE: std_logic is BB5;	-- VSYNC
+alias MERCURY_GRAY: std_logic is BB4;	-- VIDEO2
+alias MERCURY_RED: std_logic is BB3;	-- VIDEO1
 
 -- debug
 signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
@@ -340,14 +344,6 @@ signal A: std_logic_vector(15 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
---- test mouse
---signal mouse_left, mouse_right, mouse_middle: std_logic;
---signal mouse_x: integer range 0 to 511;
---signal mouse_y: integer range 0 to 255;
-
---alias ps2_data: std_logic is LED(0);
---alias ps2_clk: std_logic is LED(1);
---signal frame_parity: std_logic;
 
 -- ADC
 signal adc_trigger  : std_logic := '1';              -- go sample from ADC
@@ -374,10 +370,8 @@ signal sr: std_logic_vector(31 downto 0);
 --alias TXD: std_logic is PMOD(6);		-- out
 --alias nCTS: std_logic is PMOD(7);	-- in, active low
 
-  
 begin
-  
-	
+  	
 clockgen: sn74hc4040 port map (
 			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
@@ -541,10 +535,10 @@ offset_add_lo: sn74ls283 Port map (
 		  test => test_static,
 		  vid_gated => switch(1), -- do not gate vid1/2 on dotclk (this is different from original!)
 		-- monitor side
-		  hsync => gr_hsync, --HSYNC,
-		  vsync => gr_vsync,--VSYNC,
-		  vid1 => gr_vid1, --BLU(0),
-		  vid2 => gr_vid2  --BLU(1)
+		  hsync => gr_hsync, 
+		  vsync => gr_vsync,
+		  vid1 => gr_vid1, 
+		  vid2 => gr_vid2  
 	);
 	
 LED(0) <= dotclk;
@@ -556,34 +550,21 @@ LED(5) <= gr_vsync;
 LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
--- Connect to GBS8200 gray wire
-	GBS8200_GRAY <= out_hsync xor out_vsync;
+-- Connect to GBS8200 gray wire (composite sync!)
+	GBS8200_GRAY <= gr_hsync xor (not gr_vsync);
 	
 -- connect to GBS8200 blue / green / red wires
+	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;	-- select color from 1 of 4 palettes
 	GBS8200_BLUE	<= bgr(to_integer(unsigned(color)))(2);
 	GBS8200_GREEN	<= bgr(to_integer(unsigned(color)))(1);
 	GBS8200_RED		<= bgr(to_integer(unsigned(color)))(0);
-	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;
+	
+-- connect to Mercury
+	MERCURY_WHITE	<= gr_hsync;	-- HSYNC
+	MERCURY_BLUE <= gr_vsync;		-- VSYNC
+	MERCURY_GRAY <= gr_vid2;		-- VIDEO2
+	MERCURY_RED <= gr_vid1;			-- VIDEO1
 
---	HSYNC <= not sh_hsync;
---	VSYNC <= not sh_vsync;
---	BLU(1) <= switch(1) xor gr_vid2;
---	BLU(0) <= switch(0) xor gr_vid1;
---	RED <= "000";
---	GRN <= "000";
-
---with switch(7 downto 6) select
-		out_hsync <= 	gr_hsync; -- when "00",
-							--sh_hsync when "01",
-							--not gr_hsync when "10",			-- STABLE SETTING
-							--not sh_hsync when others;
-
---with switch(5 downto 4) select
-		out_vsync <= 	--gr_vsync when "00",				-- STABLE SETTING
-							--sh_vsync when "01",
-							not gr_vsync; -- when "10",
-							--not sh_vsync when others;
-							
 -- 
 -- "equivalent" to circuit here: https://cloud.mail.ru/public/FaGH/Jeve8hrKJ/ploca/sch_ttl.png
 -- timings reverse engineered from: https://www.futurlec.com/74LS/74LS221.shtml

@@ -103,6 +103,8 @@ entity sys_tim011_mercury is
 				--PMOD interface
 				--connection to https://store.digilentinc.com/pmod-kypd-16-button-keypad/
 				PMOD: inout std_logic_vector(7 downto 0)
+				--PMOD(3 downto 0): out std_logic_vector(3 downto 0);
+				--PMOD(7 downto 4): in std_logic_vector(7 downto 4)
           );
 end sys_tim011_mercury;
 
@@ -244,12 +246,31 @@ component vga_controller is
            clk : in  STD_LOGIC;
            hsync : out  STD_LOGIC;
            vsync : out  STD_LOGIC;
+			  h_valid: buffer STD_LOGIC;
+			  v_valid: buffer STD_LOGIC;
+			  h : buffer STD_LOGIC_VECTOR(9 downto 0);
+			  v : buffer STD_LOGIC_VECTOR(9 downto 0);
 			  x_valid: out STD_LOGIC;
 			  y_valid: out STD_LOGIC;
-			  h_active: out STD_LOGIC;
-			  v_active: out STD_LOGIC;
            x : out  STD_LOGIC_VECTOR (8 downto 0);
            y : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
+component chargen_rom is
+    Port ( a : in  STD_LOGIC_VECTOR (10 downto 0);
+           d : out  STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
+component tim_sampler is
+    Port ( reset : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           hsync : in  STD_LOGIC;
+           vsync : in  STD_LOGIC;
+           v2 : in  STD_LOGIC;
+           v1 : in  STD_LOGIC;
+           a : out  STD_LOGIC_VECTOR (14 downto 0);
+           d : out  STD_LOGIC_VECTOR (7 downto 0);
+           we : out  STD_LOGIC);
 end component;
 
 --component rx_reg is
@@ -316,8 +337,6 @@ component debouncer8channel is
            signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-
-
 component ram32k8 IS
   PORT (
     clka : IN STD_LOGIC;
@@ -365,25 +384,33 @@ END component;
 --	"001" 	-- red
 --);
 
-type vga_palette is array (0 to 15) of std_logic_vector(7 downto 0);
-signal rgb: vga_palette := (
-	"00000011", -- screen outside of TIM window
-	"00000011", -- screen outside of TIM window
-	"00000011", -- screen outside of TIM window
-	"00000011", -- screen outside of TIM window
-	"00011100", -- screen outside of TIM window
-	"00011100", -- screen outside of TIM window
-	"00011100", -- screen outside of TIM window
-	"00011100", -- screen outside of TIM window
-	"11100000", -- screen outside of TIM window
-	"11100000", -- screen outside of TIM window
-	"11100000", -- screen outside of TIM window
-	"11100000", -- screen outside of TIM window
-	"00000000", -- black
-	"01001001", -- dk gray
-	"10010010", -- lt gray
-	"11111111"  -- white
-);
+--type vga_palette is array (0 to 15) of std_logic_vector(7 downto 0);
+--signal tim_color: vga_palette := (
+--	"00000011", -- screen outside of TIM window
+--	"00000011", -- screen outside of TIM window
+--	"00000011", -- screen outside of TIM window
+--	"00000011", -- screen outside of TIM window
+--	"00011100", -- screen outside of TIM window
+--	"00011100", -- screen outside of TIM window
+--	"00011100", -- screen outside of TIM window
+--	"00011100", -- screen outside of TIM window
+--	"11100000", -- screen outside of TIM window
+--	"11100000", -- screen outside of TIM window
+--	"11100000", -- screen outside of TIM window
+--	"11100000", -- screen outside of TIM window
+--	"00000000", -- black
+--	"01001001", -- dk gray
+--	"10010010", -- lt gray
+--	"11111111"  -- white
+--);
+
+constant color_black:	std_logic_vector(7 downto 0):= "00000000";
+constant color_blue:		std_logic_vector(7 downto 0):= "00000011";
+constant color_green:	std_logic_vector(7 downto 0):= "00011100";
+constant color_cyan:		std_logic_vector(7 downto 0):= "00011111";
+constant color_white:	std_logic_vector(7 downto 0):= "11111111";
+constant color_ltgray:	std_logic_vector(7 downto 0):= "10010010";
+constant color_dkgray:	std_logic_vector(7 downto 0):= "00100101";
 
 signal RESET: std_logic;
 
@@ -400,13 +427,20 @@ signal freq4096, freq2, freq4: std_logic;
 
 --- video sync signals
 signal x_valid, y_valid: std_logic;
-signal h_active, v_active : std_logic;
+signal h_valid, v_valid : std_logic;
+signal tim_window, vga_window: std_logic;
 signal vga_x: std_logic_vector(8 downto 0); -- 512 pixels horizontally
 signal vga_y: std_logic_vector(7 downto 0); -- 256 pixels vertically
+signal h, v: std_logic_vector(9 downto 0);
+alias col: std_logic_vector(6 downto 0) is h(9 downto 3);
+alias row: std_logic_vector(6 downto 0) is v(9 downto 3);
 -- video data signals
 signal color_index: std_logic_vector(3 downto 0);
-signal vga_color: std_logic_vector(7 downto 0);
+signal vga_color, text_color: std_logic_vector(7 downto 0);
 signal pair: std_logic_vector(1 downto 0); -- 2 bit pixel
+signal char, pattern: std_logic_vector(7 downto 0);
+signal text_pix: std_logic;
+
 -- video memory bus
 signal vram_wr_nrd, tim_wr_nrd: std_logic;
 signal vram_dina, vram_douta: std_logic_vector(7 downto 0);
@@ -430,18 +464,23 @@ signal sr: std_logic_vector(31 downto 0);
 signal kbd_alt, kbd_shift, kbd_ctrl, kbd_caps: STD_LOGIC;
 
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
-alias nRTS: std_logic is PMOD(4); 	-- out, active low
-alias RXD_TTY: std_logic is PMOD(5);		-- in
-alias TXD_TTY: std_logic is PMOD(6);		-- out
-alias nCTS: std_logic is PMOD(7);	-- in, active low
+--alias nRTS: std_logic is PMOD(4); 	-- out, active low
+--alias RXD_TTY: std_logic is PMOD(5);		-- in
+--alias TXD_TTY: std_logic is PMOD(6);		-- out
+--alias nCTS: std_logic is PMOD(7);	-- in, active low
+signal tim_freq: std_logic;
+alias TIM_HSYNC: std_logic is PMOD(7);
+alias TIM_VSYNC: std_logic is PMOD(6);
+alias TIM_VIDEO2: std_logic is PMOD(5);
+alias TIM_VIDEO1: std_logic is PMOD(4);
 
 begin
    
 -- connect to "oscilloscope"
-PMOD(0) <= baudrate_x4;
-PMOD(1) <= baudrate_x1;
-PMOD(2) <= RXD_TTY;
-PMOD(3) <= TXD_TTY;
+PMOD(3) <= PMOD(7); --TIM_HSYNC;  --TXD_TTY;
+PMOD(2) <= PMOD(6); --TIM_VSYNC;  --RXD_TTY;
+PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
+PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
 	
 RESET <= USR_BTN;
 	
@@ -530,31 +569,45 @@ powergen: sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
-kbd: ps2tim Port map ( 
-			reset => RESET,
-         uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
-         uart_rx => TXD_TTY,
-         uart_tx => RXD_TTY,
-			uart_mode => switch(4 downto 2),
-         ps2_clk => PS2_CLOCK, --LED(1),
-         ps2_data => PS2_DATA, --LED(0),
-			kbd_alt => kbd_alt,
-			kbd_shift => kbd_shift,
-			kbd_ctrl => kbd_ctrl,
-			kbd_caps => kbd_caps,
-			debugsel => switch(0),
-         debug => display
-		);
+--kbd: ps2tim Port map ( 
+--			reset => RESET,
+--         uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
+--         uart_rx => TXD_TTY,
+--         uart_tx => RXD_TTY,
+--			uart_mode => switch(4 downto 2),
+--         ps2_clk => PS2_CLOCK, --LED(1),
+--         ps2_data => PS2_DATA, --LED(0),
+--			kbd_alt => kbd_alt,
+--			kbd_shift => kbd_shift,
+--			kbd_ctrl => kbd_ctrl,
+--			kbd_caps => kbd_caps,
+--			debugsel => switch(0),
+--         debug => display
+--		);
 
+tim: tim_sampler port map (
+		reset => RESET,
+		clk => EXT_CLK, -- 48MHz (4 times oversample of 12MHz)
+		hsync => TIM_HSYNC,
+		vsync => TIM_VSYNC,
+		v2 =>	TIM_VIDEO2,
+		v1 => TIM_VIDEO1,
+		a => tim_a,
+		d => vram_dina,
+		we => tim_wr_nrd
+	);
+		
 vga: vga_controller Port map ( 
 		reset => RESET,
       clk => freq25M,
       hsync => HSYNC,
       vsync => VSYNC,
+		h_valid => h_valid,
+		v_valid => v_valid,
+		h => h,
+		v => v,
 		x_valid => x_valid,
 		y_valid => y_valid,
-		h_active => open,
-		v_active => open,
       x => vga_x,
       y => vga_y
 	);
@@ -568,9 +621,12 @@ mem: ram32k8 PORT MAP (
     douta => vram_douta
   );
 
-vram_wr_nrd <= '0'; --'0' when (y_valid = '1') else tim_rd_nwr;
+tim_window <= x_valid and y_valid;
+vga_window <= v_valid and h_valid;
 
-vram_addra <= (vga_y & vga_x(8 downto 2)) when (y_valid = '1') else tim_a;
+-- TIM sampler only has access during VSYNC
+vram_addra <= (vga_y & vga_x(8 downto 2)) when (vga_window = '1') else tim_a;
+vram_wr_nrd <= '0' when (vga_window = '1') else (tim_wr_nrd and switch(0));
 vram_wea <= (others => vram_wr_nrd);
 
 -- pixels are stored 11003322
@@ -582,13 +638,45 @@ with vga_x(1 downto 0) select pair <=
 	vram_douta(3 downto 2) when others;
 
 -- color index also takes into account selected palette and if in TIM window
-color_index <= y_valid & x_valid & pair; 
-
+color_index <= vga_window & tim_window & pair; 
+with color_index select vga_color <=
+	text_color when "1000",		-- text outside tim window
+	text_color when "1001",
+	text_color when "1010",
+	text_color when "1011",
+	color_dkgray when "1100",	-- tim pixel 00
+	color_ltgray when "1101",	-- tim pixel 01
+	color_green  when "1110",	-- tim pixel 10
+	color_white when "1111",	-- tim pixel 11
+	color_black when others;	-- outside pixel area (border)
+	
 -- now convert to VGA 8-bit color
-vga_color <= rgb(to_integer(unsigned(color_index)));
+--vga_color <= rgb(to_integer(unsigned(color_index)));
+--vga_color <= tim_color(to_integer(unsigned(color_index))) when (color_index(3 downto 2) = "11") else text_color;
 RED <= vga_color(7 downto 5);
 GRN <= vga_color(4 downto 2);
 BLU <= vga_color(1 downto 0);
+
+-- background text display for fun
+char <= (row & '0') xor (col & '0');
+
+chargen: chargen_rom Port map ( 
+		a(10 downto 3) => char,
+		a(2 downto 0) => v(2 downto 0),
+      d => pattern
+	);
+
+with h(2 downto 0) select text_pix <= 
+	pattern(7) when O"0",
+	pattern(6) when O"1",
+	pattern(5) when O"2",
+	pattern(4) when O"3",
+	pattern(3) when O"4",
+	pattern(2) when O"5",
+	pattern(1) when O"6",
+	pattern(0) when others;
+	
+text_color <= color_cyan when (text_pix = '1') else color_blue;
 
 --console: memconsole Port map(
 --			clk => freq2,
@@ -730,6 +818,23 @@ with digsel select
 					display(11 downto 8) when "10",
 					display(15 downto 12) when others;
 
+counter: freqcounter Port map ( 
+		reset => RESET,
+      clk => freq2,
+      freq => tim_freq,
+		bcd => '0',
+		double => '1',
+		limit => X"FFFF",
+		ge => open,
+      value => display
+	);
+
+with switch(1 downto 0) select tim_freq <=
+	TIM_VIDEO1 when "00",
+	TIM_VIDEO2 when "01",
+	TIM_VSYNC	when "10",
+	TIM_HSYNC	when others;
+	
 --
 -- UART input coming either directly from USB2UART, or ADC
 -- 

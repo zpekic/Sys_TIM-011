@@ -34,10 +34,12 @@ entity vga_controller is
            clk : in  STD_LOGIC;
            hsync : out  STD_LOGIC;
            vsync : out  STD_LOGIC;
+			  h_valid: buffer STD_LOGIC;
+			  v_valid: buffer STD_LOGIC;
+			  h : buffer STD_LOGIC_VECTOR(9 downto 0);
+			  v : buffer STD_LOGIC_VECTOR(9 downto 0);
 			  x_valid: out STD_LOGIC;
 			  y_valid: out STD_LOGIC;
-			  h_active: out STD_LOGIC;
-			  v_active: out STD_LOGIC;
            x : out  STD_LOGIC_VECTOR (8 downto 0);
            y : out  STD_LOGIC_VECTOR (7 downto 0));
 end vga_controller;
@@ -88,7 +90,7 @@ begin
 x <= h_cnt(8 downto 0);
 h_current <= h_signal(h_index);
 x_valid <= h_current(12);
-h_active <= h_current(13);
+h_valid <= h_current(13);
 hsync <= h_current(14);
 
 dotclk <= clk;
@@ -100,6 +102,13 @@ begin
 		h_index <= 0;
 	else
 		if (rising_edge(dotclk)) then
+			-- VGA pixels
+			if (h_valid = '1') then
+				h <= std_logic_vector(unsigned(h) + 1);
+			else
+				h <= "0000000000";
+			end if;
+			-- TIM pixels
 			if (h_cnt = h_limit) then
 				h_cnt <= "0000000000";
 				if (h_reset = '1') then
@@ -118,7 +127,7 @@ end process;
 y <= v_cnt(7 downto 0);
 v_current <= v_signal(v_index);
 y_valid <= v_current(12);
-v_active <= v_current(13);
+v_valid <= v_current(13);
 vsync <= v_current(14);
 
 lineclk <= not h_current(14);
@@ -130,6 +139,13 @@ begin
 		v_index <= 0;
 	else
 		if (rising_edge(lineclk)) then
+			-- VGA pixels
+			if (v_valid = '1') then
+				v <= std_logic_vector(unsigned(v) + 1);
+			else
+				v <= "0000000000";
+			end if;
+			-- TIM pixels
 			if (v_cnt = v_limit) then
 				v_cnt <= "0000000000";
 				if (v_reset = '1') then
