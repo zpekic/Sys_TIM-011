@@ -1,0 +1,76 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    14:06:25 11/27/2020 
+-- Design Name: 
+-- Module Name:    voter - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity voter is
+    Port ( value : in  STD_LOGIC_VECTOR (3 downto 0);
+           limit : in  STD_LOGIC_VECTOR (4 downto 0);
+           vote : out  STD_LOGIC);
+end voter;
+
+architecture Behavioral of voter is
+
+--
+--type bitcnt_lookup is array (0 to 15) of std_logic_vector(3 downto 0);
+--
+--signal bitcnt: bitcnt_lookup := (
+--	X"0",
+--	X"1",
+--	X"1",
+--	X"2",
+--	X"1",
+--	X"2",
+--	X"2",
+--	X"3",
+--	X"1",
+--	X"2",
+--	X"2",
+--	X"3",
+--	X"2",
+--	X"3",
+--	X"3",
+--	X"4"
+--);
+--
+begin
+--
+--vote <= '1' when (unsigned(bitcnt(to_integer(unsigned(value)))) > unsigned(limit)) else '0';
+
+	with value select vote <=
+		'1' when "1111",
+		limit(4) when "1110",
+		limit(3) when "0111",
+		limit(2) when "1100",
+		limit(1) when "0110",
+		limit(0) when "0011",
+		'0' when others;
+
+end Behavioral;
+

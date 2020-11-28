@@ -39,32 +39,17 @@ entity sys_tim011_anvyl is
 				CLK: in std_logic;
 				-- Switches
 				-- SW(0) -- LED display selection
-				--		0 AAAA.DD (CPU bus)
-				--		1 UU.TT.EE (microinstruction)
 				-- SW(2 downto 1) -- tracing selection
-				--   X	0  no tracing
-				--   0   1  UART trace 38400 baud
-				--   1   1  VGA trace
 				-- SW(3)
-				--		0 select ROM0
-				-- 	1 select ROM1
 				-- SW(4)
-				-- 	0 1802 mode
-				--    1 1805 mode
 				-- SW(6 downto 5) -- system clock speed 
-				--   0   0	16Hz	(can be used with SS mode)
-				--   0   1	1024Hz (can be used with SS mode)
-				--   1   0  12.5MHz
-				--   1   1  25MHz
 				-- SW7
-				--   0   single step mode off (BTN3 should be pressed once to start the system)
-				--   1   single step mode on (use with BTN3)
 				SW: in std_logic_vector(7 downto 0); 
 				-- Push buttons 
-				-- BTN0 - generate interrupt
-				-- BTN1 - show digits 6 and 7 (not 4 and 5) on 7seg LEDs
-				-- BTN2 - reset
-				-- BTN3 - single step clock cycle forward if in SS mode (NOTE: single press on this button is needed after reset to unlock SS circuit)
+				-- BTN0 - 
+				-- BTN1 - 
+				-- BTN2 - 
+				-- BTN3 - 
 				BTN: in std_logic_vector(3 downto 0); 
 				-- 6 7seg LED digits
 				SEG: out std_logic_vector(6 downto 0); 
@@ -212,23 +197,6 @@ component freqcounter is
            value : out  STD_LOGIC_VECTOR (15 downto 0));
 end component;
 		
---component signalcounter is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           input : in  STD_LOGIC;
---           sel : in  STD_LOGIC;
---           count : out  STD_LOGIC_VECTOR (15 downto 0));
---end component;
---
---component configurabledelayline is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           init : in  STD_LOGIC;
---           delay : in  STD_LOGIC_VECTOR (3 downto 0);
---           signal_in : in  STD_LOGIC;
---           signal_out : out  STD_LOGIC);
---end component;
-
 component sixdigitsevensegled is
     Port ( -- inputs
 			  hexdata : in  STD_LOGIC_VECTOR (3 downto 0);
@@ -323,7 +291,7 @@ signal data: std_logic_vector(15 downto 0);
 signal freq_uart, freq_uart4: std_logic;
 
 --- frequency signals
-signal freq24M, dotclk: std_logic;
+signal freq24M, dotclk, dotclk2: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
@@ -344,6 +312,9 @@ signal A: std_logic_vector(15 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
+-- TFT
+signal h, v: std_logic_vector(8 downto 0);
+signal tft_display: std_logic;
 
 -- ADC
 signal adc_trigger  : std_logic := '1';              -- go sample from ADC
@@ -377,7 +348,7 @@ clockgen: sn74hc4040 port map (
 			reset_11 => RESET,
 			q1_9 => freq24M, 
 			q2_7 => dotclk,
-			q3_6 => open, --PMOD(7),		-- 6.25
+			q3_6 => dotclk2, --PMOD(7),		-- 6.25
 			q4_5 => open, --PMOD(6),		-- 3.125
 			q5_3 => open, --PMOD(5),		-- 1.5625
 			q6_2 => open, --PMOD(4), 		-- 0.78125
@@ -519,8 +490,51 @@ offset_add_lo: sn74ls283 Port map (
 			s => offset_new(3 downto 0),
 			c4 => offset_add_lo_cout
 	);	
---	
 
+-- TFT
+--on_dotclk: process(dotclk, reset, gr_hsync)
+--begin
+--	if ((gr_hsync or reset) = '1') then
+--		h <= "111100000";
+--	else
+--		if (rising_edge(clk)) then
+--			h <= std_logic_vector(unsigned(h) + 1);
+--		end if;
+--	end if;
+--end process;
+--
+--on_gr_hsync: process(gr_hsync, reset, gr_vsync)
+--begin
+--	if ((gr_vsync or reset) = '1') then
+--		v <= "111110000";
+--	else
+--		if (rising_edge(gr_hsync)) then
+--			v <= std_logic_vector(unsigned(v) + 1);
+--		end if;
+--	end if;
+--end process;
+--
+--	TFT_R_O <= (others => gr_vid2);
+--	TFT_G_O <= (others => gr_vid1);
+--	TFT_B_O <= X"00";
+--	TFT_CLK_O <= dotclk;
+--	TFT_DE_O <= not (v(8) or h(8));
+--	TFT_DISP_O <= button(3); --tft_display;
+--	TFT_BKLT_O <= '1';	-- this can be PWM driven
+--	TFT_VDDEN_O <= '1';
+
+--on_freq300: process(freq300, RESET)
+--begin
+--	if (RESET = '1') then
+--		tft_display <= '0';
+--	else
+--		if (rising_edge(freq300)) then
+--			tft_display <= not (button(3));
+--		end if;
+--	end if;
+--end process;
+
+--	
 	video: Grafika port map (
 		-- system
 		  dotclk => dotclk,
@@ -619,7 +633,6 @@ leds: sixdigitsevensegled port map (
 			  segment(6 downto 0) => SEG
 			 );	 
 
-----h <= digsel(0) and digsel0_delayed;
 --
 --cnt_hsync: signalcounter Port map ( 
 --				clk => dotclk,
@@ -637,9 +650,6 @@ leds: sixdigitsevensegled port map (
 --				count => vsync_cnt
 --		);
 --
-
---h_duration <= std_logic_vector(to_unsigned(mouse_x, 16));
---v_duration <= std_logic_vector(to_unsigned(mouse_y, 16));
 
 with digsel select
 	hexdata <= 	X"D" when "000",	
