@@ -411,7 +411,7 @@ signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
 
 --- frequency signals
-signal freq24M, freq25M, dotclk, freq0M75, byteclk: std_logic;
+signal freq48M, freq24M, freq25M, dotclk, freq0M75, byteclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
@@ -472,6 +472,24 @@ PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
 PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
 	
 RESET <= USR_BTN;
+
+--
+--clockgen: sn74hc4040 port map (
+--			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
+--			reset_11 => RESET,
+--			q1_9 => freq48M, 
+--			q2_7 => freq24M,
+--			q3_6 => dotclk, 
+--			q4_5 => open,		-- 12MHz for TIM video sampler
+--			q5_3 => byteclk, 	-- 3MHz to write to TIM sample RAM
+--			q6_2 => open, 		
+--			q7_4 =>   freq0M75,	-- 0.75
+--			q8_13 =>  open,		-- 0.375
+--			q9_12 =>  open,		-- 0.1625
+--			q10_14 => open,		-- 0.08125
+--			q11_15 => digsel(0),	-- 0.040625
+--			q12_1 =>  digsel(1)	-- 0.0203125
+--		);
 	
 clockgen: sn74hc4040 port map (
 			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
@@ -480,14 +498,14 @@ clockgen: sn74hc4040 port map (
 			q2_7 => dotclk,	-- 12MHz for TIM video sampler
 			q3_6 => open, 
 			q4_5 => byteclk,	-- 3MHz to write to TIM sample RAM
-			q5_3 => open, 
-			q6_2 => freq0M75, 	-- 0.75
-			q7_4 =>   open,		-- 0.325
-			q8_13 =>  open,		-- 0.1625
-			q9_12 =>  open,		-- 0.08125
-			q10_14 => open,		-- 0.040625
-			q11_15 => digsel(0),	-- 0.0203125
-			q12_1 =>  digsel(1)	-- 0.01015625
+			q5_3 => open, 	
+			q6_2 => freq0M75, -- 0.75	
+			q7_4 =>   open,	
+			q8_13 =>  open,		-- 0.375
+			q9_12 =>  open,		-- 0.1625
+			q10_14 => open,		-- 0.08125
+			q11_15 => digsel(0),	-- 0.040625
+			q12_1 =>  digsel(1)	-- 0.0203125
 		);
 --
 prescale: process(CLK, freq153600, freq4096)
@@ -624,16 +642,26 @@ vram_wea <= (others => sampler_wr_nrd);
 
 we_in <= switch(0) when (tim_window = '0') else '0';
 
+freq48M <= EXT_CLK;
+
 tim: tim_sampler port map (
 		reset => RESET,
-		clk => EXT_CLK, -- 48MHz (4 times oversample of 12MHz)
+		clk => freq48M, -- 48MHz (4 times oversample of 12MHz)
 		hsync => TIM_HSYNC,
 		vsync => TIM_VSYNC,
 		v2 =>	TIM_VIDEO2,
 		v1 => TIM_VIDEO1,
 		a => sampler_a,
 		d => vram_dina,
-		limit => switch(7 downto 2),
+		--limit => switch(7 downto 2),
+		-- best result with sampler "algorithm"
+		-- s2 from raising edge sample
+		-- s1 from raising edge sample
+		-- 4 out of 4 sample: on
+		-- 3 out of 4 sample: on
+		-- 2 out of 4 sample: off
+		-- 1 out of 4 sample: off
+		limit => "111100",
 		we_in => we_in,
 		we_out => sampler_wr_nrd
 	);

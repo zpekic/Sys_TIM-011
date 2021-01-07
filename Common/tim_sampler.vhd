@@ -94,10 +94,25 @@ vv2: voter port map (
 	limit => limit(4 downto 0),
 	vote => sample(2));
 	
-generate_s: for i in 15 downto 0 generate
+generate_s: for i in 15 downto 1 generate
 begin
-	s2(i) <= ((not limit(5)) and s2r(i) and s2f(i)) or (limit(5) and (s2r(i) or s2f(i))); --(s2r(i) or s2f(i));
-	s1(i) <= ((not limit(5)) and s1r(i) and s1f(i)) or (limit(5) and (s1r(i) or s1f(i))); --(s1r(i) or s1f(i));
+	s2(i) <= s2r(i) when (limit(5) = '1') else s2f(i);
+	s1(i) <= s1r(i) when (limit(4) = '1') else s1f(1);
+	--
+--	with limit(5 downto 4) select s2(i) <=
+--		s2r(i) when "00",
+--		s2f(i) when "01",
+--		s2r(i) or s2f(i) when "10",
+--		s2r(i) and s2f(i) when others;
+--	--
+--	with limit(5 downto 4) select s1(i) <=
+--		s1r(i) when "00",
+--		s1f(i) when "01",
+--		s1r(i) or s1f(i) when "10",
+--		s1r(i) and s1f(i) when others;
+
+--	s2(i) <= ((not limit(5)) and s2r(i) and s2f(i)) or (limit(5) and (s2r(i) or s2f(i))); --(s2r(i) or s2f(i));
+--	s1(i) <= ((not limit(5)) and s1r(i) and s1f(i)) or (limit(5) and (s1r(i) or s1f(i))); --(s1r(i) or s1f(i));
 --	generate_upper: if (i > 0) generate
 --		s2(i) <= (s2r(i) and s2f(i - 1));
 --		s1(i) <= (s1r(i) and s1f(i - 1));
@@ -107,8 +122,8 @@ begin
 --		s1(i) <= (s1r(i) and '1');
 --	end generate;
 end generate;
---s2(0) <= v2;
---s1(0) <= v1;
+s2(0) <= v2;
+s1(0) <= v1;
 
 on_clk: process(clk, reset, hsync, vsync, v2, v1)
 begin

@@ -344,12 +344,12 @@ signal sr: std_logic_vector(31 downto 0);
 begin
   	
 clockgen: sn74hc4040 port map (
-			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
+			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
-			q1_9 => freq24M, 
-			q2_7 => dotclk,
-			q3_6 => dotclk2, --PMOD(7),		-- 6.25
-			q4_5 => open, --PMOD(6),		-- 3.125
+			q1_9 => open, 
+			q2_7 => freq24M,
+			q3_6 => dotclk, --PMOD(7),		-- 6.25
+			q4_5 => dotclk2, --PMOD(6),		-- 3.125
 			q5_3 => open, --PMOD(5),		-- 1.5625
 			q6_2 => open, --PMOD(4), 		-- 0.78125
 			q7_4 =>   open,		-- 0.390625
