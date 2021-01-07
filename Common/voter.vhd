@@ -64,17 +64,22 @@ begin
 --vote <= '1' when (unsigned(bitcnt(to_integer(unsigned(value)))) > unsigned(limit)) else '0';
 
 	with value select vote <=
-		limit(3) when "1111",
-		limit(2) when "1110",
-		limit(2) when "0111",
-		limit(1) when "1100",
-		limit(1) when "0110",
-		limit(1) when "0011",
-		limit(0) when "1000",
-		limit(0) when "0100",
-		limit(0) when "0010",
-		limit(0) when "0001",
-		'0' when others;
+		limit(3) when "1111",	--4
+		limit(2) when "1110",	--3
+		limit(2) when "1101",	--3
+		limit(1) when "1100",	--2
+		limit(2) when "1011",	--3
+		limit(1) when "1010",	--2
+		limit(1) when "1001",	--2
+		limit(0) when "1000",	--1
+		limit(2) when "0111",	--3
+		limit(1) when "0110",	--2
+		limit(1) when "0101",	--2
+		limit(0) when "0100",	--1
+		limit(1) when "0011",	--2
+		limit(0) when "0010",	--1
+		limit(0) when "0001",	--1
+		'0' when others;			--0
 
 end Behavioral;
 
