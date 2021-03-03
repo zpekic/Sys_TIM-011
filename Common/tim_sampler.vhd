@@ -47,57 +47,61 @@ architecture Behavioral of tim_sampler is
 
 
 component voter is
-    Port ( value : in  STD_LOGIC_VECTOR (3 downto 0);
+    Port ( value : in  STD_LOGIC_VECTOR (7 downto 0);
            limit : in  STD_LOGIC_VECTOR (4 downto 0);
            vote : out  STD_LOGIC);
 end component;
 
-signal s2, s1, s2r, s2f, s1r, s1f: std_logic_vector(15 downto 0);
-signal h: std_logic_vector(10 downto 0);
+signal s2, s2r, s2f : std_logic_vector(31 downto 0);
+signal s1, s1r, s1f : std_logic_vector(31 downto 0);
+signal h: std_logic_vector(11 downto 0);
 signal v: std_logic_vector(8 downto 0);
-signal sample: std_logic_vector(7 downto 0);
+signal sample, s1x, s2x: std_logic_vector(7 downto 0);
 
 begin
 
 -- pixels are stored 11003322
 -- see https://github.com/zpekic/Sys_TIM-011/blob/master/Img2Tim/Img2Tim/Program.c
 vv5: voter port map (
-	value => s2(15 downto 12),
+	value => s2(31 downto 24),
 	limit => limit(4 downto 0),
 	vote => sample(5));
 vv4: voter port map (
-	value => s1(15 downto 12),
+	value => s1(31 downto 24),
 	limit => limit(4 downto 0),
 	vote => sample(4));
 vv7: voter port map (
-	value => s2(11 downto 8),
+	value => s2(23 downto 16),
 	limit => limit(4 downto 0),
 	vote => sample(7));
 vv6: voter port map (
-	value => s1(11 downto 8),
+	value => s1(23 downto 16),
 	limit => limit(4 downto 0),
 	vote => sample(6));
 vv1: voter port map (
-	value => s2(7 downto 4),
+	value => s2(15 downto 8),
 	limit => limit(4 downto 0),
 	vote => sample(1));
 vv0: voter port map (
-	value => s1(7 downto 4),
+	value => s1(15 downto 8),
 	limit => limit(4 downto 0),
 	vote => sample(0));
 vv3: voter port map (
-	value => s2(3 downto 0),
+	value => s2x,
 	limit => limit(4 downto 0),
 	vote => sample(3));
 vv2: voter port map (
-	value => s1(3 downto 0),
+	value => s1x,
 	limit => limit(4 downto 0),
 	vote => sample(2));
 	
-generate_s: for i in 15 downto 1 generate
+s2x <= s2(7 downto 1) & v2;
+s1x <= s1(7 downto 1) & v1;
+	
+generate_s: for i in 31 downto 0 generate
 begin
-	s2(i) <= s2r(i) when (limit(5) = '1') else s2f(i);
-	s1(i) <= s1r(i) when (limit(4) = '1') else s1f(1);
+	s2(i) <= (s2r(i) and limit(5)) or (s2f(i) and limit(4));-- when (limit(5) = '1') else s2r(i);-- and s2f(i));
+	s1(i) <= (s1r(i) and limit(3)) or (s1f(i) and limit(2));--when (limit(4) = '1') else s1r(i);-- and s1f(1));
 	--
 --	with limit(5 downto 4) select s2(i) <=
 --		s2r(i) when "00",
@@ -122,25 +126,25 @@ begin
 --		s1(i) <= (s1r(i) and '1');
 --	end generate;
 end generate;
-s2(0) <= v2;
-s1(0) <= v1;
+--s2(0) <= v2;
+--s1(0) <= v1;
 
 on_clk: process(clk, reset, hsync, vsync, v2, v1)
 begin
 	if ((hsync or reset) = '1') then
-		h <= "0000000" & "00" & "00";
+		h <= "0000000" & "00" & "000";
 		we_out <= '0';
 	else
 		if (rising_edge(clk)) then
-			s2r <= s2r(14 downto 0) & v2;
-			s1r <= s1r(14 downto 0) & v1;
-			case h(3 downto 0) is
-				when X"F" =>
+			s2r <= s2r(30 downto 0) & v2;
+			s1r <= s1r(30 downto 0) & v1;
+			case h(4 downto 0) is
+				when "11111" =>
 					d <= sample;
-					a <= v(7 downto 0) & h(10 downto 4);				
-				when X"1" =>
+					a <= v(7 downto 0) & h(11 downto 5);				
+				when "00001" =>
 					we_out <= we_in and (not v(8));
-				when X"E" =>
+				when "00010" =>
 					we_out <= '0';
 				when others =>
 					null;
@@ -148,8 +152,8 @@ begin
 			h <= std_logic_vector(unsigned(h) + 1);
 		end if;
 		if (falling_edge(clk)) then
-			s2f <= s2f(14 downto 0) & v2;
-			s1f <= s1f(14 downto 0) & v1;
+			s2f <= s2f(30 downto 0) & v2;
+			s1f <= s1f(30 downto 0) & v1;
 		end if;
 	end if;
 end process;

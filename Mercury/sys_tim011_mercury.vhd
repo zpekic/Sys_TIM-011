@@ -38,29 +38,29 @@ entity sys_tim011_mercury is
 				-- 50MHz on the Mercury board
 				CLK: in std_logic;
 				
-				-- 12MHz external clock
+				-- 96MHz external clock
 				EXT_CLK: in std_logic;
 				
 				-- Master reset button on Mercury board
 				USR_BTN: in std_logic; 
 
 				-- Switches on baseboard
-				-- SW(0) -- direction when scrolling
-				-- SW(1) -- data source selection for 7seg display
-				-- SW(2) -- palette selection (best on)
-				-- SW(3) -- palette selection (best off)
-				-- SW(4) -- off
-				-- SW(5) -- on
-				-- SW(6) -- off
-				-- SW(7)	-- off
+				-- SW(0) -- 
+				-- SW(1) -- 
+				-- SW(2) -- 
+				-- SW(3) -- 
+				-- SW(4) -- 
+				-- SW(5) -- 
+				-- SW(6) -- 
+				-- SW(7)	-- 
 
 				SW: in std_logic_vector(7 downto 0); 
 
 				-- Push buttons on baseboard
-				-- BTN0 - scroll
-				-- BTN1 - video only test pattern (memory not affected)
-				-- BTN2 - fill left/right
-				-- BTN3 - fill top/down
+				-- BTN0 - 
+				-- BTN1 - 
+				-- BTN2 - 
+				-- BTN3 - 
 				BTN: in std_logic_vector(3 downto 0); 
 
 				-- Stereo audio output on baseboard
@@ -91,9 +91,7 @@ entity sys_tim011_mercury is
 				PS2_CLOCK: inout std_logic;
 
 				--VGA interface
-				--register state is traced to VGA after each instruction if SW0 = on
-				--640*480 50Hz mode is used, which give 80*60 character display
-				--but to save memory, only 80*50 are used which fits into 4k video RAM
+				--640*480 50Hz mode is used
 				HSYNC: out std_logic;
 				VSYNC: out std_logic;
 				RED: out std_logic_vector(2 downto 0);
@@ -152,13 +150,13 @@ architecture Structural of sys_tim011_mercury is
 --				data : in STD_LOGIC_VECTOR(7 downto 0));
 --end component;
 --		
---component signalcounter is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           input : in  STD_LOGIC;
---           sel : in  STD_LOGIC;
---           count : out  STD_LOGIC_VECTOR (15 downto 0));
---end component;
+component signalcounter is
+    Port ( clk : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           input : in  STD_LOGIC;
+           sel : in  STD_LOGIC;
+           count : out  STD_LOGIC_VECTOR (15 downto 0));
+end component;
 --
 --component configurabledelayline is
 --    Port ( clk : in  STD_LOGIC;
@@ -277,6 +275,22 @@ component tim_sampler is
            we_out : out  STD_LOGIC);
 end component;
 
+component vdp_sampler2 is
+    Port ( reset : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           hsync : in  STD_LOGIC;
+           vsync : in  STD_LOGIC;
+			  pixclk: in STD_LOGIC;
+           r : in  STD_LOGIC;
+           g : in  STD_LOGIC;
+			  b : in  STD_LOGIC;
+           a : out  STD_LOGIC_VECTOR (14 downto 0);
+           d : out  STD_LOGIC_VECTOR (7 downto 0);
+			  limit: in STD_LOGIC_VECTOR (5 downto 0);
+			  we_in: in STD_LOGIC;
+           we_out : out  STD_LOGIC);
+end component;
+
 COMPONENT ram32k8_dualport
   PORT (
     clka : IN STD_LOGIC;
@@ -384,13 +398,14 @@ constant color_green:	std_logic_vector(7 downto 0):= "00011100";
 constant color_cyan:		std_logic_vector(7 downto 0):= "00011111";
 constant color_white:	std_logic_vector(7 downto 0):= "11111111";
 constant color_red:		std_logic_vector(7 downto 0):= "11100000";
+constant color_purple:	std_logic_vector(7 downto 0):= "11100011";
 constant color_yellow:	std_logic_vector(7 downto 0):= "11111100";
 constant color_ltgray:	std_logic_vector(7 downto 0):= "01101101"; 
 constant color_dkgray:	std_logic_vector(7 downto 0):= "10010010";
 
-type color_lookup is array (0 to 7) of std_logic_vector(7 downto 0);
+type color_lookup is array (0 to 15) of std_logic_vector(7 downto 0);
 
-signal tim_color: color_lookup := (
+signal palette: color_lookup := (
 	-- grayscale palette
 	color_black,	-- tim pixel 00
 	color_dkgray,	-- tim pixel 01
@@ -400,8 +415,24 @@ signal tim_color: color_lookup := (
 	color_black,	-- tim pixel 00
 	color_yellow,	-- tim pixel 01
 	color_cyan,		-- tim pixel 10
-	color_green		-- tim pixel 11
+	color_green,	-- tim pixel 11
+	-- crude sample from V9958 analog RGB
+	color_black,	-- rgb 000
+	color_blue,		-- rgb 001
+	color_green,	-- rgb 010
+	color_cyan,		-- rgb 011
+	color_red,		-- rgb 100
+	color_purple,	-- rgb 101
+	color_yellow,	-- rgb 110
+	color_white 	-- rgb 111
 	);
+
+-- goes from 0 to 27
+--																"fedcba9876543210fedcba9876543210";
+--signal lo_clk: std_logic_vector(31 downto 0) := "00000000000001111111110000000000";
+--signal hi_clk: std_logic_vector(31 downto 0) := "11111111111110000000001111111111";
+signal lo_clk: std_logic_vector(31 downto 0) := "11111111111101111111111111111110";
+signal hi_clk: std_logic_vector(31 downto 0) := "11111111111111111111101111111111";
 
 signal RESET: std_logic;
 
@@ -411,12 +442,21 @@ signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
 
 --- frequency signals
-signal freq48M, freq24M, freq25M, dotclk, freq0M75, byteclk: std_logic;
+signal freq96M, freq25M: std_logic;
+--signal freq24M, dotclk, freq0M75, 
+signal freq12M, byteclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
-signal freq4096, freq2, freq4: std_logic;		
+signal freq4096, freq4, freq2, freq1: std_logic;	
+signal counter_inp, counter_clk: std_logic;	
 
+-- "regenerated" pixel clock
+signal vdp_xtal2, vdp_pixclk, int_pixclk, vdp_cpuclk2: std_logic;
+--signal cpuclk_ring: std_logic_vector(3 downto 0);
+signal lo_cnt, hi_cnt: integer range 0 to 31;
+--signal cnt_limit: std_logic_vector(4 downto 0);
 --- video sync signals
+signal vdp_vsync: std_logic;
 signal x_valid, y_valid: std_logic;
 signal h_valid, v_valid : std_logic;
 signal tim_window, vga_window, vga_hsync, vga_vsync, vga_sel: std_logic;
@@ -427,29 +467,40 @@ alias col: std_logic_vector(6 downto 0) is h(9 downto 3);
 alias row: std_logic_vector(6 downto 0) is v(9 downto 3);
 -- video data signals
 signal vga_color, text_color: std_logic_vector(7 downto 0);
-signal pair, color_sel: std_logic_vector(1 downto 0); -- 2 bit pixel and color lookup
+signal pair, color_sel: std_logic_vector(1 downto 0);			-- 2 bit pixel
+signal nibble, color_index: std_logic_vector(3 downto 0);	-- 4 bit pixel
 signal char, pattern: std_logic_vector(7 downto 0);
 signal text_pix: std_logic;
+signal csync_line: std_logic_vector(31 downto 0);
+signal csync_delayed: std_logic;
 
--- video memory bus
-signal sampler_wr_nrd, we_in: std_logic;
-signal vram_dina, vram_douta: std_logic_vector(7 downto 0);
-signal vga_a, sampler_a: std_logic_vector(14 downto 0);
+-- video memory bus inputs (2 samplers mux'd)
+signal sampler_wr_nrd, tim_sampler_wr_nrd, vdp_sampler_wr_nrd, we_in: std_logic;
+signal vram_dina, tim_vram_dina, vdp_vram_dina: std_logic_vector(7 downto 0);
+signal sampler_a, tim_sampler_a, vdp_sampler_a: std_logic_vector(14 downto 0);
 signal vram_wea: std_logic_vector(0 downto 0);
+-- video memory bus output
+signal vram_douta: std_logic_vector(7 downto 0);
+signal vga_a : std_logic_vector(14 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
+alias switch_we: std_logic is switch(0);
+alias switch_timpalette: std_logic is switch(0);
+alias switch_tms: std_logic is switch(1);
+alias switch_limit: std_logic_vector(5 downto 0) is switch(7 downto 2);
+signal vdp_limit: std_logic_vector(5 downto 0);
 
 --alias ps2_data: std_logic is LED(0);
 --alias ps2_clk: std_logic is LED(1);
 signal kbd_alt, kbd_shift, kbd_ctrl, kbd_caps: STD_LOGIC;
 
 -- UART
-signal frame_ready, frame_valid, frame_active: std_logic;
+--signal frame_ready, frame_valid, frame_active: std_logic;
 signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
 --signal rx, rx_analog, rx_digital: std_logic;
-signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
-signal sr: std_logic_vector(31 downto 0);
+--signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
+--signal sr: std_logic_vector(31 downto 0);
 
 
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
@@ -458,56 +509,65 @@ signal sr: std_logic_vector(31 downto 0);
 --alias TXD_TTY: std_logic is PMOD(6);		-- out
 --alias nCTS: std_logic is PMOD(7);	-- in, active low
 signal tim_freq: std_logic;
-alias TIM_HSYNC: std_logic is PMOD(7);
-alias TIM_VSYNC: std_logic is PMOD(6);
-alias TIM_VIDEO2: std_logic is PMOD(5);
-alias TIM_VIDEO1: std_logic is PMOD(4);
+alias VIDEO_HSYNC: std_logic is PMOD(7); -- BB6 on Anvyl (white)
+alias VIDEO_CSYNC: std_logic is PMOD(6);	-- BB5 on Anvyl (blue)
+alias VIDEO_VSYNC: std_logic is PMOD(6);	-- BB5 on Anvyl (blue)
+alias TIM_VIDEO2: std_logic is PMOD(5);	-- BB4 on Anvyl (gray)
+alias TIM_VIDEO1: std_logic is PMOD(4);	-- BB3 on Anvyl (red)
+alias VDP_CPUCLK: std_logic is PMOD(0);	-- v9958 pin 8 (XTAL/6 == 3.579545MHz)
+alias VDP_R_DIG: std_logic is PMOD(1);		-- "digitized" red signal (using LM339 1-bit ADC)
+alias VDP_G_DIG: std_logic is PMOD(2);		-- "digitized" green signal (using LM339 1-bit ADC)
+alias VDP_B_DIG: std_logic is PMOD(3);		-- "digitized" blue signal (using LM339 1-bit ADC)
 
 begin
    
 -- connect to "oscilloscope"
-PMOD(3) <= PMOD(7); --TIM_HSYNC;  --TXD_TTY;
-PMOD(2) <= PMOD(6); --TIM_VSYNC;  --RXD_TTY;
-PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
-PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
+--PMOD(3) <= PMOD(7); --TIM_HSYNC;  --TXD_TTY;
+--PMOD(2) <= PMOD(6); --TIM_VSYNC;  --RXD_TTY;
+--PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
+--PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
+PMOD(4) <= vdp_sampler_wr_nrd; --vdp_vsync;
+PMOD(5) <= int_pixclk;
 	
 RESET <= USR_BTN;
+freq96M <= EXT_CLK;
 
+--vdp_pixclk <= int_pixclk when (switch(7) = '1') else VDP_CPUCLK;
 --
---clockgen: sn74hc4040 port map (
---			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
---			reset_11 => RESET,
---			q1_9 => freq48M, 
---			q2_7 => freq24M,
---			q3_6 => dotclk, 
---			q4_5 => open,		-- 12MHz for TIM video sampler
---			q5_3 => byteclk, 	-- 3MHz to write to TIM sample RAM
---			q6_2 => open, 		
---			q7_4 =>   freq0M75,	-- 0.75
---			q8_13 =>  open,		-- 0.375
---			q9_12 =>  open,		-- 0.1625
---			q10_14 => open,		-- 0.08125
---			q11_15 => digsel(0),	-- 0.040625
---			q12_1 =>  digsel(1)	-- 0.0203125
---		);
-	
-clockgen: sn74hc4040 port map (
-			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
+clockgen_ext: sn74hc4040 port map (
+			clock_10 => freq96M,	-- 96MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
-			q1_9 => freq24M, 
-			q2_7 => dotclk,	-- 12MHz for TIM video sampler
-			q3_6 => open, 
-			q4_5 => byteclk,	-- 3MHz to write to TIM sample RAM
-			q5_3 => open, 	
-			q6_2 => freq0M75, -- 0.75	
-			q7_4 =>   open,	
+			q1_9 => open, --freq48M, 
+			q2_7 => open, --freq24M,
+			q3_6 => freq12M, 
+			q4_5 => byteclk,	-- 6MHz to write to TIM sample RAM
+			q5_3 => open, 
+			q6_2 => open, 		
+			q7_4 =>   open, --freq0M75,	-- 0.75
 			q8_13 =>  open,		-- 0.375
 			q9_12 =>  open,		-- 0.1625
 			q10_14 => open,		-- 0.08125
 			q11_15 => digsel(0),	-- 0.040625
 			q12_1 =>  digsel(1)	-- 0.0203125
 		);
---
+	
+--clockgen_int: sn74hc4040 port map (
+--			clock_10 => CLK,	
+--			reset_11 => RESET,
+--			q1_9 => open, --25, 
+--			q2_7 => open, --12.5
+--			q3_6 => open, --6.25
+--			q4_5 => freq3M125, --3.125
+--			q5_3 => open, 	
+--			q6_2 => open, 	
+--			q7_4 =>   open,	
+--			q8_13 =>  open,	-- 
+--			q9_12 =>  open,	--
+--			q10_14 => open,	-- 
+--			q11_15 => open,	-- 
+--			q12_1 =>  open		-- 
+--		);
+----
 prescale: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
@@ -558,7 +618,7 @@ powergen: sn74hc4040 port map (
 			q9_12 =>  open,	
 			q10_14 => freq4,	
 			q11_15 => freq2,	
-			q12_1 =>  open	
+			q12_1 =>  freq1	
 		);
 --	
 	debounce_sw: debouncer8channel Port map ( 
@@ -609,18 +669,6 @@ vga: vga_controller Port map (
       y => vga_y
 	);
 
---HSYNC <= vga_hsync;
---VSYNC <= vga_vsync;
-
---mem: ram32k8 PORT MAP (
---    clka => vram_clk,
---	 ena => '1',
---    wea => vram_wea,
---    addra => vram_addra,
---    dina => vram_dina,
---    douta => vram_douta
---  );
-
 mem: ram32k8_dualport PORT MAP(
 		-- sampler only writes
     clka => byteclk,
@@ -637,23 +685,22 @@ mem: ram32k8_dualport PORT MAP(
 tim_window <= x_valid and y_valid;
 vga_window <= v_valid and h_valid;
 
-vga_a <= vga_y & vga_x(8 downto 2);
+vga_a <= vga_y & vga_x(7 downto 1); 
+--vga_a <= vga_y & vga_x(8 downto 2); 
 vram_wea <= (others => sampler_wr_nrd);
 
-we_in <= switch(0) when (tim_window = '0') else '0';
-
-freq48M <= EXT_CLK;
+we_in <= switch_we when (tim_window = '0') else '0';
 
 tim: tim_sampler port map (
 		reset => RESET,
-		clk => freq48M, -- 48MHz (4 times oversample of 12MHz)
-		hsync => TIM_HSYNC,
-		vsync => TIM_VSYNC,
+		clk => freq96M, -- 96MHz (8 times oversample of 12MHz)
+		hsync => VIDEO_HSYNC,
+		vsync => VIDEO_VSYNC,
 		v2 =>	TIM_VIDEO2,
 		v1 => TIM_VIDEO1,
-		a => sampler_a,
-		d => vram_dina,
-		--limit => switch(7 downto 2),
+		a => tim_sampler_a,
+		d => tim_vram_dina,
+		limit => switch_limit,
 		-- best result with sampler "algorithm"
 		-- s2 from raising edge sample
 		-- s1 from raising edge sample
@@ -661,25 +708,98 @@ tim: tim_sampler port map (
 		-- 3 out of 4 sample: on
 		-- 2 out of 4 sample: off
 		-- 1 out of 4 sample: off
-		limit => "111100",
+		--limit => "111100", (with (video and clock) off)
+		--limit => "110111", (with (video and clock) on - real TIM mode)
 		we_in => we_in,
-		we_out => sampler_wr_nrd
+		we_out => tim_sampler_wr_nrd
 	);
 
--- pixels are stored 11003322
+--generate VSYNC by filtering out VSYNC from CSYNC using a delay line
+on_vdp_cpuclk: process(reset, VDP_CPUCLK)
+begin
+	if (rising_edge(VDP_CPUCLK)) then
+		csync_line <= csync_line(30 downto 0) & VIDEO_CSYNC; 
+		vdp_cpuclk2 <= not vdp_cpuclk2;
+	end if;
+end process;
+
+--vdp_vsync <= not (VIDEO_CSYNC or csync_line(to_integer(unsigned(switch(6 downto 2)))));
+--vdp_vsync <= not (VIDEO_CSYNC or csync_line(10)); -- 24 pixels long ~ 17 CPUCLK
+vdp_vsync <= not (VIDEO_CSYNC or csync_line(17)); -- 24 pixels long ~ 17 CPUCLK
+
+-- generate close approximation of XTAL/4 clock
+-- in 1 cycle of vdp_cpuclk2 (XTAL/12) exactly 3 times XTAL/4 fits
+on_freq96M: process(freq96M, vdp_cpuclk2)
+begin
+	if (rising_edge(freq96M)) then
+		if (vdp_cpuclk2 = '0') then
+			lo_cnt <= lo_cnt + 1;
+			hi_cnt <= 0;
+			int_pixclk <= lo_clk(lo_cnt + to_integer(unsigned(switch(6 downto 2))));
+		else
+			lo_cnt <= 0;
+			hi_cnt <= hi_cnt + 1;
+			int_pixclk <= hi_clk(hi_cnt + to_integer(unsigned(switch(6 downto 2))));
+		end if;
+	end if;
+end process;
+
+with switch(7 downto 5) select csync_delayed <= 
+	csync_line(24) when "000",
+	csync_line(25) when "001",
+	csync_line(26) when "010",
+	csync_line(27) when "011",
+	csync_line(28) when "100",
+	csync_line(29) when "101",
+	csync_line(30) when "110",
+	csync_line(31) when others;
+
+vdp: vdp_sampler2 port map (
+		reset => RESET,
+		clk => freq96M, -- 
+		hsync => VIDEO_HSYNC,
+		vsync => vdp_vsync,
+		pixclk => int_pixclk,
+		r => VDP_R_DIG,
+		g => VDP_G_DIG,
+		b => VDP_B_DIG,
+		a => vdp_sampler_a,
+		d => vdp_vram_dina,
+		limit => "000111", --vdp_limit, 
+		we_in => we_in,
+		we_out => vdp_sampler_wr_nrd
+	);
+
+vdp_limit <= '0' & switch(6 downto 2);
+
+-- select which sampler has write access to dual RAM
+sampler_a <= vdp_sampler_a when (switch_tms = '1') else tim_sampler_a;
+vram_dina <= vdp_vram_dina when (switch_tms = '1') else tim_vram_dina;
+sampler_wr_nrd <= vdp_sampler_wr_nrd when (switch_tms = '1') else tim_sampler_wr_nrd;
+
+-- TIM sample: pixels are stored 11003322
 -- see https://github.com/zpekic/Sys_TIM-011/blob/master/Img2Tim/Img2Tim/Program.cs
 with vga_x(1 downto 0) select pair <=
 	vram_douta(5 downto 4) when "00",
 	vram_douta(7 downto 6) when "01",
 	vram_douta(1 downto 0) when "10",
 	vram_douta(3 downto 2) when others;
+	
+-- V9958 sample: pixels are stored XRGBXRGB
+-- high nibble contains higher x-coordinate pixel (as sampler shifts MSB <- LSB)
+with vga_x(0) select nibble <= 
+	vram_douta(3 downto 0) when '1',
+	vram_douta(7 downto 4) when others;
+
+-- index depends on the V9958 or TIM mode
+color_index <= '1' & nibble(2 downto 0) when (switch_tms = '1') else '0' & switch_timpalette & pair;	
 
 -- color index also takes into account selected palette and if in TIM window
 color_sel <= vga_window & tim_window; 
 with color_sel select vga_color <=
-	text_color when "10",														-- text outside tim window
-	tim_color(to_integer(unsigned(switch(0) & pair))) when "11",	-- tim pixel 
-	color_black when others;													-- outside pixel area (border)
+	text_color when "10",												-- text outside tim window
+	palette(to_integer(unsigned(color_index))) when "11",		-- sampled pixel from VRAM 
+	color_black when others;											-- outside pixel area (border)
 	
 -- now convert to VGA 8-bit color
 RED <= vga_color(7 downto 5);
@@ -725,6 +845,10 @@ leds: fourdigitsevensegled Port map (
 			segment(6 downto 0) => A_TO_G
 		);
 
+-- display pixels per hsync (line) or hsync per vsync (frame)
+counter_clk <= int_pixclk when (switch(1) = '1') else VIDEO_HSYNC;
+counter_inp <= VIDEO_HSYNC when (switch(1) = '1') else vdp_vsync;
+
 showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2); 
 
 with digsel select
@@ -733,54 +857,62 @@ with digsel select
 					display(11 downto 8) when "10",
 					display(15 downto 12) when others;
 
-counter: freqcounter Port map ( 
-		reset => RESET,
-      clk => freq2,
-      freq => tim_freq,
-		bcd => '0',
-		double => '1',
-		limit => X"FFFF",
-		ge => open,
-      value => display
-	);
+counter: signalcounter Port map ( 
+			clk => counter_clk,
+         reset => reset,
+         input => counter_inp,
+         sel => switch(0),
+         count => display
+		);
 
-with switch(1 downto 0) select tim_freq <=
-	TIM_VIDEO1 when "00",
-	TIM_VIDEO2 when "01",
-	TIM_VSYNC	when "10",
-	TIM_HSYNC	when others;
+--counter: freqcounter Port map ( 
+--		reset => RESET,
+--      clk => freq2,
+--      freq => test_freq,
+--		bcd => '0',
+--		double => '1',
+--		limit => X"FFFF",
+--		ge => open,
+--      value => display
+--	);
+--
+--with switch(1 downto 0) select test_freq <=
+--	TMS_R			when "00",
+--	TMS_PIXCLK 	when "01",
+--	VIDEO_VSYNC	when "10",
+--	VIDEO_HSYNC	when others;
 	
 --
 -- UART input coming either directly from USB2UART, or ADC
 -- 
-with switch(7 downto 5) select
-		baudrate_x4 <= freq153600 when "111",
-							freq76800 when "110", 
-							freq38400 when "101",
-							freq19200 when "100",		
-							freq9600 when "011",		
-							freq4800 when "010",		
-							freq2400 when "001", 	
-							freq1200 when others;		
-
-with switch(7 downto 5) select
-		baudrate_x2 <= freq76800 when "111", 
-							freq38400 when "110",
-							freq19200 when "101",		
-							freq9600 when "100",		
-							freq4800 when "011",		
-							freq2400 when "010", 	
-							freq1200 when "001",
-						   freq600 when others;
-
-with switch(7 downto 5) select
-		baudrate_x1 <= freq38400 when "111",
-							freq19200 when "110",		
-							freq9600 when "101",		
-							freq4800 when "100",		
-							freq2400 when "011", 
-							freq1200 when "010",
-							freq600  when "001",
-							freq300 when others;		
+--with switch(7 downto 5) select
+--		baudrate_x4 <= freq153600 when "111",
+--							freq76800 when "110", 
+--							freq38400 when "101",
+--							freq19200 when "100",		
+--							freq9600 when "011",		
+--							freq4800 when "010",		
+--							freq2400 when "001", 	
+--							freq1200 when others;		
+--
+--with switch(7 downto 5) select
+--		baudrate_x2 <= freq76800 when "111", 
+--							freq38400 when "110",
+--							freq19200 when "101",		
+--							freq9600 when "100",		
+--							freq4800 when "011",		
+--							freq2400 when "010", 	
+--							freq1200 when "001",
+--						   freq600 when others;
+--
+--with switch(7 downto 5) select
+--		baudrate_x1 <= freq38400 when "111",
+--							freq19200 when "110",		
+--							freq9600 when "101",		
+--							freq4800 when "100",		
+--							freq2400 when "011", 
+--							freq1200 when "010",
+--							freq600  when "001",
+--							freq300 when others;		
 
 end;
