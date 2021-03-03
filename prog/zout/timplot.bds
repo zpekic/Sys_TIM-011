@@ -101,12 +101,12 @@ binary-debuggable-source
 083b 083b s 		sra h		;HL = 00000000xxxxxxxx, CY = x8
 083d 083d d cb1d
 083d 083d s 		rr l		;HL = 00000000xxxxxxxx, CY = x0
-083f 083f d cb12
-083f 083f s 		rl d		;DE = 0000000000000ccx
+083f 083f d cb13
+083f 083f s 		rl e		;DE = 0000000000000ccx
 0841 0841 d cb2d
 0841 0841 s 		sra l		;HL = 000000000xxxxxxx, CY = x1
-0843 0843 d cb12
-0843 0843 s 		rl d		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
+0843 0843 d cb13
+0843 0843 s 		rl e		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
 0845 0845 s 					
 0845 0845 s ;--- create video RAM base address
 0845 0845 d 09

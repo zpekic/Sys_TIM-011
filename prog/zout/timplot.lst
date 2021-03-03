@@ -62,9 +62,9 @@
   62:				
   63:  256+8	083B  CB2C    			sra h		;HL = 00000000xxxxxxxx, CY = x8
   64:  264+8	083D  CB1D    			rr l		;HL = 00000000xxxxxxxx, CY = x0
-  65:  272+8	083F  CB12    			rl d		;DE = 0000000000000ccx
+  65:  272+8	083F  CB13    			rl e		;DE = 0000000000000ccx
   66:  280+8	0841  CB2D    			sra l		;HL = 000000000xxxxxxx, CY = x1
-  67:  288+8	0843  CB12    			rl d		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
+  67:  288+8	0843  CB13    			rl e		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
   68:									
   69:				;--- create video RAM base address
   70:  296+11	0845  09      			add hl, bc	;HL = 1yyyyyyyyxxxxxxx

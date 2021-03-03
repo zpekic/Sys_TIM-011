@@ -62,9 +62,9 @@ fastplot	push af		;save regs
 
 		sra h		;HL = 00000000xxxxxxxx, CY = x8
 		rr l		;HL = 00000000xxxxxxxx, CY = x0
-		rl d		;DE = 0000000000000ccx
+		rl e		;DE = 0000000000000ccx
 		sra l		;HL = 000000000xxxxxxx, CY = x1
-		rl d		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
+		rl e		;DE = 000000000000ccxx, note C1 C0 X0 X1 (lower 2 x-bits reversed!)
 					
 ;--- create video RAM base address
 		add hl, bc	;HL = 1yyyyyyyyxxxxxxx
