@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
+<<<<<<< Updated upstream
   <DateModified>2021-01-07T23:22:22</DateModified>
+=======
+  <DateModified>2021-03-05T19:33:53</DateModified>
+>>>>>>> Stashed changes
   <ModuleName>sys_tim011_anvyl</ModuleName>
   <SummaryTimeStamp>2021-01-07T17:45:13</SummaryTimeStamp>
   <SavedFilePath>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Anvyl/iseconfig/sys_tim011_anvyl.xreport</SavedFilePath>

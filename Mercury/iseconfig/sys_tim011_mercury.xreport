@@ -1,9 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
+<<<<<<< Updated upstream
   <DateModified>2021-01-07T23:21:51</DateModified>
   <ModuleName>sys_tim011_mercury</ModuleName>
   <SummaryTimeStamp>2021-01-07T22:51:35</SummaryTimeStamp>
+=======
+  <DateModified>2021-03-31T20:44:18</DateModified>
+  <ModuleName>sys_tim011_mercury</ModuleName>
+  <SummaryTimeStamp>2021-03-27T18:09:01</SummaryTimeStamp>
+>>>>>>> Stashed changes
   <SavedFilePath>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury/iseconfig/sys_tim011_mercury.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Mercury\</ImplementationReportsDirectory>
   <DateInitialized>2020-09-29T21:07:42</DateInitialized>
