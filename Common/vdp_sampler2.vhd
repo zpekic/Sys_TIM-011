@@ -92,8 +92,8 @@ begin
 end process;
 
 pixclk <= cnt(1);
-write_pulse <= (clk) when (cnt = limit(2 downto 0)) else '0';
-sample_pulse <= ( clk) when (cnt(1 downto 0) = limit(4 downto 3)) else '0';
+write_pulse <= (limit(5) xor clk) when (cnt = limit(2 downto 0)) else '0';
+sample_pulse <= (limit(5) xor clk) when (cnt(1 downto 0) = limit(4 downto 3)) else '0';
 
 -- drive horizontal counter (h)
 on_pixclk: process(pixclk, reset, hsync, h)
@@ -128,7 +128,7 @@ end process;
 
 h_reg: offsetreg Port map ( 
 				reset => reset,
-				initval => "1111101100", -- -24 (0x3E8)
+				initval => "1111100110", -- -26 (0x3E6)
 				mode => offsetcmd(1 downto 0),
 				clk => offsetclk,
 				sel => '0',

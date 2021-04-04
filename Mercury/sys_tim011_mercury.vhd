@@ -279,8 +279,7 @@ component tim_sampler is
            we_out : out  STD_LOGIC);
 end component;
 
-<<<<<<< Updated upstream
-=======
+
 component vdp_sampler2 is
     Port ( reset : in  STD_LOGIC;
            clk : in  STD_LOGIC;
@@ -299,7 +298,6 @@ component vdp_sampler2 is
            we_out : out  STD_LOGIC);
 end component;
 
->>>>>>> Stashed changes
 COMPONENT ram32k8_dualport
   PORT (
     clka : IN STD_LOGIC;
@@ -415,25 +413,35 @@ constant color_black:	std_logic_vector(7 downto 0):= "00000000";
 constant color_blue:		std_logic_vector(7 downto 0):= "00000011";
 constant color_green:	std_logic_vector(7 downto 0):= "00011100";
 constant color_cyan:		std_logic_vector(7 downto 0):= "00011111";
-constant color_white:	std_logic_vector(7 downto 0):= "11111111";
 constant color_red:		std_logic_vector(7 downto 0):= "11100000";
+constant color_purple:	std_logic_vector(7 downto 0):= "11100011";
 constant color_yellow:	std_logic_vector(7 downto 0):= "11111100";
+constant color_white:	std_logic_vector(7 downto 0):= "11111111";
 constant color_ltgray:	std_logic_vector(7 downto 0):= "01101101"; 
 constant color_dkgray:	std_logic_vector(7 downto 0):= "10010010";
 
-type color_lookup is array (0 to 7) of std_logic_vector(7 downto 0);
+type color_lookup is array (0 to 15) of std_logic_vector(7 downto 0);
 
-signal tim_color: color_lookup := (
-	-- grayscale palette
+signal video_color: color_lookup := (
+	-- TIM grayscale palette
 	color_black,	-- tim pixel 00
 	color_dkgray,	-- tim pixel 01
 	color_ltgray,	-- tim pixel 10
 	color_white,	-- tim pixel 11
-	-- colorful palette
+	-- TIM colorful palette
 	color_black,	-- tim pixel 00
 	color_yellow,	-- tim pixel 01
 	color_cyan,		-- tim pixel 10
-	color_green		-- tim pixel 11
+	color_green,	-- tim pixel 11
+	-- VDP 3-bit color palette
+	color_black,
+	color_blue,
+	color_green,
+	color_cyan,
+	color_red,
+	color_purple,
+	color_yellow,
+	color_white
 	);
 
 signal RESET: std_logic;
@@ -444,27 +452,22 @@ signal hexdata, hexsel, showdigit: std_logic_vector(3 downto 0);
 ---
 
 --- frequency signals
-<<<<<<< Updated upstream
+
 signal freq48M, freq24M, freq25M, dotclk, freq0M75, byteclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
 signal freq4096, freq2, freq4: std_logic;		
 
-=======
-signal freq96M, freq25M: std_logic;
+signal freq96M: std_logic;
 --signal freq24M, dotclk, freq0M75, 
-signal freq12M, byteclk, freq_x: std_logic;
-signal prescale_baud, prescale_power: integer range 0 to 65535;
-signal freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300, freq150: std_logic;		
-signal freq4096, freq4, freq2, freq1: std_logic;	
+signal freq12M, freq_x: std_logic;	
 signal counter_inp, counter_clk: std_logic;	
 
 -- "regenerated" XTAL clock
-signal vdp_xtal, vdp_xtal_int, vdp_xtal_int2, vdp_xtal_ext, vdp_xtal_raw, vdp_pixclk: std_logic;
-signal xtal_delay: std_logic_vector(7 downto 0);
+signal vdp_xtal, vdp_xtal_int, vdp_xtal_int2, vdp_xtal_ext, vdp_xtal_raw, vdp_pixclk, vdp_vsync: std_logic;
+signal csync_line: std_logic_vector(31 downto 0);
 signal r_line, g_line, b_line: std_logic_vector(7 downto 0);
 signal r_delayed, g_delayed, b_delayed: std_logic;
->>>>>>> Stashed changes
 --- video sync signals
 signal x_valid, y_valid: std_logic;
 signal h_valid, v_valid : std_logic;
@@ -483,13 +486,13 @@ signal text_pix: std_logic;
 -- video memory bus
 signal sampler_wr_nrd, we_in: std_logic;
 signal vram_dina, vram_douta: std_logic_vector(7 downto 0);
-signal vga_a, sampler_a: std_logic_vector(14 downto 0);
+signal vdp_vram_dina, tim_vram_dina: std_logic_vector(7 downto 0);
+signal vga_a, vdp_sampler_a, tim_sampler_a, sampler_a: std_logic_vector(14 downto 0);
 signal vram_wea: std_logic_vector(0 downto 0);
+signal vdp_sampler_wr_nrd, tim_sampler_wr_nrd: std_logic;
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
-<<<<<<< Updated upstream
-=======
 alias switch_we: std_logic is switch(0);
 alias switch_timpalette: std_logic is switch(0);
 alias switch_tms: std_logic is switch(1);
@@ -497,7 +500,7 @@ alias switch_limit: std_logic_vector(5 downto 0) is switch(7 downto 2);
 signal vdp_limit: std_logic_vector(5 downto 0);
 --signal test_rgb: std_logic_vector(15 downto 0);
 signal offset_vdp, offset_tim: std_logic_vector(3 downto 0);
->>>>>>> Stashed changes
+signal color_index, nibble: std_logic_vector(3 downto 0);
 
 --alias ps2_data: std_logic is LED(0);
 --alias ps2_clk: std_logic is LED(1);
@@ -510,19 +513,16 @@ signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
 signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 signal sr: std_logic_vector(31 downto 0);
 
-
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
 --alias nRTS: std_logic is PMOD(4); 	-- out, active low
 --alias RXD_TTY: std_logic is PMOD(5);		-- in
 --alias TXD_TTY: std_logic is PMOD(6);		-- out
 --alias nCTS: std_logic is PMOD(7);	-- in, active low
 signal tim_freq: std_logic;
-<<<<<<< Updated upstream
 alias TIM_HSYNC: std_logic is PMOD(7);
 alias TIM_VSYNC: std_logic is PMOD(6);
-alias TIM_VIDEO2: std_logic is PMOD(5);
-alias TIM_VIDEO1: std_logic is PMOD(4);
-=======
+--alias TIM_VIDEO2: std_logic is PMOD(5);
+--alias TIM_VIDEO1: std_logic is PMOD(4);
 alias VIDEO_HSYNC: std_logic is PMOD(7); -- BB6 on Anvyl (white)
 alias VIDEO_CSYNC: std_logic is PMOD(6);	-- BB5 on Anvyl (blue)
 alias VIDEO_VSYNC: std_logic is PMOD(6);	-- BB5 on Anvyl (blue)
@@ -533,17 +533,10 @@ alias VDP_G_DIG: std_logic is PMOD(2);		-- "digitized" green signal (using LM339
 alias VDP_R_DIG: std_logic is PMOD(1);		-- "digitized" red signal (using LM339 1-bit ADC)
 alias VDP_CPUCLK: std_logic is PMOD(0);	-- v9958 pin 8 (XTAL/6 == 3.579545MHz)
 --alias VDP_CPUCLK: std_logic is PMOD(0);
->>>>>>> Stashed changes
 
 begin
    
 -- connect to "oscilloscope"
-<<<<<<< Updated upstream
-PMOD(3) <= PMOD(7); --TIM_HSYNC;  --TXD_TTY;
-PMOD(2) <= PMOD(6); --TIM_VSYNC;  --RXD_TTY;
-PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
-PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
-=======
 --PMOD(3) <= PMOD(7); --TIM_HSYNC;  --TXD_TTY;
 --PMOD(2) <= PMOD(6); --TIM_VSYNC;  --RXD_TTY;
 --PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
@@ -551,12 +544,9 @@ PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
 --PMOD(4) <= vdp_sampler_wr_nrd; --vdp_vsync;
 vdp_xtal_ext <= PMOD(4);	-- INPUT!
 PMOD(5) <= vdp_pixclk;		-- OUTPUT!!
->>>>>>> Stashed changes
 	
 RESET <= USR_BTN;
 
-<<<<<<< Updated upstream
-=======
 --on_freq96M: process(freq96M, VDP_R_DIG, VDP_G_DIG, VDP_B_DIG, r_line, g_line, b_line)
 --begin
 ----	if (VIDEO_HSYNC = '1') then
@@ -572,9 +562,9 @@ RESET <= USR_BTN;
 ----	end if;
 --end process;
 
-r_delayed <= r_line(to_integer(unsigned(switch(7 downto 6) & '0')));
-g_delayed <= g_line(to_integer(unsigned(switch(5 downto 4) & '0')));
-b_delayed <= b_line(to_integer(unsigned(switch(3 downto 2) & '0')));
+r_delayed <= r_line(to_integer(unsigned(switch(7 downto 6) & '1')));
+g_delayed <= g_line(to_integer(unsigned(switch(5 downto 4) & '1')));
+b_delayed <= b_line(to_integer(unsigned(switch(3 downto 2) & '1')));
 
 --vdp_xtal_raw <= vdp_xtal_int;-- when (switch(7) = '1') else vdp_xtal_ext;
 --vdp_xtal <= xtal_delay(to_integer(unsigned(switch(7 downto 5))));
@@ -637,7 +627,6 @@ end process;
       RST => RESET        -- DCM asynchronous reset input
    );
 
->>>>>>> Stashed changes
 --
 --clockgen: sn74hc4040 port map (
 --			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
@@ -657,26 +646,22 @@ end process;
 --		);
 	
 clockgen: sn74hc4040 port map (
-			clock_10 => EXT_CLK,	-- 48MHz "half-size" crystal on Mercury baseboard
+			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
-			q1_9 => freq24M, 
-			q2_7 => dotclk,	-- 12MHz for TIM video sampler
-			q3_6 => open, 
-			q4_5 => byteclk,	-- 3MHz to write to TIM sample RAM
-			q5_3 => open, 	
-			q6_2 => freq0M75, -- 0.75	
-			q7_4 =>   open,	
+			q1_9 => freq48M, 
+			q2_7 => freq24M,	
+			q3_6 => dotclk, -- 12MHz for TIM video sampler
+			q4_5 => open,	
+			q5_3 => byteclk, 	-- 3MHz to write to TIM sample RAM
+			q6_2 => open, 	
+			q7_4 =>   freq0M75,	-- 0.75
 			q8_13 =>  open,		-- 0.375
 			q9_12 =>  open,		-- 0.1625
 			q10_14 => open,		-- 0.08125
 			q11_15 => digsel(0),	-- 0.040625
 			q12_1 =>  digsel(1)	-- 0.0203125
 		);
-<<<<<<< Updated upstream
---
-=======
-	
->>>>>>> Stashed changes
+
 prescale: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
@@ -792,18 +777,15 @@ mem: ram32k8_dualport PORT MAP(
 tim_window <= x_valid and y_valid;
 vga_window <= v_valid and h_valid;
 
-<<<<<<< Updated upstream
-vga_a <= vga_y & vga_x(8 downto 2);
-=======
+--vga_a <= vga_y & vga_x(8 downto 2);
 --vga_a <= vga_y & vga_x(7 downto 1); 
 vga_a <= vga_y(8 downto 1) & vga_x(8 downto 2) when (switch_tms = '1') else vga_y(7 downto 0) & vga_x(8 downto 2); 
 -- TODO: modify VGA controller to expand y from 256 to 384 (2*192) pixels
->>>>>>> Stashed changes
 vram_wea <= (others => sampler_wr_nrd);
 
 we_in <= switch(0) when (tim_window = '0') else '0';
 
-freq48M <= EXT_CLK;
+freq96M <= EXT_CLK;
 
 tim: tim_sampler port map (
 		reset => RESET,
@@ -812,8 +794,8 @@ tim: tim_sampler port map (
 		vsync => TIM_VSYNC,
 		v2 =>	TIM_VIDEO2,
 		v1 => TIM_VIDEO1,
-		a => sampler_a,
-		d => vram_dina,
+		a => tim_sampler_a,
+		d => tim_vram_dina,
 		--limit => switch(7 downto 2),
 		-- best result with sampler "algorithm"
 		-- s2 from raising edge sample
@@ -824,12 +806,10 @@ tim: tim_sampler port map (
 		-- 1 out of 4 sample: off
 		limit => "111100",
 		we_in => we_in,
-		we_out => sampler_wr_nrd
+		we_out => tim_sampler_wr_nrd
 	);
 
-<<<<<<< Updated upstream
 -- pixels are stored 11003322
-=======
 --generate VSYNC by filtering out HSYNC from CSYNC using a delay line
 on_vdp_cpuclk: process(reset, VDP_CPUCLK, VIDEO_CSYNC, VIDEO_HSYNC)
 begin
@@ -854,7 +834,7 @@ vdp: vdp_sampler2 port map (
 		b => b_delayed, --VDP_B_DIG,
 		a => vdp_sampler_a,
 		d => vdp_vram_dina,
-		limit => "001111", --switch_limit, 
+		limit => "001110", --switch_limit, 
 		we_in => we_in,
 		we_out => vdp_sampler_wr_nrd
 	);
@@ -865,16 +845,13 @@ vram_dina <= vdp_vram_dina when (switch_tms = '1') else tim_vram_dina;
 sampler_wr_nrd <= vdp_sampler_wr_nrd when (switch_tms = '1') else tim_sampler_wr_nrd;
 
 -- TIM sample: pixels are stored 11003322
->>>>>>> Stashed changes
 -- see https://github.com/zpekic/Sys_TIM-011/blob/master/Img2Tim/Img2Tim/Program.cs
 with vga_x(1 downto 0) select pair <=
 	vram_douta(5 downto 4) when "00",
 	vram_douta(7 downto 6) when "01",
 	vram_douta(1 downto 0) when "10",
 	vram_douta(3 downto 2) when others;
-<<<<<<< Updated upstream
-=======
-	
+
 -- V9958 sample: pixels are stored XRGBXRGB
 -- high nibble contains higher x-coordinate pixel (as sampler shifts MSB <- LSB)
 with vga_x(1) select nibble <=  
@@ -883,14 +860,13 @@ with vga_x(1) select nibble <=
 
 -- index depends on the V9958 or TIM mode
 color_index <= '1' & nibble(2 downto 0) when (switch_tms = '1') else '0' & switch_timpalette & pair;	
->>>>>>> Stashed changes
 
 -- color index also takes into account selected palette and if in TIM window
 color_sel <= vga_window & tim_window; 
 with color_sel select vga_color <=
-	text_color when "10",														-- text outside tim window
-	tim_color(to_integer(unsigned(switch(0) & pair))) when "11",	-- tim pixel 
-	color_black when others;													-- outside pixel area (border)
+	text_color when "10",													-- text outside tim window
+	video_color(to_integer(unsigned(color_index))) when "11",	-- tim or vdp pixel 
+	color_black when others;												-- outside pixel area (border)
 	
 -- now convert to VGA 8-bit color
 RED <= vga_color(7 downto 5);
@@ -936,13 +912,11 @@ leds: fourdigitsevensegled Port map (
 			segment(6 downto 0) => A_TO_G
 		);
 
-<<<<<<< Updated upstream
-=======
+
 -- display pixels per hsync (line) or hsync per vsync (frame)
 counter_clk <= vdp_pixclk when (switch(1) = '1') else VIDEO_HSYNC;
 counter_inp <= VIDEO_HSYNC when (switch(1) = '1') else vdp_vsync;
 
->>>>>>> Stashed changes
 showdigit <= "1111"; -- when (data(15) = '1') else (others => freq2); 
 
 with digsel select
@@ -962,13 +936,13 @@ counter: freqcounter Port map (
       value => display
 	);
 
-<<<<<<< Updated upstream
+
 with switch(1 downto 0) select tim_freq <=
 	TIM_VIDEO1 when "00",
 	TIM_VIDEO2 when "01",
 	TIM_VSYNC	when "10",
 	TIM_HSYNC	when others;
-=======
+
 --kbd: ps2tim Port map ( 
 --			reset => RESET,
 --         uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
@@ -1001,7 +975,6 @@ with switch(1 downto 0) select tim_freq <=
 --	TMS_PIXCLK 	when "01",
 --	VIDEO_VSYNC	when "10",
 --	VIDEO_HSYNC	when others;
->>>>>>> Stashed changes
 	
 --
 -- UART input coming either directly from USB2UART, or ADC
