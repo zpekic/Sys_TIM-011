@@ -288,6 +288,7 @@ component vdp_sampler2 is
 			  pixclk: out STD_LOGIC;
 			  offsetclk: in STD_LOGIC;
 			  offsetcmd: in STD_LOGIC_VECTOR(3 downto 0);
+			  i : in  STD_LOGIC; -- bit3 from color bus!
            r : in  STD_LOGIC;
            g : in  STD_LOGIC;
 			  b : in  STD_LOGIC;
@@ -409,41 +410,74 @@ end component;
 --           DD : out  STD_LOGIC_VECTOR (7 downto 0));
 --end component;
 --
-constant color_black:	std_logic_vector(7 downto 0):= "00000000";
-constant color_blue:		std_logic_vector(7 downto 0):= "00000011";
-constant color_green:	std_logic_vector(7 downto 0):= "00011100";
-constant color_cyan:		std_logic_vector(7 downto 0):= "00011111";
-constant color_red:		std_logic_vector(7 downto 0):= "11100000";
-constant color_purple:	std_logic_vector(7 downto 0):= "11100011";
-constant color_yellow:	std_logic_vector(7 downto 0):= "11111100";
-constant color_white:	std_logic_vector(7 downto 0):= "11111111";
-constant color_ltgray:	std_logic_vector(7 downto 0):= "01101101"; 
-constant color_dkgray:	std_logic_vector(7 downto 0):= "10010010";
+constant color_transparent:				std_logic_vector(7 downto 0):= "00000000";
+constant color_medgreen: 					std_logic_vector(7 downto 0):= "00010000";
+constant color_dkgreen:						std_logic_vector(7 downto 0):= "00001000";
+constant color_dkblue:						std_logic_vector(7 downto 0):= "00000010";
+constant color_medred:						std_logic_vector(7 downto 0):= "01100000";
+constant color_dkred:						std_logic_vector(7 downto 0):= "01000000";
+constant color_ltcyan:						std_logic_vector(7 downto 0):= "00001110";
+constant color_dkyellow:					std_logic_vector(7 downto 0):= "10010000";
+constant color_magenta:						std_logic_vector(7 downto 0):= "01100010";
+
+constant color_black:						std_logic_vector(7 downto 0):= "00000000";
+constant color_blue,		color_ltblue:	std_logic_vector(7 downto 0):= "00000011";
+constant color_green,	color_ltgreen:	std_logic_vector(7 downto 0):= "00011100";
+constant color_cyan:							std_logic_vector(7 downto 0):= "00011111";
+constant color_red,		color_ltred:	std_logic_vector(7 downto 0):= "11100000";
+constant color_purple:						std_logic_vector(7 downto 0):= "11100011";
+constant color_yellow,	color_ltyellow:std_logic_vector(7 downto 0):= "11111100";
+constant color_white:						std_logic_vector(7 downto 0):= "11111111";
+constant color_ltgray:						std_logic_vector(7 downto 0):= "01101110"; 
+constant color_dkgray,  color_gray:		std_logic_vector(7 downto 0):= "10010010";
 
 type color_lookup is array (0 to 15) of std_logic_vector(7 downto 0);
 
+--signal video_color: color_lookup := (
+--	-- TIM grayscale palette
+--	color_black,	-- tim pixel 00
+--	color_dkgray,	-- tim pixel 01
+--	color_ltgray,	-- tim pixel 10
+--	color_white,	-- tim pixel 11
+--	-- TIM colorful palette
+--	color_black,	-- tim pixel 00
+--	color_yellow,	-- tim pixel 01
+--	color_cyan,		-- tim pixel 10
+--	color_green,	-- tim pixel 11
+--	-- VDP 3-bit color palette
+--	color_black,
+--	color_blue,
+--	color_green,
+--	color_cyan,
+--	color_red,
+--	color_purple,
+--	color_yellow,
+--	color_white
+--	);
+
+-- standard TMS9918 16-color palette (http://www.cs.columbia.edu/~sedwards/papers/TMS9918.pdf page 26) 
 signal video_color: color_lookup := (
-	-- TIM grayscale palette
-	color_black,	-- tim pixel 00
-	color_dkgray,	-- tim pixel 01
-	color_ltgray,	-- tim pixel 10
-	color_white,	-- tim pixel 11
-	-- TIM colorful palette
-	color_black,	-- tim pixel 00
-	color_yellow,	-- tim pixel 01
-	color_cyan,		-- tim pixel 10
-	color_green,	-- tim pixel 11
-	-- VDP 3-bit color palette
+	color_transparent,	-- VGA does not support is, so "black"
 	color_black,
-	color_blue,
-	color_green,
-	color_cyan,
-	color_red,
-	color_purple,
-	color_yellow,
+	color_medgreen,	
+	color_ltgreen,
+	
+	color_dkblue,
+	color_ltblue,	
+	color_dkred,	
+	color_cyan,	
+
+	color_medred,
+	color_ltred,
+	color_dkyellow,
+	color_ltyellow,
+
+	color_dkgreen,
+	color_magenta,
+	color_gray,
 	color_white
 	);
-
+	
 signal RESET: std_logic;
 
 -- debug
@@ -490,6 +524,10 @@ signal vdp_vram_dina, tim_vram_dina: std_logic_vector(7 downto 0);
 signal vga_a, vdp_sampler_a, tim_sampler_a, sampler_a: std_logic_vector(14 downto 0);
 signal vram_wea: std_logic_vector(0 downto 0);
 signal vdp_sampler_wr_nrd, tim_sampler_wr_nrd: std_logic;
+
+-- additional signals from color bus
+signal VDP_I_DIG, i_delayed: std_logic;
+signal i_line: std_logic_vector(7 downto 0);
 
 ---
 signal switch, button: std_logic_vector(7 downto 0);
@@ -542,7 +580,8 @@ begin
 --PMOD(1) <= PMOD(5); --TIM_VIDEO2; --baudrate_x1;
 --PMOD(0) <= PMOD(4); --TIM_VIDEO1; --baudrate_x4;
 --PMOD(4) <= vdp_sampler_wr_nrd; --vdp_vsync;
-vdp_xtal_ext <= PMOD(4);	-- INPUT!
+--vdp_xtal_ext <= PMOD(4);	-- INPUT!
+VDP_I_DIG <= PMOD(4);	-- INPUT!	-- Bit3 from color bus
 PMOD(5) <= vdp_pixclk;		-- OUTPUT!!
 	
 RESET <= USR_BTN;
@@ -562,6 +601,7 @@ RESET <= USR_BTN;
 ----	end if;
 --end process;
 
+i_delayed <= i_line(to_integer(unsigned(switch(7 downto 6) & '1'))); -- use "red" switches
 r_delayed <= r_line(to_integer(unsigned(switch(7 downto 6) & '1')));
 g_delayed <= g_line(to_integer(unsigned(switch(5 downto 4) & '1')));
 b_delayed <= b_line(to_integer(unsigned(switch(3 downto 2) & '1')));
@@ -583,6 +623,7 @@ begin
 --	else
 		if (rising_edge(vdp_xtal_int2)) then
 			vdp_xtal_int <= not vdp_xtal_int;
+			i_line <= i_line(6 downto 0) & VDP_I_DIG;
 			r_line <= r_line(6 downto 0) & VDP_R_DIG;
 			g_line <= g_line(6 downto 0) & VDP_G_DIG;
 			b_line <= b_line(6 downto 0) & VDP_B_DIG;
@@ -829,6 +870,7 @@ vdp: vdp_sampler2 port map (
 		pixclk => vdp_pixclk,
 		offsetclk => freq4, 
 		offsetcmd => offset_vdp, -- in TMS mode move the 0, 0 dot within the window
+		i => i_delayed,
 		r => r_delayed, --VDP_R_DIG,
 		g => g_delayed, --VDP_G_DIG,
 		b => b_delayed, --VDP_B_DIG,
@@ -859,13 +901,15 @@ with vga_x(1) select nibble <=
 	vram_douta(7 downto 4) when others;
 
 -- index depends on the V9958 or TIM mode
-color_index <= '1' & nibble(2 downto 0) when (switch_tms = '1') else '0' & switch_timpalette & pair;	
+--color_index <= '1' & nibble(2 downto 0) when (switch_tms = '1') else '0' & switch_timpalette & pair;	
+color_index <= nibble when (switch_tms = '1') else '0' & switch_timpalette & pair;	
 
 -- color index also takes into account selected palette and if in TIM window
 color_sel <= vga_window & tim_window; 
 with color_sel select vga_color <=
 	text_color when "10",													-- text outside tim window
 	video_color(to_integer(unsigned(color_index))) when "11",	-- tim or vdp pixel 
+	--nibble(2) & nibble(2) & nibble(2) & nibble(1) & nibble(1) & nibble(1) & nibble(0) & nibble(0) when "11",	-- tim or vdp pixel 
 	color_black when others;												-- outside pixel area (border)
 	
 -- now convert to VGA 8-bit color

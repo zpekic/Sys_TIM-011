@@ -37,6 +37,7 @@ entity vdp_sampler2 is
 			  pixclk: buffer STD_LOGIC;
 			  offsetclk: in STD_LOGIC;
 			  offsetcmd: in STD_LOGIC_VECTOR(3 downto 0);
+			  i : in  STD_LOGIC; -- bit3 from color bus!
            r : in  STD_LOGIC;
            g : in  STD_LOGIC;
 			  b : in  STD_LOGIC;
@@ -107,10 +108,10 @@ begin
 	end if;
 end process;
 
-on_sample_pulse: process(sample_pulse, r, g, b, sample)
+on_sample_pulse: process(sample_pulse, i, r, g, b, sample)
 begin
 	if (rising_edge(sample_pulse)) then
-		sample <= sample(3 downto 0) & '0' & r & g & b;
+		sample <= sample(3 downto 0) & i & r & g & b;
 	end if;
 end process;
 
@@ -128,7 +129,7 @@ end process;
 
 h_reg: offsetreg Port map ( 
 				reset => reset,
-				initval => "1111100110", -- -26 (0x3E6)
+				initval => "1111101010", -- -22 (0x3EA)
 				mode => offsetcmd(1 downto 0),
 				clk => offsetclk,
 				sel => '0',
