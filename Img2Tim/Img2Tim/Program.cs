@@ -179,7 +179,7 @@ namespace Img2Tim
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPEG files (*.jpg)|*.jpg|PNG files (.png)|*.png|TIFF files (*.tiff)|*.tiff|All files (*.*)|*.*";
+                openFileDialog.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 6;
                 openFileDialog.RestoreDirectory = true;
 
