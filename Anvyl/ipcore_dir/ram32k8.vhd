@@ -95,7 +95,7 @@ END COMPONENT;
       c_has_softecc_input_regs_a => 0,
       c_has_softecc_output_regs_b => 0,
       c_init_file => "BlankString",
-      c_init_file_name => "ram32k8.mif",
+      c_init_file_name => "TIM-011_skolski_racunar_1987.mif",
       c_inita_val => "0",
       c_initb_val => "0",
       c_interface_type => 0,

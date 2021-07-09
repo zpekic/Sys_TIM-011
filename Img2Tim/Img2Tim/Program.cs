@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Img2Tim
 {
@@ -12,22 +13,40 @@ namespace Img2Tim
     {
         static Logger logger;
         static int lineCounter = 0;
+        static bool helpMode, epromEmulator, interactive;
+        static string file1, file2;
+        static string srcFile, dstFile;
 
+        [STAThreadAttribute]
         static int Main(string[] args)
         {
             try
             {
                 logger = new Logger(args);
                 logger.PrintBanner();
-                Assert(args.Length > 0, "Source file [path\\]name missing.\r\n\r\nUsage info: img2tim.exe -h[elp]");
 
-                if (!HelpMode(args))
+                GetSwitches(args, out helpMode, out epromEmulator, out interactive, out file1, out file2);
+                if (!helpMode)
                 {
                     FileInfo dstFileInfo;
                     Bitmap srcBitmap;
                     byte[] timScreen = new byte[32768]; // TIM-011 is always exactly 32k
 
-                    Image srcImage = Image.FromFile(args[0]);
+                    if (interactive)
+                    {
+                        Assert(string.IsNullOrEmpty(file2), "Too many files specified.\r\n\r\nUsage info: img2tim.exe <sourceFile>|-i[nteractive] [<dstFile>] [-e[promemulator]] [-h[elp]]");
+                        srcFile = GetInteractiveFile();
+                        Assert(!string.IsNullOrEmpty(srcFile), "No file selected, conversion aborted.");
+                        dstFile = file1;
+                    }
+                    else
+                    {
+                        Assert(!string.IsNullOrEmpty(file1), "Source file [path\\]name missing.\r\n\r\nUsage info: img2tim.exe <sourceFile>|-i[nteractive] [<dstFile>] [-e[promemulator]] [-h[elp]]");
+                        srcFile = file1;
+                        dstFile = file2;
+                    }
+                    
+                    Image srcImage = Image.FromFile(srcFile);
                     //Assert(srcImage.Width > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
                     //Assert(srcImage.Height > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
                     if ((srcImage.Width != 512) || (srcImage.Height != 256))
@@ -74,20 +93,35 @@ namespace Img2Tim
                         timScreen[i] = (byte) value;
                     }
 
-                    if (args.Length > 1)
+                    if (string.IsNullOrEmpty(dstFile))
                     {
-                        dstFileInfo = new FileInfo(args[1]);
+                        dstFileInfo = new FileInfo(srcFile.Replace(srcFile.Substring(srcFile.LastIndexOf('.')), ".bin"));
                     }
                     else
                     {
-                        dstFileInfo = new FileInfo(args[0].Replace(args[0].Substring(args[0].LastIndexOf('.')), ".bin"));
+                        dstFileInfo = new FileInfo(dstFile);
                     }
 
                     using (System.IO.BinaryWriter binWriter = new BinaryWriter(dstFileInfo.OpenWrite()))
                     {
                         logger.Write(string.Format("Writing '{0}' ...", dstFileInfo.FullName));
 
-                        binWriter.Write(timScreen);
+                        if (epromEmulator)
+                        {
+                            // emulator format is <addr_hi><addr_lo><byte> for each location
+                            byte[] emulatorFormat = new byte[32768 * 3]; // 3 bytes total for a data byte
+                            for (int i = 0; i < 32768; i++)
+                            {
+                                emulatorFormat[3 * i + 0] = BitConverter.GetBytes(i)[1];    // address hi
+                                emulatorFormat[3 * i + 1] = BitConverter.GetBytes(i)[0];    // address lo
+                                emulatorFormat[3 * i + 2] = timScreen[i];                   // data
+                            }
+                            binWriter.Write(emulatorFormat);
+                        }
+                        else
+                        {
+                            binWriter.Write(timScreen);
+                        }
 
                         logger.WriteLine(" Done.");
                     }
@@ -140,18 +174,60 @@ namespace Img2Tim
             }
         }
 
-        private static bool HelpMode(string[] args)
+        private static string GetInteractiveFile()
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPEG files (*.jpg)|*.jpg|PNG files (.png)|*.png|TIFF files (*.tiff)|*.tiff|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 6;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    return openFileDialog.FileName;
+                }
+            }
+
+            return null; // no file selected
+        }
+
+        private static void GetSwitches(string[] args, out bool helpMode, out bool epromEmulator, out bool interactive, out string file1, out string file2)
+        {
+            helpMode = false;
+            epromEmulator = false;
+            interactive = false;
+            file1 = null;
+            file2 = null;
+
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i].StartsWith("-h", StringComparison.InvariantCultureIgnoreCase) || args[i].StartsWith("-?", StringComparison.InvariantCultureIgnoreCase))
                 {
                     logger.PrintHelp(null);
-                    return true;
+                    helpMode = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-e", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    epromEmulator = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-i", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    interactive = true;
+                    continue;
+                }
+                if (file1 == null)
+                {
+                    file1 = args[i];
+                }
+                else
+                {
+                    file2 = args[i];
                 }
             }
-
-            return false;
         }
 
         private static void Assert(bool condition, string exceptionMessage)

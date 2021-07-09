@@ -1,0 +1,839 @@
+Release 14.7 ngdbuild P.20131013 (nt)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+Command Line: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt\unwrapped\ngdbuild.exe -intstyle
+ise -dd _ngo -sd ipcore_dir -aul -nt timestamp -uc Anvyl_Master.ucf -p
+xc6slx45-csg484-3 sys_tim011_anvyl.ngc sys_tim011_anvyl.ngd
+
+Reading NGO file
+"C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Anvyl/sys_tim011_anv
+yl.ngc" ...
+Loading design module "ipcore_dir/ram32k8.ngc"...
+Gathering constraint information from source properties...
+Done.
+
+Annotating constraints to design from ucf file "Anvyl_Master.ucf" ...
+Resolving constraint associations...
+Checking Constraint Associations...
+INFO:ConstraintSystem:59 - Constraint <NET "LDT1G"	LOC="T7"		|>
+   [Anvyl_Master.ucf(32)]: NET "LDT1G" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT1G"	LOC="T7"		|> [Anvyl_Master.ucf(32)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(32)]: NET "LDT1G" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "LDT1Y"	LOC="W4"		|>
+   [Anvyl_Master.ucf(33)]: NET "LDT1Y" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT1Y"	LOC="W4"		|> [Anvyl_Master.ucf(33)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(33)]: NET "LDT1Y" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "LDT1R"	LOC="U8"		|>
+   [Anvyl_Master.ucf(34)]: NET "LDT1R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT1R"	LOC="U8"		|> [Anvyl_Master.ucf(34)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(34)]: NET "LDT1R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "LDT2G"	LOC="R7"		|>
+   [Anvyl_Master.ucf(35)]: NET "LDT2G" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT2G"	LOC="R7"		|> [Anvyl_Master.ucf(35)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(35)]: NET "LDT2G" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "LDT2Y"	LOC="U6"		|>
+   [Anvyl_Master.ucf(36)]: NET "LDT2Y" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT2Y"	LOC="U6"		|> [Anvyl_Master.ucf(36)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(36)]: NET "LDT2Y" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "LDT2R"	LOC="T8"		|>
+   [Anvyl_Master.ucf(37)]: NET "LDT2R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "LDT2R"	LOC="T8"		|> [Anvyl_Master.ucf(37)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD = LVCMOS18;>
+   [Anvyl_Master.ucf(37)]: NET "LDT2R" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_A1"	LOC = G6	|>
+   [Anvyl_Master.ucf(67)]: NET "DIP_A1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_A1"	LOC = G6	|> [Anvyl_Master.ucf(67)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(67)]: NET "DIP_A1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_A2"	LOC = G4	|>
+   [Anvyl_Master.ucf(68)]: NET "DIP_A2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_A2"	LOC = G4	|> [Anvyl_Master.ucf(68)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(68)]: NET "DIP_A2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_A3"	LOC = F5	|>
+   [Anvyl_Master.ucf(69)]: NET "DIP_A3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_A3"	LOC = F5	|> [Anvyl_Master.ucf(69)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(69)]: NET "DIP_A3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_A4"	LOC = E5	|>
+   [Anvyl_Master.ucf(70)]: NET "DIP_A4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_A4"	LOC = E5	|> [Anvyl_Master.ucf(70)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(70)]: NET "DIP_A4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_B1"	LOC = F8	|>
+   [Anvyl_Master.ucf(71)]: NET "DIP_B1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_B1"	LOC = F8	|> [Anvyl_Master.ucf(71)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(71)]: NET "DIP_B1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_B2"	LOC = F7	|>
+   [Anvyl_Master.ucf(72)]: NET "DIP_B2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_B2"	LOC = F7	|> [Anvyl_Master.ucf(72)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(72)]: NET "DIP_B2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_B3"	LOC = C4	|>
+   [Anvyl_Master.ucf(73)]: NET "DIP_B3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_B3"	LOC = C4	|> [Anvyl_Master.ucf(73)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(73)]: NET "DIP_B3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "DIP_B4"	LOC = D3	|>
+   [Anvyl_Master.ucf(74)]: NET "DIP_B4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "DIP_B4"	LOC = D3	|> [Anvyl_Master.ucf(74)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(74)]: NET "DIP_B4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_COL[0]"	LOC = H8	|>
+   [Anvyl_Master.ucf(77)]: NET "KYPD_COL[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_COL[0]"	LOC = H8	|> [Anvyl_Master.ucf(77)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(77)]: NET "KYPD_COL[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_COL[1]"	LOC = J7	|>
+   [Anvyl_Master.ucf(78)]: NET "KYPD_COL[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_COL[1]"	LOC = J7	|> [Anvyl_Master.ucf(78)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(78)]: NET "KYPD_COL[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_COL[2]"	LOC = K8	|>
+   [Anvyl_Master.ucf(79)]: NET "KYPD_COL[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_COL[2]"	LOC = K8	|> [Anvyl_Master.ucf(79)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(79)]: NET "KYPD_COL[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_COL[3]"	LOC = K7	|>
+   [Anvyl_Master.ucf(80)]: NET "KYPD_COL[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_COL[3]"	LOC = K7	|> [Anvyl_Master.ucf(80)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(80)]: NET "KYPD_COL[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_ROW[0]"	LOC = E4	|>
+   [Anvyl_Master.ucf(82)]: NET "KYPD_ROW[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_ROW[0]"	LOC = E4	|> [Anvyl_Master.ucf(82)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(82)]: NET "KYPD_ROW[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_ROW[1]"	LOC = F3	|>
+   [Anvyl_Master.ucf(83)]: NET "KYPD_ROW[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_ROW[1]"	LOC = F3	|> [Anvyl_Master.ucf(83)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(83)]: NET "KYPD_ROW[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_ROW[2]"	LOC = G8	|>
+   [Anvyl_Master.ucf(84)]: NET "KYPD_ROW[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_ROW[2]"	LOC = G8	|> [Anvyl_Master.ucf(84)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(84)]: NET "KYPD_ROW[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "KYPD_ROW[3]"	LOC = G7	|>
+   [Anvyl_Master.ucf(85)]: NET "KYPD_ROW[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "KYPD_ROW[3]"	LOC = G7	|> [Anvyl_Master.ucf(85)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(85)]: NET "KYPD_ROW[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "BB2"		LOC=P17	|>
+   [Anvyl_Master.ucf(147)]: NET "BB2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "BB2"		LOC=P17	|> [Anvyl_Master.ucf(147)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(147)]: NET "BB2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JB1"	LOC = Y16		|>
+   [Anvyl_Master.ucf(169)]: NET "JB1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JB1"	LOC = Y16		|> [Anvyl_Master.ucf(169)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(169)]: NET "JB1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JB2"	LOC = AB14	|>
+   [Anvyl_Master.ucf(170)]: NET "JB2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JB2"	LOC = AB14	|> [Anvyl_Master.ucf(170)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(170)]: NET "JB2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JB3"	LOC = Y14		|>
+   [Anvyl_Master.ucf(171)]: NET "JB3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JB3"	LOC = Y14		|> [Anvyl_Master.ucf(171)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(171)]: NET "JB3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JB4"	LOC = U14		|>
+   [Anvyl_Master.ucf(172)]: NET "JB4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JB4"	LOC = U14		|> [Anvyl_Master.ucf(172)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(172)]: NET "JB4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC1"	LOC = Y10	|>
+   [Anvyl_Master.ucf(179)]: NET "JC1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC1"	LOC = Y10	|> [Anvyl_Master.ucf(179)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(179)]: NET "JC1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC2"	LOC = AB12	|>
+   [Anvyl_Master.ucf(180)]: NET "JC2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC2"	LOC = AB12	|> [Anvyl_Master.ucf(180)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(180)]: NET "JC2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC3"	LOC = AB11	|>
+   [Anvyl_Master.ucf(181)]: NET "JC3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC3"	LOC = AB11	|> [Anvyl_Master.ucf(181)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(181)]: NET "JC3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC4"	LOC = AB10	|>
+   [Anvyl_Master.ucf(182)]: NET "JC4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC4"	LOC = AB10	|> [Anvyl_Master.ucf(182)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(182)]: NET "JC4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC7"	LOC = AA12	|>
+   [Anvyl_Master.ucf(183)]: NET "JC7" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC7"	LOC = AA12	|> [Anvyl_Master.ucf(183)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(183)]: NET "JC7" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC8"	LOC = Y11	|>
+   [Anvyl_Master.ucf(184)]: NET "JC8" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC8"	LOC = Y11	|> [Anvyl_Master.ucf(184)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(184)]: NET "JC8" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC9"	LOC = AA10	|>
+   [Anvyl_Master.ucf(185)]: NET "JC9" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC9"	LOC = AA10	|> [Anvyl_Master.ucf(185)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(185)]: NET "JC9" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JC10"	LOC = Y13	|>
+   [Anvyl_Master.ucf(186)]: NET "JC10" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JC10"	LOC = Y13	|> [Anvyl_Master.ucf(186)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(186)]: NET "JC10" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JD1"	LOC = AB13	|>
+   [Anvyl_Master.ucf(189)]: NET "JD1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JD1"	LOC = AB13	|> [Anvyl_Master.ucf(189)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(189)]: NET "JD1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JD2"	LOC = Y12		|>
+   [Anvyl_Master.ucf(190)]: NET "JD2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JD2"	LOC = Y12		|> [Anvyl_Master.ucf(190)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(190)]: NET "JD2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JD3"	LOC = T11		|>
+   [Anvyl_Master.ucf(191)]: NET "JD3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JD3"	LOC = T11		|> [Anvyl_Master.ucf(191)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(191)]: NET "JD3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JD4"	LOC = W10	|>
+   [Anvyl_Master.ucf(192)]: NET "JD4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JD4"	LOC = W10	|> [Anvyl_Master.ucf(192)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(192)]: NET "JD4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JF1"	LOC = V7	|>
+   [Anvyl_Master.ucf(209)]: NET "JF1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JF1"	LOC = V7	|> [Anvyl_Master.ucf(209)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(209)]: NET "JF1" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JF2"	LOC = W6	|>
+   [Anvyl_Master.ucf(210)]: NET "JF2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JF2"	LOC = W6	|> [Anvyl_Master.ucf(210)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(210)]: NET "JF2" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JF3"	LOC = Y7	|>
+   [Anvyl_Master.ucf(211)]: NET "JF3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JF3"	LOC = Y7	|> [Anvyl_Master.ucf(211)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(211)]: NET "JF3" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "JF4"	LOC = AA6	|>
+   [Anvyl_Master.ucf(212)]: NET "JF4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "JF4"	LOC = AA6	|> [Anvyl_Master.ucf(212)]' could not be found and so
+   the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(212)]: NET "JF4" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "RED_O[0]"	LOC = "T3"	|>
+   [Anvyl_Master.ucf(229)]: NET "RED_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "RED_O[0]"	LOC = "T3"	|> [Anvyl_Master.ucf(229)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(229)]: NET "RED_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "RED_O[1]"	LOC = "B2"	|>
+   [Anvyl_Master.ucf(230)]: NET "RED_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "RED_O[1]"	LOC = "B2"	|> [Anvyl_Master.ucf(230)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(230)]: NET "RED_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "RED_O[2]"	LOC = "H3"	|>
+   [Anvyl_Master.ucf(231)]: NET "RED_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "RED_O[2]"	LOC = "H3"	|> [Anvyl_Master.ucf(231)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(231)]: NET "RED_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "RED_O[3]"	LOC = "H4"	|>
+   [Anvyl_Master.ucf(232)]: NET "RED_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "RED_O[3]"	LOC = "H4"	|> [Anvyl_Master.ucf(232)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(232)]: NET "RED_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "GREEN_O[0]"	LOC = "T4"		|>
+   [Anvyl_Master.ucf(234)]: NET "GREEN_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "GREEN_O[0]"	LOC = "T4"		|> [Anvyl_Master.ucf(234)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(234)]: NET "GREEN_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "GREEN_O[1]"	LOC = "M6"		|>
+   [Anvyl_Master.ucf(235)]: NET "GREEN_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "GREEN_O[1]"	LOC = "M6"		|> [Anvyl_Master.ucf(235)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(235)]: NET "GREEN_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "GREEN_O[2]"	LOC = "H6"		|>
+   [Anvyl_Master.ucf(236)]: NET "GREEN_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "GREEN_O[2]"	LOC = "H6"		|> [Anvyl_Master.ucf(236)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(236)]: NET "GREEN_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "GREEN_O[3]"	LOC = "N6"		|>
+   [Anvyl_Master.ucf(237)]: NET "GREEN_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "GREEN_O[3]"	LOC = "N6"		|> [Anvyl_Master.ucf(237)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(237)]: NET "GREEN_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "BLUE_O[0]"	LOC = "M8"	|>
+   [Anvyl_Master.ucf(239)]: NET "BLUE_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "BLUE_O[0]"	LOC = "M8"	|> [Anvyl_Master.ucf(239)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(239)]: NET "BLUE_O[0]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "BLUE_O[1]"	LOC = "M7"	|>
+   [Anvyl_Master.ucf(240)]: NET "BLUE_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "BLUE_O[1]"	LOC = "M7"	|> [Anvyl_Master.ucf(240)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(240)]: NET "BLUE_O[1]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "BLUE_O[2]"	LOC = "N7"	|>
+   [Anvyl_Master.ucf(241)]: NET "BLUE_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "BLUE_O[2]"	LOC = "N7"	|> [Anvyl_Master.ucf(241)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(241)]: NET "BLUE_O[2]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "BLUE_O[3]"	LOC = "P7"	|>
+   [Anvyl_Master.ucf(242)]: NET "BLUE_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "BLUE_O[3]"	LOC = "P7"	|> [Anvyl_Master.ucf(242)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS18;>
+   [Anvyl_Master.ucf(242)]: NET "BLUE_O[3]" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "VSYNC_O"	LOC = "V18"	|>
+   [Anvyl_Master.ucf(244)]: NET "VSYNC_O" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "VSYNC_O"	LOC = "V18"	|> [Anvyl_Master.ucf(244)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(244)]: NET "VSYNC_O" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+INFO:ConstraintSystem:59 - Constraint <NET "HSYNC_O"	LOC = "V17"	|>
+   [Anvyl_Master.ucf(245)]: NET "HSYNC_O" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+WARNING:ConstraintSystem - A target design object for the Locate constraint
+   '<NET "HSYNC_O"	LOC = "V17"	|> [Anvyl_Master.ucf(245)]' could not be found
+   and so the Locate constraint will be removed.
+
+INFO:ConstraintSystem:59 - Constraint <IOSTANDARD=LVCMOS33;>
+   [Anvyl_Master.ucf(245)]: NET "HSYNC_O" not found.  Please verify that:
+   1. The specified design element actually exists in the original design.
+   2. The specified object is spelled correctly in the constraint source file.
+
+Done...
+
+Checking expanded design ...
+WARNING:NgdBuild:470 - bidirect pad net 'JA1' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'JA4' has no legal driver
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+NGDBUILD Design Results Summary:
+  Number of errors:     0
+  Number of warnings:  59
+
+Total memory usage is 147580 kilobytes
+
+Writing NGD file "sys_tim011_anvyl.ngd" ...
+Total REAL time to NGDBUILD completion:  4 sec
+Total CPU time to NGDBUILD completion:   4 sec
+
+Writing NGDBUILD log file "sys_tim011_anvyl.bld"...
