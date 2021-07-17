@@ -115,7 +115,6 @@ signal checksum_y, checksum_r, checksum_s: std_logic_vector(15 downto 0);
 
 begin
 
---debug <= CHAR & "00" & ui_address & "00" & ui_nextinstr;
 debug <= checksum & count;
 
 m2h_instructionstart <= m2h_mapper(to_integer(unsigned(PAGE))); -- reuse 8-bits that select 8k blocks as simple (and inefficient) way to detect "noop"

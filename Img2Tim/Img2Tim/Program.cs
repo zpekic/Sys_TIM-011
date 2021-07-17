@@ -13,7 +13,7 @@ namespace Img2Tim
     {
         static Logger logger;
         static int lineCounter = 0;
-        static bool helpMode, epromEmulator, interactive;
+        static bool helpMode, epromEmulator, interactive, intelHex;
         static string file1, file2;
         static string srcFile, dstFile;
 
@@ -25,7 +25,7 @@ namespace Img2Tim
                 logger = new Logger(args);
                 logger.PrintBanner();
 
-                GetSwitches(args, out helpMode, out epromEmulator, out interactive, out file1, out file2);
+                GetSwitches(args, out helpMode, out epromEmulator, out interactive, out intelHex, out file1, out file2);
                 if (!helpMode)
                 {
                     FileInfo dstFileInfo;
@@ -93,21 +93,13 @@ namespace Img2Tim
                         timScreen[i] = (byte) value;
                     }
 
-                    if (string.IsNullOrEmpty(dstFile))
-                    {
-                        dstFileInfo = new FileInfo(srcFile.Replace(srcFile.Substring(srcFile.LastIndexOf('.')), ".bin"));
-                    }
-                    else
-                    {
-                        dstFileInfo = new FileInfo(dstFile);
-                    }
+                    dstFileInfo = GetDestinationFileInfo(srcFile, dstFile, epromEmulator ? ".eem" : ".bin");
 
                     using (System.IO.BinaryWriter binWriter = new BinaryWriter(dstFileInfo.OpenWrite()))
                     {
-                        logger.Write(string.Format("Writing '{0}' ...", dstFileInfo.FullName));
-
                         if (epromEmulator)
                         {
+                            logger.Write(string.Format("Writing EPROM emulator binary file '{0}' ...", dstFileInfo.FullName));
                             // emulator format is <addr_hi><addr_lo><byte> for each location
                             byte[] emulatorFormat = new byte[32768 * 3]; // 3 bytes total for a data byte
                             for (int i = 0; i < 32768; i++)
@@ -120,10 +112,17 @@ namespace Img2Tim
                         }
                         else
                         {
+                            logger.Write(string.Format("Writing raw binary file '{0}' ...", dstFileInfo.FullName));
+                            // raw binary is simply <byte><byte>...
                             binWriter.Write(timScreen);
                         }
 
                         logger.WriteLine(" Done.");
+                    }
+
+                    if (intelHex)
+                    {
+                        GenerateHexFile(GetDestinationFileInfo(srcFile, dstFile, ".hex"), timScreen, 16);
                     }
                 }
 
@@ -148,29 +147,27 @@ namespace Img2Tim
 //            }
         }
 
+        private static FileInfo GetDestinationFileInfo(string srcFile, string dstFile, string fileExt)
+        {
+            if (string.IsNullOrEmpty(dstFile))
+            {
+                return new FileInfo(srcFile.Replace(srcFile.Substring(srcFile.LastIndexOf('.')), fileExt));
+            }
+            else
+            {
+                return new FileInfo(dstFile.Replace(dstFile.Substring(dstFile.LastIndexOf('.')), fileExt));
+            }
+        }
+
         private static int GetTimColors(bool primary, bool secondary1, bool secondary2)
         {
             if (primary)
             {
-                if (secondary1 || secondary2)
-                {
-                    return 3;
-                }
-                else
-                {
-                    return 2;
-                }
+                return (secondary1 || secondary2) ? 3 : 2;
             }
             else
             {
-                if (secondary1 || secondary2)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return (secondary1 || secondary2) ? 1 : 0;
             }
         }
 
@@ -193,11 +190,12 @@ namespace Img2Tim
             return null; // no file selected
         }
 
-        private static void GetSwitches(string[] args, out bool helpMode, out bool epromEmulator, out bool interactive, out string file1, out string file2)
+        private static void GetSwitches(string[] args, out bool helpMode, out bool epromEmulator, out bool interactive, out bool intelHex, out string file1, out string file2)
         {
             helpMode = false;
             epromEmulator = false;
             interactive = false;
+            intelHex = false;
             file1 = null;
             file2 = null;
 
@@ -214,6 +212,11 @@ namespace Img2Tim
                     epromEmulator = true;
                     continue;
                 }
+                if (args[i].StartsWith("-x", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    intelHex = true;
+                    continue;
+                }
                 if (args[i].StartsWith("-i", StringComparison.InvariantCultureIgnoreCase))
                 {
                     interactive = true;
@@ -228,6 +231,83 @@ namespace Img2Tim
                     file2 = args[i];
                 }
             }
+        }
+
+        private static int GenerateHexFile(FileInfo outputFileInfo, byte[] mem, int recSize)
+        {
+            switch (recSize)
+            {
+                case 1:
+                case 2:
+                case 4:
+                case 8:
+                case 16:
+                case 32:
+                    break;
+                default:
+                    logger.WriteLine(string.Format("Warning in {0}: record size {1} is not supported, .hex file not generated", "GenerateHexFile()", recSize.ToString()));
+                    return 0;
+            }
+
+            using (System.IO.StreamWriter hexFile = new System.IO.StreamWriter(outputFileInfo.FullName, false, Encoding.ASCII))
+            {
+                logger.Write(string.Format("Writing Intel Hex file '{0}' ...", outputFileInfo.FullName));
+
+                byte[] record = new byte[5 + recSize];
+
+                for (int address = 0; address < mem.Length; address += recSize)
+                {
+                    record[0] = (byte) recSize;
+                    record[1] = (byte)(address >> 8);
+                    record[2] = (byte)(address);
+                    record[3] = 0;
+                    for (int i = 0; i < recSize; i++)
+                    {
+                        record[i + 4] = mem[address + i];
+                    }
+                    // evaluate checksum
+                    int checksum = 0;
+                    for (int i = 0; i < 4 + recSize; i++)
+                    {
+                        checksum += (int)record[i];
+                    }
+                    checksum = -checksum; // 2' complement
+                    record[4 + recSize] = (byte)checksum;
+
+                    WriteHexFileRecord(hexFile, record, 5 + recSize, true);
+                }
+
+                // assemble closing hex file record
+                record[0] = 0;
+                record[1] = 0;
+                record[2] = 0;
+                record[3] = 1;
+                record[4] = 255;
+                WriteHexFileRecord(hexFile, record, 5, true);
+                logger.WriteLine(" Done.");
+            }
+            return 1;
+        }
+
+        private static void WriteHexFileRecord(StreamWriter sw, byte[] record, int count, bool prettify)
+        {
+            if (prettify)
+            {
+                sw.Write(string.Format(": {0:X2} {1:X2}{2:X2} {3:X2} {4:X2}", record[0], record[1], record[2], record[3], record[4]));
+                for (int i = 5; i < count; i++)
+                {
+                    sw.Write(string.Format(" {0:X2}", record[i]));
+                }
+            }
+            else
+            {
+                sw.Write(':');
+                for (int i = 0; i < count; i++)
+                {
+                    sw.Write(string.Format("{0:X2}", record[i]));
+                }
+            }
+            sw.WriteLine();
         }
 
         private static void Assert(bool condition, string exceptionMessage)

@@ -53,8 +53,14 @@ namespace Img2Tim
 
             lines.Add(string.Empty);
             lines.Add("Convert image to TIM-011 binary screen format:");
-            lines.Add("img2tim.exe [relpath|fullpath\\]sourcefile.png|gif|jpg|bmp [[relpath|fullpath\\]destfile[.bin]]");
+            lines.Add("img2tim.exe [-i] [-e] [-x] [-?|h] [relpath|fullpath\\]sourcefile.png|gif|jpg|bmp [[relpath|fullpath\\]destfile[.bin]]");
             lines.Add("Source image will be resized to 512*256 and colors reduced to 4 values, both of these impare visual quality!");
+            lines.Add(string.Empty);
+            lines.Add("Options:");
+            lines.Add("-i[nteractive]   : open file dialog to select source file");
+            lines.Add("-e[prom]         : generate EPROM emulator file format <hiaddr><loaddr><data>, instead of <data> (per each byte)");
+            lines.Add("-x               : generate Intel Hex format file");
+            lines.Add("-?|h[elp]        : this help, and no more");
             lines.Add(string.Empty);
             lines.Add("To generate sourcefile.coe, .cgf, .mif, .hex, .vhd files usable in FPGA-s use:");
             lines.Add("mcc.exe [relpath|fullpath\\]sourcefile.bin 15 8");
