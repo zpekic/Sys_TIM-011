@@ -35,9 +35,9 @@ namespace Img2Tim
                     if (interactive)
                     {
                         Assert(string.IsNullOrEmpty(file2), "Too many files specified.\r\n\r\nUsage info: img2tim.exe <sourceFile>|-i[nteractive] [<dstFile>] [-e[promemulator]] [-h[elp]]");
-                        srcFile = GetInteractiveFile();
+                        srcFile = GetInteractiveFile(file1);
                         Assert(!string.IsNullOrEmpty(srcFile), "No file selected, conversion aborted.");
-                        dstFile = file1;
+                        dstFile = string.Empty;
                     }
                     else
                     {
@@ -171,11 +171,12 @@ namespace Img2Tim
             }
         }
 
-        private static string GetInteractiveFile()
+        private static string GetInteractiveFile(string fileName)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+                openFileDialog.FileName = fileName;
                 openFileDialog.Filter = "BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|TIFF files (*.tiff)|*.tiff|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 6;
                 openFileDialog.RestoreDirectory = true;
