@@ -59,6 +59,8 @@ namespace Img2Tim
             lines.Add("Options:");
             lines.Add("-i[nteractive]   : open file dialog to select source file");
             lines.Add("-e[prom]         : generate EPROM emulator file format <hiaddr><loaddr><data>, instead of <data> (per each byte)");
+            lines.Add("                 : (See http://retrospec.sgn.net/users/tomcat/yu/magshow.php?auto=&page=25&all=SK_86_11 for hardware)");
+            lines.Add("                 : (See http://retrospec.sgn.net/users/tomcat/yu/magshow.php?auto=&page=25&all=SK_86_12 for software, 9600 baud 8N1 to transfer)");
             lines.Add("-x               : generate Intel Hex format file");
             lines.Add("-?|h[elp]        : this help, and no more");
             lines.Add(string.Empty);
