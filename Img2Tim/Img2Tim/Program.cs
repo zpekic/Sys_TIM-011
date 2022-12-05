@@ -13,7 +13,7 @@ namespace Img2Tim
     {
         static Logger logger;
         static int lineCounter = 0;
-        static bool helpMode, epromEmulator, interactive, intelHex;
+        static bool helpMode, charGen, epromEmulator, interactive, intelHex;
         static string file1, file2;
         static string srcFile, dstFile;
 
@@ -25,12 +25,12 @@ namespace Img2Tim
                 logger = new Logger(args);
                 logger.PrintBanner();
 
-                GetSwitches(args, out helpMode, out epromEmulator, out interactive, out intelHex, out file1, out file2);
+                GetSwitches(args, out helpMode, out charGen, out epromEmulator, out interactive, out intelHex, out file1, out file2);
                 if (!helpMode)
                 {
                     FileInfo dstFileInfo;
                     Bitmap srcBitmap;
-                    byte[] timScreen = new byte[32768]; // TIM-011 is always exactly 32k
+                    byte[] timScreen;
 
                     if (interactive)
                     {
@@ -47,50 +47,112 @@ namespace Img2Tim
                     }
                     
                     Image srcImage = Image.FromFile(srcFile);
-                    //Assert(srcImage.Width > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
-                    //Assert(srcImage.Height > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
-                    if ((srcImage.Width != 512) || (srcImage.Height != 256))
+                    if (charGen)
                     {
-                        logger.WriteLine($"Warning: image resized from {srcImage.Width} by {srcImage.Height} to 512 by 256 before processing.");
-                        //srcImage = srcImage.GetThumbnailImage(512, 256, null, IntPtr.Zero);
-                        srcBitmap = new Bitmap(srcImage, 512, 256);
+                        Assert((srcImage.Width % 8) == 0, $"Chargen image width of {srcImage.Width} not a multiple of 8.");
+                        Assert((srcImage.Height % 8) == 0, $"Chargen image height of {srcImage.Width} not a multiple of 8.");
+
+                        int charsWidth = srcImage.Width / 8;
+                        int charsHeight = srcImage.Height / 8;
+                        timScreen = new byte[charsWidth * charsHeight * 8];
+                        srcBitmap = new Bitmap(srcImage);
+                        int row, col, byteIndex, charIndex;
+
+                        //Assert(byteCount <= 32768, $"Chargen image size of {byteCount} is too large. Only up to 32k supported.");
+
+                        for (int y = 0; y  < srcImage.Height; y++)
+                        {
+                            row = y >> 3;
+
+                            for (int x = 0; x < srcImage.Width; x++)
+                            {
+                                col = x >> 3;
+                                charIndex = col + row * charsWidth; 
+                                byteIndex = (charIndex << 3) + (y % 8);
+                                Color pixel = srcBitmap.GetPixel(x, y);
+                                if ((pixel.R < 128) && (pixel.G < 128) && (pixel.B < 128))
+                                {
+                                    // closer to black, so treat as '1'
+                                    switch (x % 8)
+                                    {
+                                        case 0:
+                                            timScreen[byteIndex] |= 128;
+                                            break;
+                                        case 1:
+                                            timScreen[byteIndex] |= 64;
+                                            break;
+                                        case 2:
+                                            timScreen[byteIndex] |= 32;
+                                            break;
+                                        case 3:
+                                            timScreen[byteIndex] |= 16;
+                                            break;
+                                        case 4:
+                                            timScreen[byteIndex] |= 8;
+                                            break;
+                                        case 5:
+                                            timScreen[byteIndex] |= 4;
+                                            break;
+                                        case 6:
+                                            timScreen[byteIndex] |= 2;
+                                            break;
+                                        default:
+                                            timScreen[byteIndex] |= 1;
+                                            break;
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        srcBitmap = new Bitmap(srcImage);
-                    }
+                        timScreen = new byte[32768];    // TIM-011 is always exactly 32k
 
-                    for (int i = 0; i < timScreen.Length; i++)
-                    {
-                        int value = 0;
-                        Color c;
-
-                        int y = (i & 0x7F80) >> 7;
-                        int x = (i & 0x007F) << 2;
-                        for (int p = 0; p < 4; p++)
+                        //Assert(srcImage.Width > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
+                        //Assert(srcImage.Height > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
+                        if ((srcImage.Width != 512) || (srcImage.Height != 256))
                         {
-                            // pixels are packed into a byte in a weird way: pix1 pix0 pix3 pix2
-                            switch (p)
-                            {
-                                case 0:
-                                    c = srcBitmap.GetPixel(x + 1, y);
-                                    break;
-                                case 1:
-                                    c = srcBitmap.GetPixel(x + 0, y);
-                                    break;
-                                case 2:
-                                    c = srcBitmap.GetPixel(x + 3, y);
-                                    break;
-                                case 3:
-                                    c = srcBitmap.GetPixel(x + 2, y);
-                                    break;
-                                default:
-                                    throw new Img2TimException(0, "Bad value");
-                            }
-                            int v2v1 = GetTimColors(c.R > 127, c.G > 127, c.B > 127);
-                            value = (value << 2) + v2v1;
+                            logger.WriteLine($"Warning: image resized from {srcImage.Width} by {srcImage.Height} to 512 by 256 before processing.");
+                            //srcImage = srcImage.GetThumbnailImage(512, 256, null, IntPtr.Zero);
+                            srcBitmap = new Bitmap(srcImage, 512, 256);
                         }
-                        timScreen[i] = (byte) value;
+                        else
+                        {
+                            srcBitmap = new Bitmap(srcImage);
+                        }
+
+                        for (int i = 0; i < timScreen.Length; i++)
+                        {
+                            int value = 0;
+                            Color c;
+
+                            int y = (i & 0x7F80) >> 7;
+                            int x = (i & 0x007F) << 2;
+                            for (int p = 0; p < 4; p++)
+                            {
+                                // pixels are packed into a byte in a weird way: pix1 pix0 pix3 pix2
+                                switch (p)
+                                {
+                                    case 0:
+                                        c = srcBitmap.GetPixel(x + 1, y);
+                                        break;
+                                    case 1:
+                                        c = srcBitmap.GetPixel(x + 0, y);
+                                        break;
+                                    case 2:
+                                        c = srcBitmap.GetPixel(x + 3, y);
+                                        break;
+                                    case 3:
+                                        c = srcBitmap.GetPixel(x + 2, y);
+                                        break;
+                                    default:
+                                        throw new Img2TimException(0, "Bad value");
+                                }
+                                int v2v1 = GetTimColors(c.R > 127, c.G > 127, c.B > 127);
+                                value = (value << 2) + v2v1;
+                            }
+                            timScreen[i] = (byte)value;
+                        }
                     }
 
                     dstFileInfo = GetDestinationFileInfo(srcFile, dstFile, epromEmulator ? ".eem" : ".bin");
@@ -101,8 +163,8 @@ namespace Img2Tim
                         {
                             logger.Write(string.Format("Writing EPROM emulator binary file '{0}' ...", dstFileInfo.FullName));
                             // emulator format is <addr_hi><addr_lo><byte> for each location
-                            byte[] emulatorFormat = new byte[32768 * 3]; // 3 bytes total for a data byte
-                            for (int i = 0; i < 32768; i++)
+                            byte[] emulatorFormat = new byte[timScreen.Length * 3]; // 3 bytes total for a data byte
+                            for (int i = 0; i < timScreen.Length; i++)
                             {
                                 emulatorFormat[3 * i + 0] = BitConverter.GetBytes(i)[1];    // address hi
                                 emulatorFormat[3 * i + 1] = BitConverter.GetBytes(i)[0];    // address lo
@@ -122,7 +184,7 @@ namespace Img2Tim
 
                     if (intelHex)
                     {
-                        GenerateHexFile(GetDestinationFileInfo(srcFile, dstFile, ".hex"), timScreen, 16);
+                        GenerateHexFile(GetDestinationFileInfo(srcFile, dstFile, ".hex"), timScreen, charGen ? 8 : 16);
                     }
                 }
 
@@ -191,12 +253,13 @@ namespace Img2Tim
             return null; // no file selected
         }
 
-        private static void GetSwitches(string[] args, out bool helpMode, out bool epromEmulator, out bool interactive, out bool intelHex, out string file1, out string file2)
+        private static void GetSwitches(string[] args, out bool helpMode, out bool charGen, out bool epromEmulator, out bool interactive, out bool intelHex, out string file1, out string file2)
         {
             helpMode = false;
             epromEmulator = false;
             interactive = false;
             intelHex = false;
+            charGen = false;
             file1 = null;
             file2 = null;
 
@@ -211,6 +274,11 @@ namespace Img2Tim
                 if (args[i].StartsWith("-e", StringComparison.InvariantCultureIgnoreCase))
                 {
                     epromEmulator = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-c", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    charGen = true;
                     continue;
                 }
                 if (args[i].StartsWith("-x", StringComparison.InvariantCultureIgnoreCase))
