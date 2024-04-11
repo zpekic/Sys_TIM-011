@@ -13,7 +13,7 @@ namespace Img2Tim
     {
         static Logger logger;
         static int lineCounter = 0;
-        static bool helpMode, charGen, epromEmulator, interactive, intelHex;
+        static bool helpMode, charGen, epromEmulator, interactive, intelHex, xilinxCoe;
         static string file1, file2;
         static string srcFile, dstFile;
 
@@ -25,7 +25,7 @@ namespace Img2Tim
                 logger = new Logger(args);
                 logger.PrintBanner();
 
-                GetSwitches(args, out helpMode, out charGen, out epromEmulator, out interactive, out intelHex, out file1, out file2);
+                GetSwitches(args, out helpMode, out charGen, out epromEmulator, out interactive, out intelHex, out xilinxCoe, out file1, out file2);
                 if (!helpMode)
                 {
                     FileInfo dstFileInfo;
@@ -107,6 +107,8 @@ namespace Img2Tim
                     else
                     {
                         timScreen = new byte[32768];    // TIM-011 is always exactly 32k
+                        int value;
+                        Color c3, c2, c1, c0;
 
                         //Assert(srcImage.Width > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
                         //Assert(srcImage.Height > 0, $"Image width of {srcImage.Width} detected, resize to 512.");
@@ -121,38 +123,51 @@ namespace Img2Tim
                             srcBitmap = new Bitmap(srcImage);
                         }
 
-                        for (int i = 0; i < timScreen.Length; i++)
+                        for (int y = 0; y < 256; y++)
                         {
-                            int value = 0;
-                            Color c;
-
-                            int y = (i & 0x7F80) >> 7;
-                            int x = (i & 0x007F) << 2;
-                            for (int p = 0; p < 4; p++)
+                            for (int x = 0; x < 128; x++)
                             {
-                                // pixels are packed into a byte in a weird way: pix1 pix0 pix3 pix2
-                                switch (p)
-                                {
-                                    case 0:
-                                        c = srcBitmap.GetPixel(x + 1, y);
-                                        break;
-                                    case 1:
-                                        c = srcBitmap.GetPixel(x + 0, y);
-                                        break;
-                                    case 2:
-                                        c = srcBitmap.GetPixel(x + 3, y);
-                                        break;
-                                    case 3:
-                                        c = srcBitmap.GetPixel(x + 2, y);
-                                        break;
-                                    default:
-                                        throw new Img2TimException(0, "Bad value");
-                                }
-                                int v2v1 = GetTimColors(c.R > 127, c.G > 127, c.B > 127);
-                                value = (value << 2) + v2v1;
+                                c0 = srcBitmap.GetPixel(4 * x, y);
+                                c1 = srcBitmap.GetPixel(4 * x + 1, y);
+                                c2 = srcBitmap.GetPixel(4 * x + 2, y);
+                                c3 = srcBitmap.GetPixel(4 * x + 3, y);
+                                value = (GetTimColors(c3) << 6) | (GetTimColors(c2) << 4) | (GetTimColors(c1) << 2) | GetTimColors(c0);
+                                Assert(value < 256, "TIM video memory byte out of range");
+                                timScreen[(x << 8) | y] = (byte) value;
                             }
-                            timScreen[i] = (byte)value;
                         }
+                        //for (int i = 0; i < timScreen.Length; i++)
+                        //{
+                        //    int value = 0;
+                        //    Color c;
+
+                        //    int y = (i & 0x7F80) >> 7;
+                        //    int x = (i & 0x007F) << 2;
+                        //    for (int p = 0; p < 4; p++)
+                        //    {
+                        //        // pixels are packed into a byte in a weird way: pix1 pix0 pix3 pix2
+                        //        switch (p)
+                        //        {
+                        //            case 0:
+                        //                c = srcBitmap.GetPixel(x + 1, y);
+                        //                break;
+                        //            case 1:
+                        //                c = srcBitmap.GetPixel(x + 0, y);
+                        //                break;
+                        //            case 2:
+                        //                c = srcBitmap.GetPixel(x + 3, y);
+                        //                break;
+                        //            case 3:
+                        //                c = srcBitmap.GetPixel(x + 2, y);
+                        //                break;
+                        //            default:
+                        //                throw new Img2TimException(0, "Bad value");
+                        //        }
+                        //        int v2v1 = GetTimColors(c.R > 127, c.G > 127, c.B > 127);
+                        //        value = (value << 2) + v2v1;
+                        //    }
+                        //    timScreen[i] = (byte)value;
+                        //}
                     }
 
                     dstFileInfo = GetDestinationFileInfo(srcFile, dstFile, epromEmulator ? ".eem" : ".bin");
@@ -185,6 +200,10 @@ namespace Img2Tim
                     if (intelHex)
                     {
                         GenerateHexFile(GetDestinationFileInfo(srcFile, dstFile, ".hex"), timScreen, charGen ? 8 : 16);
+                    }
+                    if (xilinxCoe)
+                    {
+                        GenerateCoeFile(GetDestinationFileInfo(srcFile, dstFile, ".coe"), timScreen, srcFile, 16);
                     }
                 }
 
@@ -221,15 +240,76 @@ namespace Img2Tim
             }
         }
 
-        private static int GetTimColors(bool primary, bool secondary1, bool secondary2)
+        //private static int GetTimColors(bool primary, bool secondary1, bool secondary2)
+        //{
+        //    if (primary)
+        //    {
+        //        return (secondary1 || secondary2) ? 3 : 2;
+        //    }
+        //    else
+        //    {
+        //        return (secondary1 || secondary2) ? 1 : 0;
+        //    }
+        //}
+
+        private static int GetTimColors(Color c)
         {
-            if (primary)
+            int gray255 = ((77 * c.R) + (153 * c.G) + (26 * c.B)) >> 8;
+            return gray255 >> 6;
+        }
+
+        private static void GetSwitches(string[] args, out bool helpMode, out bool charGen, out bool epromEmulator, out bool interactive, out bool intelHex, out bool xilinxCoe, out string file1, out string file2)
+        {
+            helpMode = false;
+            epromEmulator = false;
+            interactive = false;
+            intelHex = false;
+            xilinxCoe = false;
+            charGen = false;
+            file1 = null;
+            file2 = null;
+
+            for (int i = 0; i < args.Length; i++)
             {
-                return (secondary1 || secondary2) ? 3 : 2;
-            }
-            else
-            {
-                return (secondary1 || secondary2) ? 1 : 0;
+                if (args[i].StartsWith("-h", StringComparison.InvariantCultureIgnoreCase) || args[i].StartsWith("-?", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    logger.PrintHelp(null);
+                    helpMode = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-e", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    epromEmulator = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-g", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    charGen = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-x", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    intelHex = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-c", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xilinxCoe = true;
+                    continue;
+                }
+                if (args[i].StartsWith("-i", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    interactive = true;
+                    continue;
+                }
+                if (file1 == null)
+                {
+                    file1 = args[i];
+                }
+                else
+                {
+                    file2 = args[i];
+                }
             }
         }
 
@@ -253,53 +333,37 @@ namespace Img2Tim
             return null; // no file selected
         }
 
-        private static void GetSwitches(string[] args, out bool helpMode, out bool charGen, out bool epromEmulator, out bool interactive, out bool intelHex, out string file1, out string file2)
+        static int GenerateCoeFile(FileInfo outputFileInfo, byte[] mem, string from, int data_radix)
         {
-            helpMode = false;
-            epromEmulator = false;
-            interactive = false;
-            intelHex = false;
-            charGen = false;
-            file1 = null;
-            file2 = null;
+            int capacity = mem.Length;
 
-            for (int i = 0; i < args.Length; i++)
+            Assert(data_radix == 16, "COE generation only supported using hex format");
+            using (System.IO.StreamWriter coeFile = new System.IO.StreamWriter(outputFileInfo.FullName, false, Encoding.ASCII))
             {
-                if (args[i].StartsWith("-h", StringComparison.InvariantCultureIgnoreCase) || args[i].StartsWith("-?", StringComparison.InvariantCultureIgnoreCase))
+                logger.Write(string.Format("Writing '{0}' (LF only) ...", outputFileInfo.FullName));
+
+                coeFile.Write($";#COE file \"{outputFileInfo.Name}\" generated from \"{from}\"\n");
+                coeFile.Write($"MEMORY_INITIALIZATION_RADIX={data_radix};\n");
+                coeFile.Write($"MEMORY_INITIALIZATION_VECTOR=\n");
+
+                string data;
+                for (int address = 0; address < capacity; address++)
                 {
-                    logger.PrintHelp(null);
-                    helpMode = true;
-                    continue;
+                    data = mem[address].ToString("X2");
+
+                    if ((capacity - address) == 1)
+                    {
+                        coeFile.Write($"{data};\n");
+                    }
+                    else
+                    {
+                        coeFile.Write($"{data}\n");
+                    }
                 }
-                if (args[i].StartsWith("-e", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    epromEmulator = true;
-                    continue;
-                }
-                if (args[i].StartsWith("-c", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    charGen = true;
-                    continue;
-                }
-                if (args[i].StartsWith("-x", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    intelHex = true;
-                    continue;
-                }
-                if (args[i].StartsWith("-i", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    interactive = true;
-                    continue;
-                }
-                if (file1 == null)
-                {
-                    file1 = args[i];
-                }
-                else
-                {
-                    file2 = args[i];
-                }
+
+                //logger.WriteLine($" Done (initialized locations: {initializedCount}, empty locations: {emptyCount}, total locations: {emptyCount + initializedCount}).");
             }
+            return 1;
         }
 
         private static int GenerateHexFile(FileInfo outputFileInfo, byte[] mem, int recSize)

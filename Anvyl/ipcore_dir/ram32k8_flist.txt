@@ -1,4 +1,5 @@
 # Output products list for <ram32k8>
+_xmsgs\pn_parser.xmsgs
 ram32k8.asy
 ram32k8.gise
 ram32k8.mif

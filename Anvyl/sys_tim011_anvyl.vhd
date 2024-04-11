@@ -119,171 +119,6 @@ end sys_tim011_anvyl;
 
 architecture Structural of sys_tim011_anvyl is
 
-component Grafika is
-    Port ( -- 
-	 		  dotclk : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (15 downto 0);
-           nRD : in  STD_LOGIC;
-           nWR : in  STD_LOGIC;
-           d : inout  STD_LOGIC_VECTOR (7 downto 0);
-           ioe : in  STD_LOGIC;
-           nScroll : in  STD_LOGIC;
-			  -- debug
-			  test: in STD_LOGIC;
-			  vid_gated: STD_LOGIC;
-			  -- monitor side
-			  hsync: out STD_LOGIC;
-			  vsync: out STD_LOGIC;
-			  vid1: out STD_LOGIC;
-			  vid2: out STD_LOGIC
-			);
-end component;
-
---component oneshot is
---    Port ( trigger : in  STD_LOGIC;
---           tick : in  STD_LOGIC;
---           duration : in  STD_LOGIC_VECTOR (15 downto 0);
---           shot : out  STD_LOGIC);
---end component;
-
-component sn74ls283 is
-    Port ( c0 : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (4 downto 1);
-           b : in  STD_LOGIC_VECTOR (4 downto 1);
-           s : out  STD_LOGIC_VECTOR (4 downto 1);
-           c4 : out  STD_LOGIC);
-end component;
-
-component sn74ls374 is
-    Port ( nOC : in  STD_LOGIC;
-           CLK : in  STD_LOGIC;
-           D : in  STD_LOGIC_VECTOR (7 downto 0);
-           Q : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component sn74hc4040 is
-    Port ( q12_1 : out  STD_LOGIC;
-           q6_2 : out  STD_LOGIC;
-           q5_3 : out  STD_LOGIC;
-           q7_4 : out  STD_LOGIC;
-           q4_5 : out  STD_LOGIC;
-           q3_6 : out  STD_LOGIC;
-           q2_7 : out  STD_LOGIC;
-           q1_9 : out  STD_LOGIC;
-           clock_10 : in  STD_LOGIC;
-           reset_11 : in  STD_LOGIC;
-           q9_12 : out  STD_LOGIC;
-           q8_13 : out  STD_LOGIC;
-           q10_14 : out  STD_LOGIC;
-           q11_15 : out  STD_LOGIC);
-end component;
-
-component interactivereg is
-    Port ( reset : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
-           enable : in  STD_LOGIC;
-           init : in  STD_LOGIC_VECTOR (15 downto 0);
-           up : in  STD_LOGIC;
-           down : in  STD_LOGIC;
-           value : buffer  STD_LOGIC_VECTOR (15 downto 0));
-end component;
-
---component freqcounter is
---    Port ( reset : in  STD_LOGIC;
---           clk : in  STD_LOGIC;
---           freq : in  STD_LOGIC;
---			  bcd:	in STD_LOGIC;
---			  double: in STD_LOGIC;
---           value : out  STD_LOGIC_VECTOR (15 downto 0));
---end component;
-		
-component sixdigitsevensegled is
-    Port ( -- inputs
-			  hexdata : in  STD_LOGIC_VECTOR (3 downto 0);
-           digsel : in  STD_LOGIC_VECTOR (2 downto 0);
-           showdigit : in  STD_LOGIC_VECTOR (5 downto 0);
-           showdot : in  STD_LOGIC_VECTOR (5 downto 0);
-           showsegments : in  STD_LOGIC;
-			  show76: in STD_LOGIC;
-			  -- outputs
-           anode : out  STD_LOGIC_VECTOR (5 downto 0);
-           segment : out  STD_LOGIC_VECTOR (7 downto 0)
-			 );
-end component;
-
-component debouncer8channel is
-    Port ( clock : in STD_LOGIC;
-           reset : in STD_LOGIC;
-           signal_raw : in STD_LOGIC_VECTOR (7 downto 0);
-           signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
---component memconsole is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           control : in  STD_LOGIC_VECTOR (3 downto 0);
---           EN : out  STD_LOGIC;
---           RD : out  STD_LOGIC;
---           WR : out  STD_LOGIC;
---           A : out  STD_LOGIC_VECTOR (15 downto 0);
---           D : inout  STD_LOGIC_VECTOR (7 downto 0);
---           DD : out  STD_LOGIC_VECTOR (7 downto 0));
---end component;
---
-component memtester is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-			  fill: in STD_LOGIC;
-			  direction: in STD_LOGIC;
-           EN : out  STD_LOGIC;
-           RD : out  STD_LOGIC;
-           WR : out  STD_LOGIC;
-           A : out  STD_LOGIC_VECTOR (15 downto 0);
-           D : inout  STD_LOGIC_VECTOR (7 downto 0);
-           DD : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component mem2hex is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-			  --
-   		  debug: out STD_LOGIC_VECTOR(23 downto 0);
-			  --
-           nRD : out  STD_LOGIC;
-           nBUSREQ : out STD_LOGIC;
-           nBUSACK : in STD_LOGIC;
-           nWAIT : in  STD_LOGIC;
-           ABUS : out  STD_LOGIC_VECTOR (15 downto 0);
-           DBUS : in  STD_LOGIC_VECTOR (7 downto 0);
-           START : in  STD_LOGIC;
-			  BUSY : out STD_LOGIC;
-           PAGE : in  STD_LOGIC_VECTOR (7 downto 0);
-           COUNTSEL : in  STD_LOGIC;
-           TXDREADY : in  STD_LOGIC;
-			  TXDSEND: out STD_LOGIC;
-           CHAR : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component uart_par2ser is
-    Port ( reset : in  STD_LOGIC;
-			  txd_clk: in STD_LOGIC;
-			  send: in STD_LOGIC;
-			  mode: in STD_LOGIC_VECTOR(2 downto 0);
-			  data: in STD_LOGIC_VECTOR(7 downto 0);
-           ready : buffer STD_LOGIC;
-           txd : out  STD_LOGIC);
-end component;
-
-component uart_ser2par is
-    Port ( reset : in  STD_LOGIC;
-           rxd_clk : in  STD_LOGIC;
-           mode : in  STD_LOGIC_VECTOR (2 downto 0);
-           char : out  STD_LOGIC_VECTOR (7 downto 0);
-           ready : buffer  STD_LOGIC;
-           valid : out  STD_LOGIC;
-           rxd : in  STD_LOGIC);
-end component;
-
 type palette is array (0 to 15) of std_logic_vector(2 downto 0);
 signal bgr: palette := (
 	"000",	-- black
@@ -400,8 +235,9 @@ signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 
 begin
   	
-clockgen: sn74hc4040 port map (
-			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on breadboard
+clockgen: entity work.sn74hc4040 port map (
+			clock_10 => CLK,
+--			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on breadboard
 			reset_11 => RESET,
 			q1_9 => open, 
 			q2_7 => freq24M,
@@ -417,6 +253,8 @@ clockgen: sn74hc4040 port map (
 			q12_1 =>  digsel(2)	-- 0.01220703125
 		);
 --
+--dotclk <= EXT_CLK; -- 12MHz ESC-220BX can on the breadboard!
+
 prescale: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
@@ -435,7 +273,7 @@ begin
 	end if;
 end process;
 --
-baudgen: sn74hc4040 port map (
+baudgen: entity work.sn74hc4040 port map (
 			clock_10 => freq307200,
 			reset_11 => RESET,
 			q1_9 => freq153600, 
@@ -452,7 +290,7 @@ baudgen: sn74hc4040 port map (
 			q12_1 =>  open	
 		);
 --
-powergen: sn74hc4040 port map (
+powergen: entity work.sn74hc4040 port map (
 			clock_10 => freq4096,
 			reset_11 => RESET,
 			q1_9 => open, 
@@ -469,14 +307,14 @@ powergen: sn74hc4040 port map (
 			q12_1 =>  freq1	
 		);
 --	
-	debounce_sw: debouncer8channel Port map ( 
+	debounce_sw: entity work.debouncer8channel Port map ( 
 		clock => freq19200, 
 		reset => RESET,
 		signal_raw => SW,
 		signal_debounced => switch
 	);
 
-	debounce_btn: debouncer8channel Port map ( 
+	debounce_btn: entity work.debouncer8channel Port map ( 
 		clock => freq19200, 
 		reset => RESET,
 		signal_raw(7 downto 4) => "0000",
@@ -484,39 +322,12 @@ powergen: sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
---		
---console: memconsole Port map(
---			clk => freq2,
---         reset => RESET,
---         control => button(3 downto 0),
---         EN => vm_en,
---         RD => vm_rd,
---         WR => vm_wr,
---         A => A,
---         D => D,
---         DD => DD
---	);
-
---mtest: memtester Port map(
---			clk => test_clk,
---         reset => RESET,
---			fill => test_dynamic,
---			direction => switch(0),
---         EN => vm_en,
---         RD => vm_rd,
---         WR => vm_wr,
---         A => A,
---         D => D,
---         DD => DD
---	);
---	
-
 nWR <= '1'; -- never write for now
 nIO <= '0'; -- use only I/O space
 nBUSACK <= nBUSREQ;
 hexclk <= baudrate_x4 when (button(2) = '0') else freq1;
 
-hexout: mem2hex Port map ( 
+hexout: entity work.mem2hex Port map ( 
 			clk => hexclk,
 			reset => RESET,
 			--
@@ -537,23 +348,23 @@ hexout: mem2hex Port map (
 			CHAR => TXD_CHAR
 		);
 
-test_static <= '0'; --'1' when (button(3 downto 0) = "0100") else '0';
-test_dynamic <= '0'; --'1' when (button(3 downto 0) = "0010") else '0';
-test_scroll <= '0'; --nScrollEnable when (button(3 downto 0) = "0001") else '1';
+test_static <= '1' when (button(3 downto 0) = "0100") else '0';
+test_dynamic <= '1' when (button(3 downto 0) = "0010") else '0';
+test_scroll <= nScrollEnable when (button(3 downto 0) = "0001") else '1';
 
 test_clk <= freq38400;-- when (button(3 downto 2) = "11") else freq9600;
 
 -- scroll logic
 nScrollEnable <= not (nIO and nWR and nRD);	-- low if all hi, meaning no other bus activity
 
-offset_reg: sn74ls374 Port map ( 
+offset_reg: entity work.sn74ls374 Port map ( 
 			nOC => nScrollEnable,
          CLK => test_scroll,
          D => offset_new,
          Q => D
 	);
 
-offset_add_hi: sn74ls283 Port map ( -- add +1 or -1 to offset)
+offset_add_hi: entity work.sn74ls283 Port map ( -- add +1 or -1 to offset)
 			c0 => offset_add_lo_cout,
 			a(4) => switch(0),
 			a(3) => switch(0),
@@ -564,7 +375,7 @@ offset_add_hi: sn74ls283 Port map ( -- add +1 or -1 to offset)
 			c4 => open
 	);
 	
-offset_add_lo: sn74ls283 Port map ( 
+offset_add_lo: entity work.sn74ls283 Port map ( 
 			c0 => '0',
 			a(4) => switch(0),
 			a(3) => switch(0),
@@ -575,7 +386,7 @@ offset_add_lo: sn74ls283 Port map (
 			c4 => offset_add_lo_cout
 	);	
 
-	video: Grafika port map (
+	video: entity work.Grafika port map (
 		-- system
 		  dotclk => dotclk,
 		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
@@ -613,13 +424,14 @@ LED(7) <= gr_vid2;
 	GBS8200_GREEN	<= bgr(to_integer(unsigned(color)))(1);
 	GBS8200_RED		<= bgr(to_integer(unsigned(color)))(0);
 	
--- connect to Mercury
-	MERCURY_WHITE	<= gr_hsync;	-- HSYNC
-	MERCURY_BLUE <= gr_vsync;		-- VSYNC
-	MERCURY_GRAY <= gr_vid2;		-- VIDEO2
-	MERCURY_RED <= gr_vid1;			-- VIDEO1
+-- not really connected
+MERCURY_WHITE <= gr_hsync;
+MERCURY_BLUE <= gr_vsync;
+MERCURY_GRAY <= gr_vid2;
+MERCURY_RED  <= gr_vid1;
 
-leds: sixdigitsevensegled port map ( 
+	
+leds: entity work.sixdigitsevensegled port map ( 
 			  -- inputs
 			  hexdata => hexdata,
 			  digsel => digSel,
@@ -650,7 +462,7 @@ with digsel select
 --txd_send <= '0' when (TXD_CHAR = X"00") else '1'; -- generate a pulse when CHAR is valid ASCII
 --txd_send <= '0' when (TXD_CHAR = X"00") else '1'; -- generate a pulse when CHAR is valid ASCII
 		
-txdout: uart_par2ser Port map (
+txdout: entity work.uart_par2ser Port map (
 			reset => reset,
 			txd_clk => baudrate_x1,
 			send => TXD_SEND,
@@ -660,7 +472,7 @@ txdout: uart_par2ser Port map (
          txd => JA_RXD
 		);
 
-rxdinp: uart_ser2par Port map (
+rxdinp: entity work.uart_ser2par Port map (
 			reset => reset,
 			rxd_clk => baudrate_x4,
 			mode => switch(4 downto 2),

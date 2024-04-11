@@ -1,0 +1,267 @@
+Release 14.7 par P.20131013 (nt)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+ZOLTANP4::  Sun Apr 07 13:53:56 2024
+
+par -w -intstyle ise -ol high -mt off sys_tim011_anvyl_map.ncd
+sys_tim011_anvyl.ncd sys_tim011_anvyl.pcf 
+
+
+Constraints file: sys_tim011_anvyl.pcf.
+Loading device for application Rf_Device from file '6slx45.nph' in environment C:\Xilinx\14.7\ISE_DS\ISE\.
+   "sys_tim011_anvyl" is an NCD, version 3.2, device xc6slx45, package csg484, speed -3
+
+Initializing temperature to 85.000 Celsius. (default - Range: 0.000 to 85.000 Celsius)
+Initializing voltage to 1.140 Volts. (default - Range: 1.140 to 1.260 Volts)
+
+
+Device speed data version:  "PRODUCTION 1.23 2013-10-13".
+
+
+
+Device Utilization Summary:
+
+Slice Logic Utilization:
+  Number of Slice Registers:                   471 out of  54,576    1%
+    Number used as Flip Flops:                 460
+    Number used as Latches:                     11
+    Number used as Latch-thrus:                  0
+    Number used as AND/OR logics:                0
+  Number of Slice LUTs:                        524 out of  27,288    1%
+    Number used as logic:                      470 out of  27,288    1%
+      Number using O6 output only:             242
+      Number using O5 output only:              45
+      Number using O5 and O6:                  183
+      Number used as ROM:                        0
+    Number used as Memory:                       0 out of   6,408    0%
+    Number used exclusively as route-thrus:     54
+      Number with same-slice register load:     49
+      Number with same-slice carry load:         5
+      Number with other load:                    0
+
+Slice Logic Distribution:
+  Number of occupied Slices:                   279 out of   6,822    4%
+  Number of MUXCYs used:                       116 out of  13,644    1%
+  Number of LUT Flip Flop pairs used:          644
+    Number with an unused Flip Flop:           257 out of     644   39%
+    Number with an unused LUT:                 120 out of     644   18%
+    Number of fully used LUT-FF pairs:         267 out of     644   41%
+    Number of slice register sites lost
+      to control set restrictions:               0 out of  54,576    0%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        48 out of     320   15%
+    Number of LOCed IOBs:                       48 out of      48  100%
+    IOB Flip Flops:                              2
+
+Specific Feature Utilization:
+  Number of RAMB16BWERs:                        16 out of     116   13%
+  Number of RAMB8BWERs:                          0 out of     232    0%
+  Number of BUFIO2/BUFIO2_2CLKs:                 0 out of      32    0%
+  Number of BUFIO2FB/BUFIO2FB_2CLKs:             0 out of      32    0%
+  Number of BUFG/BUFGMUXs:                       5 out of      16   31%
+    Number used as BUFGs:                        5
+    Number used as BUFGMUX:                      0
+  Number of DCM/DCM_CLKGENs:                     0 out of       8    0%
+  Number of ILOGIC2/ISERDES2s:                   0 out of     376    0%
+  Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     376    0%
+  Number of OLOGIC2/OSERDES2s:                   2 out of     376    1%
+    Number used as OLOGIC2s:                     2
+    Number used as OSERDES2s:                    0
+  Number of BSCANs:                              0 out of       4    0%
+  Number of BUFHs:                               0 out of     256    0%
+  Number of BUFPLLs:                             0 out of       8    0%
+  Number of BUFPLL_MCBs:                         0 out of       4    0%
+  Number of DSP48A1s:                            0 out of      58    0%
+  Number of ICAPs:                               0 out of       1    0%
+  Number of MCBs:                                0 out of       2    0%
+  Number of PCILOGICSEs:                         0 out of       2    0%
+  Number of PLL_ADVs:                            0 out of       4    0%
+  Number of PMVs:                                0 out of       1    0%
+  Number of STARTUPs:                            0 out of       1    0%
+  Number of SUSPEND_SYNCs:                       0 out of       1    0%
+
+
+Overall effort level (-ol):   High 
+Router effort level (-rl):    High 
+
+Starting initial Timing Analysis.  REAL time: 13 secs 
+Finished initial Timing Analysis.  REAL time: 13 secs 
+
+WARNING:Par:288 - The signal BB1_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal JA1_IBUF has no load.  PAR will not attempt to route this signal.
+WARNING:Par:288 - The signal JA4_IBUF has no load.  PAR will not attempt to route this signal.
+Starting Router
+
+
+Phase  1  : 4778 unrouted;      REAL time: 14 secs 
+
+Phase  2  : 2785 unrouted;      REAL time: 19 secs 
+
+Phase  3  : 1067 unrouted;      REAL time: 22 secs 
+
+Phase  4  : 1067 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 26 secs 
+
+Updating file: sys_tim011_anvyl.ncd with current fully routed design.
+
+Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+
+Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+
+Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 29 secs 
+Total REAL time to Router completion: 29 secs 
+Total CPU time to Router completion: 28 secs 
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Generating "PAR" statistics.
+
+**************************
+Generating Clock Report
+**************************
+
++---------------------+--------------+------+------+------------+-------------+
+|        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
++---------------------+--------------+------+------+------------+-------------+
+|    baudrate_x4_BUFG | BUFGMUX_X3Y13| No   |    9 |  0.008     |  1.221      |
++---------------------+--------------+------+------+------------+-------------+
+|         hexclk_BUFG |  BUFGMUX_X2Y2| No   |   26 |  0.038     |  1.256      |
++---------------------+--------------+------+------+------------+-------------+
+|    baudgen/q_4_BUFG |  BUFGMUX_X2Y4| No   |  119 |  0.065     |  1.279      |
++---------------------+--------------+------+------+------------+-------------+
+|           CLK_BUFGP |  BUFGMUX_X3Y7| No   |   15 |  0.055     |  1.271      |
++---------------------+--------------+------+------+------------+-------------+
+|   rxdinp/ready_BUFG |  BUFGMUX_X2Y3| No   |    5 |  0.007     |  1.219      |
++---------------------+--------------+------+------+------------+-------------+
+|      video/u13/q<2> |         Local|      |   30 |  1.165     |  2.181      |
++---------------------+--------------+------+------+------------+-------------+
+|       txdout/bitClk |         Local|      |    1 |  0.000     |  0.570      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[4].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    5 |  0.000     |  0.720      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[3].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    6 |  0.000     |  1.019      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[2].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    8 |  0.000     |  2.024      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_btn/channel |              |      |      |            |             |
+|_generate[2].di/rese |              |      |      |            |             |
+| t_signal_in_AND_5_o |         Local|      |    6 |  0.000     |  1.612      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[1].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    3 |  0.000     |  0.521      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_btn/channel |              |      |      |            |             |
+|_generate[1].di/rese |              |      |      |            |             |
+| t_signal_in_AND_5_o |         Local|      |    5 |  0.000     |  2.135      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[0].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    4 |  0.000     |  0.957      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_btn/channel |              |      |      |            |             |
+|_generate[0].di/rese |              |      |      |            |             |
+| t_signal_in_AND_5_o |         Local|      |    8 |  0.000     |  2.006      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[7].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    6 |  0.000     |  0.559      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_btn/channel |              |      |      |            |             |
+|_generate[0].di/debo |              |      |      |            |             |
+|               unced |         Local|      |    4 |  0.000     |  1.276      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[6].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    5 |  0.000     |  0.482      |
++---------------------+--------------+------+------+------------+-------------+
+|debounce_sw/channel_ |              |      |      |            |             |
+|generate[5].di/reset |              |      |      |            |             |
+|  _signal_in_AND_5_o |         Local|      |    4 |  0.000     |  0.867      |
++---------------------+--------------+------+------+------------+-------------+
+|       clockgen/q<3> |         Local|      |   25 |  1.956     |  2.851      |
++---------------------+--------------+------+------+------------+-------------+
+|          freq307200 |         Local|      |    4 |  0.186     |  1.058      |
++---------------------+--------------+------+------+------------+-------------+
+|            freq4096 |         Local|      |    4 |  0.263     |  0.746      |
++---------------------+--------------+------+------+------------+-------------+
+|video/delay565ns/lin |              |      |      |            |             |
+|                e<0> |         Local|      |    3 |  0.167     |  0.641      |
++---------------------+--------------+------+------+------------+-------------+
+|       video/u3/q<6> |         Local|      |    5 |  3.292     |  3.613      |
++---------------------+--------------+------+------+------------+-------------+
+|          LED_0_OBUF |         Local|      |    3 |  0.000     |  0.873      |
++---------------------+--------------+------+------+------------+-------------+
+
+* Net Skew is the difference between the minimum and maximum routing
+only delays for the net. Note this is different from Clock Skew which
+is reported in TRCE timing report. Clock Skew is the difference between
+the minimum and maximum path delays which includes logic delays.
+
+* The fanout is the number of component pins not the individual BEL loads,
+for example SLICE loads not FF loads.
+
+Timing Score: 0 (Setup: 0, Hold: 0, Component Switching Limit: 0)
+
+Asterisk (*) preceding a constraint indicates it was not met.
+   This may be due to a setup or hold violation.
+
+----------------------------------------------------------------------------------------------------------
+  Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
+                                            |             |    Slack   | Achievable | Errors |    Score   
+----------------------------------------------------------------------------------------------------------
+  TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_ | SETUP       |     6.329ns|     3.671ns|       0|           0
+  pin" 100 MHz HIGH 50%                     | HOLD        |     0.450ns|            |       0|           0
+----------------------------------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Generating Pad Report.
+
+All signals are completely routed.
+
+WARNING:Par:283 - There are 3 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
+
+Total REAL time to PAR completion: 32 secs 
+Total CPU time to PAR completion: 30 secs 
+
+Peak Memory Usage:  339 MB
+
+Placer: Placement generated during map.
+Routing: Completed - No errors found.
+Timing: Completed - No errors found.
+
+Number of error messages: 0
+Number of warning messages: 5
+Number of info messages: 0
+
+Writing design to file sys_tim011_anvyl.ncd
+
+
+
+PAR done!

@@ -61,7 +61,8 @@ namespace Img2Tim
             lines.Add("-e[prom]         : generate EPROM emulator file format <hiaddr><loaddr><data>, instead of <data> (per each byte)");
             lines.Add("                 : (See http://retrospec.sgn.net/users/tomcat/yu/magshow.php?auto=&page=25&all=SK_86_11 for hardware)");
             lines.Add("                 : (See http://retrospec.sgn.net/users/tomcat/yu/magshow.php?auto=&page=25&all=SK_86_12 for software, 9600 baud 8N1 to transfer)");
-            lines.Add("-x               : generate Intel Hex format file");
+            lines.Add("-x               : in addition to .bin, also generate Intel .hex format file");
+            lines.Add("-c               : in addition to .bin, also generate Xilinx .coe file (bytes in hex format only)");
             lines.Add("-?|h[elp]        : this help, and no more");
             lines.Add(string.Empty);
             lines.Add("To generate sourcefile.coe, .cgf, .mif, .hex, .vhd files usable in FPGA-s use:");

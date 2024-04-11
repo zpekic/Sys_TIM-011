@@ -22,7 +22,7 @@
 --    devices, or systems.  Use in such applications are expressly            --
 --    prohibited.                                                             --
 --                                                                            --
---    (c) Copyright 1995-2020 Xilinx, Inc.                                    --
+--    (c) Copyright 1995-2024 Xilinx, Inc.                                    --
 --    All rights reserved.                                                    --
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ END COMPONENT;
       c_axi_type => 1,
       c_byte_size => 9,
       c_common_clk => 0,
-      c_default_data => "55",
+      c_default_data => "1B",
       c_disable_warn_bhv_coll => 0,
       c_disable_warn_bhv_range => 0,
       c_enable_32bit_address => 0,
@@ -95,7 +95,7 @@ END COMPONENT;
       c_has_softecc_input_regs_a => 0,
       c_has_softecc_output_regs_b => 0,
       c_init_file => "BlankString",
-      c_init_file_name => "TIM-011_skolski_racunar_1987.mif",
+      c_init_file_name => "ram32k8.mif",
       c_inita_val => "0",
       c_initb_val => "0",
       c_interface_type => 0,

@@ -1,0 +1,76 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Sun Apr 07 13:53:49 2024
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "DP" LOCATE = SITE "P15" LEVEL 1;
+COMP "BB1" LOCATE = SITE "AB20" LEVEL 1;
+PIN BB1_pin<0> = BEL "BB1" PINNAME PAD;
+PIN "BB1_pin<0>" CLOCK_DEDICATED_ROUTE = FALSE;
+COMP "BB3" LOCATE = SITE "P18" LEVEL 1;
+COMP "BB4" LOCATE = SITE "Y19" LEVEL 1;
+COMP "BB5" LOCATE = SITE "Y20" LEVEL 1;
+COMP "BB6" LOCATE = SITE "R15" LEVEL 1;
+COMP "BB7" LOCATE = SITE "R16" LEVEL 1;
+COMP "BB8" LOCATE = SITE "R17" LEVEL 1;
+COMP "BB9" LOCATE = SITE "R19" LEVEL 1;
+COMP "JA1" LOCATE = SITE "AA18" LEVEL 1;
+COMP "JA2" LOCATE = SITE "AA16" LEVEL 1;
+COMP "JA3" LOCATE = SITE "Y15" LEVEL 1;
+COMP "JA4" LOCATE = SITE "V15" LEVEL 1;
+COMP "CLK" LOCATE = SITE "D11" LEVEL 1;
+COMP "BB10" LOCATE = SITE "V19" LEVEL 1;
+COMP "AN<0>" LOCATE = SITE "P16" LEVEL 1;
+COMP "AN<1>" LOCATE = SITE "M17" LEVEL 1;
+COMP "AN<2>" LOCATE = SITE "N16" LEVEL 1;
+COMP "AN<3>" LOCATE = SITE "P19" LEVEL 1;
+COMP "AN<4>" LOCATE = SITE "AA20" LEVEL 1;
+COMP "AN<5>" LOCATE = SITE "AB21" LEVEL 1;
+COMP "SW<0>" LOCATE = SITE "V5" LEVEL 1;
+COMP "SW<1>" LOCATE = SITE "U4" LEVEL 1;
+COMP "SW<2>" LOCATE = SITE "V3" LEVEL 1;
+COMP "SW<3>" LOCATE = SITE "P4" LEVEL 1;
+COMP "SW<4>" LOCATE = SITE "R4" LEVEL 1;
+COMP "SW<5>" LOCATE = SITE "P6" LEVEL 1;
+COMP "SW<6>" LOCATE = SITE "P5" LEVEL 1;
+COMP "SW<7>" LOCATE = SITE "P8" LEVEL 1;
+COMP "LED<0>" LOCATE = SITE "W3" LEVEL 1;
+COMP "BTN<0>" LOCATE = SITE "E6" LEVEL 1;
+COMP "LED<1>" LOCATE = SITE "Y4" LEVEL 1;
+COMP "BTN<1>" LOCATE = SITE "D5" LEVEL 1;
+COMP "LED<2>" LOCATE = SITE "Y1" LEVEL 1;
+COMP "BTN<2>" LOCATE = SITE "A3" LEVEL 1;
+PIN BTN<2>_pin<0> = BEL "BTN<2>" PINNAME PAD;
+PIN "BTN<2>_pin<0>" CLOCK_DEDICATED_ROUTE = FALSE;
+COMP "LED<3>" LOCATE = SITE "Y3" LEVEL 1;
+COMP "BTN<3>" LOCATE = SITE "AB9" LEVEL 1;
+COMP "LED<4>" LOCATE = SITE "AB4" LEVEL 1;
+COMP "LED<5>" LOCATE = SITE "W1" LEVEL 1;
+COMP "LED<6>" LOCATE = SITE "AB3" LEVEL 1;
+COMP "LED<7>" LOCATE = SITE "AA4" LEVEL 1;
+COMP "SEG<0>" LOCATE = SITE "AA21" LEVEL 1;
+COMP "SEG<1>" LOCATE = SITE "AA22" LEVEL 1;
+COMP "SEG<2>" LOCATE = SITE "Y22" LEVEL 1;
+COMP "SEG<3>" LOCATE = SITE "N15" LEVEL 1;
+COMP "SEG<4>" LOCATE = SITE "AB19" LEVEL 1;
+COMP "SEG<5>" LOCATE = SITE "P20" LEVEL 1;
+COMP "SEG<6>" LOCATE = SITE "Y21" LEVEL 1;
+TIMEGRP sys_clk_pin = BEL "prescale_power_3" BEL "prescale_power_5" BEL
+        "prescale_power_11" BEL "prescale_power_13" BEL "prescale_power_14"
+        BEL "prescale_power_15" BEL "prescale_baud_0" BEL "prescale_baud_2"
+        BEL "prescale_baud_3" BEL "prescale_baud_4" BEL "prescale_baud_6" BEL
+        "prescale_baud_8" BEL "prescale_baud_9" BEL "prescale_baud_10" BEL
+        "prescale_baud_11" BEL "prescale_baud_14" BEL "prescale_baud_12" BEL
+        "prescale_baud_13" BEL "prescale_baud_15" BEL "clockgen/q_1" BEL
+        "clockgen/q_2" BEL "clockgen/q_3" BEL "clockgen/q_4" BEL
+        "clockgen/q_5" BEL "clockgen/q_6" BEL "clockgen/q_7" BEL
+        "clockgen/q_8" BEL "clockgen/q_9" BEL "clockgen/q_10" BEL
+        "clockgen/q_11" BEL "clockgen/q_12" BEL "prescale_power_0" BEL
+        "prescale_power_1" BEL "prescale_power_2" BEL "prescale_power_4" BEL
+        "prescale_power_6" BEL "prescale_power_9" BEL "prescale_power_7" BEL
+        "prescale_power_8" BEL "prescale_power_10" BEL "prescale_power_12" BEL
+        "prescale_baud_1" BEL "prescale_baud_7" BEL "prescale_baud_5" BEL
+        "freq4096" BEL "freq307200" BEL "CLK_BUFGP/BUFG";
+TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_pin" 100 MHz HIGH 50%;
+SCHEMATIC END;
+

@@ -51,179 +51,6 @@ end Grafika;
 
 architecture Structural of Grafika is
 
-component sn74hc04 is
-    Port ( a1_1 : in  STD_LOGIC;
-           y1_2 : out  STD_LOGIC;
-           a2_3 : in  STD_LOGIC;
-           y2_4 : out  STD_LOGIC;
-           a3_5 : in  STD_LOGIC;
-           y3_6 : out  STD_LOGIC;
-           a4_9 : in  STD_LOGIC;
-           y4_8 : out  STD_LOGIC;
-           a5_11 : in  STD_LOGIC;
-           y5_10 : out  STD_LOGIC;
-           y6_12 : out  STD_LOGIC;
-           a6_13 : in  STD_LOGIC);
-end component;
-
-component sn74ls08 is
-    Port ( a1_1 : in  STD_LOGIC;
-           b1_2 : in  STD_LOGIC;
-           y1_3 : out  STD_LOGIC;
-           a2_4 : in  STD_LOGIC;
-           b2_5 : in  STD_LOGIC;
-           y2_6 : out  STD_LOGIC;
-           y3_8 : out  STD_LOGIC;
-           a3_9 : in  STD_LOGIC;
-           b3_10 : in  STD_LOGIC;
-           y4_11 : out  STD_LOGIC;
-           a4_12 : in  STD_LOGIC;
-           b4_13 : in  STD_LOGIC);
-end component;
-
-component sn74ls20 is
-    Port ( a1_1 : in  STD_LOGIC;
-           b1_2 : in  STD_LOGIC;
-           c1_4 : in  STD_LOGIC;
-           d1_5 : in  STD_LOGIC;
-           y1_6 : out  STD_LOGIC;
-           y2_8 : out  STD_LOGIC;
-           a2_9 : in  STD_LOGIC;
-           b2_10 : in  STD_LOGIC;
-           c2_12 : in  STD_LOGIC;
-           d2_13 : in  STD_LOGIC);
-end component;
-
-component sn74ls32 is
-    Port ( a1_1 : in  STD_LOGIC;
-           b1_2 : in  STD_LOGIC;
-           y1_3 : out  STD_LOGIC;
-           a2_4 : in  STD_LOGIC;
-           b2_5 : in  STD_LOGIC;
-           y2_6 : out  STD_LOGIC;
-           y3_8 : out  STD_LOGIC;
-           a3_9 : in  STD_LOGIC;
-           b3_10 : in  STD_LOGIC;
-           y4_11 : out  STD_LOGIC;
-           a4_12 : in  STD_LOGIC;
-           b4_13 : in  STD_LOGIC);
-end component;
-
-component sn74ls74 is
-    Port ( nclr1_1 : in  STD_LOGIC;
-           d1_2 : in  STD_LOGIC;
-           clk1_3 : in  STD_LOGIC;
-           npr1_4 : in  STD_LOGIC;
-           q1_5 : out  STD_LOGIC;
-           nq1_6 : out  STD_LOGIC;
-           nq2_8 : out  STD_LOGIC;
-           q2_9 : out  STD_LOGIC;
-           npr2_10 : in  STD_LOGIC;
-           clk2_11 : in  STD_LOGIC;
-           d2_12 : in  STD_LOGIC;
-           nclr2_13 : in  STD_LOGIC);
-end component;
-
-component sn74s153 is
-    Port ( a : in  STD_LOGIC;
-           b : in  STD_LOGIC;
-           nG1 : in  STD_LOGIC;
-           c1 : in  STD_LOGIC_VECTOR (3 downto 0);
-           y1 : out  STD_LOGIC;
-           nG2 : in  STD_LOGIC;
-           c2 : in  STD_LOGIC_VECTOR (3 downto 0);
-           y2 : out  STD_LOGIC);
-end component;
-
-component sn74ls157 is
-    Port ( a : in  STD_LOGIC_VECTOR (4 downto 1);
-           b : in  STD_LOGIC_VECTOR (4 downto 1);
-           y : out  STD_LOGIC_VECTOR (4 downto 1);
-           nAB : in  STD_LOGIC;
-           nG : in  STD_LOGIC);
-end component;
-
-component sn74ls240 is
-    Port ( nG1_1 : in  STD_LOGIC;
-           a11_2 : in  STD_LOGIC;
-           y24_3 : out  STD_LOGIC;
-           a12_4 : in  STD_LOGIC;
-           y23_5 : out  STD_LOGIC;
-           a13_6 : in  STD_LOGIC;
-           y22_7 : out  STD_LOGIC;
-           a14_8 : in  STD_LOGIC;
-           y21_9 : out  STD_LOGIC;
-           a21_11 : in  STD_LOGIC;
-           y14_12 : out  STD_LOGIC;
-           a22_13 : in  STD_LOGIC;
-           y13_14 : out  STD_LOGIC;
-           a23_15 : in  STD_LOGIC;
-           y12_16 : out  STD_LOGIC;
-           a24_17 : in  STD_LOGIC;
-           y11_18 : out  STD_LOGIC;
-           nG2_19 : in  STD_LOGIC);
-end component;
-
-component sn74ls244 is
-    Port ( nG1 : in  STD_LOGIC;
-           a1 : in  STD_LOGIC_VECTOR (4 downto 1);
-           y1 : out  STD_LOGIC_VECTOR (4 downto 1);
-           nG2 : in  STD_LOGIC;
-           a2 : in  STD_LOGIC_VECTOR (4 downto 1);
-           y2 : out  STD_LOGIC_VECTOR (4 downto 1));
-end component;
-
-component sn74ls283 is
-    Port ( c0 : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (4 downto 1);
-           b : in  STD_LOGIC_VECTOR (4 downto 1);
-           s : out  STD_LOGIC_VECTOR (4 downto 1);
-           c4 : out  STD_LOGIC);
-end component;
-
-component sn74ls374 is
-    Port ( nOC : in  STD_LOGIC;
-           CLK : in  STD_LOGIC;
-           D : in  STD_LOGIC_VECTOR (7 downto 0);
-           Q : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component mem43256 is
-    Port ( CLK: in STD_LOGIC;
-			  TEST: in STD_LOGIC;
-			  A : in  STD_LOGIC_VECTOR (14 downto 0);
-           nOE : in  STD_LOGIC;
-           nCE : in  STD_LOGIC;
-           RnW : in  STD_LOGIC;
-           IO : inout  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component sn74hc4040 is
-    Port ( q12_1 : out  STD_LOGIC;
-           q6_2 : out  STD_LOGIC;
-           q5_3 : out  STD_LOGIC;
-           q7_4 : out  STD_LOGIC;
-           q4_5 : out  STD_LOGIC;
-           q3_6 : out  STD_LOGIC;
-           q2_7 : out  STD_LOGIC;
-           q1_9 : out  STD_LOGIC;
-           clock_10 : in  STD_LOGIC;
-           reset_11 : in  STD_LOGIC;
-           q9_12 : out  STD_LOGIC;
-           q8_13 : out  STD_LOGIC;
-           q10_14 : out  STD_LOGIC;
-           q11_15 : out  STD_LOGIC);
-end component;
-
-component configurabledelayline is
-    Port ( clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC;
-           init : in  STD_LOGIC;
-           delay : in  STD_LOGIC_VECTOR (3 downto 0);
-           signal_in : in  STD_LOGIC;
-           signal_out : out  STD_LOGIC);
-end component;
-
 signal u1_3, u1_6 : std_logic;					-- 74S08
 signal u2_3, u2_11: std_logic;					-- 74S08
 signal u3_q1, u3_q2, u3_q3, u3_q4, u3_q5, u3_q6, u3_q7, u3_q8, u3_q9: std_logic;
@@ -248,7 +75,7 @@ begin
 
 	-- Delay line RC = 470*1nF = 470 ns
 	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12MHz
-delay565ns: configurabledelayline port map ( 
+delay565ns: entity work.configurabledelayline port map ( 
 			clk => dotclk,
          reset => '0',
          init => '0',
@@ -257,7 +84,7 @@ delay565ns: configurabledelayline port map (
          signal_out => u13_q10_delayed
 		);
 	
-delay330uF: configurabledelayline port map ( 
+delay330uF: entity work.configurabledelayline port map ( 
 			clk => dotclk,
          reset => '0',
          init => '0',
@@ -270,7 +97,7 @@ delay330uF: configurabledelayline port map (
 	-- on GBS8200 this causes vertical black/blank bars so allow for not gating on dotclk
 	dotclk_g <= dotclk when (vid_gated = '1') else '1';
 	
-	u1: sn74ls08 Port map ( 
+	u1: entity work.sn74ls08 Port map ( 
 			a1_1 => dotclk_g,	-- INPUT
 			b1_2 => u29_7,
 			y1_3 => vid1,		-- OUTPUT
@@ -285,7 +112,7 @@ delay330uF: configurabledelayline port map (
 			b4_13 => dotclk_g	-- INPUT
 	);
 
-	u2: sn74ls08 Port map ( 
+	u2: entity work.sn74ls08 Port map ( 
 			a1_1 => u3_q9,	
 			b1_2 => u3_q9,
 			y1_3 => u2_3,		
@@ -301,7 +128,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- video memory scan counter, higher bits
-	u3: sn74hc4040 port map (
+	u3: entity work.sn74hc4040 port map (
 			clock_10 => u13_q10_delayed,
 			reset_11 => u2_11,
 			q1_9 => u3_q1, 
@@ -319,7 +146,7 @@ delay330uF: configurabledelayline port map (
 	);
 		
 	-- current scroll offset register
-	u4: sn74ls374 Port map ( 
+	u4: entity work.sn74ls374 Port map ( 
 			nOC => '0',
          CLK => u10_9,
          D => u5_q,
@@ -327,14 +154,14 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- next scroll offset register
-	u5: sn74ls374 Port map ( 
+	u5: entity work.sn74ls374 Port map ( 
 			nOC => '0',
          CLK => nScroll,	-- INPUT
          D => d,				-- INOUT
          Q => u5_q
 	);
 
-	u10: sn74ls74 Port map ( 
+	u10: entity work.sn74ls74 Port map ( 
 			nclr1_1 => '1',
 			d1_2 => u13_q10,
 			clk1_3 => u13_q2,
@@ -350,7 +177,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- Scroll register adder, higher bits
-	u11: sn74ls283 Port map ( 
+	u11: entity work.sn74ls283 Port map ( 
 			c0 => u12_9,
 			a(4) => u3_q8,
 			a(3) => u3_q7,
@@ -362,7 +189,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- Scroll register adder, lower bits
-	u12: sn74ls283 Port map ( 
+	u12: entity work.sn74ls283 Port map ( 
 			c0 => '0',
 			a(4) => u3_q4,
 			a(3) => u3_q3,
@@ -374,7 +201,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- video memory scan counter, lower bits
-	u13: sn74hc4040 port map (
+	u13: entity work.sn74hc4040 port map (
 			clock_10 => dotclk,	-- INPUT
 			reset_11 => u1_6_delayed,	-- TODO: is delay needed?
 			q1_9 => u13_q1, 
@@ -391,7 +218,7 @@ delay330uF: configurabledelayline port map (
 			q12_1 => open 
 	);
 
-	u14: sn74ls240 port map (
+	u14: entity work.sn74ls240 port map (
 			  nG1_1 => '0',
            a11_2 => '0',
            y24_3 => open,
@@ -412,7 +239,7 @@ delay330uF: configurabledelayline port map (
            nG2_19 => '0'
 	);
 
-	u18: sn74ls20 port map (
+	u18: entity work.sn74ls20 port map (
 			a1_1 => '1',		--
          b1_2 => u24_12,	--
          c1_4 => a(15),		-- INPUT
@@ -426,7 +253,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- Video memory address mux, high nibble
-	u19: sn74ls157 Port map (
+	u19: entity work.sn74ls157 Port map (
 			a(4) => '0',
 			a(3 downto 1) => a(7 downto 5),
          b(4) => '0',
@@ -436,7 +263,7 @@ delay330uF: configurabledelayline port map (
          nG => '0'
 	);
 
-	u20: sn74ls157 Port map (
+	u20: entity work.sn74ls157 Port map (
 			a => a(4 downto 1),	-- INPUT
          b(4) => u11_s(1),
          b(3 downto 1) => u12_s(4 downto 2),
@@ -445,7 +272,7 @@ delay330uF: configurabledelayline port map (
          nG => '0'
 	);
 
-	u21: sn74ls157 Port map (
+	u21: entity work.sn74ls157 Port map (
 			a(4) => a(0),								-- INPUT
 			a(3 downto 1) => a(14 downto 12),	-- INPUT
          b(4) => u12_s(1),
@@ -458,7 +285,7 @@ delay330uF: configurabledelayline port map (
 	);
 
 	-- Video memory address mux, low nibble
-	u22: sn74ls157 Port map (
+	u22: entity work.sn74ls157 Port map (
 			a => a(11 downto 8),	-- INPUT
          b(4) => u13_q6,
          b(3) => u13_q5,
@@ -469,7 +296,7 @@ delay330uF: configurabledelayline port map (
          nG => '0'
 	);
 
-	u24: sn74hc04 port map (
+	u24: entity work.sn74hc04 port map (
 			a1_1 => '0',		
          y1_2 => open,		
          a2_3 => u13_q2,	
@@ -484,7 +311,7 @@ delay330uF: configurabledelayline port map (
          a6_13 => nRD		-- INPUT
 	);
 
-	u29: sn74s153 Port map ( 
+	u29: entity work.sn74s153 Port map ( 
 			a => u13_q1,
 			b => u13_q2,
 			nG1 => u31_3,
@@ -501,20 +328,31 @@ delay330uF: configurabledelayline port map (
 			y2 => u29_9			-- will become VID2
 	);
 
-	u30: mem43256 Port map ( 
+	u30: entity work.mem43256 Port map ( 
 		   CLK => dotclk,		-- FPGA block RAM needs it
 			TEST => test,
-			A(14 downto 12) => u19_y(3 downto 1),
-			A(11 downto 8) => u20_y,
-			A(7 downto 4) => u21_y,
-			A(3 downto 0) => u22_y,
+			A(14) => u19_y(3),
+			A(13) => u19_y(2),
+			A(12) => u19_y(1),
+			A(11) => u20_y(4),
+			A(10) => u20_y(3),
+			A(9) => u20_y(2),
+			A(8) => u20_y(1),
+			A(7) => u21_y(4),
+			A(6) => u21_y(3),
+			A(5) => u21_y(2),
+			A(4) => u21_y(1),
+			A(3) => u22_y(4),
+			A(2) => u22_y(3),
+			A(1) => u22_y(2),
+			A(0) => u22_y(1),
          nOE => '0',
          nCE => '0',
          RnW => u18_8,
          IO => u30_d
 	);
 		
-	u31: sn74ls32 Port map (
+	u31: entity work.sn74ls32 Port map (
 			a1_1 => u3_q9,
 			b1_2 => u10_5,
 			y1_3 => u31_3,
@@ -529,21 +367,21 @@ delay330uF: configurabledelayline port map (
 			b4_13 => '0'
 		);
 		
-	u40: sn74ls374 Port map ( 
+	u40: entity work.sn74ls374 Port map ( 
 			nOC => '0',
          CLK => u13_q2,
          D => u30_d,
          Q => u40_q
 	);
 
-	u41: sn74ls374 Port map ( 
+	u41: entity work.sn74ls374 Port map ( 
 			nOC => u18_6,
          CLK => u24_4,	
          D => u30_d,				
          Q => d					-- OUTPUT
 	);
 
-	u42: sn74ls244 Port map ( 
+	u42: entity work.sn74ls244 Port map ( 
 			nG1 => u18_8,
 			a1 => d(3 downto 0),	-- INPUT
 			y1 => u30_d(3 downto 0),
