@@ -33,11 +33,11 @@ entity freqcounter is
     Port ( reset : in  STD_LOGIC;
            clk : in  STD_LOGIC;
            freq : in  STD_LOGIC;
-			  bcd:	in STD_LOGIC;
-			  double: in STD_LOGIC;
-			  limit: in STD_LOGIC_VECTOR(15 downto 0);
-			  ge: out STD_LOGIC;
-           value : out  STD_LOGIC_VECTOR (15 downto 0));
+			  bcd: in STD_LOGIC;
+			  add: in STD_LOGIC_VECTOR(31 downto 0);
+			  cin: in STD_LOGIC;
+			  cout: out STD_LOGIC;
+           value : out  STD_LOGIC_VECTOR (31 downto 0));
 end freqcounter;
 
 architecture Behavioral of freqcounter is
@@ -53,106 +53,52 @@ component adder16 is
            cout : out  STD_LOGIC);
 end component;
 
-signal r0, r1, r2, a, sum: std_logic_vector(15 downto 0);
-signal display: std_logic_vector(2 downto 0);
-signal c0, c1, c2, cout: std_logic;
+signal cnt_0, cnt_1, cnt_sel, sum: std_logic_vector(31 downto 0);
+signal clk_prev: std_logic;
+signal c: std_logic_vector(2 downto 0);
 
 begin
 
--- select which reg to display
-with display select
-	value <= 	r0 when "001",
-					r1 when "010",
-					r2 when "100",
-					X"FFFF" when others;
+cnt_sel <= 	cnt_0 when (clk = '0') else cnt_1; -- accumulate one or the other
+value <= 	cnt_1 when (clk = '0') else cnt_0; -- display the one not being accumulated!
 
-with display select
-	ge <=		 	c0 when "001",
-					c1 when "010",
-					c2 when "100",
-					'0' when others;
-					
--- the "next" reg is being updated, so bring it to the nibble adder "a" inputs
-with display select
-	a <= 			r1 when "001",
-					r2 when "010",
-					r0 when "100",
-					X"0000" when others;
+on_freq: process(freq, clk, sum)
+begin
+	if (rising_edge(freq)) then
+		if (clk = '0') then
+			if (clk_prev = '0') then
+				cnt_0 <= sum;
+			else
+				cnt_0 <= (others => '0');
+			end if;
+		else
+			if (clk_prev = '1') then
+				cnt_1 <= sum;
+			else
+				cnt_1 <= (others => '0');
+			end if;
+		end if;
+		
+		clk_prev <= clk;
+		
+	end if;
+end process;
 
--- compare with limit, BCD or binary
-comparator: adder16 Port map ( 
-				cin => '1',
-				a => sum,
-				b => limit,
-				na => '0',
-				nb => '1',
-				bcd => bcd,
-				y => open,
-				cout => cout
-			);
+c(0) <= cin;
+cout <= c(2);
 
--- add to count, BCD or binary, 1 or 2
-adder: adder16 Port map ( 
-				cin => double,
-				a => a,
-				b => X"0001",
+generate_adder32: for i in 0 to 1 generate
+	adder: adder16 Port map ( 
+				cin => c(i), 
+				a => cnt_sel((((i + 1) * 16) - 1) downto (i * 16)),
+				b => add((((i + 1) * 16) - 1) downto (i * 16)),
 				na => '0',
 				nb => '0',
 				bcd => bcd,
-				y => sum,
-				cout => open
+				y => sum((((i + 1) * 16) - 1) downto (i * 16)),
+				cout => c(i + 1) 
 			);
-
--- drive the "pipeline"
--- r0: clear	count		display
--- r1: count	display	clear 
--- r2: display	clear		count
-update_ring: process(reset, clk)
-begin
-	if (reset = '1') then
-		display <= "001";
-	else
-		if (rising_edge(clk)) then
-			display <= display(1 downto 0) & display(2);
-		end if;
-	end if;
-end process;
-
-update_r0: process(reset, freq, display)
-begin
-	if (reset = '1' or display(1) = '1') then
-		r0 <= X"0000";
-	else
-		if (rising_edge(freq) and display(2) = '1') then
-			r0 <= sum; --std_logic_vector(unsigned(r0) + 1);
-			c0 <= cout;
-		end if;
-	end if;
-end process;
-
-update_r1: process(reset, freq, display)
-begin
-	if (reset = '1' or display(2) = '1') then
-		r1 <= X"0000";
-	else
-		if (rising_edge(freq) and display(0) = '1') then
-			r1 <= sum; --std_logic_vector(unsigned(r1) + 1);
-			c1 <= cout;
-		end if;
-	end if;
-end process;
-
-update_r2: process(reset, freq, display)
-begin
-	if (reset = '1' or display(0) = '1') then
-		r2 <= X"0000";
-	else
-		if (rising_edge(freq) and display(1) = '1') then
-			r2 <= sum; --std_logic_vector(unsigned(r2) + 1);
-			c2 <= cout;
-		end if;
-	end if;
-end process;
+end generate;
 
 end Behavioral;
 

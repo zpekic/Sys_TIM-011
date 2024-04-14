@@ -40,7 +40,7 @@ entity Grafika is
            nScroll : in  STD_LOGIC;
 			  -- debug
 			  test: in STD_LOGIC;
-			  vid_gated: STD_LOGIC;
+			  delay: in STD_LOGIC_VECTOR(1 downto 0);
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -71,6 +71,18 @@ signal u31_3: std_logic;
 signal u40_q: std_logic_vector(7 downto 0);
 signal dotclk_g: std_logic;
 
+signal HRESET, VRESET, NBLANK: std_logic;
+alias HQ10: std_logic is u13_q10;
+alias HQ9: std_logic is u13_q9;
+alias HQ8: std_logic is u13_q8;
+alias HQ7: std_logic is u13_q7;
+alias VQ9: std_logic is u3_q9;
+alias VQ8: std_logic is u3_q8;
+alias VQ7: std_logic is u3_q7;
+alias VQ6: std_logic is u3_q6;
+alias VQ5: std_logic is u3_q5;
+alias VQ4: std_logic is u3_q4;
+
 begin
 
 	-- Delay line RC = 470*1nF = 470 ns
@@ -79,7 +91,7 @@ delay565ns: entity work.configurabledelayline port map (
 			clk => dotclk,
          reset => '0',
          init => '0',
-         delay => X"1", -- was 6
+         delay => "00" & delay, 
          signal_in => u13_q10,
          signal_out => u13_q10_delayed
 		);
@@ -95,21 +107,21 @@ delay330uF: entity work.configurabledelayline port map (
 		
 	-- original vid1 and vid2 are gated on dotclk
 	-- on GBS8200 this causes vertical black/blank bars so allow for not gating on dotclk
-	dotclk_g <= dotclk when (vid_gated = '1') else '1';
+	dotclk_g <= '1'; --dotclk when (vid_gated = '1') else '1';
 	
 	u1: entity work.sn74ls08 Port map ( 
-			a1_1 => dotclk_g,	-- INPUT
+			a1_1 => NBLANK, --dotclk_g,	
 			b1_2 => u29_7,
 			y1_3 => vid1,		-- OUTPUT
 			a2_4 => u13_q9,
 			b2_5 => u13_q10,
 			y2_6 => u1_6,
-			y3_8 => hsync,		-- OUTPUT
+			y3_8 => open, --hsync,		-- OUTPUT
 			a3_9 => u13_q10,
 			b3_10 => u13_q10,
 			y4_11 => vid2,		-- OUTPUT
 			a4_12 => u29_9,
-			b4_13 => dotclk_g	-- INPUT
+			b4_13 => NBLANK --dotclk_g
 	);
 
 	u2: entity work.sn74ls08 Port map ( 
@@ -119,7 +131,7 @@ delay330uF: entity work.configurabledelayline port map (
 			a2_4 => '0',
 			b2_5 => '0',
 			y2_6 => open,
-			y3_8 => vsync,		-- OUTPUT
+			y3_8 => open, --vsync,		-- OUTPUT
 			a3_9 => u10_9,
 			b3_10 => u10_9,
 			y4_11 => u2_11,	
@@ -127,10 +139,10 @@ delay330uF: entity work.configurabledelayline port map (
 			b4_13 => u3_q7
 	);
 
-	-- video memory scan counter, higher bits
+	-- vertical scan counter
 	u3: entity work.sn74hc4040 port map (
 			clock_10 => u13_q10_delayed,
-			reset_11 => u2_11,
+			reset_11 => VRESET, --u2_11,
 			q1_9 => u3_q1, 
 			q2_7 => u3_q2,
 			q3_6 => u3_q3,
@@ -200,10 +212,10 @@ delay330uF: entity work.configurabledelayline port map (
 			c4 => u12_9
 	);
 
-	-- video memory scan counter, lower bits
+	-- horizontal scan counter
 	u13: entity work.sn74hc4040 port map (
 			clock_10 => dotclk,	-- INPUT
-			reset_11 => u1_6_delayed,	-- TODO: is delay needed?
+			reset_11 => HRESET, --u1_6_delayed,	-- TODO: is delay needed?
 			q1_9 => u13_q1, 
 			q2_7 => u13_q2,
 			q3_6 => u13_q3,
@@ -255,30 +267,30 @@ delay330uF: entity work.configurabledelayline port map (
 	-- Video memory address mux, high nibble
 	u19: entity work.sn74ls157 Port map (
 			a(4) => '0',
-			a(3 downto 1) => a(7 downto 5),
+			a(3 downto 1) => a(14 downto 12),
          b(4) => '0',
-         b(3 downto 1) => u11_s(4 downto 2),
+         b(3) => u13_q9,
+         b(2) => u13_q8,
+         b(1) => u13_q7,
          y => u19_y,
          nAB => u24_4,
          nG => '0'
 	);
 
 	u20: entity work.sn74ls157 Port map (
-			a => a(4 downto 1),	-- INPUT
-         b(4) => u11_s(1),
-         b(3 downto 1) => u12_s(4 downto 2),
+			a => a(11 downto 8),	-- INPUT
+			b(4) => u13_q6,
+			b(3) => u13_q5,
+			b(2) => u13_q4,
+			b(1) => u13_q3,
          y => u20_y,
          nAB => u24_4,
          nG => '0'
 	);
 
 	u21: entity work.sn74ls157 Port map (
-			a(4) => a(0),								-- INPUT
-			a(3 downto 1) => a(14 downto 12),	-- INPUT
-         b(4) => u12_s(1),
-         b(3) => u13_q9,
-         b(2) => u13_q8,
-         b(1) => u13_q7,
+			a => a(7 downto 4),	-- INPUT
+         b => u11_s,
          y => u21_y,
          nAB => u24_4,
          nG => '0'
@@ -286,11 +298,8 @@ delay330uF: entity work.configurabledelayline port map (
 
 	-- Video memory address mux, low nibble
 	u22: entity work.sn74ls157 Port map (
-			a => a(11 downto 8),	-- INPUT
-         b(4) => u13_q6,
-         b(3) => u13_q5,
-         b(2) => u13_q4,
-         b(1) => u13_q3,
+			a => a(3 downto 0),	-- INPUT
+			b => u12_s,
          y => u22_y,
          nAB => u24_4,
          nG => '0'
@@ -390,5 +399,14 @@ delay330uF: entity work.configurabledelayline port map (
 			y2 => u30_d(7 downto 4)
 	);
 
+----------------------------------
+-- Sync signal fixes by @msolajic
+----------------------------------
+HRESET <= HQ10 and HQ9;
+hsync <= HQ10 and (not HQ9) and (not HQ8) and HQ7;
+VRESET <= VQ9 and VQ7;
+vsync <= VQ9 and (not VQ6) and VQ5 and VQ4;
+NBLANK <= not (HQ10 or VQ9);
+----------------------------------
 end Structural;
 

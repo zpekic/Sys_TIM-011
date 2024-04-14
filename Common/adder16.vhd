@@ -82,7 +82,7 @@ s1: nibbleadder Port map (
 s2: nibbleadder Port map ( 
 				cin => cout7,
 				a => a(11 downto 8),
-				b => a(11 downto 8),
+				b => b(11 downto 8),
 				na => na,
 				nb => nb,
 				bcd => bcd,

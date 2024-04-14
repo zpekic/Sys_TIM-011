@@ -31,11 +31,10 @@ use IEEE.NUMERIC_STD.ALL;
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
---use work.tms0800_package.all;
 
 entity sys_tim011_anvyl is
     Port ( 
-	 				-- 100MHz on the Anvyl board
+	 			-- 100MHz on the Anvyl board
 				CLK: in std_logic;
 				-- Switches
 				-- SW(0) -- LED display selection
@@ -105,7 +104,7 @@ entity sys_tim011_anvyl is
 --				TFT_VDDEN_O: out std_logic;
 				-- breadboard signal connections
 				BB1: in std_logic;
-				--BB2: out std_logic;
+				BB2: out std_logic;
 				BB3: out std_logic;
 				BB4: out std_logic;
 				BB5: out std_logic;
@@ -122,24 +121,24 @@ architecture Structural of sys_tim011_anvyl is
 type palette is array (0 to 15) of std_logic_vector(2 downto 0);
 signal bgr: palette := (
 	"000",	-- black
-	"011",	-- yellow
 	"110",	-- cyan
 	"010",	-- green
+	"111",	-- white
 
-	"011",	-- yellow -- this palette looks bad probably because base background color is not black
-	"110",	-- cyan
-	"101",	-- purple
+	"000",	-- black
+	"011",	-- yellow
+	"001",	-- red
 	"111",	-- white
 
 	"000",	-- black
 	"101",	-- purple
-	"110",	-- cyan
 	"100",	-- blue
+	"111",	-- white
 
 	"000",	-- black
 	"011",	-- yellow
-	"101",	-- purple
-	"001" 	-- red
+	"110",	-- cyan
+	"111"		-- white
 );
 
 alias JA_RTS: std_logic is JA1;
@@ -154,39 +153,28 @@ alias GBS8200_GRAY: std_logic is BB10; -- CSYNC next to GND on breadboard
 alias GBS8200_BLUE: std_logic is BB9; 	-- BLUE
 alias GBS8200_GREEN: std_logic is BB8;	-- GREEN
 alias GBS8200_RED: std_logic is BB7; 	-- RED
--- 	MERCURY BLACK 							-- GND on breaboard
-alias MERCURY_WHITE: std_logic is BB6;	-- HSYNC
-alias MERCURY_BLUE: std_logic is BB5;	-- VSYNC
-alias MERCURY_GRAY: std_logic is BB4;	-- VIDEO2
-alias MERCURY_RED: std_logic is BB3;	-- VIDEO1
 
 -- debug
 signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
 signal digsel: std_logic_vector(2 downto 0);
 signal offset_new: std_logic_vector(7 downto 0);
 signal offset_add_lo_cout: std_logic;
-signal T, debug: std_logic_vector(23 downto 0);
---signal h, digsel0_delayed: std_logic;
+signal T, debug, freqcnt_value: std_logic_vector(31 downto 0);
 signal hexdata, showdigit: std_logic_vector(3 downto 0);
----
-signal data: std_logic_vector(15 downto 0);
---signal freq_uart, freq_uart4: std_logic;
+signal freqcnt_in: std_logic;
 
 --- frequency signals
-signal freq24M, dotclk, freq0M75: std_logic;
+signal vgaclk, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
-signal freq4096, freq4, freq2, freq1, hexclk: std_logic;		
+signal freq4096, freq4, freq2, hexclk: std_logic;		
 
 --- video sync signals
-signal gr_hsync, gr_vsync: std_logic;
-signal sh_hsync, sh_vsync : std_logic;
-signal out_hsync, out_vsync : std_logic;
-signal hsync_cnt, vsync_cnt, h_duration, v_duration: std_logic_vector(15 downto 0); 
---signal enable_hshot, enable_vshot : std_logic;
+signal gr_hsync, gr_vsync, gr_csync: std_logic;
 -- video data signals
 signal gr_vid2, gr_vid1: std_logic;
-signal color: std_logic_vector(3 downto 0); -- combines one of 1 palettes plus vid2 and vid1
+signal color4: std_logic_vector(3 downto 0); -- combines one of 1 palettes plus vid2 and vid1
+signal color3: std_logic_vector(2 downto 0); -- 1 of 8 possible colors
 -- video memory bus
 signal nRD, nWR, nIO, nBUSREQ, nBUSACK: std_logic;
 signal D, DD: std_logic_vector(7 downto 0);
@@ -208,22 +196,7 @@ signal switch, button: std_logic_vector(7 downto 0);
 --signal h, v: std_logic_vector(8 downto 0);
 --signal tft_display: std_logic;
 
----- ADC
---signal adc_trigger  : std_logic := '1';              -- go sample from ADC
---signal adc_done     : std_logic := '0';              -- done sampling ADC
---signal adc_dout     : std_logic_vector(9 downto 0);  -- ADC data out
---signal adc_data_reg : unsigned(9 downto 0);          -- ADC data registered
---signal adc_channel  : std_logic_vector(2 downto 0);  -- ADC channel
---signal adc_clk: std_logic;
---signal min: unsigned(9 downto 0) := "1111111111";
---signal max: unsigned(9 downto 0) := "0000000000";
---signal adc_count, adc_old_count, freq_value: std_logic_vector(15 downto 0);
---signal adc_value: std_logic_vector(7 downto 0);
---signal f_in, f_out, f_in_audio: std_logic;
 ---- UART
---signal frame_ready, frame_valid, frame_active: std_logic;
---signal frame_data, uart_frame, display: std_logic_vector(15 downto 0);
---signal rx, rx_analog, rx_digital: std_logic;
 signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 --signal sr: std_logic_vector(31 downto 0);
 
@@ -236,24 +209,25 @@ signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 begin
   	
 clockgen: entity work.sn74hc4040 port map (
-			clock_10 => CLK,
---			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on breadboard
+--			clock_10 => CLK,
+			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard
 			reset_11 => RESET,
-			q1_9 => open, 
-			q2_7 => freq24M,
-			q3_6 => dotclk, --PMOD(7),		-- 12
-			q4_5 => open, 	--PMOD(6),		-- 6
-			q5_3 => open, --PMOD(5),		-- 3
-			q6_2 => open, --PMOD(4), 		-- 1.5
-			q7_4 =>   freq0M75,		-- 0.75
-			q8_13 =>  open,		-- 0.1953125
-			q9_12 =>  open,		-- 0.09765625
-			q10_14 => digsel(0),		-- 0.048828125
-			q11_15 => digsel(1),	-- 0.0244140625
-			q12_1 =>  digsel(2)	-- 0.01220703125
+			q1_9 => open, 			-- 50MHz
+			q2_7 => vgaclk,		-- 25
+			q3_6 => dotclk,		-- 12.5 (internal dotclk)
+			q4_5 => open,			-- 6.25
+			q5_3 => open, 			-- 3.125
+			q6_2 => open, 	 		-- 1.5625
+			q7_4 =>   open,		-- 0.78125
+			q8_13 =>  open,		-- 0.390625
+			q9_12 =>  open,		-- 0.1953125
+			q10_14 => digsel(0),	-- 0.09765625
+			q11_15 => digsel(1),	-- 
+			q12_1 =>  digsel(2)	-- 
 		);
 --
 --dotclk <= EXT_CLK; -- 12MHz ESC-220BX can on the breadboard!
+--dotclk <= BB1;
 
 prescale: process(CLK, freq153600, freq4096)
 begin
@@ -302,9 +276,9 @@ powergen: entity work.sn74hc4040 port map (
 			q7_4 => open,		
 			q8_13 => open,		
 			q9_12 =>  open,	
-			q10_14 => freq4,	
-			q11_15 => freq2,	
-			q12_1 =>  freq1	
+			q10_14 => open,	
+			q11_15 => freq4,	
+			q12_1 =>  freq2	
 		);
 --	
 	debounce_sw: entity work.debouncer8channel Port map ( 
@@ -325,13 +299,13 @@ powergen: entity work.sn74hc4040 port map (
 nWR <= '1'; -- never write for now
 nIO <= '0'; -- use only I/O space
 nBUSACK <= nBUSREQ;
-hexclk <= baudrate_x4 when (button(2) = '0') else freq1;
+hexclk <= baudrate_x4;-- when (button(2) = '0') else freq1;
 
 hexout: entity work.mem2hex Port map ( 
 			clk => hexclk,
 			reset => RESET,
 			--
-   		debug => debug,
+   		debug => open,
 			--
 			nRD => nRD,
 			nBUSREQ => nBUSREQ,
@@ -398,7 +372,7 @@ offset_add_lo: entity work.sn74ls283 Port map (
 		  nScroll => test_scroll,
 		-- debug
 		  test => test_static,
-		  vid_gated => switch(1), -- do not gate vid1/2 on dotclk (this is different from original!)
+		  delay => switch(3 downto 2),
 		-- monitor side
 		  hsync => gr_hsync, 
 		  vsync => gr_vsync,
@@ -416,57 +390,91 @@ LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
 -- Connect to GBS8200 gray wire (composite sync!)
-	GBS8200_GRAY <= gr_hsync xor (not gr_vsync);
+	gr_csync <= gr_hsync xor (not gr_vsync);
+	GBS8200_GRAY <= gr_csync; --gr_hsync xor (not gr_vsync);
 	
 -- connect to GBS8200 blue / green / red wires
-	color <= switch(3 downto 2) & gr_vid2 & gr_vid1;	-- select color from 1 of 4 palettes
-	GBS8200_BLUE	<= bgr(to_integer(unsigned(color)))(2);
-	GBS8200_GREEN	<= bgr(to_integer(unsigned(color)))(1);
-	GBS8200_RED		<= bgr(to_integer(unsigned(color)))(0);
+	GBS8200_BLUE <= gr_vid1;
+	GBS8200_GREEN <= gr_vid2;
+	GBS8200_RED <= gr_vid1 and gr_vid2;
 	
--- not really connected
-MERCURY_WHITE <= gr_hsync;
-MERCURY_BLUE <= gr_vsync;
-MERCURY_GRAY <= gr_vid2;
-MERCURY_RED  <= gr_vid1;
+-- test connections
+	color4 <= switch(3 downto 2) & gr_vid2 & gr_vid1;	-- select color from 1 of 4 palettes
+	color3 <= bgr(to_integer(unsigned(color4)));
+	BB6 <= gr_hsync when (button(0) = '0') else gr_csync;
+	BB5 <= gr_vsync when (button(0) = '0') else dotclk;
+	BB4 <= gr_vid1  when (button(0) = '0') else color3(1);
+	BB3 <= gr_vid2 when (button(0) = '0') else color3(0);
+	BB2 <= baudrate_x1;
 
-	
+-- display some debug data of 6-digit 7-seg display	
 leds: entity work.sixdigitsevensegled port map ( 
 			  -- inputs
 			  hexdata => hexdata,
 			  digsel => digSel,
            showdigit => "111111",
-			  showdot => "0" & nBUSACK & "0100",
+			  showdot => "000000",
            showsegments => '1',
-			  show76 => button(0),
+			  show76 => '0',
 			  -- outputs
            anode => AN,
 			  segment(7) => DP,
 			  segment(6 downto 0) => SEG
 			 );	 
 
+with button(2 downto 1) select debug <= 
+	X"000" & freqcnt_value(31 downto 12) when "00", -- /1000
+	X"000" & freqcnt_value(31 downto 12) when "01", -- /1000
+	freqcnt_value when "10",								-- /1
+	--T when others;
+	freqcnt_value when others;
+
+with button(2 downto 1) select freqcnt_in <= 
+	dotclk when "00",
+	gr_hsync when "01",
+	gr_vsync when "10",
+--	digsel(0) when others;
+	baudrate_x1 when others;
+
 with digsel select
-	hexdata <= 	T(3 downto 0) when "000",	
-					T(7 downto 4) when "001",
-					T(11 downto 8) when "010",
-					T(15 downto 12) when "011",
-					T(19 downto 16) when "100",
-					T(23 downto 20) when "101",
-					X"F" when "110",
-					X"F" when "111";
-				
---T <= A & D when (nBUSACK = '0') else debug;
---
--- UART connected to USB2UART on PMOD JA
--- 
---txd_send <= '0' when (TXD_CHAR = X"00") else '1'; -- generate a pulse when CHAR is valid ASCII
---txd_send <= '0' when (TXD_CHAR = X"00") else '1'; -- generate a pulse when CHAR is valid ASCII
-		
+	hexdata <= 	debug(3 downto 0) when "000",	
+					debug(7 downto 4) when "001",
+					debug(11 downto 8) when "010",
+					debug(15 downto 12) when "011",
+					debug(19 downto 16) when "100",
+					debug(23 downto 20) when "101",
+					debug(27 downto 24) when "110",
+					debug(31 downto 28) when others;
+
+on_rxd_ready: process(RXD_READY, RXD_CHAR, reset)
+begin
+	if (reset = '1') then
+		T <= (others => '0');
+	else
+		if (rising_edge(RXD_READY)) then
+			T <= T(23 downto 0) & RXD_CHAR; 
+		end if;
+	end if;
+end process;
+
+-- count signal frequencies
+freqcnt: entity work.freqcounter Port map ( 
+		reset => RESET,
+      clk => freq2,
+      freq => freqcnt_in,
+		bcd => '1',
+		add => X"00000004",
+		cin => '0',
+		cout => open,
+      value => freqcnt_value
+	);
+	
+-- UART connection to the host
 txdout: entity work.uart_par2ser Port map (
 			reset => reset,
 			txd_clk => baudrate_x1,
 			send => TXD_SEND,
-			mode => switch(4 downto 2),
+			mode => "000", -- no parity, extra stop bit
 			data => TXD_CHAR,
          ready => TXD_READY,
          txd => JA_RXD
@@ -475,24 +483,13 @@ txdout: entity work.uart_par2ser Port map (
 rxdinp: entity work.uart_ser2par Port map (
 			reset => reset,
 			rxd_clk => baudrate_x4,
-			mode => switch(4 downto 2),
+			mode => "000",	-- no parity, extra stop bit
 			char => RXD_CHAR,
          ready => RXD_READY,
 			valid => open,
          rxd => JA_TXD
 		);
-
-on_rxd_ready: process(RXD_READY, RXD_CHAR, reset)
-begin
-	if (reset = '1') then
-		T <= X"543210";
-	else
-		if (rising_edge(RXD_READY)) then
-			T <= T(15 downto 0) & RXD_CHAR; 
-		end if;
-	end if;
-end process;
-
+		
 with switch(7 downto 5) select
 		baudrate_x4 <= freq153600 when "111",
 							freq76800 when "110", 
@@ -522,6 +519,4 @@ with switch(7 downto 5) select
 							freq1200 when "010",
 							freq600  when "001",
 							freq300 when others;		
---
-
 end;
