@@ -118,29 +118,6 @@ end sys_tim011_anvyl;
 
 architecture Structural of sys_tim011_anvyl is
 
-type palette is array (0 to 15) of std_logic_vector(2 downto 0);
-signal bgr: palette := (
-	"000",	-- black
-	"110",	-- cyan
-	"010",	-- green
-	"111",	-- white
-
-	"000",	-- black
-	"011",	-- yellow
-	"001",	-- red
-	"111",	-- white
-
-	"000",	-- black
-	"101",	-- purple
-	"100",	-- blue
-	"111",	-- white
-
-	"000",	-- black
-	"011",	-- yellow
-	"110",	-- cyan
-	"111"		-- white
-);
-
 alias JA_RTS: std_logic is JA1;
 alias JA_RXD: std_logic is JA2;
 alias JA_TXD: std_logic is JA3;
@@ -155,26 +132,26 @@ alias GBS8200_GREEN: std_logic is BB8;	-- GREEN
 alias GBS8200_RED: std_logic is BB7; 	-- RED
 
 -- debug
-signal test_static, test_dynamic, test_scroll, test_clk, nScrollEnable: std_logic;
+signal test_static, test_clk: std_logic;
 signal digsel: std_logic_vector(2 downto 0);
-signal offset_new: std_logic_vector(7 downto 0);
-signal offset_add_lo_cout: std_logic;
 signal T, debug, freqcnt_value: std_logic_vector(31 downto 0);
 signal hexdata, showdigit: std_logic_vector(3 downto 0);
 signal freqcnt_in: std_logic;
+
+-- test scrolling function
+signal nScroll, scrollEnable: std_logic;
+signal reg_scroll: std_logic_vector(7 downto 0);
 
 --- frequency signals
 signal vgaclk, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
-signal freq4096, freq4, freq2, hexclk: std_logic;		
+signal freq4096, freq8, freq4, freq2, hexclk: std_logic;		
 
 --- video sync signals
 signal gr_hsync, gr_vsync, gr_csync: std_logic;
 -- video data signals
 signal gr_vid2, gr_vid1: std_logic;
-signal color4: std_logic_vector(3 downto 0); -- combines one of 1 palettes plus vid2 and vid1
-signal color3: std_logic_vector(2 downto 0); -- 1 of 8 possible colors
 -- video memory bus
 signal nRD, nWR, nIO, nBUSREQ, nBUSACK: std_logic;
 signal D, DD: std_logic_vector(7 downto 0);
@@ -276,7 +253,7 @@ powergen: entity work.sn74hc4040 port map (
 			q7_4 => open,		
 			q8_13 => open,		
 			q9_12 =>  open,	
-			q10_14 => open,	
+			q10_14 => freq8,	
 			q11_15 => freq4,	
 			q12_1 =>  freq2	
 		);
@@ -322,44 +299,35 @@ hexout: entity work.mem2hex Port map (
 			CHAR => TXD_CHAR
 		);
 
-test_static <= '1' when (button(3 downto 0) = "0100") else '0';
-test_dynamic <= '1' when (button(3 downto 0) = "0010") else '0';
-test_scroll <= nScrollEnable when (button(3 downto 0) = "0001") else '1';
-
+test_static <= button(2) and button(1);
 test_clk <= freq38400;-- when (button(3 downto 2) = "11") else freq9600;
 
 -- scroll logic
-nScrollEnable <= not (nIO and nWR and nRD);	-- low if all hi, meaning no other bus activity
+scrollEnable <= button(2) xor button(1);
+D <= reg_scroll when (scrollEnable = '1') else "ZZZZZZZZ";
+nScroll <= (not scrollEnable) or freq4;
 
-offset_reg: entity work.sn74ls374 Port map ( 
-			nOC => nScrollEnable,
-         CLK => test_scroll,
-         D => offset_new,
-         Q => D
-	);
-
-offset_add_hi: entity work.sn74ls283 Port map ( -- add +1 or -1 to offset)
-			c0 => offset_add_lo_cout,
-			a(4) => switch(0),
-			a(3) => switch(0),
-			a(2) => switch(0),
-			a(1) => switch(0),
-			b => D(7 downto 4),
-			s => offset_new(7 downto 4),
-			c4 => open
-	);
-	
-offset_add_lo: entity work.sn74ls283 Port map ( 
-			c0 => '0',
-			a(4) => switch(0),
-			a(3) => switch(0),
-			a(2) => switch(0),
-			a(1) => '1',
-			b => D(3 downto 0),
-			s => offset_new(3 downto 0),
-			c4 => offset_add_lo_cout
-	);	
-
+update_scroll: process(freq8, reset, button)
+begin
+	if (reset = '1') then
+		reg_scroll <= (others => '0');
+	else
+		if (rising_edge(freq2)) then
+			case button(2 downto 1) is
+				when "10" =>
+					reg_scroll <= std_logic_vector(unsigned(reg_scroll) + 1);
+				when "01" =>
+					reg_scroll <= std_logic_vector(unsigned(reg_scroll) - 1);
+				when "11" =>
+					reg_scroll <= (others => '0');
+				when others =>
+					null;
+			end case;
+		end if;
+	end if;
+end process;
+ 
+--
 	video: entity work.Grafika port map (
 		-- system
 		  dotclk => dotclk,
@@ -369,7 +337,7 @@ offset_add_lo: entity work.sn74ls283 Port map (
 		  nWR => nWR,
 		  d => D,
 		  ioe => not (nIO),
-		  nScroll => test_scroll,
+		  nScroll => nScroll,
 		-- debug
 		  test => test_static,
 		  delay => switch(3 downto 2),
@@ -399,12 +367,10 @@ LED(7) <= gr_vid2;
 	GBS8200_RED <= gr_vid1 and gr_vid2;
 	
 -- test connections
-	color4 <= switch(3 downto 2) & gr_vid2 & gr_vid1;	-- select color from 1 of 4 palettes
-	color3 <= bgr(to_integer(unsigned(color4)));
-	BB6 <= gr_hsync when (button(0) = '0') else gr_csync;
-	BB5 <= gr_vsync when (button(0) = '0') else dotclk;
-	BB4 <= gr_vid1  when (button(0) = '0') else color3(1);
-	BB3 <= gr_vid2 when (button(0) = '0') else color3(0);
+	BB6 <= gr_hsync;
+	BB5 <= gr_vsync;
+	BB4 <= gr_vid1;
+	BB3 <= gr_vid2;
 	BB2 <= baudrate_x1;
 
 -- display some debug data of 6-digit 7-seg display	
