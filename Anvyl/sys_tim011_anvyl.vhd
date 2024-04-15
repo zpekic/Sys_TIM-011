@@ -209,7 +209,7 @@ signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 begin
   	
 clockgen: entity work.sn74hc4040 port map (
---			clock_10 => CLK,
+--			clock_10 => CLK,	-- 100MHz integrated on Anvyl board
 			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard
 			reset_11 => RESET,
 			q1_9 => open, 			-- 50MHz

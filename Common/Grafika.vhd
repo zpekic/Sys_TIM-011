@@ -324,16 +324,16 @@ delay330uF: entity work.configurabledelayline port map (
 			a => u13_q1,
 			b => u13_q2,
 			nG1 => u31_3,
-			c1(3) => u40_q(6),
-			c1(2) => u40_q(4),
-			c1(1) => u40_q(2),
-			c1(0) => u40_q(0),
+			c1(3) => u40_q(2),
+			c1(2) => u40_q(0),
+			c1(1) => u40_q(6),
+			c1(0) => u40_q(4),
 			y1 => u29_7,		-- will become VID1
 			nG2 => u31_3,
-			c2(3) => u40_q(7),
-			c2(2) => u40_q(5),
-			c2(1) => u40_q(3),
-			c2(0) => u40_q(1),
+			c2(3) => u40_q(3),
+			c2(2) => u40_q(1),
+			c2(1) => u40_q(7),
+			c2(0) => u40_q(5),
 			y2 => u29_9			-- will become VID2
 	);
 
