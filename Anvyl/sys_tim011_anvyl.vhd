@@ -146,15 +146,16 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 signal vgaclk, dotclk: std_logic;
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
-signal freq4096, freq8, freq4, freq2, hexclk: std_logic;		
+signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;		
 
 --- video sync signals
 signal gr_hsync, gr_vsync, gr_csync: std_logic;
 -- video data signals
 signal gr_vid2, gr_vid1: std_logic;
 -- video memory bus
-signal nRD, nWR, nIO, nBUSREQ, nBUSACK: std_logic;
-signal D, DD: std_logic_vector(7 downto 0);
+signal nRD, nWR, nIO: std_logic;
+signal nReqHexOut, nReqHexIn, nAckHexOut, nAckHexIn: std_logic;
+signal D: std_logic_vector(7 downto 0);
 signal A: std_logic_vector(15 downto 0);
 
 -- output path for Intel hex format
@@ -251,7 +252,7 @@ powergen: entity work.sn74hc4040 port map (
 			q5_3 => open,		
 			q6_2 => open, 	
 			q7_4 => open,		
-			q8_13 => open,		
+			q8_13 => freq32,		
 			q9_12 =>  open,	
 			q10_14 => freq8,	
 			q11_15 => freq4,	
@@ -273,9 +274,9 @@ powergen: entity work.sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
-nWR <= '1'; -- never write for now
-nIO <= '0'; -- use only I/O space
-nBUSACK <= nBUSREQ;
+nIO <= hexclk and nRD and nWR; -- use only I/O space
+nAckHexOut <= nReqHexOut;	-- DMA loopback for hexout processor
+nAckHexIn <= nReqHexIn;		-- DMA loopback for hexin processor
 hexclk <= baudrate_x4;-- when (button(2) = '0') else freq1;
 
 hexout: entity work.mem2hex Port map ( 
@@ -285,8 +286,8 @@ hexout: entity work.mem2hex Port map (
    		debug => open,
 			--
 			nRD => nRD,
-			nBUSREQ => nBUSREQ,
-			nBUSACK => nBUSACK,
+			nBUSREQ => nReqHexOut,
+			nBUSACK => nReqHexOut,
 			nWAIT => '1',
 			ABUS => A,
 			DBUS => D,
@@ -299,7 +300,35 @@ hexout: entity work.mem2hex Port map (
 			CHAR => TXD_CHAR
 		);
 
-test_static <= button(2) and button(1);
+hexin: entity work.hex2mem port map (
+			clk => hexclk,
+			reset_in => RESET,
+			reset_out => open,
+			reset_page => X"00",
+			--
+			debug => open,
+			--
+			nWR => nWR,
+			nBUSREQ => nReqHexIn,
+			nBUSACK => nAckHexIn,
+			nWAIT => '1',
+			ABUS => A,
+			DBUS => D,
+			BUSY => open,
+			--
+			HEXIN_READY => RXD_READY,
+			HEXIN_CHAR => RXD_CHAR,
+			HEXIN_ZERO => open,
+			--
+			TRACE_ERROR => '0',
+			TRACE_WRITE => '0',
+			TRACE_CHAR => '0',
+			ERROR => open,
+			TXDREADY => '1',
+			TXDSEND => open,
+			TXDCHAR => open
+		);
+
 test_clk <= freq38400;-- when (button(3 downto 2) = "11") else freq9600;
 
 -- scroll logic
@@ -307,21 +336,25 @@ scrollEnable <= button(2) xor button(1);
 D <= reg_scroll when (scrollEnable = '1') else "ZZZZZZZZ";
 nScroll <= (not scrollEnable) or freq4;
 
-update_scroll: process(freq8, reset, button)
+update_scroll: process(freq32, reset, button)
 begin
 	if (reset = '1') then
 		reg_scroll <= (others => '0');
+		test_static <= '0';
 	else
-		if (rising_edge(freq2)) then
+		if (rising_edge(freq32)) then
 			case button(2 downto 1) is
 				when "10" =>
 					reg_scroll <= std_logic_vector(unsigned(reg_scroll) + 1);
+					test_static <= '0';
 				when "01" =>
 					reg_scroll <= std_logic_vector(unsigned(reg_scroll) - 1);
+					test_static <= '0';
 				when "11" =>
 					reg_scroll <= (others => '0');
+					test_static <= '1';
 				when others =>
-					null;
+					test_static <= '0';
 			end case;
 		end if;
 	end if;
@@ -367,8 +400,8 @@ LED(7) <= gr_vid2;
 	GBS8200_RED <= gr_vid1 and gr_vid2;
 	
 -- test connections
-	BB6 <= gr_hsync;
-	BB5 <= gr_vsync;
+	BB6 <= gr_csync;
+	BB5 <= gr_vid1 and gr_vid2;
 	BB4 <= gr_vid1;
 	BB3 <= gr_vid2;
 	BB2 <= baudrate_x1;

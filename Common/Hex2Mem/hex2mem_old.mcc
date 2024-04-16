@@ -175,12 +175,14 @@ goto:		.alias if false then next else;
 noop:		.alias if true then next else next;
 back:	    .alias if true then return else return;
 
-// gosub definitions - this works because "jump" pushes return address to stack if both then/else are same
-emit:		.sub TXDCHAR;
-print_crlf:	.sub;	
-trace:		.sub;	
-printram:	.sub;
-printaddr:	.sub;
+// gosub aliases - this works because "jump" pushes return address to stack if both then/else are same
+emit:		.alias if false then emitChar else emitChar, TXDCHAR <=;
+print_crlf:	.alias if false then print_crlf else print_crlf;	
+writemem:	.alias if false then writemem else writemem;
+trace:		.alias if false then trace else trace;	
+printram:	.alias if false then printram else printram;
+printaddr:	.alias if false then printaddr else printaddr;
+dumpram:	.alias if false then dumpram else dumpram;
 
 // other
 poscnt_zero:.alias poscnt_a = zero;
@@ -203,7 +205,7 @@ _reset3:	clear;
 //	indicate availability and wait for start signal
 //	---------------------------------------------------------------------------
 deadloop:	BUSY = 0, if input_is_zero then repeat else next;
-			trace();
+			trace;
 			poscnt_inc, if true then fork else fork;	// jump to entry point per character code (see .map statements below)
 
 			.map 0b????????;
@@ -213,38 +215,43 @@ badchecksum:errcode <= err_badchecksum, if TRACE_ERROR then printerror else next
 badtype:	errcode <= err_badrecordtype, if TRACE_ERROR then printerror else nextchar;	// ERR4
 badlength:	errcode <= err_badrecordlength,if TRACE_ERROR then printerror else nextchar;// ERR5
 badhex:		errcode <= err_unexpected, if TRACE_ERROR then next else nextchar;			// ERR2
-printerror:	emit(char_E);		// ERR
-			emit(char_R);
-			emit(char_R);
-			emit(errcode);
-			emit(char_space);
-			emit(lin_chk3);		// 9999 line number (decimal)
-			emit(lin_chk2);
-			emit(lin_chk1);
-			emit(lin_chk0);
-			emit(char_space);
-			emit(pos_ram1);		// 99 char position in the line (decimal)
-			emit(pos_ram0);
-			emit(char_space);
-			emit(inp1);			// FF hex code of offending char
-			hexcnt <= ptr_colon, emit(inp0);	// force sync with next ':'
-			print_crlf();
+printerror:	emit char_E;		// ERR
+			emit char_R;
+			emit char_R;
+			emit errcode;
+			emit char_space;
+			emit lin_chk3;		// 9999 line number (decimal)
+			emit lin_chk2;
+			emit lin_chk1;
+			emit lin_chk0;
+			emit char_space;
+			emit pos_ram1;		// 99 char position in the line (decimal)
+			emit pos_ram0;
+			emit char_space;
+			emit inp1;			// FF hex code of offending char
+			hexcnt <= ptr_colon, emit inp0;	// force sync with next ':'
+			print_crlf;
 			.map 0;
 nextchar:	errcode <= ok, input_reset = 1, goto deadloop;
-		
-printramR:	emit(char_R);
 
-printram:	emit(char_EQU);
-			emit(pos_ram1);			
-			emit(pos_ram0);
+emitChar:	if TXDREADY then next else repeat;	// sync with baudrate clock that drives UART
+			if TXDREADY then next else repeat;
+			if TXDREADY then next else repeat;
+			if TXDSEND then return else return;	// generate a send pulse for UART sender	
 			
-print_crlf: emit(char_cr);
-			TXDCHAR <= char_lf, goto emit;	// save 1 return microinstruction
+printramR:	emit char_R;
+printram:	emit char_EQU;
+			emit pos_ram1;			
+			emit pos_ram0;
+print_crlf: emit char_cr;
+			emit char_lf;
+			back;		
 
-printaddr:	emit(addr3);			
-			emit(addr2);
-			emit(addr1);
-			TXDCHAR <= addr0, goto emit;	// save 1 return microinstruction
+printaddr:	emit addr3;			
+			emit addr2;
+			emit addr1;
+			emit addr0;
+			back;
 			
 			// with mapping like this lower 4 bits of mapper can be reused as ASCII to HEX decode
 			.org 0x30;
@@ -336,7 +343,6 @@ newline:	compa = checksum_lsb, compb = zero, if compa_equals_compb then next els
 			ram_addr = ptr_addr_lo, address <= shift8ram, hexcnt <= zero;	// A <= A(7..0) < RAM(ptr_addr_lo)
 
 writeloop:	ram_addr = ptr_len, compa = ram, compb = bytecnt, if compa_equals_compb then nextrec;
-			
 			// ask CPU for memory, then write 1 byte with any number of optional wait cycles
 writemem:	ram_addr = bytecnt, nBUSREQ = 0;
 			ram_addr = bytecnt, nBUSREQ = 0, if nBUSACK then repeat else next;
@@ -344,11 +350,11 @@ writemem:	ram_addr = bytecnt, nBUSREQ = 0;
 			ram_addr = bytecnt, nBUSREQ = 0, nWR = 0, if nWAIT then next else repeat;
 			
 			if TRACE_WRITE then next else nextaddr; 
-			emit(char_A);		// A[address]=data
-			emit(char_open);
-			printaddr();
-			emit(char_close);
-			printram();
+			emit char_A;		// A[address]=data
+			emit char_open;
+			printaddr;
+			emit char_close;
+			printram;
 			
 nextaddr:	hexcnt <= inc;
 			hexcnt <= inc, address <= inc, goto writeloop; // bytecnt++, A++
@@ -357,11 +363,11 @@ lastrec:	lincnt_zero, if resetout_done then next else next; // clear reset_out
 			ram_addr = ptr_len, compa = ram, compb = zero, if compa_equals_compb then next else badlength; // length of last record should be 0
 nextrec:	hexcnt <= ptr_colon, goto nextchar; // prepare for next record
 
-//dumpram:	emit(char_R);	// Rxx=yy
-//			emit(bytecnt1);			
-//			emit(bytecnt0);
-//			printram();
-//			back;
+dumpram:	emit char_R;	// Rxx=yy
+			emit bytecnt1;			
+			emit bytecnt0;
+			printram;
+			back;
 			
 			.map 0x09;	// treat tabs and spaces same way	
 			.map ' ';
@@ -374,41 +380,37 @@ colon:		checksum <= zero, if bytecnt_at_colon then next else badcolon;
 			hexcnt <= inc, goto nextchar;	// skip two hex positions, now pointing to "length" byte
 					
 trace:		if TRACE_CHAR then next else return;
-			//print_crlf();
-			emit(char_I);		// I=<received char>
-			emit(char_EQU);
-			emit(inp1);			
-			emit(inp0);
-			emit(char_space);
+			//print_crlf;
+			emit char_I;		// I=<received char>
+			emit char_EQU;
+			emit inp1;			
+			emit inp0;
+			emit char_space;
 
-			emit(char_A);		// A=<address>
-			emit(char_EQU);
-			printaddr();
-			emit(char_space);
+			emit char_A;		// A=<address>
+			emit char_EQU;
+			printaddr;
+			emit char_space;
 
-			emit(char_C);		// C=<checksum>
-			emit(char_EQU);
-			emit(lin_chk3);			
-			emit(lin_chk2);
-			emit(lin_chk1);
-			emit(lin_chk0);
-			emit(char_space);
+			emit char_C;		// C=<checksum>
+			emit char_EQU;
+			emit lin_chk3;			
+			emit lin_chk2;
+			emit lin_chk1;
+			emit lin_chk0;
+			emit char_space;
 			
-//			emit(char_F);		// F=<flags>
-//			emit(char_EQU);
-			emit(flags);
-			emit(char_space);
+//			emit char_F;		// F=<flags>
+//			emit char_EQU;
+//			emit flags;
+//			emit char_space;
 
-			emit(char_B);		// B=<byte counter>
-			emit(char_EQU);
-			emit(bytecnt1);			
-			emit(bytecnt0);
-			emit(char_space);
+			emit char_B;		// B=<byte counter>
+			emit char_EQU;
+			emit bytecnt1;			
+			emit bytecnt0;
+			emit char_space;
 
 			goto printramR;
 
-emit:		if TXDREADY then next else repeat;	// sync with baudrate clock that drives UART
-			if TXDREADY then next else repeat;
-			if TXDREADY then next else repeat;
-			if TXDSEND then return else return;	// generate a send pulse for UART sender	
 			
