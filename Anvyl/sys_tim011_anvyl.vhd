@@ -88,11 +88,11 @@ entity sys_tim011_anvyl is
 				--LDT2Y: out std_logic;
 				--LDT2R: out std_logic;
 				-- VGA
-				--HSYNC_O: out std_logic;
-				--VSYNC_O: out std_logic;
-				--RED_O: out std_logic_vector(3 downto 0);
-				--GREEN_O: out std_logic_vector(3 downto 0);
-				--BLUE_O: out std_logic_vector(3 downto 0)
+				HSYNC_O: out std_logic;
+				VSYNC_O: out std_logic;
+				RED_O: out std_logic_vector(3 downto 0);
+				GREEN_O: out std_logic_vector(3 downto 0);
+				BLUE_O: out std_logic_vector(3 downto 0);
 				-- TFT
 --				TFT_R_O: out std_logic_vector(7 downto 0);
 --				TFT_G_O: out std_logic_vector(7 downto 0);
@@ -143,7 +143,11 @@ signal nScroll, scrollEnable: std_logic;
 signal reg_scroll: std_logic_vector(7 downto 0);
 
 --- frequency signals
-signal vgaclk, dotclk: std_logic;
+signal dotclk: std_logic;
+
+signal cnt100MHz: std_logic_vector(3 downto 0);
+alias vgaclk: std_logic is cnt100MHz(1);
+
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
 signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;		
@@ -152,6 +156,7 @@ signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;
 signal gr_hsync, gr_vsync, gr_csync: std_logic;
 -- video data signals
 signal gr_vid2, gr_vid1: std_logic;
+signal gr_color: std_logic_vector(3 downto 0);
 -- video memory bus
 signal nRD, nWR, nIO: std_logic;
 signal nReqHexOut, nReqHexIn, nAckHexOut, nAckHexIn: std_logic;
@@ -169,7 +174,13 @@ signal RXD_CHAR: std_logic_vector(7 downto 0);
 
 
 ---
-signal switch, button: std_logic_vector(7 downto 0);
+signal switch: std_logic_vector(7 downto 0);
+alias sw_mode: std_logic is switch(0);
+alias sw_baudrate: std_logic_vector(2 downto 0) is switch(7 downto 5);
+-- 
+signal button: std_logic_vector(7 downto 0);
+alias btn_hexout: std_logic is button(0);
+alias btn_scroll: std_logic_vector(1 downto 0) is button(2 downto 1);
 ---- TFT
 --signal h, v: std_logic_vector(8 downto 0);
 --signal tft_display: std_logic;
@@ -185,31 +196,30 @@ signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
 --alias nCTS: std_logic is PMOD(7);	-- in, active low
 
 begin
-  	
-clockgen: entity work.sn74hc4040 port map (
---			clock_10 => CLK,	-- 100MHz integrated on Anvyl board
-			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard
+
+-- divide external clock
+clock_ext: entity work.sn74hc4040 port map (
+			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard (ESC-220BX)
 			reset_11 => RESET,
-			q1_9 => open, 			-- 50MHz
-			q2_7 => vgaclk,		-- 25
-			q3_6 => dotclk,		-- 12.5 (internal dotclk)
-			q4_5 => open,			-- 6.25
-			q5_3 => open, 			-- 3.125
-			q6_2 => open, 	 		-- 1.5625
-			q7_4 =>   open,		-- 0.78125
-			q8_13 =>  open,		-- 0.390625
-			q9_12 =>  open,		-- 0.1953125
-			q10_14 => digsel(0),	-- 0.09765625
+			q1_9 => open, 			-- 48MHz
+			q2_7 => open,			-- 24
+			q3_6 => dotclk,		-- 12 (internal dotclk)
+			q4_5 => open,			-- 6
+			q5_3 => open, 			-- 3
+			q6_2 => open, 	 		-- 1.5
+			q7_4 =>   open,		-- 0.75
+			q8_13 =>  open,		-- 0.375
+			q9_12 =>  open,		-- 
+			q10_14 => digsel(0),	-- 
 			q11_15 => digsel(1),	-- 
 			q12_1 =>  digsel(2)	-- 
 		);
---
---dotclk <= EXT_CLK; -- 12MHz ESC-220BX can on the breadboard!
---dotclk <= BB1;
 
-prescale: process(CLK, freq153600, freq4096)
+-- divide internal clock   	
+clock_int: process(CLK, freq153600, freq4096)
 begin
 	if (rising_edge(CLK)) then
+		cnt100MHz <= std_logic_vector(unsigned(cnt100MHz) + 1);
 		if (prescale_baud = 0) then
 			freq307200 <= not freq307200;
 			prescale_baud <= (50000000 / (2 * 153600));
@@ -224,7 +234,7 @@ begin
 		end if;
 	end if;
 end process;
---
+
 baudgen: entity work.sn74hc4040 port map (
 			clock_10 => freq307200,
 			reset_11 => RESET,
@@ -288,13 +298,13 @@ hexout: entity work.mem2hex Port map (
 			nRD => nRD,
 			nBUSREQ => nReqHexOut,
 			nBUSACK => nReqHexOut,
-			nWAIT => '1',
+			nWAIT => nScroll,
 			ABUS => A,
 			DBUS => D,
-			START => button(0),
+			START => btn_hexout,
 			BUSY => open,
-			PAGE => switch(1) & switch(1) & switch(1) & switch(1) & switch(0) & switch(0) & switch(0) & switch(0),
-			COUNTSEL => '0', -- 16 bytes per line
+			PAGE => X"FF",		-- no idea what this does? :-)
+			COUNTSEL => '0', 	-- 16 bytes per line
 			TXDREADY => TXD_READY,
 			TXDSEND => TXD_SEND,
 			CHAR => TXD_CHAR
@@ -336,14 +346,14 @@ scrollEnable <= button(2) xor button(1);
 D <= reg_scroll when (scrollEnable = '1') else "ZZZZZZZZ";
 nScroll <= (not scrollEnable) or freq4;
 
-update_scroll: process(freq32, reset, button)
+update_scroll: process(freq32, reset, btn_scroll)
 begin
 	if (reset = '1') then
 		reg_scroll <= (others => '0');
 		test_static <= '0';
 	else
 		if (rising_edge(freq32)) then
-			case button(2 downto 1) is
+			case btn_scroll is
 				when "10" =>
 					reg_scroll <= std_logic_vector(unsigned(reg_scroll) + 1);
 					test_static <= '0';
@@ -390,21 +400,31 @@ LED(5) <= gr_vsync;
 LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
--- Connect to GBS8200 gray wire (composite sync!)
-	gr_csync <= gr_hsync xor (not gr_vsync);
-	GBS8200_GRAY <= gr_csync; --gr_hsync xor (not gr_vsync);
-	
--- connect to GBS8200 blue / green / red wires
-	GBS8200_BLUE <= gr_vid1;
-	GBS8200_GREEN <= gr_vid2;
-	GBS8200_RED <= gr_vid1 and gr_vid2;
-	
--- test connections
-	BB6 <= gr_csync;
-	BB5 <= gr_vid1 and gr_vid2;
+-- test connections (work in both VGA and TIM cases)
+	BB6 <= gr_hsync;
+	BB5 <= gr_vsync;
 	BB4 <= gr_vid1;
 	BB3 <= gr_vid2;
 	BB2 <= baudrate_x1;
+
+-- Connect to GBS8200 gray wire (composite sync!)
+	gr_csync <= gr_hsync xor (not gr_vsync);
+	GBS8200_GRAY <= gr_csync when (sw_mode = '0') else '0'; --gr_hsync xor (not gr_vsync);
+	
+-- connect to GBS8200 blue / green / red wires
+-- colors: black, blue, green, white
+	GBS8200_BLUE <= gr_vid1 when (sw_mode = '0') else '0';
+	GBS8200_GREEN <= gr_vid2 when (sw_mode = '0') else '0';
+	GBS8200_RED <= (gr_vid1 and gr_vid2) when (sw_mode = '0') else '0';
+
+-- VGA connections
+-- colors: black (000), dark gray (333), light gray (CCC), white (FFF)
+	gr_color <= gr_vid2 & gr_vid2 & gr_vid1 & gr_vid1;
+	HSYNC_O <= sw_mode and gr_hsync;
+	VSYNC_O <= sw_mode and gr_vsync;
+	RED_O <= gr_color when (sw_mode = '1') else X"0";
+	GREEN_O <= gr_color when (sw_mode = '1') else X"0";
+	BLUE_O <= gr_color when (sw_mode = '1') else X"0";
 
 -- display some debug data of 6-digit 7-seg display	
 leds: entity work.sixdigitsevensegled port map ( 
@@ -489,7 +509,7 @@ rxdinp: entity work.uart_ser2par Port map (
          rxd => JA_TXD
 		);
 		
-with switch(7 downto 5) select
+with sw_baudrate select
 		baudrate_x4 <= freq153600 when "111",
 							freq76800 when "110", 
 							freq38400 when "101",
@@ -499,7 +519,7 @@ with switch(7 downto 5) select
 							freq2400 when "001", 	
 							freq1200 when others;		
 
-with switch(7 downto 5) select
+with sw_baudrate select
 		baudrate_x2 <= freq76800 when "111", 
 							freq38400 when "110",
 							freq19200 when "101",		
@@ -509,7 +529,7 @@ with switch(7 downto 5) select
 							freq1200 when "001",
 						   freq600 when others;
 
-with switch(7 downto 5) select
+with sw_baudrate select
 		baudrate_x1 <= freq38400 when "111",
 							freq19200 when "110",		
 							freq9600 when "101",		
