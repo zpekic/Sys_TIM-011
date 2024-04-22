@@ -76,22 +76,16 @@ signal u31_3: std_logic;
 signal u40_q: std_logic_vector(7 downto 0);
 signal pixclk_g: std_logic;
 
-signal u3a_q10, u3a_q9, u3a_q8, u3a_q7, u3a_q6, u3a_q5, u3a_q4: std_logic;
-signal u3b_y3: std_logic;
+-- new vertical counter
+signal u3a_q10, u3a_q9, u3a_q8, u3a_q7, u3a_q6, u3a_q5, u3a_q4, u3a_q3, u3a_q2, u3a_q1: std_logic;
+signal u3b_y: std_logic_vector(7 downto 0);
 
-signal u13a_q10, u13a_q9, u13a_q8, u13a_q7, u13a_q2: std_logic;
+-- new horizontal counter
+signal u13a_q10, u13a_q9, u13a_q8, u13a_q7, u13a_q6: std_logic;
+signal u13b_y: std_logic_vector(7 downto 0);
 
+-- TIM/VGA multiplexed signals
 signal HRESET, VRESET, VBLANK, HBLANK, VCLK, HS, VS: std_logic;
---alias HQ10: std_logic is u13a_q10;
---alias HQ9: std_logic is u13a_q9;
---alias HQ8: std_logic is u13a_q8;
---alias HQ7: std_logic is u13a_q7;
---alias VQ9: std_logic is u3a_q9;
---alias VQ8: std_logic is u3a_q8;
---alias VQ7: std_logic is u3a_q7;
---alias VQ6: std_logic is u3a_q6;
---alias VQ5: std_logic is u3a_q5;
---alias VQ4: std_logic is u3a_q4;
 
 begin
 
@@ -412,19 +406,23 @@ delay330uF: entity work.configurabledelayline port map (
 ----------------------------------
 -- Sync signal fixes by @msolajic
 ----------------------------------
-HRESET <= u13a_q10 and u13a_q9;
-HS <= u13a_q10 and (not u13a_q9) and (not u13a_q8) and u13a_q7;
-HBLANK <= u13a_q10;
+HRESET <= u13a_q10 and u13a_q9 when (MODE = '0') else u13a_q10 and u13a_q9 and u13a_q6;
+HS <= u13a_q10 and (not u13a_q9) and (not u13a_q8) and u13a_q7 when (MODE = '0') else (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or u13a_q6) and (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or (not u13a_q6)) and (u13a_q10 or u13a_q9 or u13a_q8 or (not u13a_q7) or u13a_q6);
+--HBLANK <= u13a_q10 when (MODE = '0') else (u13a_q10 or (not u13a_q9)) and ((not u13a_q10) or u13a_q9);
+HBLANK <= u13a_q10 when (MODE = '0') else u13b_y(2) and u13b_y(3) and u13b_y(4) and u13b_y(5); 
 
-VRESET <= u3a_q9 and u3a_q7;
-VS <= u3a_q9 and (not u3a_q6) and u3a_q5 and u3a_q4;
-VBLANK <= u3a_q9;
-VCLK <= u13a_q10_delayed;
+VRESET <= u3a_q9 and u3a_q7 when (MODE = '0') else u3a_q10 and u3a_q4 and u3a_q3 and u3a_q1;
+VS <= u3a_q9 and (not u3a_q6) and u3a_q5 and u3a_q4 when (MODE = '0') else u3b_y(0) or u3a_q7 or u3a_q6 or u3a_q5 or u3a_q4 or u3a_q3;-- or u3a_q2;
+--VBLANK <= u3a_q9 when (MODE = '0') else ((not u3a_q9) and (not u3a_q8) and (not u3a_q7)) or (u3a_q9 and (not u3a_q8) and u3a_q7) or (u3a_q9 and u3a_q8 and (not u3a_q7));-- or (u3a_q9 and u3a_q8 and u3a_q7);
+--VBLANK <= u3a_q9 when (MODE = '0') else not(((not u3a_q10) and (not u3a_q9) and u3a_q8) or ((not u3a_q10) and u3a_q9 and (not u3a_q8)));
+--VBLANK <= u3a_q9 when (MODE = '0') else u3a_q10 or ((not u3a_q10) and (not u3a_q9) and (not u3_q8)) or ((not u3a_q10) and (not u3a_q9) and u3_q8);
+VBLANK <= u3a_q9 when (MODE = '0') else (u3b_y(1) and u3b_y(2));
+VCLK <= u13a_q10_delayed when (MODE = '0') else HS;
 
 debug0 <= PIXCLK when (MODE = '0') else VCLK;
-debug1 <= HBLANK  when (MODE = '0') else VBLANK;
+debug1 <= HBLANK when (MODE = '0') else VBLANK;
 debug2 <= HS when (MODE = '0') else VS;
-debug3 <= HRESET  when (MODE = '0') else VRESET;
+debug3 <= HRESET when (MODE = '0') else VRESET;
 ----------------------------------
 
 	-- shadow horizontal scan counter
@@ -432,11 +430,11 @@ debug3 <= HRESET  when (MODE = '0') else VRESET;
 			clock_10 => PIXCLK,	-- INPUT
 			reset_11 => (HRESET and PIXCLK),
 			q1_9 => open, 
-			q2_7 => u13a_q2,
+			q2_7 => open,
 			q3_6 => open,
 			q4_5 => open,
 			q5_3 => open,
-			q6_2 => open,
+			q6_2 => u13a_q6,
 			q7_4 => u13a_q7,
 			q8_13 => u13a_q8,
 			q9_12 => u13a_q9,
@@ -445,13 +443,21 @@ debug3 <= HRESET  when (MODE = '0') else VRESET;
 			q12_1 => open 
 	);
 
+	u13b: entity work.sn74x138 port map (
+			s(2) => u13a_q10,
+			s(1) => u13a_q9,
+			s(0) => u13a_q8,
+         nE => '0',
+         y => u13b_y
+	);
+
 	-- shadow vertical scan counter and its decoding
 	u3a: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
 			reset_11 => (VRESET and PIXCLK), 
-			q1_9 => open, 
-			q2_7 => open,
-			q3_6 => open,
+			q1_9 => u3a_q1, 
+			q2_7 => u3a_q2,
+			q3_6 => u3a_q3,
 			q4_5 => u3a_q4,
 			q5_3 => u3a_q5,
 			q6_2 => u3a_q6,
@@ -463,5 +469,13 @@ debug3 <= HRESET  when (MODE = '0') else VRESET;
 			q12_1 => open 
 	);
 	
+u3b: entity work.sn74x138 port map (
+			s(2) => u3a_q10,
+			s(1) => u3a_q9,
+			s(0) => u3a_q8,
+         nE => '0',
+         y => u3b_y
+	);
+
 end Structural;
 
