@@ -56,7 +56,7 @@ begin
 count: process(clock_10, reset_11, q)
 begin
 	if (reset_11 = '1') then
-		q <= X"000";
+		q <= (others => '0');
 	else
 		if (falling_edge(clock_10)) then
 			q <= std_logic_vector(unsigned(q) + 1);

@@ -144,6 +144,7 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 
 --- frequency signals
 signal dotclk: std_logic;
+signal pixclk: std_logic;
 
 signal cnt100MHz: std_logic_vector(3 downto 0);
 alias vgaclk: std_logic is cnt100MHz(1);
@@ -371,24 +372,31 @@ begin
 end process;
  
 --
-	video: entity work.Grafika port map (
-		-- system
-		  dotclk => dotclk,
-		  A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
-		  A(14 downto 0) => A(14 downto 0),
-		  nRD => nRD,
-		  nWR => nWR,
-		  d => D,
-		  ioe => not (nIO),
-		  nScroll => nScroll,
-		-- debug
-		  test => test_static,
-		  delay => switch(3 downto 2),
-		-- monitor side
-		  hsync => gr_hsync, 
-		  vsync => gr_vsync,
-		  vid1 => gr_vid1, 
-		  vid2 => gr_vid2  
+	pixclk <= dotclk when (sw_mode = '0') else vgaclk;
+--
+	video: entity work.GrafikaV2 port map (
+			-- system
+			PIXCLK => pixclk,
+			MODE => sw_mode,
+			A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
+			A(14 downto 0) => A(14 downto 0),
+			nRD => nRD,
+			nWR => nWR,
+			d => D,
+			ioe => not (nIO),
+			nScroll => nScroll,
+			-- debug
+			test => test_static,
+			delay => switch(3 downto 2),
+			-- monitor side
+			debug0 => BB3,
+			debug1 => BB4,
+			debug2 => BB5,
+			debug3 => BB6,
+			hsync => gr_hsync, 
+			vsync => gr_vsync,
+			vid1 => gr_vid1, 
+			vid2 => gr_vid2  
 	);
 	
 LED(0) <= TXD_SEND; --hexclk;
@@ -401,10 +409,10 @@ LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
 -- test connections (work in both VGA and TIM cases)
-	BB6 <= gr_hsync;
-	BB5 <= gr_vsync;
-	BB4 <= gr_vid1;
-	BB3 <= gr_vid2;
+	--BB6 <= gr_hsync;
+	--BB5 <= gr_vsync;
+	--BB4 <= gr_vid1;
+	--BB3 <= gr_vid2;
 	BB2 <= baudrate_x1;
 
 -- Connect to GBS8200 gray wire (composite sync!)
@@ -449,7 +457,7 @@ with button(2 downto 1) select debug <=
 	freqcnt_value when others;
 
 with button(2 downto 1) select freqcnt_in <= 
-	dotclk when "00",
+	pixclk when "00",
 	gr_hsync when "01",
 	gr_vsync when "10",
 --	digsel(0) when others;

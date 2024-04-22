@@ -7,6 +7,8 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/Grafika - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|Grafika.vhd</ClosedNode>
+         <ClosedNode>/GrafikaV2 - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|GrafikaV2.vhd</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/debounce_btn - debouncer8channel - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/debounce_sw - debouncer8channel - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/hexin - hex2mem - Behavioral/lincnt_add - adder16 - Behavioral</ClosedNode>
@@ -36,7 +38,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000016c000000010000000100000000000000000000000064ffffffff0000008100000000000000010000016c0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000132000000010000000100000000000000000000000064ffffffff000000810000000000000001000001320000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem></CurrentItem>
    </ItemView>
@@ -47,8 +49,8 @@
       <SelectedItems>
          <SelectedItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\Anvyl_Master.ucf</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
-      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >14</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >331</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000003ee000000040101000100000000000000000000000064ffffffff000000810000000000000004000002570000000100000000000000d700000001000000000000006600000001000000000000005a0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\Anvyl_Master.ucf</CurrentItem>
@@ -58,13 +60,13 @@
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Common\Mem2Hex\mem2hex.vhd</SelectedItem>
+         <SelectedItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\sys_tim011_anvyl.vhd</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000000f8000000010001000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000000000000010000000000000000000000000000000000000121000000010001000100000000000000000000000064ffffffff000000810000000000000001000001210000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Common\Mem2Hex\mem2hex.vhd</CurrentItem>
+      <CurrentItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\sys_tim011_anvyl.vhd</CurrentItem>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
@@ -87,13 +89,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000013b000000010000000100000000000000000000000064ffffffff0000008100000000000000010000013b0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>
@@ -101,12 +103,12 @@
          <ClosedNode>CORE Generator</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000016c000000010000000100000000000000000000000064ffffffff0000008100000000000000010000016c0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
 </Project>
