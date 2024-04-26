@@ -304,7 +304,7 @@ hexout: entity work.mem2hex Port map (
 			DBUS => D,
 			START => btn_hexout,
 			BUSY => open,
-			PAGE => X"FF",		-- no idea what this does? :-)
+			PAGE => X"F0",		-- emit 0x8000 .. 0xFFFF range
 			COUNTSEL => '0', 	-- 16 bytes per line
 			TXDREADY => TXD_READY,
 			TXDSEND => TXD_SEND,

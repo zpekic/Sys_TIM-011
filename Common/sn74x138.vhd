@@ -38,8 +38,8 @@ end sn74x138;
 
 architecture Behavioral of sn74x138 is
 
-type rom8x8 is array(0 to 7) of std_logic_vector(7 downto 0);
-constant decoder3to8: rom8x8 := (
+type rom16x8 is array(0 to 15) of std_logic_vector(7 downto 0);
+constant decoder3to8: rom16x8 := (
 	"11111110",
 	"11111101",
 	"11111011",
@@ -47,12 +47,20 @@ constant decoder3to8: rom8x8 := (
 	"11101111",
 	"11011111",
 	"10111111",
-	"01111111"
+	"01111111",
+	"11111111",
+	"11111111",
+	"11111111",
+	"11111111",
+	"11111111",
+	"11111111",
+	"11111111",
+	"11111111"
 	);
 
 begin
 
-y <= decoder3to8(to_integer(unsigned(s))) when (nE = '0') else "11111111";
+y <= decoder3to8(to_integer(unsigned(nE & s)));-- when (nE = '0') else "11111111";
 
 end Behavioral;
 

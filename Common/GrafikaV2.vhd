@@ -42,11 +42,11 @@ entity GrafikaV2 is
 			  -- debug
 			  test: in STD_LOGIC;
 			  delay: in STD_LOGIC_VECTOR(1 downto 0);
-			  -- monitor side
 			  debug0: out STD_LOGIC;
 			  debug1: out STD_LOGIC;
 			  debug2: out STD_LOGIC;
 			  debug3: out STD_LOGIC;
+			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
 			  vid1: out STD_LOGIC;
@@ -61,7 +61,6 @@ signal u2_3, u2_11: std_logic;					-- 74S08
 signal u3_q1, u3_q2, u3_q3, u3_q4, u3_q5, u3_q6, u3_q7, u3_q8, u3_q9: std_logic;
 signal u4_q: std_logic_vector(7 downto 0);
 signal u5_q: std_logic_vector(7 downto 0);
---signal u10_5, u10_9: std_logic;
 signal u11_s, u12_s: std_logic_vector(4 downto 1);
 signal u12_9: std_logic;
 signal u13_q1, u13_q2, u13_q3, u13_q4, u13_q5, u13_q6, u13_q7, u13_q8, u13_q9, u13_q10: std_logic;		-- 74HC4040
@@ -417,7 +416,8 @@ VS <= u3a_q9 and (not u3a_q6) and u3a_q5 and u3a_q4 when (MODE = '0') else u3b_y
 --VBLANK <= u3a_q9 when (MODE = '0') else not(((not u3a_q10) and (not u3a_q9) and u3a_q8) or ((not u3a_q10) and u3a_q9 and (not u3a_q8)));
 --VBLANK <= u3a_q9 when (MODE = '0') else u3a_q10 or ((not u3a_q10) and (not u3a_q9) and (not u3_q8)) or ((not u3a_q10) and (not u3a_q9) and u3_q8);
 VBLANK <= u3a_q9 when (MODE = '0') else (u3b_y(1) and u3b_y(2));
-VCLK <= u13a_q10_delayed when (MODE = '0') else HS;
+--VCLK <= u13a_q10_delayed when (MODE = '0') else HS;
+VCLK <= MODE xor HS;
 
 debug0 <= PIXCLK when (MODE = '0') else VCLK;
 debug1 <= HBLANK when (MODE = '0') else VBLANK;
