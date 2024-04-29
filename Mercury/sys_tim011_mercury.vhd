@@ -111,305 +111,7 @@ end sys_tim011_mercury;
 
 architecture Structural of sys_tim011_mercury is
 
---	COMPONENT dcm
---	PORT(
---		CLKIN_IN : IN std_logic;
---		RST_IN : IN std_logic;          
---		CLKFX_OUT : OUT std_logic;
---		CLKIN_IBUFG_OUT : OUT std_logic;
---		LOCKED_OUT : OUT std_logic
---		);
---	END COMPONENT;
 
---component Grafika is
---    Port ( -- 
---	 		  dotclk : in  STD_LOGIC;
---           a : in  STD_LOGIC_VECTOR (15 downto 0);
---           nRD : in  STD_LOGIC;
---           nWR : in  STD_LOGIC;
---           d : inout  STD_LOGIC_VECTOR (7 downto 0);
---           ioe : in  STD_LOGIC;
---           nScroll : in  STD_LOGIC;
---			  -- debug
---			  test: in STD_LOGIC;
---			  vid_gated: STD_LOGIC;
---			  -- monitor side
---			  hsync: out STD_LOGIC;
---			  vsync: out STD_LOGIC;
---			  vid1: out STD_LOGIC;
---			  vid2: out STD_LOGIC
---			);
---end component;
-
---component uart_receiver is
---    Port ( rx_clk4 : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           rx : in  STD_LOGIC;
---           mode : in  STD_LOGIC_VECTOR (2 downto 0);
---			  frame_active: out  STD_LOGIC;
---           frame_ready : out  STD_LOGIC;
---           frame_valid : out  STD_LOGIC;
---           frame_data : out  STD_LOGIC_VECTOR (15 downto 0));
---end component;
---
---component uart_sender is
---	 Port (  tx_clk  : in  STD_LOGIC;
---				reset  : in  STD_LOGIC;
---				tx  : out  STD_LOGIC;
---				ready: out STD_LOGIC;
---				mode : in  STD_LOGIC_VECTOR (2 downto 0); 
---				send : in  STD_LOGIC; 
---				enable : in  STD_LOGIC;
---				data : in STD_LOGIC_VECTOR(7 downto 0));
---end component;
---		
---component signalcounter is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           input : in  STD_LOGIC;
---           sel : in  STD_LOGIC;
---           count : out  STD_LOGIC_VECTOR (15 downto 0));
---end component;
---
---component configurabledelayline is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           init : in  STD_LOGIC;
---           delay : in  STD_LOGIC_VECTOR (3 downto 0);
---           signal_in : in  STD_LOGIC;
---           signal_out : out  STD_LOGIC);
---end component;
-
---component oneshot is
---    Port ( trigger : in  STD_LOGIC;
---           tick : in  STD_LOGIC;
---           duration : in  STD_LOGIC_VECTOR (15 downto 0);
---           shot : out  STD_LOGIC);
---end component;
---
---component sn74ls283 is
---    Port ( c0 : in  STD_LOGIC;
---           a : in  STD_LOGIC_VECTOR (4 downto 1);
---           b : in  STD_LOGIC_VECTOR (4 downto 1);
---           s : out  STD_LOGIC_VECTOR (4 downto 1);
---           c4 : out  STD_LOGIC);
---end component;
---
---component sn74ls374 is
---    Port ( nOC : in  STD_LOGIC;
---           CLK : in  STD_LOGIC;
---           D : in  STD_LOGIC_VECTOR (7 downto 0);
---           Q : out  STD_LOGIC_VECTOR (7 downto 0));
---end component;
-
-component sn74hc4040 is
-    Port ( q12_1 : out  STD_LOGIC;
-           q6_2 : out  STD_LOGIC;
-           q5_3 : out  STD_LOGIC;
-           q7_4 : out  STD_LOGIC;
-           q4_5 : out  STD_LOGIC;
-           q3_6 : out  STD_LOGIC;
-           q2_7 : out  STD_LOGIC;
-           q1_9 : out  STD_LOGIC;
-           clock_10 : in  STD_LOGIC;
-           reset_11 : in  STD_LOGIC;
-           q9_12 : out  STD_LOGIC;
-           q8_13 : out  STD_LOGIC;
-           q10_14 : out  STD_LOGIC;
-           q11_15 : out  STD_LOGIC);
-end component;
-
-component fourdigitsevensegled is
-    Port ( -- inputs
-			  hexdata : in  STD_LOGIC_VECTOR (3 downto 0);
-           digsel : in  STD_LOGIC_VECTOR (1 downto 0);
-           showdigit : in  STD_LOGIC_VECTOR (3 downto 0);
-           showdot : in  STD_LOGIC_VECTOR (3 downto 0);
-			  -- outputs
-           anode : out  STD_LOGIC_VECTOR (3 downto 0);
-           segment : out  STD_LOGIC_VECTOR (7 downto 0)
-			 );
-end component;
-
-component freqcounter is
-    Port ( reset : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
-           freq : in  STD_LOGIC;
-			  bcd:	in STD_LOGIC;
-			  double: in STD_LOGIC;
-			  limit: in STD_LOGIC_VECTOR(15 downto 0);
-			  ge: out STD_LOGIC;
-           value : out  STD_LOGIC_VECTOR (15 downto 0));
-end component;
-
-component vga_controller is
-    Port ( reset : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
-			  mode_tms: in STD_LOGIC;
-			  offsetclk: in STD_LOGIC;
-			  offsetcmd: in STD_LOGIC_VECTOR(3 downto 0);
-           hsync : out  STD_LOGIC;
-           vsync : out  STD_LOGIC;
-			  h_valid: buffer STD_LOGIC;
-			  v_valid: buffer STD_LOGIC;
-			  h : buffer STD_LOGIC_VECTOR(9 downto 0);
-			  v : buffer STD_LOGIC_VECTOR(9 downto 0);
-			  x_valid: out STD_LOGIC;
-			  y_valid: buffer STD_LOGIC;
-           x : out  STD_LOGIC_VECTOR (8 downto 0);
-           y : out  STD_LOGIC_VECTOR (8 downto 0));
-end component;
-
-component chargen_rom is
-    Port ( a : in  STD_LOGIC_VECTOR (10 downto 0);
-           d : out  STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
-component tim_sampler is
-    Port ( reset : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
-           hsync : in  STD_LOGIC;
-           vsync : in  STD_LOGIC;
-           v2 : in  STD_LOGIC;
-           v1 : in  STD_LOGIC;
-           a : out  STD_LOGIC_VECTOR (14 downto 0);
-           d : out  STD_LOGIC_VECTOR (7 downto 0);
-			  limit: in STD_LOGIC_VECTOR(5 downto 0);
-			  we_in: in STD_LOGIC;
-           we_out : out  STD_LOGIC);
-end component;
-
-
-component vdp_sampler2 is
-    Port ( reset : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
-           hsync : in  STD_LOGIC;
-           vsync : in  STD_LOGIC;
-			  pixclk: out STD_LOGIC;
-			  offsetclk: in STD_LOGIC;
-			  offsetcmd: in STD_LOGIC_VECTOR(3 downto 0);
-			  i : in  STD_LOGIC; -- bit3 from color bus!
-           r : in  STD_LOGIC;
-           g : in  STD_LOGIC;
-			  b : in  STD_LOGIC;
-           a : out  STD_LOGIC_VECTOR (14 downto 0);
-           d : out  STD_LOGIC_VECTOR (7 downto 0);
-			  limit: in STD_LOGIC_VECTOR (5 downto 0);
-			  we_in: in STD_LOGIC;
-           we_out : out  STD_LOGIC);
-end component;
-
-COMPONENT ram32k8_dualport
-  PORT (
-    clka : IN STD_LOGIC;
-    ena : IN STD_LOGIC;
-    wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
-    dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-    clkb : IN STD_LOGIC;
-    addrb : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
-    doutb : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
-  );
-END COMPONENT;
-
-component ps2tim is
-    Port ( reset : in  STD_LOGIC;
-           uart_clk4 : in  STD_LOGIC;
-           uart_rx : in  STD_LOGIC;
-           uart_tx : out  STD_LOGIC;
-			  uart_mode: in STD_LOGIC_VECTOR(2 downto 0);
-           ps2_clk : inout  STD_LOGIC;
-           ps2_data : inout  STD_LOGIC;
-			  kbd_alt: buffer STD_LOGIC;
-			  kbd_shift: buffer STD_LOGIC;
-			  kbd_ctrl: buffer STD_LOGIC;
-			  kbd_caps: buffer STD_LOGIC;
-			  debugsel: in STD_LOGIC;
-           debug : out  STD_LOGIC_VECTOR (15 downto 0));
-end component;
-
-component debouncer8channel is
-    Port ( clock : in STD_LOGIC;
-           reset : in STD_LOGIC;
-           signal_raw : in STD_LOGIC_VECTOR (7 downto 0);
-           signal_debounced : out STD_LOGIC_VECTOR (7 downto 0));
-end component;
-
---component rx_reg is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           enable : in  STD_LOGIC;
---           rx : in  STD_LOGIC;
---           d : out  STD_LOGIC_VECTOR (7 downto 0);
---           dready : out  STD_LOGIC);
---end component;
-
---component tapeuart is
---    Port ( reset : in  STD_LOGIC;
---           serout : out  STD_LOGIC;
---           serin : in  STD_LOGIC;
---			  freq_mark: in STD_LOGIC;
---			  freq_space: in STD_LOGIC;
---           audio_left : out  STD_LOGIC;
---           audio_right : out  STD_LOGIC;
---           adc_clk : in  STD_LOGIC;
---           adc_samplefreq : in  STD_LOGIC;
---           adc_miso : in  STD_LOGIC;
---           adc_mosi : out  STD_LOGIC;
---           adc_sck : out  STD_LOGIC;
---           adc_csn : out  STD_LOGIC;
---			  --
---			  debugsel: in STD_LOGIC;
---			  debug: out STD_LOGIC_VECTOR(15 downto 0)
---			);
---end component;
-
---component memconsole is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---           control : in  STD_LOGIC_VECTOR (3 downto 0);
---           EN : out  STD_LOGIC;
---           RD : out  STD_LOGIC;
---           WR : out  STD_LOGIC;
---           A : out  STD_LOGIC_VECTOR (15 downto 0);
---           D : inout  STD_LOGIC_VECTOR (7 downto 0);
---           DD : out  STD_LOGIC_VECTOR (7 downto 0));
---end component;
-
---component interactivereg is
---    Port ( reset : in  STD_LOGIC;
---           clk : in  STD_LOGIC;
---           enable : in  STD_LOGIC;
---           init : in  STD_LOGIC_VECTOR (15 downto 0);
---           up : in  STD_LOGIC;
---           down : in  STD_LOGIC;
---           value : buffer  STD_LOGIC_VECTOR (15 downto 0));
---end component;
-
---component ram32k8 IS
---  PORT (
---    clka : IN STD_LOGIC;
---    ena : IN STD_LOGIC;
---    wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
---    addra : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
---    dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
---    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
---  );
---END component;
-
---component memtester is
---    Port ( clk : in  STD_LOGIC;
---           reset : in  STD_LOGIC;
---			  fill: in STD_LOGIC;
---			  direction: in STD_LOGIC;
---           EN : out  STD_LOGIC;
---           RD : out  STD_LOGIC;
---           WR : out  STD_LOGIC;
---           A : out  STD_LOGIC_VECTOR (15 downto 0);
---           D : inout  STD_LOGIC_VECTOR (7 downto 0);
---           DD : out  STD_LOGIC_VECTOR (7 downto 0));
---end component;
---
 constant color_transparent:				std_logic_vector(7 downto 0):= "00000000";
 constant color_medgreen: 					std_logic_vector(7 downto 0):= "00010000";
 constant color_dkgreen:						std_logic_vector(7 downto 0):= "00001000";
@@ -432,28 +134,6 @@ constant color_ltgray:						std_logic_vector(7 downto 0):= "01101110";
 constant color_dkgray,  color_gray:		std_logic_vector(7 downto 0):= "10010010";
 
 type color_lookup is array (0 to 15) of std_logic_vector(7 downto 0);
-
---signal video_color: color_lookup := (
---	-- TIM grayscale palette
---	color_black,	-- tim pixel 00
---	color_dkgray,	-- tim pixel 01
---	color_ltgray,	-- tim pixel 10
---	color_white,	-- tim pixel 11
---	-- TIM colorful palette
---	color_black,	-- tim pixel 00
---	color_yellow,	-- tim pixel 01
---	color_cyan,		-- tim pixel 10
---	color_green,	-- tim pixel 11
---	-- VDP 3-bit color palette
---	color_black,
---	color_blue,
---	color_green,
---	color_cyan,
---	color_red,
---	color_purple,
---	color_yellow,
---	color_white
---	);
 
 -- standard TMS9918 16-color palette (http://www.cs.columbia.edu/~sedwards/papers/TMS9918.pdf page 26) 
 signal video_color: color_lookup := (
@@ -586,35 +266,10 @@ PMOD(5) <= vdp_pixclk;		-- OUTPUT!!
 	
 RESET <= USR_BTN;
 
---on_freq96M: process(freq96M, VDP_R_DIG, VDP_G_DIG, VDP_B_DIG, r_line, g_line, b_line)
---begin
-----	if (VIDEO_HSYNC = '1') then
-----		r_line <= "00000000";
-----		g_line <= "00000000";
-----		b_line <= "00000000";
-----	else
---		if (rising_edge(freq96M)) then
---			r_line <= r_line(6 downto 0) & VDP_R_DIG;
---			g_line <= g_line(6 downto 0) & VDP_G_DIG;
---			b_line <= b_line(6 downto 0) & VDP_B_DIG;
---		end if;
-----	end if;
---end process;
-
 i_delayed <= i_line(to_integer(unsigned(switch(7 downto 6) & '1'))); -- use "red" switches
 r_delayed <= r_line(to_integer(unsigned(switch(7 downto 6) & '1')));
 g_delayed <= g_line(to_integer(unsigned(switch(5 downto 4) & '1')));
 b_delayed <= b_line(to_integer(unsigned(switch(3 downto 2) & '1')));
-
---vdp_xtal_raw <= vdp_xtal_int;-- when (switch(7) = '1') else vdp_xtal_ext;
---vdp_xtal <= xtal_delay(to_integer(unsigned(switch(7 downto 5))));
---
---on_freq96M: process(freq96M, vdp_xtal_int)
---begin
---	if (rising_edge(freq96M)) then
---		xtal_delay <= xtal_delay(6 downto 0) & vdp_xtal_int;
---	end if;
---end process;
 
 on_vdp_xtal_int2: process(VIDEO_HSYNC, vdp_xtal_int2, VDP_R_DIG, VDP_G_DIG, VDP_B_DIG, r_line, g_line, b_line)
 begin
@@ -668,25 +323,7 @@ end process;
       RST => RESET        -- DCM asynchronous reset input
    );
 
---
---clockgen: sn74hc4040 port map (
---			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
---			reset_11 => RESET,
---			q1_9 => freq48M, 
---			q2_7 => freq24M,
---			q3_6 => dotclk, 
---			q4_5 => open,		-- 12MHz for TIM video sampler
---			q5_3 => byteclk, 	-- 3MHz to write to TIM sample RAM
---			q6_2 => open, 		
---			q7_4 =>   freq0M75,	-- 0.75
---			q8_13 =>  open,		-- 0.375
---			q9_12 =>  open,		-- 0.1625
---			q10_14 => open,		-- 0.08125
---			q11_15 => digsel(0),	-- 0.040625
---			q12_1 =>  digsel(1)	-- 0.0203125
---		);
-	
-clockgen: sn74hc4040 port map (
+clockgen: entity work.sn74hc4040 port map (
 			clock_10 => EXT_CLK,	-- 96MHz "half-size" crystal on Mercury baseboard
 			reset_11 => RESET,
 			q1_9 => freq48M, 
@@ -722,7 +359,7 @@ begin
 	end if;
 end process;
 --
-baudgen: sn74hc4040 port map (
+baudgen: entity work.sn74hc4040 port map (
 			clock_10 => freq153600,
 			reset_11 => RESET,
 			q1_9 => freq76800, 
@@ -739,7 +376,7 @@ baudgen: sn74hc4040 port map (
 			q12_1 =>  open	
 		);
 --
-powergen: sn74hc4040 port map (
+powergen: entity work.sn74hc4040 port map (
 			clock_10 => freq4096,
 			reset_11 => RESET,
 			q1_9 => open, 
@@ -756,14 +393,14 @@ powergen: sn74hc4040 port map (
 			q12_1 =>  open	
 		);
 --	
-	debounce_sw: debouncer8channel Port map ( 
+	debounce_sw: entity work.debouncer8channel Port map ( 
 		clock => freq19200, 
 		reset => RESET,
 		signal_raw => SW,
 		signal_debounced => switch
 	);
 
-	debounce_btn: debouncer8channel Port map ( 
+	debounce_btn: entity work.debouncer8channel Port map ( 
 		clock => freq19200, 
 		reset => RESET,
 		signal_raw(7 downto 4) => "0000",
@@ -772,7 +409,7 @@ powergen: sn74hc4040 port map (
 	);
 	
 offset_tim <= button(3 downto 0) when (switch_tms = '0') else "0000";
-vga: vga_controller Port map ( 
+vga: entity work.vga_controller Port map ( 
 		reset => RESET,
       clk => freq25M,
 		mode_tms => switch_tms,
@@ -790,19 +427,7 @@ vga: vga_controller Port map (
       y => vga_y
 	);
 
---HSYNC <= vga_hsync;
---VSYNC <= vga_vsync;
-
---mem: ram32k8 PORT MAP (
---    clka => vram_clk,
---	 ena => '1',
---    wea => vram_wea,
---    addra => vram_addra,
---    dina => vram_dina,
---    douta => vram_douta
---  );
-
-mem: ram32k8_dualport PORT MAP(
+mem: entity work.ram32k8_dualport PORT MAP(
 		-- sampler only writes
     clka => byteclk,
     ena => '1',
@@ -828,7 +453,7 @@ we_in <= switch(0) when (tim_window = '0') else '0';
 
 freq96M <= EXT_CLK;
 
-tim: tim_sampler port map (
+tim: entity work.tim_sampler port map (
 		reset => RESET,
 		clk => freq48M, -- 48MHz (4 times oversample of 12MHz)
 		hsync => TIM_HSYNC,
@@ -862,7 +487,7 @@ end process;
 vdp_vsync <= not (VIDEO_CSYNC or csync_line(17)); -- 24 pixels long ~ 17 CPUCLK
 
 offset_vdp <= button(3 downto 0) when (switch_tms = '1') else "0000";
-vdp: vdp_sampler2 port map (
+vdp: entity work.vdp_sampler2 port map (
 		reset => RESET,
 		clk => vdp_xtal_int, -- 
 		hsync => VIDEO_HSYNC,
@@ -920,7 +545,7 @@ BLU <= vga_color(1 downto 0);
 -- background text display for fun
 char <= (row & '0') xor (col & '0');
 
-chargen: chargen_rom Port map ( 
+chargen: entity work.chargen_rom Port map ( 
 		a(10 downto 3) => char,
 		a(2 downto 0) => v(2 downto 0),
       d => pattern
@@ -939,7 +564,7 @@ with h(2 downto 0) select text_pix <=
 text_color <= color_cyan when (text_pix = '1') else color_blue;
 							
 -- 7 seg LED debug display							
-leds: fourdigitsevensegled Port map ( 
+leds: entity work.fourdigitsevensegled Port map ( 
 			-- inputs
 			hexdata => hexdata,
 			digsel => digsel,
@@ -956,7 +581,6 @@ leds: fourdigitsevensegled Port map (
 			segment(6 downto 0) => A_TO_G
 		);
 
-
 -- display pixels per hsync (line) or hsync per vsync (frame)
 counter_clk <= vdp_pixclk when (switch(1) = '1') else VIDEO_HSYNC;
 counter_inp <= VIDEO_HSYNC when (switch(1) = '1') else vdp_vsync;
@@ -969,15 +593,16 @@ with digsel select
 					display(11 downto 8) when "10",
 					display(15 downto 12) when others;
 
-counter: freqcounter Port map ( 
+counter: entity work.freqcounter Port map ( 
 		reset => RESET,
       clk => freq2,
       freq => tim_freq,
 		bcd => '0',
-		double => '1',
-		limit => X"FFFF",
-		ge => open,
-      value => display
+		add => X"00000001",
+		cin => '0',
+		cout => open,
+      value(31 downto 16) => open,
+      value(15 downto 0) => display
 	);
 
 
@@ -987,39 +612,6 @@ with switch(1 downto 0) select tim_freq <=
 	TIM_VSYNC	when "10",
 	TIM_HSYNC	when others;
 
---kbd: ps2tim Port map ( 
---			reset => RESET,
---         uart_clk4 => baudrate_x4, -- baudrate = /4 = 9600
---         uart_rx => TXD_TTY,
---         uart_tx => RXD_TTY,
---			uart_mode => switch(4 downto 2),
---         ps2_clk => PS2_CLOCK, --LED(1),
---         ps2_data => PS2_DATA, --LED(0),
---			kbd_alt => kbd_alt,
---			kbd_shift => kbd_shift,
---			kbd_ctrl => kbd_ctrl,
---			kbd_caps => kbd_caps,
---			debugsel => switch(0),
---         debug => display
---		);
-
---counter: freqcounter Port map ( 
---		reset => RESET,
---      clk => freq2,
---      freq => test_freq,
---		bcd => '0',
---		double => '1',
---		limit => X"FFFF",
---		ge => open,
---      value => display
---	);
---
---with switch(1 downto 0) select test_freq <=
---	TMS_R			when "00",
---	TMS_PIXCLK 	when "01",
---	VIDEO_VSYNC	when "10",
---	VIDEO_HSYNC	when others;
-	
 --
 -- UART input coming either directly from USB2UART, or ADC
 -- 
