@@ -1,0 +1,13 @@
+run
+-ifmt VHDL
+-ent ram32k8_b_exdes
+-p xc3s100e-cp132-4
+-ifn xst.prj
+-write_timing_constraints No
+-iobuf YES
+-max_fanout 100
+-ofn ram32k8_b_exdes 
+-ofmt NGC
+-bus_delimiter ()
+-hierarchy_separator /
+-case Maintain
