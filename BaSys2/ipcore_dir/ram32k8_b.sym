@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="ram32k8_b">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2024-4-29T19:22:24</timestamp>
+    <timestamp>2024-4-30T22:0:26</timestamp>
     <pin polarity="Input" x="0" y="80" name="addra[12:0]" />
     <pin polarity="Input" x="0" y="112" name="dina[7:0]" />
+    <pin polarity="Input" x="0" y="144" name="ena" />
     <pin polarity="Input" x="0" y="208" name="wea[0:0]" />
     <pin polarity="Input" x="0" y="272" name="clka" />
     <pin polarity="Output" x="576" y="80" name="douta[7:0]" />
@@ -14,6 +15,8 @@
         <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="80" type="pin addra[12:0]" />
         <line x2="32" y1="112" y2="112" style="linewidth:W" x1="0" />
         <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="112" type="pin dina[7:0]" />
+        <line x2="32" y1="144" y2="144" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="144" type="pin ena" />
         <line x2="32" y1="208" y2="208" style="linewidth:W" x1="0" />
         <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="208" type="pin wea[0:0]" />
         <line x2="32" y1="272" y2="272" x1="0" />

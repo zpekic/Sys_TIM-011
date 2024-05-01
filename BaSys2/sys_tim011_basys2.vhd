@@ -105,8 +105,9 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 signal dotclk: std_logic;
 signal pixclk: std_logic;
 
-signal cnt100MHz: std_logic_vector(3 downto 0);
-alias vgaclk: std_logic is cnt100MHz(1);
+signal cnt50MHz: std_logic_vector(3 downto 0);
+--alias vgaclk: std_logic is cnt50MHz(0);
+signal vgaclk: std_logic;
 
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
@@ -155,7 +156,7 @@ PS2D <= '1';
 clock_ext: entity work.sn74hc4040 port map (
 			clock_10 => UCLK,	-- 48MHz "half-size" crystal on breadboard (ESC-220BX)
 			reset_11 => RESET,
-			q1_9 => open, 			-- 24MHz
+			q1_9 => vgaclk, 			-- 24MHz
 			q2_7 => dotclk,		-- 12 (internal dotclk)
 			q3_6 => open,			-- 6
 			q4_5 => open,			-- 3
@@ -173,16 +174,16 @@ clock_ext: entity work.sn74hc4040 port map (
 clock_int: process(MCLK, freq153600, freq4096)
 begin
 	if (rising_edge(MCLK)) then
-		cnt100MHz <= std_logic_vector(unsigned(cnt100MHz) + 1);
+		cnt50MHz <= std_logic_vector(unsigned(cnt50MHz) + 1);
 		if (prescale_baud = 0) then
 			freq307200 <= not freq307200;
-			prescale_baud <= (50000000 / (2 * 153600));
+			prescale_baud <= (25000000 / (2 * 153600));
 		else
 			prescale_baud <= prescale_baud - 1;
 		end if;
 		if (prescale_power = 0) then
 			freq4096 <= not freq4096;
-			prescale_power <= (50000000 / (2 * 4096));
+			prescale_power <= (25000000 / (2 * 4096));
 		else
 			prescale_power <= prescale_power - 1;
 		end if;
@@ -389,22 +390,24 @@ LED(7) <= gr_vid2;
 -- display some debug data of 6-digit 7-seg display	
 leds: entity work.fourdigitsevensegled port map ( 
 			  -- inputs
-			  hexdata => hexdata,
-			  digsel => digSel(2 downto 1),
-           showdigit => "1111",
-			  showdot => "0000",
+			  data => debug(15 downto 0),
+			  digsel => digSel(1 downto 0),
+           showdigit => "0000",	-- all digits on
+			  showdot => "1011",		-- middle digit on
 			  -- outputs
            anode => AN,
 			  segment(7) => DP,
 			  segment(6 downto 0) => SEG
 			 );	 
 
-with button(2 downto 1) select debug <= 
-	X"000" & freqcnt_value(31 downto 12) when "00", -- /1000
-	X"000" & freqcnt_value(31 downto 12) when "01", -- /1000
-	freqcnt_value when "10",								-- /1
-	--T when others;
-	freqcnt_value when others;
+debug <= X"0000" & (reg_scroll xor X"FF") & reg_scroll;
+
+--with button(2 downto 1) select debug <= 
+--	X"0000" & freqcnt_value(31 downto 16) when "00", -- /10000
+--	X"0000" & freqcnt_value(31 downto 16) when "01", -- /10000
+--	freqcnt_value when "10",								--  /10
+--	--T when others;
+--	freqcnt_value when others;
 
 with button(2 downto 1) select freqcnt_in <= 
 	pixclk when "00",
@@ -412,16 +415,6 @@ with button(2 downto 1) select freqcnt_in <=
 	gr_vsync when "10",
 --	digsel(0) when others;
 	baudrate_x1 when others;
-
-with digsel select
-	hexdata <= 	debug(3 downto 0) when "000",	
-					debug(7 downto 4) when "001",
-					debug(11 downto 8) when "010",
-					debug(15 downto 12) when "011",
-					debug(19 downto 16) when "100",
-					debug(23 downto 20) when "101",
-					debug(27 downto 24) when "110",
-					debug(31 downto 28) when others;
 
 on_rxd_ready: process(RXD_READY, RXD_CHAR, reset)
 begin

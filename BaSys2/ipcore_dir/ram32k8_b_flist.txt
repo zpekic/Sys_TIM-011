@@ -1,7 +1,7 @@
 # Output products list for <ram32k8_b>
+_xmsgs\pn_parser.xmsgs
 ram32k8_b.asy
 ram32k8_b.gise
-ram32k8_b.mif
 ram32k8_b.ngc
 ram32k8_b.sym
 ram32k8_b.vhd

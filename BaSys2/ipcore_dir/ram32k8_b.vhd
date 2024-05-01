@@ -43,6 +43,7 @@ LIBRARY XilinxCoreLib;
 ENTITY ram32k8_b IS
   PORT (
     clka : IN STD_LOGIC;
+    ena : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     addra : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -55,6 +56,7 @@ ARCHITECTURE ram32k8_b_a OF ram32k8_b IS
 COMPONENT wrapped_ram32k8_b
   PORT (
     clka : IN STD_LOGIC;
+    ena : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     addra : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -67,19 +69,19 @@ END COMPONENT;
     GENERIC MAP (
       c_addra_width => 13,
       c_addrb_width => 13,
-      c_algorithm => 1,
+      c_algorithm => 0,
       c_axi_id_width => 4,
       c_axi_slave_type => 0,
       c_axi_type => 1,
       c_byte_size => 9,
       c_common_clk => 0,
-      c_default_data => "AA",
+      c_default_data => "1B",
       c_disable_warn_bhv_coll => 0,
       c_disable_warn_bhv_range => 0,
       c_enable_32bit_address => 0,
       c_family => "spartan3",
       c_has_axi_id => 0,
-      c_has_ena => 0,
+      c_has_ena => 1,
       c_has_enb => 0,
       c_has_injecterr => 0,
       c_has_mem_output_regs_a => 0,
@@ -100,7 +102,7 @@ END COMPONENT;
       c_load_init_file => 0,
       c_mem_type => 0,
       c_mux_pipeline_stages => 0,
-      c_prim_type => 1,
+      c_prim_type => 2,
       c_read_depth_a => 8192,
       c_read_depth_b => 8192,
       c_read_width_a => 8,
@@ -133,6 +135,7 @@ BEGIN
 U0 : wrapped_ram32k8_b
   PORT MAP (
     clka => clka,
+    ena => ena,
     wea => wea,
     addra => addra,
     dina => dina,

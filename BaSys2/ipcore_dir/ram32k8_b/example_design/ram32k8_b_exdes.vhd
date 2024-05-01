@@ -88,6 +88,7 @@ USE UNISIM.VCOMPONENTS.ALL;
 ENTITY ram32k8_b_exdes IS
   PORT (
       --Inputs - Port A
+    ENA            : IN STD_LOGIC;  --opt port
   
     WEA            : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
@@ -115,6 +116,7 @@ ARCHITECTURE xilinx OF ram32k8_b_exdes IS
   COMPONENT ram32k8_b IS
   PORT (
       --Port A
+    ENA        : IN STD_LOGIC;  --opt port
   
     WEA        : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     ADDRA      : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
@@ -147,6 +149,7 @@ BEGIN
   bmg0 : ram32k8_b
     PORT MAP (
       --Port A
+      ENA        => ENA,
   
       WEA        => WEA,
       ADDRA      => ADDRA,

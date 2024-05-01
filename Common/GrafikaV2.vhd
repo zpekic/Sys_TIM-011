@@ -64,7 +64,7 @@ signal u5_q: std_logic_vector(7 downto 0);
 signal u11_s, u12_s: std_logic_vector(4 downto 1);
 signal u12_9: std_logic;
 signal u13_q1, u13_q2, u13_q3, u13_q4, u13_q5, u13_q6, u13_q7, u13_q8, u13_q9, u13_q10: std_logic;		-- 74HC4040
-signal u13a_q10_delayed, u1_6_delayed: std_logic;
+--signal u13a_q10_delayed, u1_6_delayed: std_logic;
 signal u14_7: std_logic;							-- 74LS240
 signal u18_6, u18_8: std_logic;
 signal u19_y, u20_y, u21_y, u22_y: std_logic_vector(4 downto 1);
@@ -76,11 +76,11 @@ signal u40_q: std_logic_vector(7 downto 0);
 signal pixclk_g: std_logic;
 
 -- new vertical counter
-signal u3a_q10, u3a_q9, u3a_q8, u3a_q7, u3a_q6, u3a_q5, u3a_q4, u3a_q3, u3a_q2, u3a_q1: std_logic;
+signal u3a_q10, u3a_q9, u3a_q8, u3a_q7, u3a_q6, u3a_q5, u3a_q4, u3a_q3, u3a_q2, u3a_q1, u3a_reset: std_logic;
 signal u3b_y: std_logic_vector(7 downto 0);
 
 -- new horizontal counter
-signal u13a_q10, u13a_q9, u13a_q8, u13a_q7, u13a_q6: std_logic;
+signal u13a_q10, u13a_q9, u13a_q8, u13a_q7, u13a_q6, u13a_reset: std_logic;
 signal u13b_y: std_logic_vector(7 downto 0);
 
 -- TIM/VGA multiplexed signals
@@ -90,23 +90,23 @@ begin
 
 	-- Delay line RC = 470*1nF = 470 ns
 	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12MHz
-delay565ns: entity work.configurabledelayline port map ( 
-			clk => PIXCLK,
-         reset => '0',
-         init => '0',
-         delay => "00" & delay, 
-         signal_in => u13a_q10,
-         signal_out => u13a_q10_delayed
-		);
+--delay565ns: entity work.configurabledelayline port map ( 
+--			clk => PIXCLK,
+--         reset => '0',
+--         init => '0',
+--         delay => ("00" & delay), 
+--         signal_in => u13a_q10,
+--         signal_out => u13a_q10_delayed
+--		);
 	
-delay330uF: entity work.configurabledelayline port map ( 
-			clk => PIXCLK,
-         reset => '0',
-         init => '0',
-         delay => X"0",	-- TODO: this is just a random experiment number
-         signal_in => u1_6,
-         signal_out => u1_6_delayed
-		);
+--delay330uF: entity work.configurabledelayline port map ( 
+--			clk => PIXCLK,
+--         reset => '0',
+--         init => '0',
+--         delay => X"0",	-- TODO: this is just a random experiment number
+--         signal_in => u1_6,
+--         signal_out => u1_6_delayed
+--		);
 		
 	-- original vid1 and vid2 are gated on dotclk
 	-- on GBS8200 this causes vertical black/blank bars so allow for not gating on dotclk
@@ -425,10 +425,11 @@ debug2 <= HS when (MODE = '0') else VS;
 debug3 <= HRESET when (MODE = '0') else VRESET;
 ----------------------------------
 
+	u13a_reset <= (HRESET and PIXCLK);
 	-- shadow horizontal scan counter
 	u13a: entity work.sn74hc4040 port map (
 			clock_10 => PIXCLK,	-- INPUT
-			reset_11 => (HRESET and PIXCLK),
+			reset_11 => u13a_reset,
 			q1_9 => open, 
 			q2_7 => open,
 			q3_6 => open,
@@ -451,10 +452,11 @@ debug3 <= HRESET when (MODE = '0') else VRESET;
          y => u13b_y
 	);
 
+	u3a_reset <= (VRESET and PIXCLK);
 	-- shadow vertical scan counter and its decoding
 	u3a: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
-			reset_11 => (VRESET and PIXCLK), 
+			reset_11 => u3a_reset, 
 			q1_9 => u3a_q1, 
 			q2_7 => u3a_q2,
 			q3_6 => u3a_q3,

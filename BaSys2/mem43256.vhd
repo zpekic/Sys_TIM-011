@@ -46,7 +46,7 @@ component ram32k8_b IS
     clka : IN STD_LOGIC;
     ena : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
   );
@@ -95,9 +95,9 @@ wrx <= (others => (not RnW));
  
 mem: ram32k8_b PORT MAP (
     clka => CLK,
-	 ena => (not nCE),
+	 ena => '1',
     wea => wrx,
-    addra => A,
+    addra => A(12 downto 0),
     dina => IO,
     douta => dout
   );
