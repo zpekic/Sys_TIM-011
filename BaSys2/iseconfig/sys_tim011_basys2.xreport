@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2024-05-01T23:30:24</DateModified>
+  <DateModified>2024-05-24T21:16:19</DateModified>
   <ModuleName>sys_tim011_basys2</ModuleName>
-  <SummaryTimeStamp>2024-05-01T23:18:12</SummaryTimeStamp>
+  <SummaryTimeStamp>2024-05-02T20:11:02</SummaryTimeStamp>
   <SavedFilePath>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/BaSys2/iseconfig/sys_tim011_basys2.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/BaSys2</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/BaSys2\</ImplementationReportsDirectory>
   <DateInitialized>2024-04-30T22:10:34</DateInitialized>
   <EnableMessageFiltering>true</EnableMessageFiltering>
  </header>

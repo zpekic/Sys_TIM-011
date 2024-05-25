@@ -343,10 +343,10 @@ end process;
 			test => test_static,
 			delay => switch(3 downto 2),
 			-- monitor side
-			debug0 => open, --BB3,
-			debug1 => open, --BB4,
-			debug2 => open, --BB5,
-			debug3 => open, --BB6,
+			debug0 => JB_TEST1,
+			debug1 => JB_TEST2,
+			debug2 => JB_TEST3,
+			debug3 => JB_TEST4,
 			hsync => gr_hsync, 
 			vsync => gr_vsync,
 			vid1 => gr_vid1, 
@@ -363,10 +363,10 @@ LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
 -- test connections (work in both VGA and TIM cases)
-	JB_TEST1 <= gr_hsync;
-	JB_TEST2 <= gr_vsync;
-	JB_TEST3 <= gr_vid1;
-	JB_TEST4 <= gr_vid2;
+	--JB_TEST1 <= gr_hsync;
+	--JB_TEST2 <= gr_vsync;
+	--JB_TEST3 <= gr_vid1;
+	--JB_TEST4 <= gr_vid2;
 
 -- Connect to GBS8200 gray wire (composite sync!)
 	gr_csync <= gr_hsync xor (not gr_vsync);
@@ -400,14 +400,14 @@ leds: entity work.fourdigitsevensegled port map (
 			  segment(6 downto 0) => SEG
 			 );	 
 
-debug <= X"0000" & (reg_scroll xor X"FF") & reg_scroll;
+--debug <= X"0000" & (reg_scroll xor X"FF") & reg_scroll;
 
---with button(2 downto 1) select debug <= 
---	X"0000" & freqcnt_value(31 downto 16) when "00", -- /10000
---	X"0000" & freqcnt_value(31 downto 16) when "01", -- /10000
---	freqcnt_value when "10",								--  /10
---	--T when others;
---	freqcnt_value when others;
+with button(2 downto 1) select debug <= 
+	X"0000" & freqcnt_value(31 downto 16) when "00", -- /10000
+	X"0000" & freqcnt_value(31 downto 16) when "01", -- /10000
+	freqcnt_value when "10",								--  /10
+	--T when others;
+	freqcnt_value when others;
 
 with button(2 downto 1) select freqcnt_in <= 
 	pixclk when "00",

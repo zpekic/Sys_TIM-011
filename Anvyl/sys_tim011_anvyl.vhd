@@ -145,13 +145,16 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 --- frequency signals
 signal dotclk: std_logic;
 signal pixclk: std_logic;
+signal vgaclk: std_logic;
 
 signal cnt100MHz: std_logic_vector(3 downto 0);
-alias vgaclk: std_logic is cnt100MHz(1);
+alias freq25M: std_logic is cnt100MHz(1);
+alias freq12M5: std_logic is cnt100MHz(2);
 
 signal prescale_baud, prescale_power: integer range 0 to 65535;
 signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
 signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;		
+signal freq24M, freq12M: std_logic;
 
 --- video sync signals
 signal gr_hsync, gr_vsync, gr_csync: std_logic;
@@ -177,6 +180,7 @@ signal RXD_CHAR: std_logic_vector(7 downto 0);
 ---
 signal switch: std_logic_vector(7 downto 0);
 alias sw_mode: std_logic is switch(0);
+alias sw_clksel: std_logic is switch(1);
 alias sw_baudrate: std_logic_vector(2 downto 0) is switch(7 downto 5);
 -- 
 signal button: std_logic_vector(7 downto 0);
@@ -203,8 +207,8 @@ clock_ext: entity work.sn74hc4040 port map (
 			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard (ESC-220BX)
 			reset_11 => RESET,
 			q1_9 => open, 			-- 48MHz
-			q2_7 => open,			-- 24
-			q3_6 => dotclk,		-- 12 (internal dotclk)
+			q2_7 => freq24M,		-- 24
+			q3_6 => freq12M,		-- 12
 			q4_5 => open,			-- 6
 			q5_3 => open, 			-- 3
 			q6_2 => open, 	 		-- 1.5
@@ -371,7 +375,9 @@ begin
 	end if;
 end process;
  
---
+-- pixel clock selection
+	dotclk <= freq12M when (sw_clksel = '0') else freq12M5;
+	vgaclk <= freq24M when (sw_clksel = '0') else freq25M;
 	pixclk <= dotclk when (sw_mode = '0') else vgaclk;
 --
 	video: entity work.GrafikaV2 port map (

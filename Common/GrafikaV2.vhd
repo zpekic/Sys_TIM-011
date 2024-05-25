@@ -88,26 +88,6 @@ signal HRESET, VRESET, VBLANK, HBLANK, VCLK, HS, VS: std_logic;
 
 begin
 
-	-- Delay line RC = 470*1nF = 470 ns
-	-- Vil is around 1.35V so 0.3 = exp(-t/RC), so t is about 565 nS, or 7 dotclk cycle at 12MHz
---delay565ns: entity work.configurabledelayline port map ( 
---			clk => PIXCLK,
---         reset => '0',
---         init => '0',
---         delay => ("00" & delay), 
---         signal_in => u13a_q10,
---         signal_out => u13a_q10_delayed
---		);
-	
---delay330uF: entity work.configurabledelayline port map ( 
---			clk => PIXCLK,
---         reset => '0',
---         init => '0',
---         delay => X"0",	-- TODO: this is just a random experiment number
---         signal_in => u1_6,
---         signal_out => u1_6_delayed
---		);
-		
 	-- original vid1 and vid2 are gated on dotclk
 	-- on GBS8200 this causes vertical black/blank bars so allow for not gating on dotclk
 	pixclk_g <= '1'; --pixclk when (MODE = '0') else '1';
@@ -407,16 +387,11 @@ begin
 ----------------------------------
 HRESET <= u13a_q10 and u13a_q9 when (MODE = '0') else u13a_q10 and u13a_q9 and u13a_q6;
 HS <= u13a_q10 and (not u13a_q9) and (not u13a_q8) and u13a_q7 when (MODE = '0') else (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or u13a_q6) and (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or (not u13a_q6)) and (u13a_q10 or u13a_q9 or u13a_q8 or (not u13a_q7) or u13a_q6);
---HBLANK <= u13a_q10 when (MODE = '0') else (u13a_q10 or (not u13a_q9)) and ((not u13a_q10) or u13a_q9);
 HBLANK <= u13a_q10 when (MODE = '0') else u13b_y(2) and u13b_y(3) and u13b_y(4) and u13b_y(5); 
 
 VRESET <= u3a_q9 and u3a_q7 when (MODE = '0') else u3a_q10 and u3a_q4 and u3a_q3 and u3a_q1;
 VS <= u3a_q9 and (not u3a_q6) and u3a_q5 and u3a_q4 when (MODE = '0') else u3b_y(0) or u3a_q7 or u3a_q6 or u3a_q5 or u3a_q4 or u3a_q3;-- or u3a_q2;
---VBLANK <= u3a_q9 when (MODE = '0') else ((not u3a_q9) and (not u3a_q8) and (not u3a_q7)) or (u3a_q9 and (not u3a_q8) and u3a_q7) or (u3a_q9 and u3a_q8 and (not u3a_q7));-- or (u3a_q9 and u3a_q8 and u3a_q7);
---VBLANK <= u3a_q9 when (MODE = '0') else not(((not u3a_q10) and (not u3a_q9) and u3a_q8) or ((not u3a_q10) and u3a_q9 and (not u3a_q8)));
---VBLANK <= u3a_q9 when (MODE = '0') else u3a_q10 or ((not u3a_q10) and (not u3a_q9) and (not u3_q8)) or ((not u3a_q10) and (not u3a_q9) and u3_q8);
 VBLANK <= u3a_q9 when (MODE = '0') else (u3b_y(1) and u3b_y(2));
---VCLK <= u13a_q10_delayed when (MODE = '0') else HS;
 VCLK <= MODE xor HS;
 
 debug0 <= PIXCLK when (MODE = '0') else VCLK;
