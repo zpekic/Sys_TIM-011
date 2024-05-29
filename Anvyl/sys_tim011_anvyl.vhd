@@ -378,11 +378,11 @@ end process;
 -- pixel clock selection
 	dotclk <= freq12M when (sw_clksel = '0') else freq12M5;
 	vgaclk <= freq24M when (sw_clksel = '0') else freq25M;
-	pixclk <= dotclk when (sw_mode = '0') else vgaclk;
 --
 	video: entity work.GrafikaV2 port map (
-			-- system
-			PIXCLK => pixclk,
+			-- system side
+			TIMCLK => dotclk,
+			VGACLK => vgaclk,
 			MODE => sw_mode,
 			A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
 			A(14 downto 0) => A(14 downto 0),
@@ -393,12 +393,12 @@ end process;
 			nScroll => nScroll,
 			-- debug
 			test => test_static,
-			delay => switch(3 downto 2),
-			-- monitor side
 			debug0 => BB3,
 			debug1 => BB4,
 			debug2 => BB5,
 			debug3 => BB6,
+			pixclk => pixclk,
+			-- monitor side
 			hsync => gr_hsync, 
 			vsync => gr_vsync,
 			vid1 => gr_vid1, 

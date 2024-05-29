@@ -31,9 +31,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity GrafikaV2 is
     Port ( -- system side
-			  TIMCLK : in STD_LOGIC;		-- typically 12MHz
-			  VGACLK : in  STD_LOGIC;		-- typically 24MHz
-			  MODE: in STD_LOGIC;			-- 0 for TIM, 1 for VGA mode
+			  PIXCLK : in  STD_LOGIC;
+			  MODE: in STD_LOGIC;
            a : in  STD_LOGIC_VECTOR (15 downto 0);
            nRD : in  STD_LOGIC;
            nWR : in  STD_LOGIC;
@@ -42,11 +41,11 @@ entity GrafikaV2 is
            nScroll : in  STD_LOGIC;
 			  -- debug
 			  test: in STD_LOGIC;
+			  delay: in STD_LOGIC_VECTOR(1 downto 0);
 			  debug0: out STD_LOGIC;
 			  debug1: out STD_LOGIC;
 			  debug2: out STD_LOGIC;
 			  debug3: out STD_LOGIC;
-			  pixclk: out STD_LOGIC;
 			  -- monitor side
 			  hsync: out STD_LOGIC;
 			  vsync: out STD_LOGIC;
@@ -65,6 +64,7 @@ signal u5_q: std_logic_vector(7 downto 0);
 signal u11_s, u12_s: std_logic_vector(4 downto 1);
 signal u12_9: std_logic;
 signal u13_q1, u13_q2, u13_q3, u13_q4, u13_q5, u13_q6, u13_q7, u13_q8, u13_q9, u13_q10: std_logic;		-- 74HC4040
+--signal u13a_q10_delayed, u1_6_delayed: std_logic;
 signal u14_7: std_logic;							-- 74LS240
 signal u18_6, u18_8: std_logic;
 signal u19_y, u20_y, u21_y, u22_y: std_logic_vector(4 downto 1);
@@ -75,14 +75,18 @@ signal u31_3: std_logic;
 signal u40_q: std_logic_vector(7 downto 0);
 signal pixclk_g: std_logic;
 
--- new shadow vertical counter
+-- new vertical counter
+signal u3a_reset, VC128, VC384: std_logic;
 signal VC: std_logic_vector(9 downto 0);
+--signal u3b_y: std_logic_vector(7 downto 0);
 
--- new shadow horizontal counter
+-- new horizontal counter
+signal u13a_reset, HC192, HC704: std_logic;
 signal HC: std_logic_vector(9 downto 0);
+--signal u13b_y: std_logic_vector(7 downto 0);
 
 -- TIM/VGA multiplexed signals
-signal HRESET, VRESET, VBLANK, HBLANK, HCLK, VCLK, HS, VS: std_logic;
+signal HRESET, VRESET, VRESETD1, VRESETD2, VBLANK, HBLANK, VCLK, HS, VS: std_logic;
 
 begin
 
@@ -98,8 +102,8 @@ begin
 			b2_5 => u13_q10,
 			y2_6 => u1_6,
 			y3_8 => hsync,		-- OUTPUT
-			a3_9 => HS, 		--u13_q10,
-			b3_10 => '1', 		--u13_q10,
+			a3_9 => HS, --u13_q10,
+			b3_10 => '1', --u13_q10,
 			y4_11 => vid2,		-- OUTPUT
 			a4_12 => u29_9,
 			b4_13 => pixclk_g
@@ -113,8 +117,8 @@ begin
 			b2_5 => '0',
 			y2_6 => open,
 			y3_8 => vsync,		-- OUTPUT
-			a3_9 => VS, 		--u10_9,
-			b3_10 => '1', 		--u10_9,
+			a3_9 => VS, --u10_9,
+			b3_10 => '1', --u10_9,
 			y4_11 => u2_11,	
 			a4_12 => u3_q9,
 			b4_13 => u3_q7
@@ -123,7 +127,7 @@ begin
 	-- vertical scan counter
 	u3: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
-			reset_11 => VBLANK,
+			reset_11 => VBLANK,-- or (MODE and VRESET),
 			q1_9 => u3_q1, 
 			q2_7 => u3_q2,
 			q3_6 => u3_q3,
@@ -141,7 +145,7 @@ begin
 	-- current scroll offset register
 	u4: entity work.sn74ls374 Port map ( 
 			nOC => '0',
-         CLK => VS, 		--u10_9,
+         CLK => VS, --u10_9,
          D => u5_q,
          Q => u4_q
 	);
@@ -154,23 +158,23 @@ begin
          Q => u5_q
 	);
 
-	-- NOTE: this FF is no longer used!
---	u10: entity work.sn74ls74 Port map ( 
---			-- FF1
---			nclr1_1 => '1',
---			d1_2 => VRESET,		 
---			clk1_3 => VCLK,		
---			npr1_4 => '1',
---			q1_5 => VRESETD1,
---			nq1_6 => open,
---			-- FF2
---			nq2_8 => open,
---			q2_9 => VRESETD2,
---			npr2_10 => '1',
---			clk2_11 => not VCLK,
---			d2_12 => VRESET,
---			nclr2_13 => '1'
---	);
+	-- NOTE: this FF has been repurposed!
+	u10: entity work.sn74ls74 Port map ( 
+			-- FF1
+			nclr1_1 => '1',
+			d1_2 => VRESET,		 
+			clk1_3 => VCLK,		
+			npr1_4 => '1',
+			q1_5 => VRESETD1,
+			nq1_6 => open,
+			-- FF2
+			nq2_8 => open,
+			q2_9 => VRESETD2,
+			npr2_10 => '1',
+			clk2_11 => not VCLK,
+			d2_12 => VRESET,
+			nclr2_13 => '1'
+	);
 
 	-- Scroll register adder, higher bits
 	u11: entity work.sn74ls283 Port map ( 
@@ -198,8 +202,8 @@ begin
 
 	-- horizontal scan counter
 	u13: entity work.sn74hc4040 port map (
-			clock_10 => HCLK,	-- Varies based on MODE
-			reset_11 => HBLANK,
+			clock_10 => PIXCLK,	-- INPUT
+			reset_11 => HBLANK,-- or (MODE and HRESET),
 			q1_9 => u13_q1, 
 			q2_7 => u13_q2,
 			q3_6 => u13_q3,
@@ -322,7 +326,7 @@ begin
 	);
 
 	u30: entity work.mem43256 Port map ( 
-		   CLK => HCLK,		-- FPGA block RAM requires clock (but not needed in physical design)
+		   CLK => PIXCLK,		-- FPGA block RAM needs it
 			TEST => test,
 			A(14) => u19_y(3),
 			A(13) => u19_y(2),
@@ -383,44 +387,40 @@ begin
 			y2 => u30_d(7 downto 4)
 	);
 
+HC192 <= '0' when (unsigned(HC) > 191) else '1';
+HC704 <= '1' when (unsigned(HC) > 703) else '0';
+VC128 <= '0' when (unsigned(VC) > 127) else '1';
+VC384 <= '1' when (unsigned(VC) > 383) else '0';
 ----------------------------------
--- H_GAL
--- Inputs: MODE, TIMCLK, VGACLK, HC(9..5)
--- Outputs: HCLK, HRESET, HS, HBLANK
+-- Sync signal fixes by @msolajic
 ----------------------------------
-HCLK <= TIMCLK when (MODE = '0') else VGACLK;
 -- 768 / 800
-HRESET <= HC(9) and HC(8) when (MODE = '0') else HC(9) and HC(8) and HC(5);
+HRESET <= HC(9) and HC(8) when (MODE = '0') else HC(9) and HC(8) and (not HC(7)) and (not HC(6)) and HC(5) and (not HC(4)) and (not HC(3)) and (not HC(2)) and (not HC(1)) and (not HC(0));
 HS <= HC(9) and (not HC(8)) and (not HC(7)) and HC(6) when (MODE = '0') else (HC(9) or HC(8) or HC(7) or HC(6) or HC(5)) and (HC(9) or HC(8) or HC(7) or HC(6) or (not HC(5))) and (HC(9) or HC(8) or HC(7) or (not HC(6)) or HC(5));
 HBLANK <= HC(9) when (MODE = '0') else ((not HC(9)) and (not HC(8)) and (not HC(7))) or ((not HC(9)) and (not HC(8)) and HC(7) and (not HC(6))) or (HC(9) and (not HC(8)) and HC(7) and HC(6)) or (HC(9) and HC(8));
--- simpler equation but moves the VGA picture too much to the right
---HBLANK <= HC(9) when (MODE = '0') else not(HC(9) xor HC(8));
+--HBLANK <= HC(9) when (MODE = '0') else (HC192 or HC704);
 
-----------------------------------
--- V_GAL
--- Inputs: MODE, HS, VC(9..0)
--- Outputs: VCLK, VRESET, VS, VBLANK
-----------------------------------
-VCLK <= MODE xor HS;
 -- 320 / 525
-VRESET <= VC(8) and VC(6) when (MODE = '0') else VC(9) and (not VC(8)) and (not VC(7)) and (not VC(6)) and (not VC(5)) and (not VC(4)) and VC(3) and VC(2) and (not VC(1)) and VC(0);
-VS <= VC(8) and (not VC(5)) and VC(4) and VC(3) when (MODE = '0') else VC(9) or VC(8) or VC(7) or VC(6) or VC(5) or VC(4) or VC(3) or VC(2); -- or VC(1); -- for 2 line vsync instead of 4
+VRESET <= VC(8) and VC(6) when (MODE = '0') else VC(9) and (not VC(8)) and (not VC(7)) and (not VC(6)) and (not VC(5))and (not VC(4)) and VC(3) and VC(2) and (not VC(1)) and VC(0);
+VS <= VC(8) and (not VC(5)) and VC(4) and VC(3) when (MODE = '0') else VC(9) or VC(8) or VC(7) or VC(6) or VC(5) or VC(4) or VC(3) or VC(2);-- or VC(1);
+--VBLANK <= VC(8) when (MODE = '0') else (VC(9) or VC(8) or (not VC(7))) and (VC(9) or (not VC(8)) or VC(7));
+--VBLANK <= VC(8) when (MODE = '0') else (VC128 or VC384);
 VBLANK <= VC(8) when (MODE = '0') else VC(9) or not(VC(8) xor VC(7));
 
-----------------------------------
--- generate debug signals for outside measurement / use
+VCLK <= HS xor MODE;
+
 debug0 <= HS;
 debug1 <= HBLANK;
 debug2 <= VS;
 debug3 <= VBLANK;
-pixclk <= HCLK;
 ----------------------------------
 
+	--u13a_reset <= (HRESET and PIXCLK);
+	--u13a_clk <= PIXCLK and (not VRESET);
 	-- shadow horizontal scan counter
-	-- used to generate horizontal sync signals and resets for self and U13 in both modes
 	u13a: entity work.sn74hc4040 port map (
-			clock_10 => HCLK,	-- Varies based on MODE
-			reset_11 => HRESET,
+			clock_10 => PIXCLK,	-- INPUT
+			reset_11 => HRESET,-- or HRESETD,
 			q1_9 => HC(0), 
 			q2_7 => HC(1),
 			q3_6 => HC(2),
@@ -435,11 +435,19 @@ pixclk <= HCLK;
 			q12_1 => open 
 	);
 
-	-- shadow vertical scan counter
-	-- used to generate vertical sync signals and resets for self and U3 in both modes
+--	u13b: entity work.sn74x138 port map (
+--			s(2) => u13a_q10,
+--			s(1) => u13a_q9,
+--			s(0) => u13a_q8,
+--         nE => '0',
+--         y => u13b_y
+--	);
+
+	--u3a_reset <= (VRESET and (not PIXCLK)) when (MODE = '0') else (VRESET and VCLK);
+	-- shadow vertical scan counter and its decoding
 	u3a: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
-			reset_11 => VRESET,
+			reset_11 => VRESET,-- or (MODE and VRESETD1) or (MODE and VRESETD2), 
 			q1_9 => VC(0), 
 			q2_7 => VC(1),
 			q3_6 => VC(2),
@@ -454,5 +462,13 @@ pixclk <= HCLK;
 			q12_1 => open 
 	);
 	
+--u3b: entity work.sn74x138 port map (
+--			s(2) => u3a_q10,
+--			s(1) => u3a_q9,
+--			s(0) => u3a_q8,
+--         nE => '0',
+--         y => u3b_y
+--	);
+
 end Structural;
 
