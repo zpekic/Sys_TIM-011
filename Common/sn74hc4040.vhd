@@ -55,13 +55,22 @@ begin
 -- logic (not quite correct as this is sync, not ripple)
 count: process(clock_10, reset_11, q)
 begin
-	if (reset_11 = '1') then
-		q <= (others => '0');
-	else
+--	if (reset_11 = '1') then
+--		q <= (others => '0');
+--	else
 		if (falling_edge(clock_10)) then
-			q <= std_logic_vector(unsigned(q) + 1);
+			if (reset_11 = '1') then
+				q <= (others => '0');
+			else
+				q <= std_logic_vector(unsigned(q) + 1);
+			end if;
 		end if;
-	end if;
+--		if (rising_edge(clock_10)) then
+--			if (reset_11 = '1') then
+--				q <= (others => '0');
+--			end if;
+--		end if;
+--	end if;
 end process;
 
 -- mapping

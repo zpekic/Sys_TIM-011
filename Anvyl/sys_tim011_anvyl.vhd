@@ -395,10 +395,10 @@ end process;
 			test => test_static,
 			delay => switch(3 downto 2),
 			-- monitor side
-			debug0 => open, --BB3,
-			debug1 => open, --BB4,
-			debug2 => open, --BB5,
-			debug3 => open, --BB6,
+			debug0 => BB3,
+			debug1 => BB4,
+			debug2 => BB5,
+			debug3 => BB6,
 			hsync => gr_hsync, 
 			vsync => gr_vsync,
 			vid1 => gr_vid1, 
@@ -415,10 +415,10 @@ LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
 -- test connections (work in both VGA and TIM cases)
-	BB6 <= gr_hsync;
-	BB5 <= gr_vsync;
-	BB4 <= gr_vid1;
-	BB3 <= gr_vid2;
+	--BB6 <= gr_hsync;
+	--BB5 <= gr_vsync;
+	--BB4 <= gr_vid1;
+	--BB3 <= gr_vid2;
 	BB2 <= baudrate_x1;
 
 -- Connect to GBS8200 gray wire (composite sync!)

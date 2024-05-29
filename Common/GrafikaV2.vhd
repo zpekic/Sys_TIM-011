@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -76,15 +76,17 @@ signal u40_q: std_logic_vector(7 downto 0);
 signal pixclk_g: std_logic;
 
 -- new vertical counter
-signal u3a_q10, u3a_q9, u3a_q8, u3a_q7, u3a_q6, u3a_q5, u3a_q4, u3a_q3, u3a_q2, u3a_q1, u3a_reset: std_logic;
-signal u3b_y: std_logic_vector(7 downto 0);
+signal u3a_reset, VC128, VC384: std_logic;
+signal VC: std_logic_vector(9 downto 0);
+--signal u3b_y: std_logic_vector(7 downto 0);
 
 -- new horizontal counter
-signal u13a_q10, u13a_q9, u13a_q8, u13a_q7, u13a_q6, u13a_reset: std_logic;
-signal u13b_y: std_logic_vector(7 downto 0);
+signal u13a_reset, HC192, HC704: std_logic;
+signal HC: std_logic_vector(9 downto 0);
+--signal u13b_y: std_logic_vector(7 downto 0);
 
 -- TIM/VGA multiplexed signals
-signal HRESET, VRESET, VBLANK, HBLANK, VCLK, HS, VS: std_logic;
+signal HRESET, VRESET, VRESETD1, VRESETD2, VBLANK, HBLANK, VCLK, HS, VS: std_logic;
 
 begin
 
@@ -125,7 +127,7 @@ begin
 	-- vertical scan counter
 	u3: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
-			reset_11 => VBLANK,
+			reset_11 => VBLANK,-- or (MODE and VRESET),
 			q1_9 => u3_q1, 
 			q2_7 => u3_q2,
 			q3_6 => u3_q3,
@@ -156,20 +158,23 @@ begin
          Q => u5_q
 	);
 
---	u10: entity work.sn74ls74 Port map ( 
---			nclr1_1 => '1',
---			d1_2 => u13_q10,		-- TODO? 
---			clk1_3 => u13_q2,		-- TODO?
---			npr1_4 => '1',
---			q1_5 => u10_5,
---			nq1_6 => open,
---			nq2_8 => open,
---			q2_9 => u10_9,
---			npr2_10 => '1',
---			clk2_11 => u3_q6,	-- TODO?
---			d2_12 => u2_3,
---			nclr2_13 => u2_3
---	);
+	-- NOTE: this FF has been repurposed!
+	u10: entity work.sn74ls74 Port map ( 
+			-- FF1
+			nclr1_1 => '1',
+			d1_2 => VRESET,		 
+			clk1_3 => VCLK,		
+			npr1_4 => '1',
+			q1_5 => VRESETD1,
+			nq1_6 => open,
+			-- FF2
+			nq2_8 => open,
+			q2_9 => VRESETD2,
+			npr2_10 => '1',
+			clk2_11 => not VCLK,
+			d2_12 => VRESET,
+			nclr2_13 => '1'
+	);
 
 	-- Scroll register adder, higher bits
 	u11: entity work.sn74ls283 Port map ( 
@@ -198,7 +203,7 @@ begin
 	-- horizontal scan counter
 	u13: entity work.sn74hc4040 port map (
 			clock_10 => PIXCLK,	-- INPUT
-			reset_11 => HBLANK,
+			reset_11 => HBLANK,-- or (MODE and HRESET),
 			q1_9 => u13_q1, 
 			q2_7 => u13_q2,
 			q3_6 => u13_q3,
@@ -382,77 +387,88 @@ begin
 			y2 => u30_d(7 downto 4)
 	);
 
+HC192 <= '0' when (unsigned(HC) > 191) else '1';
+HC704 <= '1' when (unsigned(HC) > 703) else '0';
+VC128 <= '0' when (unsigned(VC) > 127) else '1';
+VC384 <= '1' when (unsigned(VC) > 383) else '0';
 ----------------------------------
 -- Sync signal fixes by @msolajic
 ----------------------------------
-HRESET <= u13a_q10 and u13a_q9 when (MODE = '0') else u13a_q10 and u13a_q9 and u13a_q6;
-HS <= u13a_q10 and (not u13a_q9) and (not u13a_q8) and u13a_q7 when (MODE = '0') else (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or u13a_q6) and (u13a_q10 or u13a_q9 or u13a_q8 or u13a_q7 or (not u13a_q6)) and (u13a_q10 or u13a_q9 or u13a_q8 or (not u13a_q7) or u13a_q6);
-HBLANK <= u13a_q10 when (MODE = '0') else u13b_y(2) and u13b_y(3) and u13b_y(4) and u13b_y(5); 
+-- 768 / 800
+HRESET <= HC(9) and HC(8) when (MODE = '0') else HC(9) and HC(8) and (not HC(7)) and (not HC(6)) and HC(5) and (not HC(4)) and (not HC(3)) and (not HC(2)) and (not HC(1)) and (not HC(0));
+HS <= HC(9) and (not HC(8)) and (not HC(7)) and HC(6) when (MODE = '0') else (HC(9) or HC(8) or HC(7) or HC(6) or HC(5)) and (HC(9) or HC(8) or HC(7) or HC(6) or (not HC(5))) and (HC(9) or HC(8) or HC(7) or (not HC(6)) or HC(5));
+HBLANK <= HC(9) when (MODE = '0') else ((not HC(9)) and (not HC(8)) and (not HC(7))) or ((not HC(9)) and (not HC(8)) and HC(7) and (not HC(6))) or (HC(9) and (not HC(8)) and HC(7) and HC(6)) or (HC(9) and HC(8));
+--HBLANK <= HC(9) when (MODE = '0') else (HC192 or HC704);
 
-VRESET <= u3a_q9 and u3a_q7 when (MODE = '0') else u3a_q10 and u3a_q4 and u3a_q3 and u3a_q1;
-VS <= u3a_q9 and (not u3a_q6) and u3a_q5 and u3a_q4 when (MODE = '0') else u3b_y(0) or u3a_q7 or u3a_q6 or u3a_q5 or u3a_q4 or u3a_q3;-- or u3a_q2;
-VBLANK <= u3a_q9 when (MODE = '0') else (u3b_y(1) and u3b_y(2));
-VCLK <= MODE xor HS;
+-- 320 / 525
+VRESET <= VC(8) and VC(6) when (MODE = '0') else VC(9) and (not VC(8)) and (not VC(7)) and (not VC(6)) and (not VC(5))and (not VC(4)) and VC(3) and VC(2) and (not VC(1)) and VC(0);
+VS <= VC(8) and (not VC(5)) and VC(4) and VC(3) when (MODE = '0') else VC(9) or VC(8) or VC(7) or VC(6) or VC(5) or VC(4) or VC(3) or VC(2);-- or VC(1);
+--VBLANK <= VC(8) when (MODE = '0') else (VC(9) or VC(8) or (not VC(7))) and (VC(9) or (not VC(8)) or VC(7));
+--VBLANK <= VC(8) when (MODE = '0') else (VC128 or VC384);
+VBLANK <= VC(8) when (MODE = '0') else VC(9) or not(VC(8) xor VC(7));
 
-debug0 <= PIXCLK when (MODE = '0') else VCLK;
-debug1 <= HBLANK when (MODE = '0') else VBLANK;
-debug2 <= HS when (MODE = '0') else VS;
-debug3 <= HRESET when (MODE = '0') else VRESET;
+VCLK <= HS xor MODE;
+
+debug0 <= HS;
+debug1 <= HBLANK;
+debug2 <= VS;
+debug3 <= VBLANK;
 ----------------------------------
 
-	u13a_reset <= (HRESET and PIXCLK);
+	--u13a_reset <= (HRESET and PIXCLK);
+	--u13a_clk <= PIXCLK and (not VRESET);
 	-- shadow horizontal scan counter
 	u13a: entity work.sn74hc4040 port map (
 			clock_10 => PIXCLK,	-- INPUT
-			reset_11 => u13a_reset,
-			q1_9 => open, 
-			q2_7 => open,
-			q3_6 => open,
-			q4_5 => open,
-			q5_3 => open,
-			q6_2 => u13a_q6,
-			q7_4 => u13a_q7,
-			q8_13 => u13a_q8,
-			q9_12 => u13a_q9,
-			q10_14 => u13a_q10,
+			reset_11 => HRESET,-- or HRESETD,
+			q1_9 => HC(0), 
+			q2_7 => HC(1),
+			q3_6 => HC(2),
+			q4_5 => HC(3),
+			q5_3 => HC(4),
+			q6_2 => HC(5),
+			q7_4 => HC(6),
+			q8_13 => HC(7),
+			q9_12 => HC(8),
+			q10_14 => HC(9),
 			q11_15 => open,
 			q12_1 => open 
 	);
 
-	u13b: entity work.sn74x138 port map (
-			s(2) => u13a_q10,
-			s(1) => u13a_q9,
-			s(0) => u13a_q8,
-         nE => '0',
-         y => u13b_y
-	);
+--	u13b: entity work.sn74x138 port map (
+--			s(2) => u13a_q10,
+--			s(1) => u13a_q9,
+--			s(0) => u13a_q8,
+--         nE => '0',
+--         y => u13b_y
+--	);
 
-	u3a_reset <= (VRESET and PIXCLK);
+	--u3a_reset <= (VRESET and (not PIXCLK)) when (MODE = '0') else (VRESET and VCLK);
 	-- shadow vertical scan counter and its decoding
 	u3a: entity work.sn74hc4040 port map (
 			clock_10 => VCLK,
-			reset_11 => u3a_reset, 
-			q1_9 => u3a_q1, 
-			q2_7 => u3a_q2,
-			q3_6 => u3a_q3,
-			q4_5 => u3a_q4,
-			q5_3 => u3a_q5,
-			q6_2 => u3a_q6,
-			q7_4 => u3a_q7,
-			q8_13 => u3a_q8,
-			q9_12 => u3a_q9,
-			q10_14 => u3a_q10,
+			reset_11 => VRESET,-- or (MODE and VRESETD1) or (MODE and VRESETD2), 
+			q1_9 => VC(0), 
+			q2_7 => VC(1),
+			q3_6 => VC(2),
+			q4_5 => VC(3),
+			q5_3 => VC(4),
+			q6_2 => VC(5),
+			q7_4 => VC(6),
+			q8_13 => VC(7),
+			q9_12 => VC(8),
+			q10_14 => VC(9),
 			q11_15 => open,
 			q12_1 => open 
 	);
 	
-u3b: entity work.sn74x138 port map (
-			s(2) => u3a_q10,
-			s(1) => u3a_q9,
-			s(0) => u3a_q8,
-         nE => '0',
-         y => u3b_y
-	);
+--u3b: entity work.sn74x138 port map (
+--			s(2) => u3a_q10,
+--			s(1) => u3a_q9,
+--			s(0) => u3a_q8,
+--         nE => '0',
+--         y => u3b_y
+--	);
 
 end Structural;
 
