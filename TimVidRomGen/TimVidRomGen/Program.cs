@@ -33,14 +33,14 @@ namespace TimVidRomGen
                         v,      // vertical line
                         768,    // total horizontal pixels
                         320,    // total vertical pixels
-                        0,      // window left = 96 (HSYNC) + 48 (HBLANK) + 64 (OFFSET)
-                        0,      // window top = 4 (VSYNC) + 32 (VBLANK) + 112 (OFFSET)
+                        0,      // window left
+                        0,      // window top
                         512,    // window right = window left + 512
                         256,    // window bottom = window top + 256
                         512,    // HSYNC start
                         768,    // HSYNC end
                         256,    // VSYNC start
-                        320,    // VSYNC end - WARNING - this may need extra hardware because standard calls only for 2 lines
+                        320,    // VSYNC
                         polarity_tim   // flip HSYNC, VSYNC, 
                         );
                     index_tim++;
