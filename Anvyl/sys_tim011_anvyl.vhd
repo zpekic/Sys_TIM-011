@@ -192,7 +192,6 @@ alias btn_scroll: std_logic_vector(1 downto 0) is button(2 downto 1);
 
 ---- UART
 signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
---signal sr: std_logic_vector(31 downto 0);
 
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
 --alias nRTS: std_logic is PMOD(4); 	-- out, active low
@@ -393,10 +392,10 @@ end process;
 			nScroll => nScroll,
 			-- debug
 			test => test_static,
-			debug0 => BB3,
-			debug1 => BB4,
-			debug2 => BB5,
-			debug3 => BB6,
+			debug0 => open, --BB3,
+			debug1 => BB2,	 --HBLANK
+			debug2 => open, --BB5,
+			debug3 => open, --BB6,
 			pixclk => pixclk,
 			-- monitor side
 			hsync => gr_hsync, 
@@ -415,12 +414,14 @@ LED(6) <= gr_vid1;
 LED(7) <= gr_vid2;
 
 -- test connections (work in both VGA and TIM cases)
-	--BB6 <= gr_hsync;
-	--BB5 <= gr_vsync;
-	--BB4 <= gr_vid1;
-	--BB3 <= gr_vid2;
-	BB2 <= baudrate_x1;
-
+	BB6 <= (SW(7) xor gr_vsync) xnor (SW(6) xor gr_hsync);
+	BB5 <= gr_hsync;
+	--BB5 <= gr_vid1 and gr_vid2;
+	BB4 <= gr_vid1;
+	BB3 <= gr_vid2;
+	--BB2 <= baudrate_x1;
+	--BB2 <= (SW(7) xor gr_vsync) xor (SW(6) xor gr_hsync);
+	
 -- Connect to GBS8200 gray wire (composite sync!)
 	gr_csync <= gr_hsync xor (not gr_vsync);
 	GBS8200_GRAY <= gr_csync when (sw_mode = '0') else '0'; --gr_hsync xor (not gr_vsync);
@@ -463,10 +464,10 @@ with button(2 downto 1) select debug <=
 	freqcnt_value when others;
 
 with button(2 downto 1) select freqcnt_in <= 
+--	gr_hsync_i when "00",
 	pixclk when "00",
 	gr_hsync when "01",
 	gr_vsync when "10",
---	digsel(0) when others;
 	baudrate_x1 when others;
 
 with digsel select

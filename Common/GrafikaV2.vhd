@@ -391,8 +391,12 @@ begin
 HCLK <= TIMCLK when (MODE = '0') else VGACLK;
 -- 768 / 800
 HRESET <= HC(9) and HC(8) when (MODE = '0') else HC(9) and HC(8) and HC(5);
+-- classic TIM signals, data first, sync last
 HS <= HC(9) and (not HC(8)) and (not HC(7)) and HC(6) when (MODE = '0') else (HC(9) or HC(8) or HC(7) or HC(6) or HC(5)) and (HC(9) or HC(8) or HC(7) or HC(6) or (not HC(5))) and (HC(9) or HC(8) or HC(7) or (not HC(6)) or HC(5));
 HBLANK <= HC(9) when (MODE = '0') else ((not HC(9)) and (not HC(8)) and (not HC(7))) or ((not HC(9)) and (not HC(8)) and HC(7) and (not HC(6))) or (HC(9) and (not HC(8)) and HC(7) and HC(6)) or (HC(9) and HC(8));
+-- new TIM signals, sync first, data last
+--HS <= not(HC(9) or HC(8) or HC(7) or HC(6)) when (MODE = '0') else (HC(9) or HC(8) or HC(7) or HC(6) or HC(5)) and (HC(9) or HC(8) or HC(7) or HC(6) or (not HC(5))) and (HC(9) or HC(8) or HC(7) or (not HC(6)) or HC(5));
+--HBLANK <= not(HC(9) or HC(8)) when (MODE = '0') else ((not HC(9)) and (not HC(8)) and (not HC(7))) or ((not HC(9)) and (not HC(8)) and HC(7) and (not HC(6))) or (HC(9) and (not HC(8)) and HC(7) and HC(6)) or (HC(9) and HC(8));
 -- simpler equation but moves the VGA picture too much to the right
 --HBLANK <= HC(9) when (MODE = '0') else not(HC(9) xor HC(8));
 
