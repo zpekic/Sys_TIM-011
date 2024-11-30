@@ -4,15 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.Specialized;
 
 namespace TimVidRomGen
 {
     class Program
     {
         static byte[] rom = new byte[1 << 17];
+        static int b0 = BitVector32.CreateMask();
+        static int b1 = BitVector32.CreateMask(b0);
+        static int b2 = BitVector32.CreateMask(b1);
+        static int b3 = BitVector32.CreateMask(b2);
+        static int b4 = BitVector32.CreateMask(b3);
+        static int b5 = BitVector32.CreateMask(b4);
+        static int b6 = BitVector32.CreateMask(b5);
+        static int b7 = BitVector32.CreateMask(b6);
+        static int b8 = BitVector32.CreateMask(b7);
+        static int b9 = BitVector32.CreateMask(b8);
 
         static void Main(string[] args)
         {
+            // Generate using 2D geometry of the screen
             // TIM classic video signals in lower 64k, HSYNC and VSYNC positive
             int index_tim = 0;
             byte polarity_tim = (byte)Convert.ToInt32("00100000", 2);
@@ -28,7 +40,7 @@ namespace TimVidRomGen
                 {
                     int h = x << 2;
                     // TIM 768*320, 16MHz pixel clock, 512*256 "window" to display TIM video is top, left
-                    rom[index_tim] = GetVidRomByte(
+                    rom[index_tim++] = GetVidRomByte(
                         h,      // horizontal pixel
                         v,      // vertical line
                         768,    // total horizontal pixels
@@ -40,12 +52,11 @@ namespace TimVidRomGen
                         512,    // HSYNC start
                         768,    // HSYNC end
                         256,    // VSYNC start
-                        320,    // VSYNC
-                        polarity_tim   // flip HSYNC, VSYNC, 
+                        320,    // VSYNC end
+                        polarity_tim   // flip VCLK
                         );
-                    index_tim++;
                     // VGA 640*480, 25MHz pixel clock, 512*256 "window" to display TIM video is centered
-                    rom[index_vga] = GetVidRomByte(
+                    rom[index_vga++] = GetVidRomByte(
                         h,      // horizontal pixel
                         v,      // vertical line
                         800,    // total horizontal pixels
@@ -58,15 +69,36 @@ namespace TimVidRomGen
                         96,     // HSYNC end
                         0,      // VSYNC start
                         4,      // VSYNC end - WARNING - this may need extra hardware because standard calls only for 2 lines
-                        polarity_vga   // flip HSYNC, VSYNC, 
+                        polarity_vga   // flip HSYNC, VSYNC, VLCK
                         );
-                    index_vga++;
                 }
             }
             // write binary files suitable for EEPROM burning
-            WriteBinaryFile(0, (1 << 16), "tim_vid_tim_64k.bin");
-            WriteBinaryFile(1 << 16, (1 << 16), "tim_vid_vga_64k.bin");
-            WriteBinaryFile(0, (1 << 17), "tim_vid_128k.bin");
+            WriteBinaryFile(0, (1 << 16), "timvidrom_geo_tim_64k.bin");
+            WriteBinaryFile(1 << 16, (1 << 16), "timvidrom_geo_vga_64k.bin");
+            WriteBinaryFile(0, (1 << 17), "timvidrom_geo_128k.bin");
+
+            // Generate using logic equations
+            index_tim = 0;
+            index_vga = 1 << 16;
+            for (int y = 0; y <= 255; y++)
+            {
+                BitVector32 VC = new BitVector32(y << 2);
+
+                for (int x = 0; x <= 255; x++)
+                {
+                    BitVector32 HC = new BitVector32(x << 2);
+
+                    // TIM 768*320, 16MHz pixel clock, 512*256 "window" to display TIM video is top, left
+                    rom[index_tim++] = GetTimRomByte(HC, VC);
+                    // VGA 640*480, 25MHz pixel clock, 512*256 "window" to display TIM video is centered
+                    rom[index_vga++] = GetVgaRomByte(HC, VC);
+                }
+            }
+            // write binary files suitable for EEPROM burning
+            WriteBinaryFile(0, (1 << 16), "timvidrom_equ_tim_64k.bin");
+            WriteBinaryFile(1 << 16, (1 << 16), "timvidrom_equ_vga_64k.bin");
+            WriteBinaryFile(0, (1 << 17), "timvidrom_equ_128k.bin");
         }
 
         private static byte GetVidRomByte(int h, int v, int hres, int vres, int left, int top, int right, int bottom, int hsyncstart, int hsyncend, int vsyncstart, int vsyncend, byte polarity)
@@ -88,7 +120,11 @@ namespace TimVidRomGen
             {
                 signal |= 0x20;
             }
-            // b4 .. not used
+            // b4 .. BLANK, set when outside of 512*256 window, useful in VGA mode to MUX-in a border color to fill to 640*480
+            if ((h < left) || (h >= right) || (v < top) || (v >= bottom))
+            {
+                signal |= 0x10;
+            }
             // b3 .. U13_RESET, existing horizontal counter, always 0..511, drives VRAM address lines, clock is pixel clock
             if ((h < left) || (h >= right))
             {
@@ -104,7 +140,7 @@ namespace TimVidRomGen
             {
                 signal |= 0x02;
             }
-            // b0 .. U3A_RESET, now vertical counter, not connected to VRAM
+            // b0 .. U3A_RESET, new vertical counter, not connected to VRAM, clock is U3_U3A_CLOCK
             if (v >= vres)
             {
                 signal |= 0x01;
@@ -121,6 +157,51 @@ namespace TimVidRomGen
                 bw.Write(rom, from, length);
             }
             Console.WriteLine($"{length} byte(s) written to {filePath}");
+        }
+
+        private static byte GetTimRomByte(BitVector32 HC, BitVector32 VC)
+        {
+            BitVector32 signal = new BitVector32(0);
+
+            bool HRESET = HC[b9] && HC[b8];
+            bool HS = HC[b9] && (!HC[b8]) && (!HC[b7]) && HC[b6];
+            bool HBLANK = HC[b9];
+            bool VCLK = HS;
+            bool VRESET = VC[b8] && VC[b6];
+            bool VS = VC[b8] && (!VC[b5]) && VC[b4] && VC[b3];
+            bool VBLANK = VC[b8];
+
+            return GetSignalAsByte(HS, VS, VCLK, HBLANK, VBLANK, HRESET, VRESET);
+        }
+
+        private static byte GetVgaRomByte(BitVector32 HC, BitVector32 VC)
+        {
+
+            bool HRESET = HC[b9] && HC[b8] && HC[b5];
+            bool HS = (HC[b9] || HC[b8] || HC[b7] || HC[b6] || HC[b5]) && (HC[b9] || HC[b8] || HC[b7] || HC[b6] || (!HC[b5])) && (HC[b9] || HC[b8] || HC[b7] || (!HC[b6]) || HC[b5]);
+            bool HBLANK = ((!HC[b9]) && (!HC[b8]) && (!HC[b7])) || ((!HC[b9]) && (!HC[b8]) && HC[b7] && (!HC[b6])) || (HC[b9] && (!HC[b8]) && HC[b7] && HC[b6]) || (HC[b9] && HC[b8]);
+            bool VCLK = !HS;
+            bool VRESET = VC[b9] && (!VC[b8]) && (!VC[b7]) && (!VC[b6]) && (!VC[b5]) && (!VC[b4]) && VC[b3] && VC[b2] && (!VC[b1]) && VC[b0];
+            bool VS = VC[b9] || VC[b8] || VC[b7] || VC[b6] || VC[b5] || VC[b4] || VC[b3] || VC[b2];
+            bool VBLANK = VC[b9] || !(VC[b8] ^ VC[b7]);
+
+            return GetSignalAsByte(HS, VS, VCLK, HBLANK, VBLANK, HRESET, VRESET);
+        }
+
+        private static byte GetSignalAsByte(bool HS, bool VS, bool VCLK, bool HBLANK, bool VBLANK, bool HRESET, bool VRESET)
+        {
+            BitVector32 signal = new BitVector32(0);
+
+            signal[b7] = HS;
+            signal[b6] = VS;
+            signal[b5] = VCLK;
+            signal[b4] = HBLANK || VBLANK;
+            signal[b3] = HBLANK;
+            signal[b2] = VBLANK;
+            signal[b1] = HRESET;
+            signal[b0] = VRESET;
+
+            return (byte)signal.Data;
         }
     }
 }
