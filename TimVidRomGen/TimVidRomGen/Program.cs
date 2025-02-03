@@ -163,13 +163,13 @@ namespace TimVidRomGen
         {
             BitVector32 signal = new BitVector32(0);
 
-            bool HRESET = HC[b9] && HC[b8];                         // 11XXXXXXXX
-            bool HS = HC[b9] && (!HC[b8]) && (!HC[b7]) && HC[b6];   // 1001XXXXXX
-            bool HBLANK = HC[b9];                                   // 1XXXXXXXXX
-            bool VCLK = HS;                                         // 1001XXXXXX
-            bool VRESET = VC[b8] && VC[b6];                         // X1X1XXXXXX
-            bool VS = VC[b8] && (!VC[b5]) && VC[b4] && VC[b3];      // X1XX011XXX
-            bool VBLANK = VC[b8];                                   // X1XXXXXXXX
+            bool HRESET = HC[b9] && HC[b8];                         // 11XXXXXXXX = 768..1023
+            bool HS = HC[b9] && (!HC[b8]) && (!HC[b7]) && HC[b6];   // 1001XXXXXX = 576..639
+            bool HBLANK = HC[b9];                                   // 1XXXXXXXXX = 512..1023
+            bool VCLK = HS;                                         // 1001XXXXXX = falling edge after 639
+            bool VRESET = VC[b8] && VC[b6];                         // X1X1XXXXXX = 320..511
+            bool VS = VC[b8] && (!VC[b5]) && VC[b4] && VC[b3];      // X1XX011XXX = 430..472
+            bool VBLANK = VC[b8];                                   // X1XXXXXXXX = 256..511
 
             return GetSignalAsByte(HS, VS, VCLK, HBLANK, VBLANK, HRESET, VRESET);
         }

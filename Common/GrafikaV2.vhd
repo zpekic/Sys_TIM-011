@@ -407,7 +407,7 @@ HBLANK <= HC(9) when (MODE = '0') else ((not HC(9)) and (not HC(8)) and (not HC(
 ----------------------------------
 VCLK <= MODE xor HS;
 -- 320 / 525
-VRESET <= VC(8) and VC(6) when (MODE = '0') else VC(9) and (not VC(8)) and (not VC(7)) and (not VC(6)) and (not VC(5)) and (not VC(4)) and VC(3) and VC(2) and (not VC(1)) and VC(0);
+VRESET <= VC(8) and VC(6) when (MODE = '0') else VC(9) and (not VC(8)) and (not VC(7)) and (not VC(6)) and (not VC(5)) and (not VC(4)) and VC(3) and VC(2);-- and (not VC(1)) and VC(0);
 VS <= VC(8) and (not VC(5)) and VC(4) and VC(3) when (MODE = '0') else VC(9) or VC(8) or VC(7) or VC(6) or VC(5) or VC(4) or VC(3) or VC(2); -- or VC(1); -- for 2 line vsync instead of 4
 VBLANK <= VC(8) when (MODE = '0') else VC(9) or not(VC(8) xor VC(7));
 

@@ -82,11 +82,11 @@ entity sys_tim011_anvyl is
 				Memory_data: inout std_logic_vector(15 downto 0);
 				-- Red / Yellow / Green LEDs
 				--LDT1G: out std_logic;
-				--LDT1Y: out std_logic;
+				LDT1Y: out std_logic;
 				--LDT1R: out std_logic;
-				--LDT2G: out std_logic;
-				--LDT2Y: out std_logic;
-				--LDT2R: out std_logic;
+				LDT2G: out std_logic;
+				LDT2Y: out std_logic;
+				LDT2R: out std_logic;
 				-- VGA
 				HSYNC_O: out std_logic;
 				VSYNC_O: out std_logic;
@@ -152,7 +152,7 @@ alias freq25M: std_logic is cnt100MHz(1);
 alias freq12M5: std_logic is cnt100MHz(2);
 
 signal prescale_baud, prescale_power: integer range 0 to 65535;
-signal freq307200, freq153600, freq76800, freq38400, freq19200, freq9600, freq4800, freq2400, freq1200, freq600, freq300: std_logic;		
+signal freq307200, freq153600: std_logic;		
 signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;		
 signal freq24M, freq12M: std_logic;
 
@@ -166,6 +166,9 @@ signal nRD, nWR, nIO: std_logic;
 signal nReqHexOut, nReqHexIn, nAckHexOut, nAckHexIn: std_logic;
 signal D: std_logic_vector(7 downto 0);
 signal A: std_logic_vector(15 downto 0);
+signal char_received, char_write: std_logic;
+signal addr: std_logic_vector(14 downto 0);	-- wrap around at 32k, which TIM VRAM size
+signal busy_hexout: std_logic;
 
 -- output path for Intel hex format
 signal TXD_READY: std_logic;
@@ -191,7 +194,13 @@ alias btn_scroll: std_logic_vector(1 downto 0) is button(2 downto 1);
 --signal tft_display: std_logic;
 
 ---- UART
-signal baudrate_x1, baudrate_x2, baudrate_x4: std_logic;
+signal baudrate: std_logic_vector(2 downto 0);
+alias baudrate_x1: std_logic is baudrate(0);
+alias baudrate_x2: std_logic is baudrate(1);
+alias baudrate_x4: std_logic is baudrate(2);
+signal baudfreq: std_logic_vector(9 downto 0);
+alias freq19200: std_logic is baudfreq(6);
+alias freq38400: std_logic is baudfreq(7);
 
 -- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
 --alias nRTS: std_logic is PMOD(4); 	-- out, active low
@@ -239,22 +248,33 @@ begin
 	end if;
 end process;
 
+-- Baud rate frequency generation for UARTs
 baudgen: entity work.sn74hc4040 port map (
 			clock_10 => freq307200,
 			reset_11 => RESET,
-			q1_9 => freq153600, 
-			q2_7 => freq76800,
-			q3_6 => freq38400,		
-			q4_5 => freq19200,		
-			q5_3 => freq9600,		
-			q6_2 => freq4800, 	
-			q7_4 => freq2400,		
-			q8_13 => freq1200,		
-			q9_12 =>  freq600,
-			q10_14 => freq300,	
+			q1_9 => baudfreq(9), 
+			q2_7 => baudfreq(8),		
+			q3_6 => baudfreq(7),		-- 38400
+			q4_5 => baudfreq(6),		-- 19200
+			q5_3 => baudfreq(5),		-- 9600
+			q6_2 => baudfreq(4), 	-- 4800
+			q7_4 => baudfreq(3),		-- 2400
+			q8_13 => baudfreq(2),	-- 1200	
+			q9_12 =>  baudfreq(1),	-- 600
+			q10_14 => baudfreq(0),	-- 300
 			q11_15 => open,	
 			q12_1 =>  open	
 		);
+
+with sw_baudrate select
+		baudrate <= baudfreq(9 downto 7) when "111",
+						baudfreq(8 downto 6) when "110",		
+						baudfreq(7 downto 5) when "101",		
+						baudfreq(6 downto 4) when "100",		
+						baudfreq(5 downto 3) when "011", 
+						baudfreq(4 downto 2) when "010",
+						baudfreq(3 downto 1) when "001",
+						baudfreq(2 downto 0) when others;			
 --
 powergen: entity work.sn74hc4040 port map (
 			clock_10 => freq4096,
@@ -288,7 +308,7 @@ powergen: entity work.sn74hc4040 port map (
 		signal_debounced => button
 	);
 	
-nIO <= hexclk and nRD and nWR; -- use only I/O space
+nIO <= nRD and nWR; -- use only I/O space
 nAckHexOut <= nReqHexOut;	-- DMA loopback for hexout processor
 nAckHexIn <= nReqHexIn;		-- DMA loopback for hexin processor
 hexclk <= baudrate_x4;-- when (button(2) = '0') else freq1;
@@ -306,7 +326,7 @@ hexout: entity work.mem2hex Port map (
 			ABUS => A,
 			DBUS => D,
 			START => btn_hexout,
-			BUSY => open,
+			BUSY => busy_hexout,		
 			PAGE => X"F0",		-- emit 0x8000 .. 0xFFFF range
 			COUNTSEL => '0', 	-- 16 bytes per line
 			TXDREADY => TXD_READY,
@@ -314,34 +334,34 @@ hexout: entity work.mem2hex Port map (
 			CHAR => TXD_CHAR
 		);
 
-hexin: entity work.hex2mem port map (
-			clk => hexclk,
-			reset_in => RESET,
-			reset_out => open,
-			reset_page => X"00",
-			--
-			debug => open,
-			--
-			nWR => nWR,
-			nBUSREQ => nReqHexIn,
-			nBUSACK => nAckHexIn,
-			nWAIT => '1',
-			ABUS => A,
-			DBUS => D,
-			BUSY => open,
-			--
-			HEXIN_READY => RXD_READY,
-			HEXIN_CHAR => RXD_CHAR,
-			HEXIN_ZERO => open,
-			--
-			TRACE_ERROR => '0',
-			TRACE_WRITE => '0',
-			TRACE_CHAR => '0',
-			ERROR => open,
-			TXDREADY => '1',
-			TXDSEND => open,
-			TXDCHAR => open
-		);
+--hexin: entity work.hex2mem port map (
+--			clk => hexclk,
+--			reset_in => RESET,
+--			reset_out => open,
+--			reset_page => X"00",
+--			--
+--			debug => open,
+--			--
+--			nWR => nWR,
+--			nBUSREQ => nReqHexIn,
+--			nBUSACK => nAckHexIn,
+--			nWAIT => '1',
+--			ABUS => A,
+--			DBUS => D,
+--			BUSY => LDT2Y,		-- tiny yellow LED 2
+--			--
+--			HEXIN_READY => RXD_READY,
+--			HEXIN_CHAR => RXD_CHAR,
+--			HEXIN_ZERO => open,
+--			--
+--			TRACE_ERROR => '0',
+--			TRACE_WRITE => '0',
+--			TRACE_CHAR => '0',
+--			ERROR => LDT2R,	-- tiny red LED 2
+--			TXDREADY => '1',
+--			TXDSEND => open,
+--			TXDCHAR => open
+--		);
 
 test_clk <= freq38400;-- when (button(3 downto 2) = "11") else freq9600;
 
@@ -459,7 +479,7 @@ leds: entity work.sixdigitsevensegled port map (
 with button(2 downto 1) select debug <= 
 	X"000" & freqcnt_value(31 downto 12) when "00", -- /1000
 	X"000" & freqcnt_value(31 downto 12) when "01", -- /1000
-	freqcnt_value when "10",								-- /1
+	--freqcnt_value when "10",								-- /1
 	--T when others;
 	freqcnt_value when others;
 
@@ -480,7 +500,7 @@ with digsel select
 					debug(27 downto 24) when "110",
 					debug(31 downto 28) when others;
 
-on_rxd_ready: process(RXD_READY, RXD_CHAR, reset)
+on_rxd_ready1: process(RXD_READY, RXD_CHAR, reset)
 begin
 	if (reset = '1') then
 		T <= (others => '0');
@@ -490,6 +510,48 @@ begin
 		end if;
 	end if;
 end process;
+
+-- quick and dirty binary file receiver 
+on_rxd_ready2: process(RXD_READY, reset, char_write)
+begin
+	if ((reset or char_write) = '1') then
+		char_received <= '0';
+	else
+		if (rising_edge(RXD_READY)) then
+			char_received <= '1'; 
+		end if;
+	end if;
+end process;
+
+on_baudrate_x4: process(baudrate_x4, reset, char_received)
+begin
+	if (reset = '1') then
+		char_write <= '0';
+	else
+		if (rising_edge(baudrate_x4)) then
+			char_write <= char_received;
+		end if;
+	end if;
+end process;
+
+on_char_received: process(char_received, reset, A)
+begin
+	if (reset = '1') then
+		addr <= (others => '0');
+	else
+		if (falling_edge(char_received)) then
+			addr <= std_logic_vector(unsigned(addr) + 1);
+		end if;
+	end if;
+end process;
+
+nWR <= not char_write;
+LDT2G <= RXD_READY;
+LDT2Y <= char_received;
+LDT2R <= char_write;
+D <= "ZZZZZZZZ" when (busy_hexout = '1') else T(7 downto 0);
+A <= "ZZZZZZZZZZZZZZZZ" when (busy_hexout = '1') else ('1' & addr);
+LDT1Y <= busy_hexout;
 
 -- count signal frequencies
 freqcnt: entity work.freqcounter Port map ( 
@@ -522,35 +584,5 @@ rxdinp: entity work.uart_ser2par Port map (
          ready => RXD_READY,
 			valid => open,
          rxd => JA_TXD
-		);
-		
-with sw_baudrate select
-		baudrate_x4 <= freq153600 when "111",
-							freq76800 when "110", 
-							freq38400 when "101",
-							freq19200 when "100",		
-							freq9600 when "011",		
-							freq4800 when "010",		
-							freq2400 when "001", 	
-							freq1200 when others;		
-
-with sw_baudrate select
-		baudrate_x2 <= freq76800 when "111", 
-							freq38400 when "110",
-							freq19200 when "101",		
-							freq9600 when "100",		
-							freq4800 when "011",		
-							freq2400 when "010", 	
-							freq1200 when "001",
-						   freq600 when others;
-
-with sw_baudrate select
-		baudrate_x1 <= freq38400 when "111",
-							freq19200 when "110",		
-							freq9600 when "101",		
-							freq4800 when "100",		
-							freq2400 when "011", 
-							freq1200 when "010",
-							freq600  when "001",
-							freq300 when others;		
+		);	
 end;
