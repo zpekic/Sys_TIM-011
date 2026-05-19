@@ -8,19 +8,31 @@
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
          <ClosedNode>/Grafika - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|Grafika.vhd</ClosedNode>
+         <ClosedNode>/GrafikaV2 - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|GrafikaV2ROM.vhd</ClosedNode>
          <ClosedNode>/GrafikaV2 - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|GrafikaV2.vhd</ClosedNode>
+         <ClosedNode>/GrafikaV2 - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|GrafikaV2ROM.vhd</ClosedNode>
+         <ClosedNode>/hex2mem - Behavioral C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|Hex2Mem|hex2mem.vhd</ClosedNode>
+         <ClosedNode>/hex2mem - Behavioral C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|Hex2Mem|hex2mem.vhd/lincnt_add - adder16 - Behavioral</ClosedNode>
+         <ClosedNode>/hex2mem - Behavioral C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|Hex2Mem|hex2mem.vhd/poscnt_add - adder16 - Behavioral</ClosedNode>
+         <ClosedNode>/sn74ls74 - Behavioral C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Common|sn74ls74.vhd</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/debounce_btn - debouncer8channel - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/debounce_sw - debouncer8channel - Behavioral</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/freqcnt - freqcounter - Behavioral</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/hexin - hex2mem - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/hexin - hex2mem - Behavioral/lincnt_add - adder16 - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/hexin - hex2mem - Behavioral/poscnt_add - adder16 - Behavioral</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/hexout - mem2hex - Behavioral</ClosedNode>
          <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/video - Grafika - Structural/u10 - sn74ls74 - Behavioral</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/video - GrafikaV2 - Structural</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/video - GrafikaV2 - Structural/u30 - mem43256 - Behavioral</ClosedNode>
+         <ClosedNode>/sys_tim011_anvyl - Structural C:|Users|zoltanp|Documents|HexCalc|Sys_TIM-011|Sys_TIM-011|Anvyl|sys_tim011_anvyl.vhd/video - GrafikaV2ROM - Structural/u30 - mem43256 - Behavioral</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
          <SelectedItem>sys_tim011_anvyl - Structural (C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Anvyl/sys_tim011_anvyl.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >26</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000003c9000000020000000000000000000000000200000064ffffffff000000810000000300000002000003c90000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001e5000000020000000000000000000000000200000064ffffffff000000810000000300000002000001e50000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
       <CurrentItem>sys_tim011_anvyl - Structural (C:/Users/zoltanp/Documents/HexCalc/Sys_TIM-011/Sys_TIM-011/Anvyl/sys_tim011_anvyl.vhd)</CurrentItem>
    </ItemView>
@@ -34,41 +46,39 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Programming File</SelectedItem>
+         <SelectedItem>Design Summary/Reports</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000160000000010000000100000000000000000000000064ffffffff000000810000000000000001000001600000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000013f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000013f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Programming File</CurrentItem>
+      <CurrentItem>Design Summary/Reports</CurrentItem>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\Anvyl_Master.ucf</SelectedItem>
+         <SelectedItem>Anvyl_Master.ucf</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >8</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000003ee000000040101000100000000000000000000000064ffffffff000000810000000000000004000002570000000100000000000000d700000001000000000000006600000001000000000000005a0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\Anvyl_Master.ucf</CurrentItem>
+      <CurrentItem>Anvyl_Master.ucf</CurrentItem>
    </ItemView>
    <ItemView guiview="Library" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
-      <SelectedItems>
-         <SelectedItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\sys_tim011_anvyl.vhd</SelectedItem>
-      </SelectedItems>
+      <SelectedItems/>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000000f8000000010001000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>C:\Users\zoltanp\Documents\HexCalc\Sys_TIM-011\Sys_TIM-011\Anvyl\sys_tim011_anvyl.vhd</CurrentItem>
+      <CurrentItem>work</CurrentItem>
    </ItemView>
-   <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
+   <SourceProcessView>000000ff00000000000000020000011a0000007701000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VHDL_PACKAGE_DECL" guiview="Process" >
       <ClosedNodes>
@@ -89,13 +99,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000013b000000010000000100000000000000000000000064ffffffff0000008100000000000000010000013b0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000160000000010000000100000000000000000000000064ffffffff000000810000000000000001000001600000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>

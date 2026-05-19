@@ -56,18 +56,28 @@ entity sys_tim011_anvyl is
 				DP: out std_logic; 
 				-- 8 single LEDs
 				LED: out std_logic_vector(7 downto 0);
-				--PMOD interface
+				--drive UART 1
 				JA1: inout std_logic;
 				JA2: inout std_logic;
 				JA3: inout std_logic;
 				JA4: inout std_logic;
-				--JB1: inout std_logic;
-				--JB2: buffer std_logic;
-				--JB3: in std_logic;
-				--JB4: inout std_logic;
+				--drive UART 1
+				JE1: inout std_logic;
+				JE2: inout std_logic;
+				JE3: inout std_logic;
+				JE4: inout std_logic;
+				-- drive composite / s-video
+				JG1: out std_logic;
+				JG2: out std_logic;
+				JG3: out std_logic;
+				JG4: out std_logic;
+				JG7: out std_logic;
+				JG8: out std_logic;
+				JG9: out std_logic;
+				JG10: out std_logic;
 				--DIP switches
-				--DIP_B4, DIP_B3, DIP_B2, DIP_B1: in std_logic;
-				--DIP_A4, DIP_A3, DIP_A2, DIP_A1: in std_logic;
+				DIP_B4, DIP_B3, DIP_B2, DIP_B1: in std_logic;
+				DIP_A4, DIP_A3, DIP_A2, DIP_A1: in std_logic;
 --				-- Hex keypad
 				--KYPD_COL: out std_logic_vector(3 downto 0);
 				--KYPD_ROW: in std_logic_vector(3 downto 0);
@@ -81,9 +91,9 @@ entity sys_tim011_anvyl is
 				Memory_address: out std_logic_vector(18 downto 0);
 				Memory_data: inout std_logic_vector(15 downto 0);
 				-- Red / Yellow / Green LEDs
-				--LDT1G: out std_logic;
+				LDT1G: out std_logic;
 				LDT1Y: out std_logic;
-				--LDT1R: out std_logic;
+				LDT1R: out std_logic;
 				LDT2G: out std_logic;
 				LDT2Y: out std_logic;
 				LDT2R: out std_logic;
@@ -92,7 +102,7 @@ entity sys_tim011_anvyl is
 				VSYNC_O: out std_logic;
 				RED_O: out std_logic_vector(3 downto 0);
 				GREEN_O: out std_logic_vector(3 downto 0);
-				BLUE_O: out std_logic_vector(3 downto 0);
+				BLUE_O: out std_logic_vector(3 downto 0)
 				-- TFT
 --				TFT_R_O: out std_logic_vector(7 downto 0);
 --				TFT_G_O: out std_logic_vector(7 downto 0);
@@ -103,37 +113,46 @@ entity sys_tim011_anvyl is
 --				TFT_BKLT_O: out std_logic;
 --				TFT_VDDEN_O: out std_logic;
 				-- breadboard signal connections
-				BB1: in std_logic;
-				BB2: out std_logic;
-				BB3: out std_logic;
-				BB4: out std_logic;
-				BB5: out std_logic;
-				BB6: out std_logic;
-				BB7: out std_logic;
-				BB8: out std_logic;
-				BB9: out std_logic;
-				BB10: out std_logic
+				--BB1: out std_logic;
+				--BB2: out std_logic;
+				--BB3: out std_logic;
+				--BB4: out std_logic;
+				--BB5: out std_logic;
+				--BB6: out std_logic;
+				--BB7: out std_logic;
+				--BB8: out std_logic;
+				--BB9: out std_logic;
+				--BB10: in std_logic
           );
 end sys_tim011_anvyl;
 
 architecture Structural of sys_tim011_anvyl is
 
-alias JA_RTS: std_logic is JA1;
-alias JA_RXD: std_logic is JA2;
-alias JA_TXD: std_logic is JA3;
-alias JA_CTS: std_logic is JA4;
+-- Connect to PmodUSBUART 
+-- https://digilent.com/reference/pmod/pmodusbuart/reference-manual
+alias PMOD_RTS0: std_logic is JA1;	
+alias PMOD_RXD0: std_logic is JA2;
+alias PMOD_TXD0: std_logic is JA3;
+alias PMOD_CTS0: std_logic is JA4;	
+alias PMOD_RTS1: std_logic is JE1;
+alias PMOD_RXD1: std_logic is JE2;
+alias PMOD_TXD1: std_logic is JE3;
+alias PMOD_CTS1: std_logic is JE4;
 
 alias RESET: std_logic is BTN(3);
-alias EXT_CLK: std_logic is BB1;
---		GBS8200_BLACK							-- GND on breadboard
-alias GBS8200_GRAY: std_logic is BB10; -- CSYNC next to GND on breadboard
-alias GBS8200_BLUE: std_logic is BB9; 	-- BLUE
-alias GBS8200_GREEN: std_logic is BB8;	-- GREEN
-alias GBS8200_RED: std_logic is BB7; 	-- RED
+
+-- connect to GBS8220
+alias PMOD_BAUDRATE: std_logic is JG10; 
+alias PMOD_DOTCLK: std_logic is JG9; 
+alias PMOD_HSYNC: std_logic is JG8; -- GRAY
+alias PMOD_VSYNC: std_logic is JG7; -- YELLOW
+alias PMOD_CSYNC: std_logic is JG4;	-- CSYNC (not used for GBS8220)
+alias PMOD_BLUE: std_logic is JG3; 	-- BLUE
+alias PMOD_GREEN: std_logic is JG2;	-- GREEN
+alias PMOD_RED: std_logic is JG1; 	-- RED
 
 -- debug
-signal test_static, test_clk: std_logic;
-signal digsel: std_logic_vector(2 downto 0);
+signal test_clk: std_logic;
 signal T, debug, freqcnt_value: std_logic_vector(31 downto 0);
 signal hexdata, showdigit: std_logic_vector(3 downto 0);
 signal freqcnt_in: std_logic;
@@ -144,226 +163,151 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 
 --- frequency signals
 signal dotclk: std_logic;
-signal pixclk: std_logic;
-signal vgaclk: std_logic;
+signal prescale_baud, prescale_power, prescale_ms, prescale_8MHz: integer range 0 to 65535;
+signal cnt8MHz: std_logic_vector(3 downto 0); 	-- 4 bit counter driven by 4MHz
+signal cnt50MHz: std_logic_vector(11 downto 0); -- 12 bit counter driven by 100MHz
+alias clk_vga: std_logic is cnt50MHz(1);
+alias clk_tim: std_logic is cnt50MHz(2);
+signal cnt307200: std_logic_vector(15 downto 0);	-- 16 bit counter driven by 2*307.2kHz
+alias freq19200: std_logic is cnt307200(4);
 
-signal cnt100MHz: std_logic_vector(3 downto 0);
-alias freq25M: std_logic is cnt100MHz(1);
-alias freq12M5: std_logic is cnt100MHz(2);
-
-signal prescale_baud, prescale_power: integer range 0 to 65535;
+signal cnt4096: std_logic_vector(11 downto 0); 		-- 12 bit counter driven by 2*4.096kHz
+alias freq2: std_logic is cnt4096(11); 
+alias freq4: std_logic is cnt4096(10);
+alias freq32: std_logic is cnt4096(7); 
+alias digsel: std_logic_vector(2 downto 0) is cnt4096(2 downto 0);
 signal freq307200, freq153600: std_logic;		
-signal freq4096, freq32, freq8, freq4, freq2, hexclk: std_logic;		
-signal freq24M, freq12M: std_logic;
 
 --- video sync signals
 signal gr_hsync, gr_vsync, gr_csync: std_logic;
 -- video data signals
-signal gr_vid2, gr_vid1: std_logic;
+signal gr_vid4, gr_vid3, gr_vid2, gr_vid1: std_logic;
 signal gr_color: std_logic_vector(3 downto 0);
--- video memory bus
+-- system bus
 signal nRD, nWR, nIO: std_logic;
-signal nReqHexOut, nReqHexIn, nAckHexOut, nAckHexIn: std_logic;
 signal D: std_logic_vector(7 downto 0);
 signal A: std_logic_vector(15 downto 0);
-signal char_received, char_write: std_logic;
-signal addr: std_logic_vector(14 downto 0);	-- wrap around at 32k, which TIM VRAM size
-signal busy_hexout: std_logic;
-
--- output path for Intel hex format
-signal TXD_READY: std_logic;
-signal TXD_CHAR: std_logic_vector(7 downto 0);
-signal TXD_SEND: std_logic;
--- input path for Intel hex format
-signal RXD_READY: std_logic;
-signal RXD_CHAR: std_logic_vector(7 downto 0);
---signal txd_send: std_logic;
-
 
 ---
 signal switch: std_logic_vector(7 downto 0);
-alias sw_mode: std_logic is switch(0);
-alias sw_clksel: std_logic is switch(1);
+alias sw_hsync: std_logic is switch(0);
+alias sw_vsync: std_logic is switch(1);
+alias sw_color: std_logic is switch(2);
+alias sw_vga: std_logic is switch(3);
 alias sw_baudrate: std_logic_vector(2 downto 0) is switch(7 downto 5);
 -- 
 signal button: std_logic_vector(7 downto 0);
 alias btn_hexout: std_logic is button(0);
 alias btn_scroll: std_logic_vector(1 downto 0) is button(2 downto 1);
----- TFT
---signal h, v: std_logic_vector(8 downto 0);
---signal tft_display: std_logic;
+signal dip: std_logic_vector(7 downto 0);
 
 ---- UART
 signal baudrate: std_logic_vector(2 downto 0);
 alias baudrate_x1: std_logic is baudrate(0);
 alias baudrate_x2: std_logic is baudrate(1);
 alias baudrate_x4: std_logic is baudrate(2);
-signal baudfreq: std_logic_vector(9 downto 0);
-alias freq19200: std_logic is baudfreq(6);
-alias freq38400: std_logic is baudfreq(7);
+--signal baudfreq: std_logic_vector(9 downto 0);
 
--- https://reference.digilentinc.com/reference/pmod/pmodusbuart/reference-manual
---alias nRTS: std_logic is PMOD(4); 	-- out, active low
---alias RXD: std_logic is PMOD(5);		-- in
---alias TXD: std_logic is PMOD(6);		-- out
---alias nCTS: std_logic is PMOD(7);	-- in, active low
+-- other
+signal hexout_nBusack, hexout_nBusReq, hexout_ready, hexout_send: std_logic;
+signal hexout_char: std_logic_vector(7 downto 0);
+signal hexin_nBusack, hexin_nBusReq: std_logic;
+signal txdout_ready: std_logic;
+signal rxdinp_ready, rxdinp_valid: std_logic;
+signal rxdinp_char: std_logic_vector(7 downto 0);
+signal txd_ready, txd_send: std_logic;
+signal txd_char: std_logic_vector(7 downto 0);
+signal rxd_ready, rxd_send: std_logic;
+signal rxd_char: std_logic_vector(7 downto 0);
+signal last_read, last_write: std_logic_vector(23 downto 0);
 
 begin
 
--- divide external clock
-clock_ext: entity work.sn74hc4040 port map (
-			clock_10 => BB1,	-- 96MHz "half-size" crystal on breadboard (ESC-220BX)
-			reset_11 => RESET,
-			q1_9 => open, 			-- 48MHz
-			q2_7 => freq24M,		-- 24
-			q3_6 => freq12M,		-- 12
-			q4_5 => open,			-- 6
-			q5_3 => open, 			-- 3
-			q6_2 => open, 	 		-- 1.5
-			q7_4 =>   open,		-- 0.75
-			q8_13 =>  open,		-- 0.375
-			q9_12 =>  open,		-- 
-			q10_14 => digsel(0),	-- 
-			q11_15 => digsel(1),	-- 
-			q12_1 =>  digsel(2)	-- 
-		);
-
--- divide internal clock   	
-clock_int: process(CLK, freq153600, freq4096)
-begin
-	if (rising_edge(CLK)) then
-		cnt100MHz <= std_logic_vector(unsigned(cnt100MHz) + 1);
-		if (prescale_baud = 0) then
-			freq307200 <= not freq307200;
-			prescale_baud <= (50000000 / (2 * 153600));
-		else
-			prescale_baud <= prescale_baud - 1;
-		end if;
-		if (prescale_power = 0) then
-			freq4096 <= not freq4096;
-			prescale_power <= (50000000 / (2 * 4096));
-		else
-			prescale_power <= prescale_power - 1;
-		end if;
-	end if;
-end process;
-
--- Baud rate frequency generation for UARTs
-baudgen: entity work.sn74hc4040 port map (
-			clock_10 => freq307200,
-			reset_11 => RESET,
-			q1_9 => baudfreq(9), 
-			q2_7 => baudfreq(8),		
-			q3_6 => baudfreq(7),		-- 38400
-			q4_5 => baudfreq(6),		-- 19200
-			q5_3 => baudfreq(5),		-- 9600
-			q6_2 => baudfreq(4), 	-- 4800
-			q7_4 => baudfreq(3),		-- 2400
-			q8_13 => baudfreq(2),	-- 1200	
-			q9_12 =>  baudfreq(1),	-- 600
-			q10_14 => baudfreq(0),	-- 300
-			q11_15 => open,	
-			q12_1 =>  open	
-		);
-
-with sw_baudrate select
-		baudrate <= baudfreq(9 downto 7) when "111",
-						baudfreq(8 downto 6) when "110",		
-						baudfreq(7 downto 5) when "101",		
-						baudfreq(6 downto 4) when "100",		
-						baudfreq(5 downto 3) when "011", 
-						baudfreq(4 downto 2) when "010",
-						baudfreq(3 downto 1) when "001",
-						baudfreq(2 downto 0) when others;			
---
-powergen: entity work.sn74hc4040 port map (
-			clock_10 => freq4096,
-			reset_11 => RESET,
-			q1_9 => open, 
-			q2_7 => open,
-			q3_6 => open,		
-			q4_5 => open,		
-			q5_3 => open,		
-			q6_2 => open, 	
-			q7_4 => open,		
-			q8_13 => freq32,		
-			q9_12 =>  open,	
-			q10_14 => freq8,	
-			q11_15 => freq4,	
-			q12_1 =>  freq2	
-		);
---	
-	debounce_sw: entity work.debouncer8channel Port map ( 
-		clock => freq19200, 
-		reset => RESET,
-		signal_raw => SW,
-		signal_debounced => switch
-	);
-
-	debounce_btn: entity work.debouncer8channel Port map ( 
-		clock => freq19200, 
-		reset => RESET,
-		signal_raw(7 downto 4) => "0000",
-		signal_raw(3 downto 0) => BTN,
-		signal_debounced => button
-	);
-	
+LED <= D;	
 nIO <= nRD and nWR; -- use only I/O space
-nAckHexOut <= nReqHexOut;	-- DMA loopback for hexout processor
-nAckHexIn <= nReqHexIn;		-- DMA loopback for hexin processor
-hexclk <= baudrate_x4;-- when (button(2) = '0') else freq1;
+hexout_nBusAck <= hexout_nBusReq;	-- DMA loopback for hexout processor
+hexin_nBusAck <= hexin_nBusReq;		-- DMA loopback for hexin processor
+
+last_read <= (A & D) when (nRD = '0') else last_read;
+last_write <= (A & D) when (nWR = '0') else last_write;
 
 hexout: entity work.mem2hex Port map ( 
-			clk => hexclk,
+			clk => baudrate_x4,
 			reset => RESET,
 			--
    		debug => open,
 			--
 			nRD => nRD,
-			nBUSREQ => nReqHexOut,
-			nBUSACK => nReqHexOut,
+			nBUSREQ => hexout_nBusreq,
+			nBUSACK => hexout_nBusAck,
 			nWAIT => nScroll,
 			ABUS => A,
 			DBUS => D,
 			START => btn_hexout,
-			BUSY => busy_hexout,		
+			BUSY => LDT1Y,		
 			PAGE => X"F0",		-- emit 0x8000 .. 0xFFFF range
 			COUNTSEL => '0', 	-- 16 bytes per line
-			TXDREADY => TXD_READY,
-			TXDSEND => TXD_SEND,
-			CHAR => TXD_CHAR
+			TXDREADY => txdout_ready, 
+			TXDSEND => hexout_send,
+			CHAR => hexout_char
 		);
 
---hexin: entity work.hex2mem port map (
---			clk => hexclk,
---			reset_in => RESET,
---			reset_out => open,
---			reset_page => X"00",
---			--
---			debug => open,
---			--
---			nWR => nWR,
---			nBUSREQ => nReqHexIn,
---			nBUSACK => nAckHexIn,
---			nWAIT => '1',
---			ABUS => A,
---			DBUS => D,
---			BUSY => LDT2Y,		-- tiny yellow LED 2
---			--
---			HEXIN_READY => RXD_READY,
---			HEXIN_CHAR => RXD_CHAR,
---			HEXIN_ZERO => open,
---			--
---			TRACE_ERROR => '0',
---			TRACE_WRITE => '0',
---			TRACE_CHAR => '0',
---			ERROR => LDT2R,	-- tiny red LED 2
---			TXDREADY => '1',
---			TXDSEND => open,
---			TXDCHAR => open
---		);
+LDT1R <= '0';
+LDT1G <= '0';
 
-test_clk <= freq38400;-- when (button(3 downto 2) = "11") else freq9600;
+-- UART serial output to the host
+txdout: entity work.uart_par2ser
+			Port map (
+			reset => reset,
+			txd_clk => baudrate_x1,
+			send => hexout_send,
+			mode => "000", -- no parity, extra stop bit
+			data => hexout_char,
+         ready => txdout_ready,
+         txd => PMOD_RXD0
+			);
+		
+hexin: entity work.hex2mem port map (
+			clk => baudrate_x4,
+			reset_in => RESET,
+			reset_out => open,
+			reset_page => X"00",
+			--
+			debug => open,
+			--
+			nWR => nWR,
+			nBUSREQ => hexin_nBusReq,
+			nBUSACK => hexin_nBusAck,
+			nWAIT => nScroll,
+			ABUS => A,
+			DBUS => D,
+			BUSY => LDT2Y,		-- tiny yellow LED 2
+			--
+			HEXIN_READY => rxdinp_ready,
+			HEXIN_CHAR => rxdinp_char,
+			HEXIN_ZERO => open,
+			--
+			TRACE_ERROR => '1',
+			TRACE_WRITE => '0',
+			TRACE_CHAR => '0',
+			ERROR => LDT2R,	-- tiny red LED 2
+			TXDREADY => '1',
+			TXDSEND => open,
+			TXDCHAR => open
+		);
+
+LDT2G <= '0';
+
+-- UART serial input from the host
+rxdinp: entity work.uart_ser2par Port map (
+			reset => reset,
+			rxd_clk => baudrate_x4,
+			mode => "000",	-- no parity, extra stop bit
+			char => rxdinp_char,
+         ready => rxdinp_ready,
+			valid => rxdinp_valid,
+         rxd => PMOD_TXD0
+		);
 
 -- scroll logic
 scrollEnable <= button(2) xor button(1);
@@ -374,92 +318,78 @@ update_scroll: process(freq32, reset, btn_scroll)
 begin
 	if (reset = '1') then
 		reg_scroll <= (others => '0');
-		test_static <= '0';
 	else
 		if (rising_edge(freq32)) then
 			case btn_scroll is
 				when "10" =>
 					reg_scroll <= std_logic_vector(unsigned(reg_scroll) + 1);
-					test_static <= '0';
 				when "01" =>
 					reg_scroll <= std_logic_vector(unsigned(reg_scroll) - 1);
-					test_static <= '0';
 				when "11" =>
 					reg_scroll <= (others => '0');
-					test_static <= '1';
 				when others =>
-					test_static <= '0';
+					null;
 			end case;
 		end if;
 	end if;
 end process;
  
 -- pixel clock selection
-	dotclk <= freq12M when (sw_clksel = '0') else freq12M5;
-	vgaclk <= freq24M when (sw_clksel = '0') else freq25M;
---
-	video: entity work.GrafikaV2 port map (
-			-- system side
-			TIMCLK => dotclk,
-			VGACLK => vgaclk,
-			MODE => sw_mode,
-			A(15) => '1',	-- mapped to 0x8000 - 0xFFFF or extended IO space
-			A(14 downto 0) => A(14 downto 0),
-			nRD => nRD,
-			nWR => nWR,
-			d => D,
-			ioe => not (nIO),
-			nScroll => nScroll,
-			-- debug
-			test => test_static,
-			debug0 => open, --BB3,
-			debug1 => BB2,	 --HBLANK
-			debug2 => open, --BB5,
-			debug3 => open, --BB6,
-			pixclk => pixclk,
-			-- monitor side
-			hsync => gr_hsync, 
-			vsync => gr_vsync,
-			vid1 => gr_vid1, 
-			vid2 => gr_vid2  
-	);
+	dotclk <= clk_vga when (sw_vga = '1') else clk_tim;
+-- Video generation
+gr: entity work.GrafikaV3 Port map (
+		-- dotclock must be driven corresponding to VGA or TIM mode
+		dotclk => dotclk,
+		-- TIM system bus
+		A => A,
+		D => D,
+		IOE => '1',
+		nRD => nRD,
+		nWR => nWR,
+		nScroll => nScroll,
+		-- operation mode
+		vga => sw_vga,
+		color => sw_color,
+		-- video output
+		vid1 => gr_vid1,
+		vid2 => gr_vid2,
+		vid3 => gr_vid3,
+		vid4 => gr_vid4,
+		hsync => gr_hsync,
+		vsync => gr_vsync,
+		-- Video RAM interface
+		vram_addr => Memory_address(14 downto 0),
+		vram_data => Memory_data(7 downto 0),
+		vram_nwr => SRAM_WE,
+		vram_nrd => SRAM_OE
+		);
 	
-LED(0) <= TXD_SEND; --hexclk;
-LED(1) <= not nIO;
-LED(2) <= not nRD;
-LED(3) <= not nWR;
-LED(4) <= gr_hsync;
-LED(5) <= gr_vsync;
-LED(6) <= gr_vid1;
-LED(7) <= gr_vid2;
-
--- test connections (work in both VGA and TIM cases)
-	BB6 <= (SW(7) xor gr_vsync) xnor (SW(6) xor gr_hsync);
-	BB5 <= gr_hsync;
-	--BB5 <= gr_vid1 and gr_vid2;
-	BB4 <= gr_vid1;
-	BB3 <= gr_vid2;
-	--BB2 <= baudrate_x1;
-	--BB2 <= (SW(7) xor gr_vsync) xor (SW(6) xor gr_hsync);
+-- make rest of 16-bit board RAM happy
+	SRAM_CS1 <= '0';
+	SRAM_CS2 <= '1';
+	SRAM_UPPER_B <= '1';
+	SRAM_LOWER_B <= '0';
+	Memory_address(18 downto 15) <= X"0";
+	Memory_data(15 downto 8) <= "ZZZZZZZZ";
 	
--- Connect to GBS8200 gray wire (composite sync!)
-	gr_csync <= gr_hsync xor (not gr_vsync);
-	GBS8200_GRAY <= gr_csync when (sw_mode = '0') else '0'; --gr_hsync xor (not gr_vsync);
-	
--- connect to GBS8200 blue / green / red wires
 -- colors: black, blue, green, white
-	GBS8200_BLUE <= gr_vid1 when (sw_mode = '0') else '0';
-	GBS8200_GREEN <= gr_vid2 when (sw_mode = '0') else '0';
-	GBS8200_RED <= (gr_vid1 and gr_vid2) when (sw_mode = '0') else '0';
+	PMOD_RED <= (gr_vid1 and gr_vid2) when (sw_color = '0') else gr_vid3;
+	PMOD_GREEN <= gr_vid2;
+	PMOD_BLUE <= gr_vid1;
+	PMOD_CSYNC <= gr_hsync xnor gr_vsync;
+	PMOD_VSYNC <= switch(0) xor gr_vsync;
+	PMOD_HSYNC <= switch(1) xor gr_hsync;
+	PMOD_BAUDRATE <= baudrate_x1; 
+	PMOD_DOTCLK <= dotclk; 	
 
 -- VGA connections
 -- colors: black (000), dark gray (333), light gray (CCC), white (FFF)
 	gr_color <= gr_vid2 & gr_vid2 & gr_vid1 & gr_vid1;
-	HSYNC_O <= sw_mode and gr_hsync;
-	VSYNC_O <= sw_mode and gr_vsync;
-	RED_O <= gr_color when (sw_mode = '1') else X"0";
-	GREEN_O <= gr_color when (sw_mode = '1') else X"0";
-	BLUE_O <= gr_color when (sw_mode = '1') else X"0";
+	HSYNC_O <= switch(0) xor gr_hsync;
+	VSYNC_O <= switch(1) xor gr_vsync;
+	RED_O <= gr_color when (sw_color = '0') else ((gr_vid4 and gr_vid3) & gr_vid3 & gr_vid3 & gr_vid3);
+	GREEN_O <= gr_color when (sw_color = '0') else ((gr_vid4 and gr_vid2) & gr_vid2 & gr_vid2 & gr_vid2);
+	BLUE_O <= gr_color when (sw_color = '0') else ((gr_vid4 and gr_vid1) & gr_vid1 & gr_vid1 & gr_vid1);
 
 -- display some debug data of 6-digit 7-seg display	
 leds: entity work.sixdigitsevensegled port map ( 
@@ -476,19 +406,11 @@ leds: entity work.sixdigitsevensegled port map (
 			  segment(6 downto 0) => SEG
 			 );	 
 
-with button(2 downto 1) select debug <= 
-	X"000" & freqcnt_value(31 downto 12) when "00", -- /1000
-	X"000" & freqcnt_value(31 downto 12) when "01", -- /1000
-	--freqcnt_value when "10",								-- /1
-	--T when others;
-	freqcnt_value when others;
-
-with button(2 downto 1) select freqcnt_in <= 
---	gr_hsync_i when "00",
-	pixclk when "00",
-	gr_hsync when "01",
-	gr_vsync when "10",
-	baudrate_x1 when others;
+freqcnt_in <= gr_hsync when (switch(0) = '0') else gr_vsync;
+with switch(1 downto 0) select debug <=
+	X"00" & last_read when "00",
+	X"00" & last_write when "01",
+	X"00" & freqcnt_value(23 downto 0) when others;
 
 with digsel select
 	hexdata <= 	debug(3 downto 0) when "000",	
@@ -499,59 +421,6 @@ with digsel select
 					debug(23 downto 20) when "101",
 					debug(27 downto 24) when "110",
 					debug(31 downto 28) when others;
-
-on_rxd_ready1: process(RXD_READY, RXD_CHAR, reset)
-begin
-	if (reset = '1') then
-		T <= (others => '0');
-	else
-		if (rising_edge(RXD_READY)) then
-			T <= T(23 downto 0) & RXD_CHAR; 
-		end if;
-	end if;
-end process;
-
--- quick and dirty binary file receiver 
-on_rxd_ready2: process(RXD_READY, reset, char_write)
-begin
-	if ((reset or char_write) = '1') then
-		char_received <= '0';
-	else
-		if (rising_edge(RXD_READY)) then
-			char_received <= '1'; 
-		end if;
-	end if;
-end process;
-
-on_baudrate_x4: process(baudrate_x4, reset, char_received)
-begin
-	if (reset = '1') then
-		char_write <= '0';
-	else
-		if (rising_edge(baudrate_x4)) then
-			char_write <= char_received;
-		end if;
-	end if;
-end process;
-
-on_char_received: process(char_received, reset, A)
-begin
-	if (reset = '1') then
-		addr <= (others => '0');
-	else
-		if (falling_edge(char_received)) then
-			addr <= std_logic_vector(unsigned(addr) + 1);
-		end if;
-	end if;
-end process;
-
-nWR <= not char_write;
-LDT2G <= RXD_READY;
-LDT2Y <= char_received;
-LDT2R <= char_write;
-D <= "ZZZZZZZZ" when (busy_hexout = '1') else T(7 downto 0);
-A <= "ZZZZZZZZZZZZZZZZ" when (busy_hexout = '1') else ('1' & addr);
-LDT1Y <= busy_hexout;
 
 -- count signal frequencies
 freqcnt: entity work.freqcounter Port map ( 
@@ -565,24 +434,78 @@ freqcnt: entity work.freqcounter Port map (
       value => freqcnt_value
 	);
 	
--- UART connection to the host
-txdout: entity work.uart_par2ser Port map (
-			reset => reset,
-			txd_clk => baudrate_x1,
-			send => TXD_SEND,
-			mode => "000", -- no parity, extra stop bit
-			data => TXD_CHAR,
-         ready => TXD_READY,
-         txd => JA_RXD
-		);
+-- boilerplate code
+-- divide internal clock   	
+on_mclk: process(CLK, cnt307200, cnt4096, cnt50MHz)
+begin
+--	if (RESET = '1') then
+--		prescale_baud <= 0;
+--		prescale_power <= 0;
+--		cnt307200 <= (others => '0');
+--		cnt4096 <= (others => '0');
+--	else
+		if (rising_edge(CLK)) then
+			-- counters
+			cnt50MHz <= std_logic_vector(unsigned(cnt50MHz) + 1);
+			-- baudrate clock generation
+			if (prescale_baud = 0) then
+				cnt307200 <= std_logic_vector(unsigned(cnt307200) + 1);
+				prescale_baud <= (50000000 / 307200) - 1;
+--				prescale_baud <= (50000000 / 921600) - 1;
+			else
+				prescale_baud <= prescale_baud - 1;
+			end if;
+			-- generate 8, 4, 2, 1 MHz
+			if (prescale_8MHz = 0) then
+				cnt8MHz <= std_logic_vector(unsigned(cnt8MHz) + 1);
+				prescale_8MHz <= (50000000 / 8000000);
+			else
+				prescale_8MHz <= prescale_8MHz - 1;
+			end if;
+			-- slow clock to get to 2Hz
+			if (prescale_power = 0) then
+				cnt4096 <= std_logic_vector(unsigned(cnt4096) + 1);
+				prescale_power <= (50000000 / 4096);
+			else
+				prescale_power <= prescale_power - 1;
+			end if;
+		end if;
+--	end if;
+end process;
 
-rxdinp: entity work.uart_ser2par Port map (
-			reset => reset,
-			rxd_clk => baudrate_x4,
-			mode => "000",	-- no parity, extra stop bit
-			char => RXD_CHAR,
-         ready => RXD_READY,
-			valid => open,
-         rxd => JA_TXD
-		);	
+--	debounce noisy inputs
+	debounce_sw: entity work.debouncer8channel Port map ( 
+		clock => freq19200, 
+		reset => RESET,
+		signal_raw => SW,
+		signal_debounced => switch
+	);
+
+	debounce_btn: entity work.debouncer8channel Port map ( 
+		clock => freq19200, 
+		reset => RESET,
+		signal_raw(7 downto 4) => "0000",
+		signal_raw(3 downto 0) => BTN,
+		signal_debounced => button
+	);
+
+	debounce_dip: entity work.debouncer8channel Port map ( 
+		clock => freq19200, 
+		reset => RESET,
+		signal_raw(7) => DIP_B4,
+		signal_raw(6) => DIP_B3,
+		signal_raw(5) => DIP_B2,
+		signal_raw(4) => DIP_B1,
+		signal_raw(3) => DIP_A4,
+		signal_raw(2) => DIP_A3,
+		signal_raw(1) => DIP_A2,
+		signal_raw(0) => DIP_A1,
+		signal_debounced => dip
+	);
+
+-- UART baudrate selection
+baudrate_x1 <= cnt307200(to_integer(10 - unsigned('0' & sw_baudrate)));
+baudrate_x2 <= cnt307200(to_integer(9 - unsigned('0' & sw_baudrate)));
+baudrate_x4 <= cnt307200(to_integer(8 - unsigned('0' & sw_baudrate)));
+
 end;

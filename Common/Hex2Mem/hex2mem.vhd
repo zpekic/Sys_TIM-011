@@ -63,37 +63,6 @@ end hex2mem;
 
 architecture Behavioral of hex2mem is
 
-component adder16 is
-    Port ( cin : in  STD_LOGIC;
-           a : in  STD_LOGIC_VECTOR (15 downto 0);
-           b : in  STD_LOGIC_VECTOR (15 downto 0);
-           na : in  STD_LOGIC;
-           nb : in  STD_LOGIC;
-           bcd : in  STD_LOGIC;
-           y : out  STD_LOGIC_VECTOR (15 downto 0);
-           cout : out  STD_LOGIC);
-end component;
-
-component hex2mem_control_unit is
-     Generic (
-            CODE_DEPTH : positive;
-            IF_WIDTH : positive
-          );
-     Port ( 
-          -- standard inputs
-          reset : in  STD_LOGIC;
-          clk : in  STD_LOGIC;
-          -- design specific inputs
-          seq_cond : in  STD_LOGIC_VECTOR (IF_WIDTH - 1 downto 0);
-          seq_then : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          seq_else : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          seq_fork : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          cond : in  STD_LOGIC_VECTOR (2 ** IF_WIDTH - 1 downto 0);
-          -- outputs
-          ui_nextinstr : buffer  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          ui_address : out  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0));
-end component;
-
 -- TODO: move to a package
 type lookup is array(0 to 15) of std_logic_vector(7 downto 0);
 constant hex2ascii: lookup := (
@@ -171,7 +140,7 @@ debug <= input & "0" & ui_address;
 h2m_instructionstart <= h2m_mapper(to_integer(unsigned(input))); -- hex char input is the "instruction"
 h2m_uinstruction <= h2m_microcode(to_integer(unsigned(ui_address))); -- copy to file containing the control unit. TODO is typically replace with 'ui_address' control unit output
 
-cu_h2m: hex2mem_control_unit
+cu_h2m: entity work.hex2mem_control_unit
      Generic map (
             CODE_DEPTH => CODE_ADDRESS_WIDTH,
             IF_WIDTH => CODE_IF_WIDTH
@@ -235,7 +204,8 @@ nWR <= h2m_nWR when (nBUSACK = '0') else 'Z';
 BUSY <= h2m_BUSY;
 ---- End boilerplate code
 
-ABUS <= address when (nBUSACK = '0') else "ZZZZZZZZZZZZZZZZ";
+-- HACKHACK - hard code to 0x8000 .. 0xFFFF
+ABUS <= ('1' & address(14 downto 0)) when (nBUSACK = '0') else "ZZZZZZZZZZZZZZZZ";
 
 DBUS <= ram when (nBUSACK = '0') else "ZZZZZZZZ";
 
@@ -333,7 +303,7 @@ ascii <= hex2ascii(to_integer(unsigned(hexout)));
 -- Line BCD counter
 lincnt_a <= (others => '0') when (h2m_lincnt_a = lincnt_a_zero) else lincnt;
 
-lincnt_add: adder16 Port map ( 
+lincnt_add: entity work.adder16 Port map ( 
 				cin => h2m_lincnt_cin,
 				a => lincnt_a,
 				b => X"0000",
@@ -354,7 +324,7 @@ end process;
 -- Position BCD counter
 poscnt_a <= (others => '0') when (h2m_poscnt_a = poscnt_a_zero) else poscnt;
 
-poscnt_add: adder16 Port map ( 
+poscnt_add: entity work.adder16 Port map ( 
 				cin => h2m_poscnt_cin,
 				a => poscnt_a,
 				b => X"0000",

@@ -154,27 +154,27 @@
 	NET "BB8"		LOC=R17	|	IOSTANDARD=LVCMOS33;	#Bank = 1, pin name = IO_L70P_1,		Sch name = BB8
 	NET "BB9"		LOC=R19	|	IOSTANDARD=LVCMOS33;	#Bank = 1, pin name = IO_L70N_1,		Sch name = BB9
 	NET "BB10"	LOC=V19	|	IOSTANDARD=LVCMOS33;	#Bank = 1, pin name = IO_L71P_1,		Sch name = BB10
-	NET "BB1" CLOCK_DEDICATED_ROUTE= FALSE;
+	#NET "BB10" CLOCK_DEDICATED_ROUTE= FALSE;
 
 ## JA
 	NET "JA1"	LOC = AA18	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L2P_CMPCLK_2,			Sch name = JA1
 	NET "JA2"	LOC = AA16	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L4P_2,								Sch name = JA2
 	NET "JA3"	LOC = Y15		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L5P_2,								Sch name = JA3
 	NET "JA4"	LOC = V15		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L13N_D10_2,					Sch name = JA4
-	#NET "JA7"	LOC = AB18	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L2N_CMPMOSI_2,			Sch name = JA7
-	#NET "JA8"	LOC = AB16	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L4N_VREF_2,					Sch name = JA8
-	#NET "JA9"	LOC = AB15	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L5N_2,								Sch name = JA9
-	#NET "JA10"	LOC=W15		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L14P_D11_2,					Sch name = JA10
+	NET "JA7"	LOC = AB18	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L2N_CMPMOSI_2,			Sch name = JA7
+	NET "JA8"	LOC = AB16	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L4N_VREF_2,					Sch name = JA8
+	NET "JA9"	LOC = AB15	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L5N_2,								Sch name = JA9
+	NET "JA10"	LOC=W15		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L14P_D11_2,					Sch name = JA10
 	
 ## JB
 	NET "JB1"	LOC = Y16		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L14N_D12_2,					Sch name = JB1
 	NET "JB2"	LOC = AB14	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L15N_2,							Sch name = JB2
 	NET "JB3"	LOC = Y14		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L16N_VREF_2,				Sch name = JB3
 	NET "JB4"	LOC = U14		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L20N_2,							Sch name = JB4
-	#NET "JB7"	LOC = AA14	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L15P_2,							Sch name = JB7
-	#NET "JB8"	LOC = W14	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L16P_2,							Sch name = JB8
-	#NET "JB9"	LOC = T14		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L20P_2,							Sch name = JB9
-	#NET "JB10"	LOC=W11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L29P_GCLK3_2,				Sch name = JB10
+	NET "JB7"	LOC = AA14	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L15P_2,							Sch name = JB7
+	NET "JB8"	LOC = W14	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L16P_2,							Sch name = JB8
+	NET "JB9"	LOC = T14		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L20P_2,							Sch name = JB9
+	NET "JB10"	LOC=W11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L29P_GCLK3_2,				Sch name = JB10
 	
 ## JC
 	NET "JC1"	LOC = Y10	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L29N_GCLK2_2,								Sch name = JC1
@@ -191,40 +191,44 @@
 	NET "JD2"	LOC = Y12		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L42N_2,						Sch name = JD2
 	NET "JD3"	LOC = T11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L43N_2,						Sch name = JD3
 	NET "JD4"	LOC = W10	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L44N_2,						Sch name = JD4
-	#NET "JD7"	LOC = W12	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L42P_2,						Sch name = JD7
-	#NET "JD8"	LOC = R11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L43P_2,						Sch name = JD8
-	#NET "JD9"	LOC = V11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L44P_2,						Sch name = JD9
-	#NET "JD10"	LOC= T10		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L45P_2,						Sch name = JD10
+	NET "JD7"	LOC = W12	|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L42P_2,						Sch name = JD7
+	NET "JD8"	LOC = R11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L43P_2,						Sch name = JD8
+	NET "JD9"	LOC = V11		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L44P_2,						Sch name = JD9
+	NET "JD10"	LOC= T10		|	IOSTANDARD=LVCMOS33;	#Bank = 2, pin name = IO_L45P_2,						Sch name = JD10
+	#NET "JD8" CLOCK_DEDICATED_ROUTE = FALSE;
+	#NET "JD9" CLOCK_DEDICATED_ROUTE = FALSE;
+	#NET "JD2" CLOCK_DEDICATED_ROUTE = FALSE;
+	
 	
 ## JE
-	#NET "JE1"	LOC = U10	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L45N_2,					Sch name = JE1
-	#NET "JE2"	LOC = V9	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L46N_2,					Sch name = JE2
-	#NET "JE3"	LOC = Y8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L47N_2,					Sch name = JE3
-	#NET "JE4"	LOC = AA8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L49P_D3_2,			Sch name = JE4
+	NET "JE1"	LOC = U10	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L45N_2,					Sch name = JE1
+	NET "JE2"	LOC = V9	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L46N_2,					Sch name = JE2
+	NET "JE3"	LOC = Y8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L47N_2,					Sch name = JE3
+	NET "JE4"	LOC = AA8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L49P_D3_2,			Sch name = JE4
 	#NET "JE7"	LOC = U9	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L46P_2,					Sch name = JE7
 	#NET "JE8"	LOC = W9	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L47P_2,					Sch name = JE8
 	#NET "JE9"	LOC = Y9	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L48P_D7_2,			Sch name = JE9
 	#NET "JE10"	LOC= AB8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L49N_D4_2,			Sch name = JE10
 
 ## JF
-	NET "JF1"	LOC = V7	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L50P_2,					Sch name = JF1
-	NET "JF2"	LOC = W6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L62P_D5_2,			Sch name = JF2
-	NET "JF3"	LOC = Y7	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L63P_2,					Sch name = JF3
-	NET "JF4"	LOC = AA6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L64P_D8_2,			Sch name = JF4
+	#NET "JF1"	LOC = V7	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L50P_2,					Sch name = JF1
+	#NET "JF2"	LOC = W6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L62P_D5_2,			Sch name = JF2
+	#NET "JF3"	LOC = Y7	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L63P_2,					Sch name = JF3
+	#NET "JF4"	LOC = AA6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L64P_D8_2,			Sch name = JF4
 	#NET "JF7"	LOC = W8	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L50N_2,					Sch name = JF7
 	#NET "JF8"	LOC = Y6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L62N_D6_2,			Sch name = JF8
 	#NET "JF9"	LOC = AB7	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L63N_2,					Sch name = JF9
 	#NET "JF10"	LOC= AB6	|	IOSTANDARD=LVCMOS33;		#Bank = 2, pin name = IO_L64N_D9_2,			Sch name = JF10
 	
 ## JG
-	#NET "JG1"	LOC = V20	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L71N_1,						Sch name = JG1
-	#NET "JG2"	LOC = T18	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L72N_1,						Sch name = JG2
-	#NET "JG3"	LOC = D17	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L65P_SCP3_0,			Sch name = JG3
-	#NET "JG4"	LOC = B18	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L66P_SCP1_0,			Sch name = JG4
-	#NET "JG7"	LOC = T17	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L72P_1,						Sch name = JG7
-	#NET "JG8"	LOC = A17	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L64N_SCP4_0,			Sch name = JG8
-	#NET "JG9"	LOC = C16	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L65N_SCP2_0,			Sch name = JG9
-	#NET "JG10"	LOC= A18	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L66N_SCP0_0,			Sch name = JG10
+	NET "JG1"	LOC = V20	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L71N_1,						Sch name = JG1
+	NET "JG2"	LOC = T18	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L72N_1,						Sch name = JG2
+	NET "JG3"	LOC = D17	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L65P_SCP3_0,			Sch name = JG3
+	NET "JG4"	LOC = B18	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L66P_SCP1_0,			Sch name = JG4
+	NET "JG7"	LOC = T17	|	IOSTANDARD=LVCMOS33;		#Bank = 1, pin name = IO_L72P_1,						Sch name = JG7
+	NET "JG8"	LOC = A17	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L64N_SCP4_0,			Sch name = JG8
+	NET "JG9"	LOC = C16	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L65N_SCP2_0,			Sch name = JG9
+	NET "JG10"	LOC= A18	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L66N_SCP0_0,			Sch name = JG10
 	
 ## VGA
 	NET "RED_O[0]"	LOC = "T3"	|	IOSTANDARD=LVCMOS18;				#Bank = 3, pin name = IO_L26P_3,						Sch name = VGA-R1
@@ -311,53 +315,52 @@
 	#TIMEGRP "TFT_PIXEL_BUS" OFFSET = OUT  AFTER "CLK_I" REFERENCE_PIN "TFT_CLK_O";
 	
 ## SRAM
-	#NET "Memory_address[0]"	LOC = "F22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L29N_A22_M1A14_1,			Sch name = SRAM-A0
-	#NET "Memory_address[1]"	LOC = "F21" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L29P_A23_M1A13_1,			Sch name = SRAM-A1
-	#NET "Memory_address[2]"	LOC = "E22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L31N_A18_M1A12_1,			Sch name = SRAM-A2
-	#NET "Memory_address[3]"	LOC = "D22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L33N_A14_M1A4_1,			Sch name = SRAM-A3
-	#NET "Memory_address[4]"	LOC = "D21" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L33P_A15_M1A10_1,			Sch name = SRAM-A4
-	#NET "Memory_address[5]"	LOC = "D19" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L11P_1,								Sch name = SRAM-A5
-	#NET "Memory_address[6]"	LOC = "D20" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L11N_1,								Sch name = SRAM-A6
-	#NET "Memory_address[7]"	LOC = "E20" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L31P_A19_M1CKE_1,		Sch name = SRAM-A7
-	#NET "Memory_address[8]"	LOC = "G17" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L13P_1,								Sch name = SRAM-A8
-	#NET "Memory_address[9]"	LOC = "H18" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L17N_1,								Sch name = SRAM-A9
-	#NET "Memory_address[10]"	LOC = "H13"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L21P_1,								Sch name = SRAM-A10
-	#NET "Memory_address[11]"	LOC = "H12"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L219P_1,								Sch name = SRAM-A11
-	#NET "Memory_address[12]"	LOC = "K16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L28N_VREF_1,					Sch name = SRAM-A12
-	#NET "Memory_address[13]"	LOC = "L15" 	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L28P_1,								Sch name = SRAM-A13
-	#NET "Memory_address[14]"	LOC = "G15"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L10P_1,								Sch name = SRAM-A14
-	#NET "Memory_address[15]"	LOC = "J16" 	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L20P_1,								Sch name = SRAM-A15
-	#NET "Memory_address[16]"	LOC = "H17"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L17P_1,								Sch name = SRAM-A16
-	#NET "Memory_address[17]"	LOC = "H16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L20N_1,								Sch name = SRAM-A17
-	#NET "Memory_address[18]"	LOC = "G16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L10N_1,								Sch name = SRAM-A18
+	NET "Memory_address[0]"	LOC = "F22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L29N_A22_M1A14_1,			Sch name = SRAM-A0
+	NET "Memory_address[1]"	LOC = "F21" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L29P_A23_M1A13_1,			Sch name = SRAM-A1
+	NET "Memory_address[2]"	LOC = "E22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L31N_A18_M1A12_1,			Sch name = SRAM-A2
+	NET "Memory_address[3]"	LOC = "D22" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L33N_A14_M1A4_1,			Sch name = SRAM-A3
+	NET "Memory_address[4]"	LOC = "D21" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L33P_A15_M1A10_1,			Sch name = SRAM-A4
+	NET "Memory_address[5]"	LOC = "D19" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L11P_1,								Sch name = SRAM-A5
+	NET "Memory_address[6]"	LOC = "D20" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L11N_1,								Sch name = SRAM-A6
+	NET "Memory_address[7]"	LOC = "E20" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L31P_A19_M1CKE_1,		Sch name = SRAM-A7
+	NET "Memory_address[8]"	LOC = "G17" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L13P_1,								Sch name = SRAM-A8
+	NET "Memory_address[9]"	LOC = "H18" 		| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L17N_1,								Sch name = SRAM-A9
+	NET "Memory_address[10]"	LOC = "H13"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L21P_1,								Sch name = SRAM-A10
+	NET "Memory_address[11]"	LOC = "H12"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L219P_1,								Sch name = SRAM-A11
+	NET "Memory_address[12]"	LOC = "K16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L28N_VREF_1,					Sch name = SRAM-A12
+	NET "Memory_address[13]"	LOC = "L15" 	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L28P_1,								Sch name = SRAM-A13
+	NET "Memory_address[14]"	LOC = "G15"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L10P_1,								Sch name = SRAM-A14
+	NET "Memory_address[15]"	LOC = "J16" 	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L20P_1,								Sch name = SRAM-A15
+	NET "Memory_address[16]"	LOC = "H17"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L17P_1,								Sch name = SRAM-A16
+	NET "Memory_address[17]"	LOC = "H16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L20N_1,								Sch name = SRAM-A17
+	NET "Memory_address[18]"	LOC = "G16"	| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L10N_1,								Sch name = SRAM-A18
 
-	#NET "Memory_data[0]"	LOC = "H21"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L34P_A13_M1WE_1,			Sch name = SRAM-DQ0
-	#NET "Memory_data[1]"	LOC = "A20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L16N_1,								Sch name = SRAM-DQ1
-	#NET "Memory_data[2]"	LOC = "A21"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L14N_1,								Sch name = SRAM-DQ2
-	#NET "Memory_data[3]"	LOC = "A19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L16P_1,								Sch name = SRAM-DQ3
-	#NET "Memory_data[4]"	LOC = "B20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L14P_1,								Sch name = SRAM-DQ4
-	#NET "Memory_data[5]"	LOC = "C18"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L12P_1,								Sch name = SRAM-DQ5
-	#NET "Memory_data[6]"	LOC = "C19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L12N_1,								Sch name = SRAM-DQ6
-	#NET "Memory_data[7]"	LOC = "F15"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L1P_A25_1,							Sch name = SRAM-DQ7
-	#NET "Memory_data[8]"	LOC = "F18"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L15N_1,								Sch name = SRAM-DQ8
-	#NET "Memory_data[9]"	LOC = "F17"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L15P_1,								Sch name = SRAM-DQ9
-	#NET "Memory_data[10]"	LOC = "F14"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L9N_1,									Sch name = SRAM-DQ10
-	#NET "Memory_data[11]"	LOC = "F13"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L9P,										Sch name = SRAM-DQ11
-	#NET "Memory_data[12]"	LOC = "H14"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L21N_1,								Sch name = SRAM-DQ12
-	#NET "Memory_data[13]"	LOC = "H19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L30P_A21_M1RESET_1,	Sch name = SRAM-DQ13
-	#NET "Memory_data[14]"	LOC = "H20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L30N_A20_M1A11_1,			Sch name = SRAM-DQ14
-	#NET "Memory_data[15]"	LOC = "G20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L32P_A17_M1A8_1,			Sch name = SRAM-DQ15
+	NET "Memory_data[0]"	LOC = "H21"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L34P_A13_M1WE_1,			Sch name = SRAM-DQ0
+	NET "Memory_data[1]"	LOC = "A20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L16N_1,								Sch name = SRAM-DQ1
+	NET "Memory_data[2]"	LOC = "A21"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L14N_1,								Sch name = SRAM-DQ2
+	NET "Memory_data[3]"	LOC = "A19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L16P_1,								Sch name = SRAM-DQ3
+	NET "Memory_data[4]"	LOC = "B20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L14P_1,								Sch name = SRAM-DQ4
+	NET "Memory_data[5]"	LOC = "C18"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L12P_1,								Sch name = SRAM-DQ5
+	NET "Memory_data[6]"	LOC = "C19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L12N_1,								Sch name = SRAM-DQ6
+	NET "Memory_data[7]"	LOC = "F15"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L1P_A25_1,							Sch name = SRAM-DQ7
+	NET "Memory_data[8]"	LOC = "F18"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L15N_1,								Sch name = SRAM-DQ8
+	NET "Memory_data[9]"	LOC = "F17"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L15P_1,								Sch name = SRAM-DQ9
+	NET "Memory_data[10]"	LOC = "F14"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L9N_1,									Sch name = SRAM-DQ10
+	NET "Memory_data[11]"	LOC = "F13"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L9P,										Sch name = SRAM-DQ11
+	NET "Memory_data[12]"	LOC = "H14"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L21N_1,								Sch name = SRAM-DQ12
+	NET "Memory_data[13]"	LOC = "H19"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L30P_A21_M1RESET_1,	Sch name = SRAM-DQ13
+	NET "Memory_data[14]"	LOC = "H20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L30N_A20_M1A11_1,			Sch name = SRAM-DQ14
+	NET "Memory_data[15]"	LOC = "G20"			| 	IOSTANDARD = "LVCMOS33";		#Bank = 1, pin name = IO_L32P_A17_M1A8_1,			Sch name = SRAM-DQ15
 	
-	#NET "SRAM_CS1"	LOC = "G22" 				| 	IOSTANDARD = "LVCMOS33"; 				#Bank = 1, pin name = IO_L32N_A16_M1A9_1,			Sch name = SRAM-CS1
+	NET "SRAM_CS1"	LOC = "G22" 				| 	IOSTANDARD = "LVCMOS33"; 				#Bank = 1, pin name = IO_L32N_A16_M1A9_1,			Sch name = SRAM-CS1
 
-	#NET "SRAM_CS2"	LOC = "G13"					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L19N_1,								Sch name = SRAM-CS2
+	NET "SRAM_CS2"	LOC = "G13"					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L19N_1,								Sch name = SRAM-CS2
 
-	#NET "SRAM_OE"	LOC = "F19" 					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L18P_1,								Sch name = SRAM-OE
-	#NET "SRAM_WE"	LOC = "F16"					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L1N_A24_VREF_1,				Sch name = SRAM-WE
+	NET "SRAM_OE"	LOC = "F19" 					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L18P_1,								Sch name = SRAM-OE
+	NET "SRAM_WE"	LOC = "F16"					| 	IOSTANDARD = "LVCMOS33";						#Bank = 1, pin name = IO_L1N_A24_VREF_1,				Sch name = SRAM-WE
 
-	#NET "SRAM_UPPER_B"	LOC = "F20"		| 	IOSTANDARD = "LVCMOS33" | DRIVE = 2 | PULLDOWN;	#Bank = 1, pin name = IO_L18N_1,		Sch name = SRAM-UB
-	#NET "SRAM_LOWER_B"	LOC = "G19"		| 	IOSTANDARD = "LVCMOS33" | DRIVE = 2 | PULLDOWN;	#Bank = 1, pin name = IO_L13N_1,		Sch name = SRAM-LB
-	
+	NET "SRAM_UPPER_B"	LOC = "F20"		| 	IOSTANDARD = "LVCMOS33" | DRIVE = 2 | PULLDOWN;	#Bank = 1, pin name = IO_L18N_1,		Sch name = SRAM-UB
+	NET "SRAM_LOWER_B"	LOC = "G19"		| 	IOSTANDARD = "LVCMOS33" | DRIVE = 2 | PULLDOWN;	#Bank = 1, pin name = IO_L13N_1,		Sch name = SRAM-LB
 	
 ## DDR2
 	#NET "DDR_DATA[0]"		LOC=N3			|	IOSTANDARD=LVCMOS18;		#Bank = 3, pin name = IO_L37P_M3DQ0_3,				Sch name = DDR-DQ0
