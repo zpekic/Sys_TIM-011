@@ -55,26 +55,6 @@ end mem2hex;
 
 architecture Behavioral of mem2hex is
 
-component mem2hex_control_unit is
-     Generic (
-            CODE_DEPTH : positive;
-            IF_WIDTH : positive
-          );
-     Port ( 
-          -- standard inputs
-          reset : in  STD_LOGIC;
-          clk : in  STD_LOGIC;
-          -- design specific inputs
-          seq_cond : in  STD_LOGIC_VECTOR (IF_WIDTH - 1 downto 0);
-          seq_then : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          seq_else : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-			 seq_fork : in  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          cond : in  STD_LOGIC_VECTOR (2 ** IF_WIDTH - 1 downto 0);
-          -- outputs
-          ui_nextinstr : buffer  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0);
-          ui_address : out  STD_LOGIC_VECTOR (CODE_DEPTH - 1 downto 0));
-end component;
-
 type lookup is array(0 to 15) of std_logic_vector(7 downto 0);
 constant hex2ascii: lookup := (
 	std_logic_vector(to_unsigned(natural(character'pos('0')), 8)),	
@@ -120,7 +100,7 @@ debug <= checksum & count;
 m2h_instructionstart <= m2h_mapper(to_integer(unsigned(PAGE))); -- reuse 8-bits that select 8k blocks as simple (and inefficient) way to detect "noop"
 m2h_uinstruction <= m2h_microcode(to_integer(unsigned(ui_address))); -- copy to file containing the control unit. TODO is typically replace with 'ui_address' control unit output
 
-cu: mem2hex_control_unit
+cu: entity work.mem2hex_control_unit
      Generic map (
             CODE_DEPTH => CODE_ADDRESS_WIDTH,
             IF_WIDTH => CODE_IF_WIDTH

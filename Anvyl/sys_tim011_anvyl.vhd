@@ -74,7 +74,7 @@ entity sys_tim011_anvyl is
 				JG7: out std_logic;
 				JG8: out std_logic;
 				JG9: out std_logic;
-				JG10: out std_logic;
+				JG10: in std_logic;
 				--DIP switches
 				DIP_B4, DIP_B3, DIP_B2, DIP_B1: in std_logic;
 				DIP_A4, DIP_A3, DIP_A2, DIP_A1: in std_logic;
@@ -141,8 +141,8 @@ alias PMOD_CTS1: std_logic is JE4;
 
 alias RESET: std_logic is BTN(3);
 
+alias PMOD_EXTCLK: std_logic is JG10; 
 -- connect to GBS8220
-alias PMOD_BAUDRATE: std_logic is JG10; 
 alias PMOD_DOTCLK: std_logic is JG9; 
 alias PMOD_HSYNC: std_logic is JG8; -- GRAY
 alias PMOD_VSYNC: std_logic is JG7; -- YELLOW
@@ -164,10 +164,10 @@ signal reg_scroll: std_logic_vector(7 downto 0);
 --- frequency signals
 signal dotclk: std_logic;
 signal prescale_baud, prescale_power, prescale_ms, prescale_8MHz: integer range 0 to 65535;
-signal cnt8MHz: std_logic_vector(3 downto 0); 	-- 4 bit counter driven by 4MHz
+--signal cnt8MHz: std_logic_vector(3 downto 0); 	-- 4 bit counter driven by 4MHz
 signal cnt50MHz: std_logic_vector(11 downto 0); -- 12 bit counter driven by 100MHz
-alias clk_vga: std_logic is cnt50MHz(1);
-alias clk_tim: std_logic is cnt50MHz(2);
+signal cnt24MHz: std_logic_vector(11 downto 0); -- 12 bit counter driven by 48MHz (external)
+signal clk_vga, clk_tim: std_logic;
 signal cnt307200: std_logic_vector(15 downto 0);	-- 16 bit counter driven by 2*307.2kHz
 alias freq19200: std_logic is cnt307200(4);
 
@@ -194,6 +194,7 @@ alias sw_hsync: std_logic is switch(0);
 alias sw_vsync: std_logic is switch(1);
 alias sw_color: std_logic is switch(2);
 alias sw_vga: std_logic is switch(3);
+alias sw_clk: std_logic is switch(4);
 alias sw_baudrate: std_logic_vector(2 downto 0) is switch(7 downto 5);
 -- 
 signal button: std_logic_vector(7 downto 0);
@@ -254,6 +255,7 @@ hexout: entity work.mem2hex Port map (
 
 LDT1R <= '0';
 LDT1G <= '0';
+LDT2G <= '0';
 
 -- UART serial output to the host
 txdout: entity work.uart_par2ser
@@ -296,8 +298,6 @@ hexin: entity work.hex2mem port map (
 			TXDCHAR => open
 		);
 
-LDT2G <= '0';
-
 -- UART serial input from the host
 rxdinp: entity work.uart_ser2par Port map (
 			reset => reset,
@@ -335,6 +335,8 @@ begin
 end process;
  
 -- pixel clock selection
+	clk_vga <= cnt24MHz(0) when (sw_clk = '0') else cnt50MHz(1); 	-- 25.0/24.0MHz
+	clk_tim <= cnt24MHz(1) when (sw_clk = '0') else cnt50MHz(2);	-- 12.5/12.0MHz
 	dotclk <= clk_vga when (sw_vga = '1') else clk_tim;
 -- Video generation
 gr: entity work.GrafikaV3 Port map (
@@ -376,10 +378,10 @@ gr: entity work.GrafikaV3 Port map (
 	PMOD_RED <= (gr_vid1 and gr_vid2) when (sw_color = '0') else gr_vid3;
 	PMOD_GREEN <= gr_vid2;
 	PMOD_BLUE <= gr_vid1;
-	PMOD_CSYNC <= gr_hsync xnor gr_vsync;
+	PMOD_CSYNC <= (switch(1) xor gr_hsync) xor (switch(0) xor gr_vsync);
 	PMOD_VSYNC <= switch(0) xor gr_vsync;
 	PMOD_HSYNC <= switch(1) xor gr_hsync;
-	PMOD_BAUDRATE <= baudrate_x1; 
+	--PMOD_BAUDRATE <= baudrate_x1; 
 	PMOD_DOTCLK <= dotclk; 	
 
 -- VGA connections
@@ -435,42 +437,43 @@ freqcnt: entity work.freqcounter Port map (
 	);
 	
 -- boilerplate code
+-- divide external clock
+on_xclk: process(PMOD_EXTCLK, cnt24MHz)
+begin
+	if (rising_edge(PMOD_EXTCLK)) then
+		-- counters
+		cnt24MHz <= std_logic_vector(unsigned(cnt24MHz) + 1);
+	end if;
+end process;
+
 -- divide internal clock   	
 on_mclk: process(CLK, cnt307200, cnt4096, cnt50MHz)
 begin
---	if (RESET = '1') then
---		prescale_baud <= 0;
---		prescale_power <= 0;
---		cnt307200 <= (others => '0');
---		cnt4096 <= (others => '0');
---	else
-		if (rising_edge(CLK)) then
-			-- counters
-			cnt50MHz <= std_logic_vector(unsigned(cnt50MHz) + 1);
-			-- baudrate clock generation
-			if (prescale_baud = 0) then
-				cnt307200 <= std_logic_vector(unsigned(cnt307200) + 1);
-				prescale_baud <= (50000000 / 307200) - 1;
---				prescale_baud <= (50000000 / 921600) - 1;
-			else
-				prescale_baud <= prescale_baud - 1;
-			end if;
-			-- generate 8, 4, 2, 1 MHz
-			if (prescale_8MHz = 0) then
-				cnt8MHz <= std_logic_vector(unsigned(cnt8MHz) + 1);
-				prescale_8MHz <= (50000000 / 8000000);
-			else
-				prescale_8MHz <= prescale_8MHz - 1;
-			end if;
-			-- slow clock to get to 2Hz
-			if (prescale_power = 0) then
-				cnt4096 <= std_logic_vector(unsigned(cnt4096) + 1);
-				prescale_power <= (50000000 / 4096);
-			else
-				prescale_power <= prescale_power - 1;
-			end if;
+	if (rising_edge(CLK)) then
+		-- counters
+		cnt50MHz <= std_logic_vector(unsigned(cnt50MHz) + 1);
+		-- baudrate clock generation
+		if (prescale_baud = 0) then
+			cnt307200 <= std_logic_vector(unsigned(cnt307200) + 1);
+			prescale_baud <= (50000000 / 307200) - 1;
+		else
+			prescale_baud <= prescale_baud - 1;
 		end if;
---	end if;
+		-- generate 8, 4, 2, 1 MHz
+--		if (prescale_8MHz = 0) then
+--			cnt8MHz <= std_logic_vector(unsigned(cnt8MHz) + 1);
+--			prescale_8MHz <= (50000000 / 8000000);
+--		else
+--			prescale_8MHz <= prescale_8MHz - 1;
+--		end if;
+		-- slow clock to get to 2Hz
+		if (prescale_power = 0) then
+			cnt4096 <= std_logic_vector(unsigned(cnt4096) + 1);
+			prescale_power <= (50000000 / 4096);
+		else
+			prescale_power <= prescale_power - 1;
+		end if;
+	end if;
 end process;
 
 --	debounce noisy inputs

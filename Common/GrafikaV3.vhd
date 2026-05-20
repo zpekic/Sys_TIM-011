@@ -83,10 +83,10 @@ pixclk <= (not h(1)) when (color = '0') else (not h(2));
 
 -- horizontal video signal shaping
 par_hmax		<= std_logic_vector(to_unsigned(800 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(768 - 1, 10));
-par_lmargin <= std_logic_vector(to_unsigned(208 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(257 - 1, 10));
-par_rmargin <= std_logic_vector(to_unsigned(720 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(768 - 1, 10));
-par_hsyncleft 	<= std_logic_vector(to_unsigned(0, 10)) when (vga = '1') else std_logic_vector(to_unsigned(25 - 1, 10));
-par_hsyncright <= std_logic_vector(to_unsigned(96 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(200 - 1, 10));
+par_lmargin <= std_logic_vector(to_unsigned(208 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(0, 10));
+par_rmargin <= std_logic_vector(to_unsigned(720 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(511, 10));
+par_hsyncleft 	<= std_logic_vector(to_unsigned(0, 10)) when (vga = '1') else std_logic_vector(to_unsigned(576, 10));
+par_hsyncright <= std_logic_vector(to_unsigned(96 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(767, 10));
 -- 768*320 (TIM) / 800*525 (VGA)
 u13: process(dotclk)
 begin
@@ -120,10 +120,10 @@ end process;
 
 -- vertical video signal shaping
 par_vmax		<= std_logic_vector(to_unsigned(525 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(320 - 1, 10));
-par_tmargin <= std_logic_vector(to_unsigned(148 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(65 - 1, 10));
-par_bmargin <= std_logic_vector(to_unsigned(404 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(320 - 1, 10));
-par_vsynctop		<= std_logic_vector(to_unsigned(0, 10)) when (vga = '1') else std_logic_vector(to_unsigned(20 - 1, 10));
-par_vsyncbottom	<= std_logic_vector(to_unsigned(2, 10)) when (vga = '1') else std_logic_vector(to_unsigned(24 - 1, 10));
+par_tmargin <= std_logic_vector(to_unsigned(148 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(0, 10));
+par_bmargin <= std_logic_vector(to_unsigned(404 - 1, 10)) when (vga = '1') else std_logic_vector(to_unsigned(255, 10));
+par_vsynctop		<= std_logic_vector(to_unsigned(0, 10)) when (vga = '1') else std_logic_vector(to_unsigned(280, 10));
+par_vsyncbottom	<= std_logic_vector(to_unsigned(2, 10)) when (vga = '1') else std_logic_vector(to_unsigned(319, 10));
 u3: process(scanclk)
 begin
 	if (falling_edge(scanclk)) then

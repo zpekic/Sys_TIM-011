@@ -229,6 +229,7 @@
 	NET "JG8"	LOC = A17	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L64N_SCP4_0,			Sch name = JG8
 	NET "JG9"	LOC = C16	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L65N_SCP2_0,			Sch name = JG9
 	NET "JG10"	LOC= A18	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L66N_SCP0_0,			Sch name = JG10
+	NET "JG10" CLOCK_DEDICATED_ROUTE = FALSE;
 	
 ## VGA
 	NET "RED_O[0]"	LOC = "T3"	|	IOSTANDARD=LVCMOS18;				#Bank = 3, pin name = IO_L26P_3,						Sch name = VGA-R1
